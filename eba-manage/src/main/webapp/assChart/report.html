@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品看板</title>
+	<link rel="stylesheet" href="css/report.css">
+	
+</head>
+<body>
+	<div>
+		<div class="navGo" id="goodsShareCount">商品分享统计</div>
+		<div class="orderNum">
+            <div class="formNum shareNum">
+                <p class="order_p">分享次数</p>
+                <span class="order_num divSum hasColor"></span>
+            </div>
+            <div class="formNum pageVisit">
+                <p class="order_p">页面访问</p>
+                <span class="order_num divSum hasColor"></span>
+            </div>
+            <div class="formNum goodVisit">
+                <p class="order_p">商品浏览</p>
+                <span class="order_num divSum hasColor"></span>
+            </div>
+        </div>
+        <div class="jiange"></div>
+        <div>
+        	<div class="navGo" id="goodsSyncCount">商品同步统计</div>
+	        <div class="query_switch goodsSync">
+				<span class="thisWeek selected" data-type="thisWeek">本周</span>
+				<span class="lastWeek" data-type="lastWeek">上周</span>
+				<span class="lastMonth" data-type="lastMonth">上月</span>
+				<span class="thisMonth" data-type="thisMonth">本月</span>
+	            <!--<i class="select_B"></i>-->
+	        </div>
+			<div class="numbers">
+				<p class='numbers_p'>同步次数</p>
+				<p class='numbers_num syncSum'></p>
+				<span class="question_o"></span>
+	            <div class="center_q">
+	                <i class="sanjiao"></i>
+					若有人同步了单个商品或商品目录，则记为1次
+	            </div>
+			</div>
+			<div>
+	            <div id="main" style="width:100%;height:6rem;"></div>
+	        </div>
+        </div>
+        <div class="jiange"></div>
+        <div>
+        	<div class="navGo" id="orderOwnCount">采购清单统计</div>
+	        <div class="query_switch orderOwn">
+				<span class="thisWeek selected" data-type="thisWeek">本周</span>
+				<span class="lastWeek" data-type="lastWeek">上周</span>
+				<span class="lastMonth" data-type="lastMonth">上月</span>
+				<span class="thisMonth" data-type="thisMonth">本月</span>
+	            <!--<i class="select_B"></i>-->
+	        </div>
+			<div class="numbers">
+				<p class='numbers_p'>采购数</p>
+				<p class='numbers_num ownOrderSum'></p>
+			</div>
+			<div>
+	            <div id="main2" style="width:100%;height:6rem;"></div>
+	        </div>
+        </div>
+
+	</div>
+	<div class="modelDiv"></div>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/adaptive.js"></script>
+	<script type="text/javascript" src="js/echarts.min.js"></script>
+	<script type="text/javascript" src="js/report.js?v=1.0.9"></script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+	<script>
+
+	</script>
+</body>
+</html>
+
+

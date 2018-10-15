@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+   	<link rel="stylesheet" href="css/public.css" />
+   	<link rel="stylesheet" href="css/orderdetails.css" />
+    <title>送货确认</title>
+</head>
+<body>
+	
+	<div class="goodsCode">
+		<h1>请输入送货码</h1>
+		<label for="ipt">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</label>
+		<input type="tel" id="ipt" maxlength="6">
+	</div>
+	<div class='confirGoodsList'>
+		 <p class="name">商品信息</p>
+		 <ul class="order_info">
+		 	<!--<li>
+		        <img src="images/mr_icon.png" alt="">
+		        <div class="detail">
+		            <p class="left">
+		                <span class="goodsName">贵州茅台</span>
+		                <span class="goodsTip"><span>陈酿</span><span>500年</span></span>
+		            </p>
+		            <p class="right">
+		                 <span class="price">￥<span>1465.00</span></span>
+		                <span class="sum">×<span>3</span></span>
+		            </p>
+		        </div>
+		        <p class="pSum">
+		        	<span>实收数量</span>
+		        	<span class="num">3</span>
+		        </p>
+		    </li>-->
+		    
+		 </ul>
+	</div>
+	<div class="totalPrice">
+	     <!-- <span class="sum">￥168.00</span> -->
+	    <span class="confir" passed = "true">确认</span>
+	    <span class="refuse" passed = "false">拒绝</span>
+	</div>
+	
+	<p class="pageRemind"></p>
+	
+ 	<script src="js/jquery.min.js"></script>
+ 	<script src="js/others/public.js"></script>
+ 	<script src="js/others/confirGoods.js"></script>
+    <script src="js/adaptive.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>iucheng-2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4FACFE" offset="0%"></stop>
+            <stop stop-color="#0088FF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M39.6041552,15.1018157 C39.0762158,14.5740437 38.270138,14.629462 37.6920123,15.1018157 C33.2148025,18.7605163 19.5496961,29.1529253 19.5496961,29.1529253 C19.5496961,29.1529253 14.0239742,26.7711912 12.3080139,25.9997708 C11.6268367,25.6937141 10.9241034,25.4718313 10.395829,25.9997708 C9.86805699,26.5275847 9.86805699,27.3835139 10.395829,27.9112859 C10.395829,27.9112859 18.5325765,36.090225 18.5716289,36.12911 C18.8412702,36.3989188 19.1962157,36.5265819 19.5496961,36.520722 C19.9032184,36.5265819 20.2579964,36.3989188 20.5279308,36.12911 C20.5666901,36.090225 34.8321901,21.789398 39.6040297,17.0133309 C40.1318017,16.4852239 40.1321366,15.6295878 39.6041552,15.1018157" id="path-2"></path>
+        <filter x="-6.7%" y="-9.2%" width="113.3%" height="118.4%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iucheng-2">
+            <g id="2">
+                <circle id="Oval-8-Copy-9" fill="url(#linearGradient-1)" cx="25" cy="25" r="25"></circle>
+                <g id="Page-1">
+                    <use fill-opacity="0.800000012" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

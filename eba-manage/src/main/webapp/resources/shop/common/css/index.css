@@ -1,0 +1,507 @@
+.reg10 .dh-images-change{
+    min-width: 1200px;
+}
+.reg10 .dh-user {
+    margin-left: 425px;
+}
+.reg10 .dh-floor .content {
+    width: 1200px;
+    min-width: 1200px;
+}
+.reg10 .dh-banner a.btn-left {
+    margin-left: -410px;
+}
+.reg10 .dh-banner a.btn-right {
+    margin-right: -420px;
+}
+.dh-images-change{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    min-width: 990px;
+    overflow: hidden;
+}
+.dh-banner-wrapper{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+.dh-banner-wrapper .dh-banner{
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.dh-banner-wrapper .dh-banner ul{
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.dh-banner-wrapper ul{
+    padding: 0px;
+}
+.dh-banner-wrapper .dh-banner li {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+}
+.dh-banner-wrapper .dh-banner li:nth-child(1){
+    display: block;
+}
+.dh-banner-wrapper .dh-banner li a.image-set {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    margin-left: -410px;
+    width: 830px;
+    height: 400px;
+    background: url(../images/moren.svg) 50% 50% no-repeat;
+    background-size: 50% 50%;
+    background-color: #fff;
+    /*border: 1px solid #EEEEEE;*/
+}
+.image-set img{
+    display: block;
+    width: 830px;
+    height: 400px;
+}
+.dh-user .user-info{
+    width: 170px;
+    height: 210px;
+    padding: 6px 0 2px;
+    border-bottom: 1px solid #f2f2f2;
+}
+.dh-user .user-img{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: red;
+}
+.dh-user .user-hover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+}
+.user-info .user-img img{
+    display: none;
+    width: 50px;
+    height: 50px;
+}
+.user-info .dh-user-con{
+    width: 130px;
+    height:84px;
+    margin:0 auto;
+    padding: 29px 0;
+    box-sizing: border-box;
+}
+.user-info .user-set,.user-info .login-suc{
+    width:130px;
+    height:26px;
+}
+.user-info .user-login{
+    display: block;
+    width:60px;
+    height:26px;
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    line-height: 26px;
+    color: #666;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.user-info .user-register{
+    display: block;
+    width:60px;
+    height:26px;
+    float: left;
+    text-align: center;
+    line-height: 26px;
+    color: #666;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.user-info .user-register:hover,.user-info .user-login:hover{
+    color: #4da1ff;
+}
+.user-info .welcome{
+    width:90px;
+    height:26px;
+    line-height: 24px;
+    margin:0 auto;
+    color: #666;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.user-info .user-name{
+    display: block;
+    width:60px;
+    height:26px;
+    line-height: 24px;
+    color: #666;
+    font-weight: bolder;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+.user-info .user-exit{
+    width:50px;
+    height:26px;
+    line-height: 24px;
+    text-align: center;
+    margin:0 auto;
+    color: #4da1ff;
+    font-size: 12px;
+    cursor: pointer;
+}
+p.user-infor{
+    width: 150px;
+    height: 24px;
+    margin: 0 auto;
+    text-align: center;
+    font: 12px/24px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    overflow: hidden;
+}
+.dh-user .btn-set{
+    width: 76% !important;
+    margin: 6px auto;
+    margin-left: 12%;
+    color: #fff;
+    background-color: #4da1ff;
+    border-color: #4da1ff;
+    text-align: center;
+}
+.dh-user .user-qr-code{
+    width:70%;
+    height:120px;
+    margin: 20px auto;
+}
+.user-qr-code img{
+    display: inline-block;
+    width:100%;
+    height:100%;
+}
+.dh-floor{
+    position: relative;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+.supply-content{
+    position: relative;
+    width: 1920px;
+    height: 440px;
+    padding-top: 20px;
+    left: 50%;
+    margin-left: -960px;
+    top: 0;
+}
+.purchase-content{
+    position: relative;
+    width: 1920px;
+    height: 440px;
+    padding-top: 20px;
+    margin-top: 10px;
+    left: 50%;
+    margin-left: -960px;
+    top: 0;
+}
+.dh-floor .content {
+    width: 990px;
+    min-width: 990px;
+    height: 440px;
+    margin: 0 auto;
+}
+.dh-floor .content .supply-title{
+    width: 100%;
+    height: 38px;
+    border-bottom: 2px solid #4da1ff;
+}
+.dh-floor .content .purchase-title{
+    width: 100%;
+    height: 38px;
+    border-bottom: 2px solid #ff9500;
+}
+ .dh-floor .content .company-title{
+     width: 100%;
+     height: 38px;
+     border-bottom: 2px solid #ff4d96;
+ }
+.dh-floor .supply-name{
+    float: left;
+    width: 190px;
+    padding: 0 0 0 15px;
+    height: 38px;
+    background: #f9f9f9;
+    margin:-2px 0 0 0;
+    color: #4da1ff;
+    font: bold 20px/38px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    border-bottom: 2px solid #4da1ff;
+}
+.dh-floor .purchase-name{
+    float: left;
+    width: 190px;
+    padding: 0 0 0 15px;
+    height: 38px;
+    background: #f9f9f9;
+    margin:-2px 0 0 0;
+    color: #ff9500;
+    font: bold 20px/38px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    border-bottom: 2px solid #ff9500;
+}
+.dh-floor .company-name{
+    float: left;
+    width: 190px;
+    padding: 0 0 0 15px;
+    height: 38px;
+    background: #f9f9f9;
+    margin:-2px 0 0 0;
+    color: #ff4d96;
+    font: bold 20px/38px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    border-bottom: 2px solid #ff4d96;
+}
+.dh-floor .dh-more{
+    position: relative;
+    float: right;
+    padding: 0 5px;
+    height: 24px;
+    margin: 12px 10px 0 0;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    font: 12px/24px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    z-index: 2;
+}
+.dh-floor .dh-more span{
+    color: #999;
+}
+.dh-floor .dh-more img{
+    display: inline-block;
+    margin-top: -2px;
+    margin-left: -4px;
+}
+.dh-floor .dh-more i {
+    width: 6px;
+    height: 9px;
+    margin-left: -2px;
+    font-weight: lighter;
+    color: #999;
+    font-size: 10px;
+}
+.dh-floor .dh-more:hover span,.dh-floor .dh-more:hover i{
+    color: #4DA1FF;
+}
+.dh-floor .su-box,.dh-floor .pu-box{
+    width: 100%;
+    height: 400px;
+    /*background: #FFF;*/
+}
+.dh-floor .supply-tab,.dh-floor .purchase-tab{
+    float: left;
+    width: 290px;
+    padding-top: 10px;
+}
+.dh-floor .supply-img-com,.dh-floor .purchase-img-com{
+    display: inline-block;
+    width:290px;
+    height:390px;
+    background: url(../images/moren.svg) 50% 50% no-repeat;
+    background-size: 50% 50%;
+    background-color: #fff;
+    border: 1px solid #EEEEEE;
+}
+.dh-floor .supply-img-com img,.dh-floor .purchase-img-com img{
+    width:290px;
+    height:390px;
+    min-width: 100%;
+}
+.dh-floor .dh-table{
+    width:900px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    border:1px solid #eee;
+    /*box-shadow: 1px 0px 1px #eee,-1px -1px 1px #eee;*/
+}
+.dh-floor .dh-body{
+    width: 100%;
+    height:352px;
+    background: #fff;
+    overflow: hidden;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	border-top:1px solid #eee;
+}
+.dh-floor .dh-body th {
+    height: 0;
+    padding-top: 0;
+    overflow: hidden;
+    padding-bottom: 0;
+    border: 0;
+}
+.dh-floor .dh-body td.text-look{
+    color: #4da1ff;
+}
+.company-content{
+    position: relative;
+    width: 1920px;
+    height: 250px;
+    padding-top: 20px;
+    left: 50%;
+    margin-left: -960px;
+    top: 0;
+    margin-top: 10px;
+}
+.dh-table .dh-table-o{
+    height:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 9px;
+}
+.company-content .content{
+    height:230px;
+}
+.company-logo-box{
+    width:100%;
+    height:190px;
+    overflow: hidden;
+}
+.company-logo-box .container{
+    width:1200px;
+}
+.company-logo-box .company-logo{
+    display: inline-block;
+    width:100%;
+    height:170px;
+    overflow: hidden;
+    margin: 10px 0;
+    -webkit-transition: -webkit-transform .4s ease;
+    transition: -webkit-transform .4s ease;
+    -o-transition: -o-transform .4s ease;
+    -moz-transition: transform .4s ease,-moz-transform .4s ease;
+    transition: transform .4s ease;
+    transition: transform .4s ease,-webkit-transform .4s ease,-moz-transform .4s ease,-o-transform .4s ease;
+    background: url(../images/moren.svg) 50% 50% no-repeat;
+    background-size: 50% 50%;
+    background-color: #fff;
+    border: 1px solid #EEEEEE;
+}
+.company-logo-box .company-logo img{
+    display: inline-block;
+    width:98%;
+    min-width: 168px;
+    height:170px;
+    border:0;
+}
+.company-logo-box .company-logo:hover{
+    /*-webkit-transform: translate3d(0,-2px,5px);*/
+    /*-moz-transform: translate3d(0,-2px,5px);*/
+    /*transform: translate3d(0,-2px,5px);*/
+    /*box-shadow: 1px 1px 10px #ccc;*/
+    border:1px solid #4da1ff;
+}
+.dh-banner a.btn-left {
+    left: 50%;
+    margin-left: -305px;
+    background-position: -82px -145px;
+}
+.dh-banner a.btn {
+    position: absolute;
+    display: none;
+    width: 30px;
+    height: 64px;
+    top: 180px;
+    background-color: #ccc;
+    opacity: 0.7;
+}
+.dh-banner .btn-left i{
+    top:18px;
+    left: -2px;
+    font-size: 16px;
+    color: #fff;
+}
+.dh-banner a.btn-right {
+    right: 50%;
+    margin-right: -325px;
+    background-position: -120px -145px;
+}
+.dh-banner .btn-right i{
+    top:18px;
+    right: 8px;
+    font-size: 16px;
+    color: #fff;
+}
+.dh-banner .dh-banner-box{
+    width: 100%;
+    padding-top: 1px;
+    height: 34px;
+    left: 0;
+    FONT-WEIGHT: bold;
+    position: absolute;
+    top: 365px;
+    text-align: center;
+    font-size: 0;
+}
+.dh-banner .dh-banner-box .banner-nav{
+    position: relative;
+    display: inline-block;
+    opacity: .8;
+    padding: 0 8px 0 0;
+    height: 20px;
+    margin-left: 0;
+}
+.dh-banner .dh-banner-box .banner-nav a{
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+    width: 16px;
+    height: 16px;
+    background-color: #b7b7b7;
+    border-radius: 50%;
+}
+.dh-banner .dh-banner-box .banner-nav a:hover{
+    background-color: #ff4400;
+}
+.imgSelected{
+    background-color: #ff4400!important;
+}
+.company-logo-box .row{
+    position: relative;
+    top:0;
+    left:0;
+}
+.company-logo-box .col-md-2{
+    width:200px;
+}
+.dh-body .no-data{
+    width:900px;
+    height:352px;
+    text-align: center;
+    line-height: 352px;
+    font-size: 26px;
+    color: #666;
+    display: none;
+}
+
+
+

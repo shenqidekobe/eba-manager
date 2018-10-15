@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/shopping_cart.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/productdetails.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/shopping_cart.js"></script>
+    <title>商品详情</title>
+</head>
+<body>
+<div class="product_pic">
+    <img src="images/22.png" alt="">
+</div>
+<div class="goodsIntro">
+	<p class="product_name">七里香酥饼</p>
+	<p class="product_intro">选自马栏山精品面料</p>
+	<p class="product_tip"><span>2016</span><span>新品</span></p>
+	<p class="product_price"><span class="price">￥168.00</span> <a class="choose cd-popup-trigger2" href="javascript:0;">选规格</a></p>
+	
+</div>
+<p class="product_details">商品详情</p>
+<div class="product_detailsPic">
+    <img src="images/test_2.jpg" alt="">
+    <img src="images/test_3.jpg" alt="">
+</div>
+<div class="totalPrice">
+    <span class="icon">
+        <a href="shoppingCart.html"><span class="num">12</span></a>
+    </span>
+    <!-- <span class="sum">￥168.00</span> -->
+    <a class="account" href="account.html">结算</a>
+</div>
+
+<div class="cd-popup2">
+    <div class="cd-popup-container2">
+        <div class="con clearfix">
+            <div class="left">
+                <img src="images/22.png" alt="">
+            </div>
+            <div class="right">
+                <p class="product_name2">七里香酥饼</p>
+                <p class="product_intro2">选自马栏山精品面料</p>
+                <p class="product_tip2"><span>2016</span><span>新品</span></p>
+                <p class="product_price2"><span class="price">￥168.00</span></p>
+            </div>
+        </div>
+        <p class="rule">选择规格</p>
+        <form class="choose_gg" action="" method="">
+            <label class="btn" nowrap="nowrap">
+                <input name="gg" type="radio" autocomplete="off" checked>2014年L
+            </label>
+            <label class="btn">
+                <input name="gg" type="radio" autocomplete="off" checked>2014年XL
+            </label>
+            <label class="btn">
+                <input name="gg" type="radio" autocomplete="off" checked>2014年XXL
+            </label>
+            <label class="btn">
+                <input name="gg" type="radio" autocomplete="off" checked>2015年L
+            </label>
+            <label class="btn">
+                <input name="gg" type="radio" autocomplete="off" checked>2015年XL
+            </label>
+            <label class="btn">
+                <input name="gg" type="radio" autocomplete="off" checked>2015年XXL
+            </label>
+        </form>
+        <div class="add">
+            <span class="buyNum">购买数量</span>
+            <div class="goodsnum num2 rf">
+                <button type="button" class="minus">-</button>
+                <span>0</span>
+                <button type="button" class="plus">+</button>
+            </div>
+        </div>
+        <a href="" class="addCart">加入购物车</a>
+        <a href="#0" class="cd-popup-close"></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*弹框JS内容*/
+    jQuery(document).ready(function($){
+        //打开窗口
+        $('.cd-popup-trigger2').on('click', function(event){
+            event.preventDefault();
+            $('.cd-popup2').addClass('is-visible2');
+            //$(".dialog-addquxiao").hide()
+        });
+        //关闭窗口
+        $('.cd-popup2').on('click', function(event){
+            if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') ) {
+                event.preventDefault();
+                $(this).removeClass('is-visible2');
+            }
+        });
+        //ESC关闭
+        $(document).keyup(function(event){
+            if(event.which=='27'){
+                $('.cd-popup2').removeClass('is-visible2');
+            }
+        });
+
+        $(".btn").click(function(){
+            $(this).addClass("active");
+            $(this).siblings().removeClass("active");
+        })
+    });
+</script>
+<script src="js/adaptive.js"></script>
+</body>
+</html>

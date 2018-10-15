@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/myorder.css">
+    <title>我的订单</title>
+</head>
+<body>
+<div class="search">
+    <div class="searchOut">
+        <div class="input">
+            <a href="search2.html"><input type="text" id="search" placeholder="搜索"></a>
+        </div>
+        <!-- <button>搜索</button> -->
+    </div>
+</div>
+<div id="menu">
+<!--tag标题-->
+    <ul id="nav">
+        <!--<li><a href="###" class="selected">全部订单</a></li>
+        <li><a href="###" class="">待发货</a></li>
+        <li><a href="###" class="">配送中</a></li>
+        <li><a href="###" class="">已完成</a></li>-->
+        <li status="1" class="selected">全部订单</li>
+        <li status="2">待发货</li>
+        <li status="3">已发货</li>
+        <li status="5">已完成</li>
+        <div style="clear:both"></div>
+    </ul>
+<!--二级菜单-->
+    <div id="menu_con">
+    	<div class="orderNumNot">您还没有相关的订单！</div>
+        <div class="tag">
+        	
+            <!--<ul class="orderdetail">
+                <li class="provide">
+                	<span class="provideName">供应商二</span>
+                	<span class="content2">已取消</span>
+                </li>
+                <li class="orderNumber">订单编号：<span>566545484877434</span></li>
+                <li class="orderImages">
+                	<img class="imgEllipsis" src="images/spsl_icon.png" alt="">
+                	<img src="images/22.png" alt="">
+                	<img src="images/22.png" alt="">
+                	<img src="images/22.png" alt="">
+                	<img src="images/22.png" alt="">
+                	<img src="images/22.png" alt="">
+                </li>
+                <li class="price">
+                	<span>共<i>5</i>件商品</span>
+                </li>
+                <li class="button">
+                	<a class="again" href="javascript:;">再来一单</a>
+                	<button class="cancelOrder">取消订单</button>
+                </li>
+            </ul>-->
+                     
+        </div> 
+    </div>
+</div>
+
+<!--弹出确认框-->
+<div class="mutail">
+	<div class="mutailContent">
+		<p>确定要取消订单么?</p>
+		<span class="cancel">取消</span>
+		<span class="delSure">确定</span>
+	</div>
+</div>
+
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/adaptive.js"></script>
+	<script src="js/others/public.js"></script>
+	<script src="js/others/myOrderToSearch.js"></script>
+	<script src="js/others/myOrder.js"></script>
+
+</body>
+</html>
+
+<script>
+
+document.getElementById("search").addEventListener("keyup",function(){
+    if(this.value.length>0)
+    {
+        document.getElementById("cls").style.visibility="visible";
+        document.getElementById("cls").onclick=function()
+        {
+            document.getElementById("search").value="";
+        }
+    }else
+    {
+        document.getElementById("cls").style.visibility="hidden";
+    }
+});
+
+
+var tabs=function(){
+  function tag(name,elem){
+    return (elem||document).getElementsByTagName(name);
+  }
+  //获得相应ID的元素
+  function id(name){
+    return document.getElementById(name);
+  }
+  function first(elem){
+    elem=elem.firstChild;
+    return elem&&elem.nodeType==1? elem:next(elem);
+  }
+  function next(elem){
+    do{
+      elem=elem.nextSibling; 
+    }while(
+      elem&&elem.nodeType!=1 
+    )
+    return elem;
+  }
+  return {
+    set:function(elemId,tabId){
+      var elem=tag("li",id(elemId));
+      var tabs=tag("div",id(tabId));
+      var listNum=elem.length;
+      var tabNum=tabs.length;
+      for(var i=0;i<listNum;i++){
+          elem[i].onclick=(function(i){
+            return function(){
+              for(var j=0;j<tabNum;j++){
+                if(i==j){
+                  tabs[j].style.display="block";
+                  //alert(elem[j].firstChild);
+                  elem[j].firstChild.className="selected";
+                }
+                else{
+                  tabs[j].style.display="none";
+                  elem[j].firstChild.className="";
+                }
+              }
+            }
+          })(i)
+      }
+    }
+  }
+}();
+window.onload=function(){
+  //tabs.set("nav","menu_con");
+}
+</script>

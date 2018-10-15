@@ -1,0 +1,440 @@
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+html,body,form,fieldset,p,div,h1,h2,h3,h4,h5,h6{-webkit-text-size-adjust:none}
+html{font-size:16px}
+body{font-family:"微软雅黑","华文细黑",arial,sans-serif; font-size: 62.5%;background:#F8F8F8;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;font-style: normal;font-weight: normal;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a{color: #000;}
+a,button{cursor:pointer;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{color:#000;outline:0;}
+body *{-webkit-tap-highlight-color:rgba(0,0,0,0);tap-highlight-color:rgba(0,0,0,0)}
+.clearfix:after{content:".";display:block;overflow:hidden;height:0;clear:both;visibility:hidden;}
+* html .clearfix{height:1%;}
+input,textarea,select{font-family:"微软雅黑","华文细黑";outline: none; -webkit-appearance:none;border:none;border-radius: 0; font-size:0.26rem;}
+.clearOver{overflow: hidden; text-overflow:ellipsis; white-space: nowrap;}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {font-family:"微软雅黑","华文细黑";color: #b6c5dc;}
+input:-moz-placeholder,textarea:-moz-placeholder {font-family:"微软雅黑","华文细黑";color:#b6c5dc;}
+input::-moz-placeholder,textarea::-moz-placeholder {font-family:"微软雅黑","华文细黑";color:#b6c5dc;}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {font-family:"微软雅黑","华文细黑";color:#b6c5dc;}
+
+/*以下为页面共用样式*/
+/*-------------------搜索样式----------------------*/
+.search{
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 0.87rem;
+    background: #FFF;
+    padding-top: 0.13rem;
+
+}
+.search .searchOut{
+    width: 90%;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    margin:0 auto;
+    border-radius: 5px;
+    background:url(../images/ss_icon.png) 0.25rem center no-repeat #F8F8F8;
+    background-size: 0.44rem 0.44rem;
+    border:1px solid #eee;
+}
+.search .searchOut .input{
+    height: 0.7rem;
+    line-height: 0.7rem;
+    
+}
+.search .searchOut .input .clear{
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    /*background: #F5F5F5;*/
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0.8;
+    color: #586897;
+
+
+}
+.search .searchOut input[type=text]{
+    height:100%;
+    border:0px;
+    width: 85%;
+    color: #586897;
+    background: #F8F8F8;
+    font-size:0.26rem;
+}
+.search .searchOut div{
+    float: left;
+    width: 90%;
+    margin-left: 13%;
+}
+.search .searchOut>button{
+    width: 29%;
+    height: 2rem;
+    background: #3385ff;
+    border:1px solid #3385ff;
+    color: #fff;
+    margin-top:0.5rem;
+
+}
+
+
+
+/*-------------------搜索（带button）样式----------------------*/
+.search2{
+    border-bottom: 1px solid #F8F8F8;
+    width: 100%;
+    height: 0.87rem;
+    background: #FFF;
+    padding-top: 0.13rem;
+
+}
+.search2 .searchOut{
+    width: 75%;
+    float: left;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    margin-left: 0.35rem;
+    border-radius: 5px;
+    background:url(../images/ss_icon.png)0.25rem center no-repeat #F8F8F8;
+    background-size: 8%;
+    border:1px solid #eee;
+}
+.search2 .searchOut .input{
+    height: 0.7rem;
+    line-height: 0.7rem;
+}
+.search2 .searchOut .input .clear{
+    width: 30px;
+    height: 35px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    padding-right: 10px;
+    visibility: hidden;
+    opacity: 0.8;
+    color: #586897;
+}
+.search2 .searchOut input[type=text]{
+    height:0.7rem;
+    border:0px;
+    width: 90%;
+    color: #586897;
+    background: #F8F8F8;
+}
+.search2 .searchOut div{
+    float: left;
+    width: 90%;
+    margin-left: 0.8rem;
+    /*background: #F8F8F8;*/
+}
+
+.search2 .button{
+    float: left;
+    display: inline-block;
+    width: 1rem;
+    margin-left: 0.2rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    text-align: center;
+    background: #586897;
+    border-radius: 5px;
+    margin-left: 2.5%;
+    color: #FFF;
+    border:1px solid #586897;
+}
+.name1{
+    width: 100%;
+    color: #586897;
+    text-indent: 0.2rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    font-size: 0.28rem;
+    border-bottom: 1px solid #F8F8F8;
+    background:#fff;
+}
+.searchHistory{
+    width: 100%;
+    margin:0 auto;
+    padding-top: 0.5rem;
+    background:#fff;
+}
+.searchHistory li{
+    margin-left: 0.5rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding: 0 0.2rem;
+    background: #FFF;
+    border-radius: 20px;
+    color: #586897;
+    display: inline-block;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+}
+.searchHistory li:active,.searchHistory li:hover,.searchHistory li:focus{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding: 0 0.2rem;
+    background: #586897;
+    border-radius: 20px;
+    color: #FFF;
+    display: inline-block;
+}
+/*-------------------弹出商品样式----------------------*/
+
+
+.product_name2{
+    height: 0.6rem;
+    line-height: 0.6rem;
+    color: #586897;
+    font-size: 0.3rem;
+    font-weight:900;
+}
+.product_intro2{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    color: #b6c5dc;
+    font-size: 0.26rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.product_tip2{
+    /*padding: 0 0.2rem;*/
+   margin-top:0.1rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    font-size: 0.24rem;
+}
+.product_tip2 span{
+    display: inline-block;
+    margin-right: 0.2rem;
+    background: #b6c5dc;
+    color: #FFF;
+    font-size: 0.26rem;
+    border-radius: 5px;
+    padding: 0 0.2rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+}
+.product_price2{
+    height: 0.6rem;
+    line-height: 0.6rem;
+    font-size: 0.24rem;
+}
+.product_price2 .price{
+    color: #ff9974;
+    font-size: 0.3rem;
+}
+
+/*-------------------购物车底部样式----------------------*/
+.totalPrice{
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    background: rgba(0,0,0,0.8);
+    position: fixed;
+    bottom: 0;
+}
+.totalPrice .icon{
+    display: inline-block;
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    background:url(../images/gwc_icon2.png)center no-repeat;
+    background-size:100%;
+    position: absolute;
+    left: 0.2rem;
+    bottom: 0.1724rem;
+}
+
+.totalPrice .icon a{
+	display: inline-block;
+	width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+}
+
+.totalPrice .icon .num{
+    position: absolute;
+    display: block;
+    width: 0.4rem;
+    height: 0.4rem;
+    font-size: 0.2rem;
+    text-align: center;
+    border-radius: 50%;
+    background: #ff9974;
+    color: #FFF;
+    line-height: 0.4rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
+
+}
+.totalPrice .sum{
+    position: absolute;
+    left: 1.5rem;
+    height: 1rem;
+    line-height: 1rem;
+    color: #fff;
+    font-size: 0.3rem;
+
+}
+.totalPrice .account{
+    display: inline-block;
+    float: right;
+    width: 30%;
+    height: 3rem;
+    text-align: center;
+    background: #586897;
+    color: #FFF;
+    font-size: 0.34rem;
+}
+/*添加购物车数量的样式*/
+
+.goodsnum{
+    overflow: hidden;
+}
+.goodsnum span{
+    text-align: center;
+    line-height: 22px;
+}
+.goodsnum button{
+    float: left;
+    width:0.50rem;
+    height:0.50rem;
+    /*margin-top: 0.5rem;*/
+    line-height:0.50rem;
+    color: #ff9974;
+    font-size: 0.36rem;
+    font-family: "微软雅黑","华文细黑";
+    /*border: 1px solid #DFDFDF;*/
+}
+
+.goodsnum input{
+	width:1rem;
+	height:0.5rem;
+	float:left;
+	text-align: center;
+	color: #ff9974;
+	font-size: 0.36rem;
+}
+
+.goodsnum button:nth-child(1){
+    background: url(../images/js_icon.png)center no-repeat;
+    background-size:0.5rem 0.5rem;
+    border:none;
+    color: #FFF;
+    background-size: 100%;
+    text-indent: -9999px;
+}
+.goodsnum button:nth-child(3){
+    background: url(../images/zj_icon.png)center no-repeat;
+    background-size:0.5rem 0.5rem;
+    border:none;
+    color: #FFF;
+    background-size: 100%;
+    text-indent: -9999px;
+}
+
+/*页面提醒标签*/
+.pageRemind{
+	background:rgba(0,0,0,0.7);
+	position:absolute;
+	color:#fff;
+	width:4.3rem;
+	padding:0.1rem 0.1rem;
+	font-size:0.28rem;
+	border-radius: 0.1rem;
+	left:50%;
+	margin-left:-2.15rem;
+	text-align: center;
+	z-index: 999;
+	display:none;
+	top:6rem;
+}
+
+.notToSearch{
+	width:100%;
+	height:13rem;
+	background:url(../images/sswjg_icon.png) center 1.5rem no-repeat;
+	background-size:55%;
+	color:#586897;
+	text-align: center;
+	line-height: 11rem;
+	font-size:0.36rem;
+	font-weight: 700;
+	display:none;
+}
+
+
+
+.stateObj{
+	display:block;
+}
+
+
+/*******弹出确认框**********弹出确认框*********弹出确认框***********/
+.mutail{
+	position:fixed;
+	top:0;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,0.5);
+	z-index: 999;
+	display:none;
+}
+
+.mutail .mutailContent{
+	width:5.6rem;
+	height:3rem;
+	background:#fff;
+	margin:0 auto;
+	margin-top:50%;
+	border-radius: 0.2rem;
+	font-size:0.36rem;
+}
+.mutail .mutailContent p{
+	width:100%;
+	height:2rem;
+	line-height:2rem;
+	border-bottom:1px solid #eee;
+	text-align: center;
+	color:#596798;
+	font-weight:900;
+}
+.mutail .mutailContent span{
+	display:inline-block;
+	width:49%;
+	height:0.99rem;
+	text-align:center;
+	line-height:0.99rem;
+	color:#596798;
+	float:left;
+}
+.mutail .mutailContent span:nth-of-type(1){
+	border-right:1px solid #eee;
+	color:#b6c5da;
+}
+
+.mutail.isToClass{
+	display:block;
+}
+
+
+
+
+

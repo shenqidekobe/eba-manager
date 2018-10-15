@@ -1,0 +1,254 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+}
+.settingPage .user{
+    width:calc(100% - 0.8rem);
+    height:1.4rem;
+    padding:0.4rem;
+    background:#4da1ff;
+    background-size:100%;
+    display:flex;
+}
+.settingPage .userImg {
+    width:1.4rem;
+    background:#f9f9f9;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.settingPage .userImg img{
+    width:1.4rem;
+    height:1.4rem;
+}
+.settingPage .userInfo {
+    width:calc(100% - 1.4rem);
+    color:#fff;
+    text-indent: 0.3rem;
+}
+.settingPage .userInfo .name{
+    font-size:0.36rem;
+    line-height:0.8rem;
+}
+.settingPage .userInfo .phone{
+    font-size:0.28rem;
+}
+
+.li_info{
+    height:1.2rem;
+}
+.li_info .label{
+    line-height:1.2rem;
+    white-space: nowrap;
+}
+
+.settingPage .label{
+    width:2rem;
+    font-size:0.36rem;
+    text-indent: 0.2rem;
+}
+.signOut{
+    width:100%;
+    height:1rem;
+    position:fixed;
+    bottom:1.5rem;
+    left:0;
+    background:#eee;
+    line-height: 1rem;
+    text-align: center;
+    font-size:0.28rem;
+
+}
+.signOut a{
+    display: block;
+    width:100%;
+    height:100%;
+    color:#4da1ff;
+}
+li.userSet{
+    background:#fff url(../images/zhanghaoshezhi.png) no-repeat 94% center;
+    background-size:0.44rem;
+    position:relative;
+}
+li.userSet::after{
+    content: '';
+    display:block;
+    height:1px;
+    width:86%;
+    background:#eee;
+    position:absolute;
+    bottom:0;
+    left:7%;
+}
+.info_ul li.qyInfo{
+    background:#fff url(../images/qiyexinxi.png) no-repeat 94% center;
+    background-size:0.44rem;
+    border:0;
+}
+
+
+.enterpriseImg{
+    width:100%;
+    height:5rem;
+}
+.enterpriseImg img{
+    width:5rem;
+    height:5rem;
+}
+.enterprisePage .info_ul{
+    margin-bottom:1.5rem;
+    background:#fff;
+}
+.companyIntroduce{
+    height:3.1rem;
+}
+
+.companyIntroduce .label{
+    height:1rem;
+    float:none;
+}
+.companyIntroduce .input{
+    width:100%;
+    height:2rem;
+}
+.companyIntroduce textarea{
+    width:96%;
+    height:100%;
+    padding:0 2%;
+    font-size:0.28rem;
+    border:0;
+}
+
+.Certificates .input{
+    width:96%;
+    padding:0 2%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.Certificates .setCard{
+    display: block;
+    float: left;
+    width: 1.3rem;
+    height: 0.45rem;
+    line-height: 0.45rem;
+    font-size: 0.32rem;
+    padding-right: 0.2rem;
+    vertical-align: top;
+    margin-top: 0.4rem;
+}
+.Certificates a{
+    display: inline-block;
+    margin-top: 0.4rem;
+    margin-left: 0.2rem;
+}
+.Certificates img{
+    width:32%;
+    height:1.8rem;
+}
+
+
+/*企业信息*/
+.enterIfo{
+    position:relative;
+    background:#fff;
+    padding-bottom:0.7rem;
+
+}
+.enterImg{
+    width:100%;
+    height:2.4rem;
+    overflow: hidden;
+    position:relative;
+}
+.enterImg img{
+    width:1.65rem;
+    height:1.65rem;
+    position:absolute;
+    top:0.6rem;
+    left:calc(50% - 0.9rem);
+    border:0.08rem solid #fff;
+}
+.divTop{
+    position:absolute;
+    width:120%;
+    height:3rem;
+    background:#4F96FF;
+    border-radius:50%;
+    top:-1.5rem;
+    left:-10%;
+}
+
+.enterName{
+    width:100%;
+    font-size:0.34rem;
+    line-height:0.8rem;
+    text-align: center;
+    font-weight: 900;
+    border:none;
+    margin:0 auto;
+}
+.inviteCode{
+    width:2.4rem;
+    height:0.5rem;
+    line-height: 0.5rem;
+    font-size:0.28rem;
+    background:#4da1ff;
+    text-align: center;
+    color:#fff;
+    position:absolute;
+    left:calc(50% - 1.2rem);
+}
+label.error {
+    right: 18px;
+    top: 5px;
+    color: #ef392b;
+    font-size: 0.12rem;
+}
+/*公司logo*/
+.logoImg{
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 0.01rem dashed #f0f0f0;
+    background: url(../images/shangchuan_icon.svg) center center no-repeat;
+    background-size: 0.6rem 0.6rem;
+    position: relative;
+    margin-left: 0.2rem;
+}
+.logoImg:hover {
+    background: url(../images/shangchuandj_icon.svg) center center no-repeat;
+    background-size: 0.6rem 0.6rem;
+}
+.logoImg img {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+.logoImg .img_model {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background: rgba(0,0,0,0.3);
+    display: none;
+}
+.li_logo{
+    position: relative;
+}
+.tishi {
+    color: #999;
+    vertical-align: bottom;
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.2rem;
+}
+.delImg {
+    color: #999;
+    vertical-align: bottom;
+    display: inline-block;
+    position: absolute;
+    top: 0.1rem;
+}
+

@@ -1,0 +1,825 @@
+body{
+    background: #F8F8F8;
+    padding-bottom: 1rem;
+}
+ul{
+    /*margin-bottom: 0.2rem;*/
+    background: #FFF;
+    /*margin-bottom:0.2rem;*/
+    border-bottom:#eee;
+}
+ul.receiving_info{
+	 margin-bottom:0.2rem;
+	 border-bottom:1px solid #eee;
+}
+.order_num{
+    width: 100%;
+    margin-bottom:0.2rem;
+    border-bottom:1px solid #eee;
+    overflow: hidden;
+}
+.order_num li{
+    width: 80%;
+    height:0.6rem;
+    float: left;
+    color: #586897;
+    line-height: 0.6rem;
+    text-indent: 0.2rem;
+}
+.order_num .num{
+    line-height: 0.7rem;
+}
+.order_num .time{
+    line-height: 0.5rem;
+}
+.order_num .refuse{
+	height:auto;
+    line-height: 0.4rem;
+    margin-bottom:0.1rem;
+}
+.order_num .refuse span{
+	float:left;
+}
+.order_num .refuse span.reason{
+	display: inline-block;
+	width:70%;
+	line-height: 0.4rem;
+	text-indent: 0;
+}
+
+
+.order_num .time .date{
+    margin-right: 1rem;
+}
+.order_num .state{
+    float: right;
+    width: 20%;
+    height:1.2rem;
+    color: #586897;
+    line-height: 1.8rem;
+    text-align: center;
+    font-weight: 700;
+}
+/*待发货*/
+.order_num .state1{
+    background: url(../images/dfh_icon.png) center 0.25rem no-repeat;
+    background-size:0.44rem 0.44rem;
+}
+/*已完成*/
+.order_num .state2{
+    background: url(../images/ywc_icon.png) center 0.25rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+/*已取消*/
+.order_num .state3{
+    background: url(../images/yqx_icon.png) center 0.25rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+/*已发货*/
+.order_num .state4{
+    background: url(../images/dsh_icon.png) center 0.25rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+
+.receiving_info .name{
+    height: 0.8rem;
+    width: 100%;
+    background: url(../images/dz_icon.png)0.2rem center no-repeat;
+    background-size: 6%;
+    line-height: 0.8rem;
+    text-indent: 0.8rem;
+    color: #586897;
+    font-weight: bold;
+    border-bottom: 1px solid #f8f8f8;
+    font-size: 0.26rem;
+
+}
+
+.receiving_info li{
+    width: 100%;
+    font-size: 0.26rem;
+}
+
+.receiving_info li.messageWord{
+	
+}
+
+
+.receiving_info li span{
+    text-indent: 0.2rem;
+    display: inline-block;
+    color: #b6c5dc;
+    float: left;
+}
+.receiving_info li .name2{
+    width: 25%;
+    line-height: 1rem;
+}
+.receiving_info li .detail{
+    width: 70%;
+    border-bottom:1px solid #f8f8f8;
+    color: #586897;
+    padding-right:3%;
+    text-indent: 0;
+    min-height: 0.5rem;
+    line-height:0.5rem;
+    float: right;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+.receiving_info li .detail2{
+    width: 70%;
+    border-bottom:1px solid #f8f8f8;
+    color: #586897;
+    padding-right:3%;
+    text-indent: 0;
+    /*min-height: 0.45rem;*/
+    float: right;
+    padding-top: 0.275rem;
+    padding-bottom: 0.275rem;
+}
+li.demos .detail2{
+	border:none;
+}
+.receiving_info .orderMess{
+	width:100%;
+	height:1.5rem;
+	padding:0.2rem 0;
+}
+.receiving_info .orderMess textarea{
+	width:100%;
+	height:1.4rem;
+	line-height:0.4rem;
+	font-size:0.26rem;
+	text-indent: 0.2rem;
+	color:#b6c5dc;
+}
+
+.receiving_info li .detail2 input{
+    width: 100%;
+    color:#586897;
+}
+.receiving_info li.demos{
+	background:url(../images/rq_icon.png) 97% center no-repeat;
+	background-size:0.44rem 0.44rem;
+	border-bottom:1px solid #f8f8f8;
+}
+.receiving_info li.demos .detail2{
+	width:50%;
+	float:left;
+	margin-left:2%;
+}
+.receiving_info li.demos .detail2 input{
+	/*width:80%;*/
+}
+
+.orderAllInfo{
+	background:#fff;
+	/*margin-bottom:1rem;*/
+}
+.orderAllInfo .name{
+    height: 0.8rem;
+    width: 100%;
+    background: url(../images/dd_icon.png)0.2rem center no-repeat;
+    background-size: 6%;
+    line-height: 0.8rem;
+    text-indent: 0.8rem;
+    color: #586897;
+    font-weight: bold;
+    font-size: 0.26rem;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.attachment{
+	background:#fff;
+	margin-top:0.2rem;
+	margin-bottom:1.2rem;
+	display:none;
+}
+.attachment .name,.confirGoodsList .name{
+    height: 0.8rem;
+    width: 100%;
+    background: url(../images/fj_icon.png)0.2rem center no-repeat;
+    background-size: 6%;
+    line-height: 0.8rem;
+    text-indent: 0.8rem;
+    color: #586897;
+    font-weight: bold;
+    font-size: 0.26rem;
+    border-bottom: 1px solid #f8f8f8;
+}
+.attachment ul li{
+	width:100%;
+	height:1.2rem;
+}
+.attachment ul li a{
+	display:block;
+	width:100%;
+	height:100%;
+}
+
+
+.attachment .fileImg{
+	width:1.2rem;
+	height:1.2rem;
+	float:left;
+}
+.attachment .fileImg img{
+	width:1rem;
+	height:1rem;
+	margin:0.1rem 0 0.1rem 0.2rem;
+}
+.attachment .right{
+	width:81%;
+	height:1.2rem;
+	float:right;
+	border-bottom:1px solid #f8f8f8;
+}
+.attachment li:nth-last-child(1){
+	border-bottom:1px solid #f8f8f8;
+}
+.attachment li:nth-last-child(1) .right {
+	border:none;
+}
+.attachment .right .fileName{
+	font-size:0.3rem;
+	color:#586897;
+	line-height:0.6rem;	
+}
+.attachment .right span{
+	display:inline-block;
+	margin-top:0.1rem;
+	color:#b5c5dc;
+}
+
+
+
+.order_info li{
+    width: 100%;
+    font-size: 0.26rem;
+}
+.order_info li:nth-last-child(1){
+	border-bottom:1px solid #F8F8F8;
+}
+.order_info li:nth-last-child(1) .detail{
+	border:0;
+}
+
+.order_info .li span{
+    text-indent: 1rem;
+    display: inline-block;
+    color: #b6c5dc;
+    float: left;
+}
+.order_info .li p{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-indent: 0.3rem;
+    border-bottom: 1px solid #F8F8F8;
+    color: #586897;
+}
+.order_info .li .name2{
+    width: 25%;
+    line-height: 2.5rem;
+}
+.order_info .li .detail{
+    width: 70%;
+    border-bottom:1px solid #f8f8f8;
+    color: #586897;
+    padding-right:3%;
+    text-indent: 0;
+    min-height: 1.2rem;
+    float: right;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+
+.order_info li img{
+    width: 1rem;
+    height: 1rem;
+    margin: 0.1rem 0.2rem 0.1rem 0.2rem;
+    float: left;
+}
+.order_info li .detail{
+    width: 81%;
+    border-bottom:1px solid #f8f8f8;
+    color: #586897;
+    text-indent: 0;
+    min-height: 1.2rem;
+    float: right;
+}
+.order_info li .detail .left{
+    width: 70%;
+    min-height: 1rem;
+    float: left;
+}
+.order_info li .detail .left .goodsName{
+    width: 100%;
+    min-height: 0.5rem;
+    line-height: 0.5rem;
+    /*padding: 0.1rem 0;*/
+   	padding-top:0.1rem;
+    display: inline-block;
+    font-size: 0.3rem;
+    overflow: hidden;
+}
+.order_info li .detail .left .goodsTip{
+    width: 100%;
+    min-height: 0.4rem;
+    padding: 0.1rem 0;
+    display: inline-block;
+}
+.order_info li .detail .left .goodsTip span{
+    display: inline-block;
+    margin-right: 0.15rem;
+    color: #FFF;
+    font-size:0.22rem;
+    background: #b6c5dc;
+    text-align: center;
+    border-radius: 3px;
+    padding:0 0.1rem;
+    
+}
+.order_info li .detail .right{
+    width: 30%;
+    min-height: 0.4rem;
+    float: right;
+}
+.order_info li .detail .right .price{
+    width: 85%;
+    padding: 0.1rem 0;
+    display: inline-block;
+    font-size: 0.26rem;
+    color: #ff9974;
+    text-align: right;
+}
+.order_info li .detail .right .price span{
+    font-size: 0.3rem;
+    color: #ff9974;
+}
+.order_info li .detail .right .sum{
+    width: 85%;
+    padding: 0.1rem 0;
+    display: inline-block;
+    font-size: 0.3rem;
+    text-align: right;
+}
+.order_info li .detail .right .sum span{
+    /*margin-right: 1rem;*/
+}
+.orderAllInfo .total{
+    width: 100%;
+    text-indent: 1em;
+    height: 0.8rem;
+    line-height: 0.9rem;
+    color: #586897;
+    font-size:0.26rem;
+    border-bottom:1px solid #eee;
+}
+.order_info .total .price{
+    height: 2.5rem;
+    line-height: 2.5rem;
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #ff9974;
+    float: right;
+    margin-right: 1rem;
+}
+.order_info .total .price span{
+    font-size: 1rem;
+    color: #ff9974;
+}
+.bottom{
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
+    background:rgba(0,0,0,0.8);
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+}
+.bottom2{
+    width: 100%;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    text-align: left;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+}
+.bottom a{
+    display: inline-block;
+    float: right;
+    width: 30%;
+    color: #fff;
+    font-size: 0.34rem;
+    height: 1rem;
+}
+
+.bottom .cancelOrder{
+	float: right;
+    width: 30%;
+    color: #fff;
+    font-size: 0.34rem;
+    height: 1rem;
+    background:#ff9973;
+    border:0;
+    display:none;
+}
+
+
+.bottom2 a{
+    display: inline-block;
+    float: right;
+    width: 30%;
+    color: #fff;
+    font-size: 0.3rem;
+    height: 1rem;
+    text-align: center
+}
+.bottom .again{
+    background:#586897;
+}
+.bottom .confirm{
+    background:#ff9974;
+}
+.bottom .price{
+    display: inline-block;
+    width: 40%;
+    float: left;
+    height: 1rem;
+    background: #333;
+    font-size: 0.32rem;
+}
+.bottom2 .price{
+    display: inline-block;
+    width: 70%;
+    float: left;
+    height: 0.9rem;
+    position: relative;
+}
+.bottom2 .price span{
+    font-size: 0.6rem;
+    display: inline-block;
+    position: absolute;
+}
+.bottom2 .price .sum{
+    text-indent: 0.5rem;
+    width: 100%;
+    height: 0.5rem;
+    line-height: 0.6rem;
+    top:0;
+    font-size: 0.4rem;
+}
+.bottom2 .price .sum .price{
+    text-indent: 0.1rem;
+    font-size: 0.26rem;
+}
+/*有价格的样式*/
+/*.bottom2 .price .count{
+    text-indent: 0.5rem;
+    width: 100%;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    font-size: 0.26rem;
+    top:0.15rem;
+}*/
+/*无价格的样式*/
+.bottom2 .price .count{
+    text-indent: 0.5rem;
+    width: 100%;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    font-size: 0.3rem;
+    top:0.01rem;
+}
+.bottom2 .confirm{
+    background:#ff9974;
+    display: inline-block;
+    width: 30%;
+    float: right;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    font-size: 0.28rem;
+}
+
+.bottom .price span{
+    font-size: 0.8rem;
+}
+
+/*物流信息*/
+.logisiticsInfo{
+	width:100%;
+	background:#f8f8f8;
+	margin-bottom:0.2rem;
+	/*display:none;*/
+}
+.logisiticsInfo p.info{
+	width:100%;
+	height:0.8rem;
+	line-height: 0.8rem;
+	color:#586897;
+	font-size:0.26rem;
+	font-weight: 900;
+	text-indent: 0.8rem;
+	background:#fff url(../images/wlxx_icon.png) 0.2rem center  no-repeat;
+	background-size:0.44rem 0.44rem;
+	border-bottom:1px solid #f8f8f8;
+}
+.logisiticsInfo ul{
+	border-bottom:1px solid #f8f8f8;
+	margin-bottom:0.2rem;
+}
+.logisiticsInfo ul li{
+	height:1rem;
+}
+.logisiticsInfo ul li:nth-of-type(2){
+	border-bottom:1px solid #f8f8f8;
+}
+
+.logisiticsInfo ul li span{
+	float:left;
+	display: inline-block;
+	height:1rem;
+	line-height: 1rem;
+}
+.logisiticsInfo ul li span:nth-of-type(1){
+	width:27%;
+	color:#b6c5dc;
+	text-indent: 0.2rem;
+	
+}
+.logisiticsInfo ul li span:nth-of-type(2){
+	width:72%;
+	height:0.99rem;
+	border-bottom:1px solid #f8f8f8;
+	color:#586897;
+}
+
+.logisiticsInfo ul li:nth-of-type(2) span{
+	border:none;
+}
+
+.logInfoType{
+	display:block;
+}
+
+.logisiticsInfo ul li:nth-of-type(1){
+	position:relative;
+	overflow: hidden;
+} 
+.logisiticsInfo ul li:nth-of-type(1) p{
+	position:absolute;
+	top:0.16rem;
+	right:-0.5rem;
+	text-align: center;
+	width:1.5rem;
+	height:0.4rem;
+	line-height:0.4rem;
+	background:#586897;
+	transform: rotate(45deg);
+	font-size:0.2rem;
+	color:#fff;
+}
+
+.logisiticsInfo ul li.twoCode{
+	width:100%;
+	height:5.6rem;
+	background:#586897;
+	padding-top:0.4rem;
+}
+li.twoCode .content{
+	width:5rem;
+	height:5.2rem;
+	border:1px solid #586897;
+	margin:0 auto;
+	position:relative;
+	border-radius: 0.12rem;
+	overflow: hidden;
+}
+li.twoCode .img{
+	width:5rem;
+	height:4.2rem;
+	background:#fff;
+	text-align: center;
+	display:table-cell;
+	vertical-align: middle;
+}
+li.twoCode .img img{
+	width:4.2rem;
+	height:4.2rem;
+	vertical-align:middle;
+}
+li.twoCode .content p{
+	width:100%;
+	height:1rem;
+	background:#b6c5dc;
+	line-height: 1rem;
+	text-align: center;
+	color:#fff;
+	font-size: 0.24rem;
+}
+.logisiticsInfo ul li.twoCode .content span{
+	display:block;
+	position:absolute;
+	width: 0.25rem;
+    height: 0;
+    border: 0 solid transparent;
+    border-bottom: 0.25rem solid #586897;
+    border-top: 0.25rem solid #586897;
+    top:3.98rem;
+}
+li.twoCode .content span.right{
+    border-radius: 0.25rem 0 0 0.25rem;
+    right:0;
+}
+li.twoCode .content span.left{
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+
+
+.logisiticsInfo ul li.conButton{
+	height:0.8rem;
+}
+.logisiticsInfo ul li.conButton button{
+	width:2rem;
+	height:0.8rem;
+	border:0;
+	float:right;
+	font-size:0.28rem;
+}
+
+.shouhuo{
+	background:#ff9973;
+	color:#fff;
+}
+.waitTake{
+	background:#b6c5dc;
+	color:#fff;
+}
+.already{
+	background:#fff;
+	color:#586897;
+}
+
+
+
+/*----送货确认-------送货确认------送货确认----送货确认--------送货确认-------*/
+	.goodsCode h1{
+		font-size: 0.36rem;
+		font-weight: 400;
+		text-align: center;
+		color: #fff;
+		margin-bottom:0.3rem;
+	}
+	.goodsCode{
+		padding-top:0.4rem;
+		width:100%;
+		height:2.2rem;
+		background: #586897;
+		text-align: center;
+	}
+	.goodsCode input{
+		margin: 0;
+	    padding: 0;
+	    width: 1px;
+	    opacity: 0;
+	    height: 1px;
+	    border: none;
+	}
+	.goodsCode label{
+		display: block;
+	}
+	.goodsCode ul{
+		background:#586897;
+	    display: inline-block;
+	    position: relative;
+	}
+	.goodsCode ul li{
+		display: inline-block;
+	    width: 0.6rem;
+	    height: 0.8rem;
+	    background:#fff;
+	    font-size: 0.5rem;
+	    font-weight: 700;
+	    text-align: center;
+	    line-height: 0.8rem;
+	    margin-right:0.01rem;
+	    vertical-align: middle;
+	    overflow: hidden;
+	    color:#586897;
+	}
+	
+	.confirGoodsList{
+		width:100%;
+		background:#fff;
+	}
+	.confirGoodsList .name{
+		background: url(../images/spxx_icon.png)0.2rem center no-repeat;
+	    background-size: 6%;
+	}
+
+	.confirGoodsList ul{
+		overflow: hidden;
+	}
+	.confirGoodsList ul .inId{
+		display:none;
+	}
+	
+	
+	.confirGoodsList ul.order_info li{
+		border-bottom:1px solid #f8f8f8;
+		overflow: hidden;
+	}
+	.confirGoodsList ul.order_info li .detail{
+		border-bottom:1px solid #f8f8f8;
+	}
+	
+	.pSum{
+		width:100%;
+		height:1rem;
+		float:left;
+	}
+	.pSum span{
+		display:inline-block;
+		width:1.5rem;
+		height:1rem;
+		line-height: 1rem;
+		text-indent: 0.2rem;
+		color:#b5c5dc;
+	}
+	.pSum input{
+		width:2rem;
+		color:#586897;
+		font-size:0.3rem;
+		font-weight: 100;
+	}
+	.pSum input:nth-of-type(2){
+		display:none;
+	}
+	.totalPrice .conSum,.totalPrice .confir,.totalPrice .refuse{
+		display:block;
+		float:right;
+		text-align:center;
+		color:#fff;
+		font-size:0.32rem;
+		width:2.4rem;
+		height:1rem;
+		
+	}
+	.totalPrice .conSum,.totalPrice .confir{
+		background:#ff9973;
+	}
+	.totalPrice .refuse{
+		background:#586897;
+	}
+	
+	
+/*弹出框显示附件的图片*/
+
+.mutailImg{
+	position: fixed; 
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,1); 
+	top:0;
+	display:none;
+}
+.mutailImg .title{
+	height:0.8rem;
+	border-bottom: 1px solid #eee;
+}
+
+.mutailImg .title p{
+	width:100%;
+	text-align: center;
+	background:#fff;
+	height:0.8rem;
+	line-height:0.8rem;
+	font-size:0.36rem;
+}
+.mutailImg .title span{
+	position:absolute;
+	display:block;
+	height:0.8rem;
+	width:0.8rem;
+	text-align: center;
+	line-height: 0.8rem;
+	font-size:0.4rem;
+	right:0;
+	top:0;
+	background:url(../images/dell.png) no-repeat;
+	background-size:100% 100%;
+}
+.mutailImg .img{
+	width:100%;
+	height:100%;
+}
+.mutailImg .img img{
+	width:100%;
+	height:100%;
+}

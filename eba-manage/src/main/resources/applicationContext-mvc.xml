@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	   default-lazy-init="true">
+
+	<context:property-placeholder location="classpath*:/utlz-manage.properties" ignore-resource-not-found="true" ignore-unresolvable="true" />
+
+	<context:component-scan base-package="com.microBusiness" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+			<ref bean="messageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/login/plugin_notify/**" />
+			<mvc:exclude-mapping path="/payment/plugin_notify/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<mvc:exclude-mapping path="/api/**" />
+			<mvc:exclude-mapping path="/shop/member/**" />
+			<!--排除token校验-->
+			<mvc:exclude-mapping path="/ass/**" />
+
+			<mvc:exclude-mapping path="/openapi/**" />
+			<bean class="com.microBusiness.manage.interceptor.TokenInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<mvc:exclude-mapping path="/shop/member/**" />
+
+			<mvc:exclude-mapping path="/openapi/**" />
+
+			<bean class="com.microBusiness.manage.interceptor.ValidateInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/**" />
+			<mvc:mapping path="/order/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="com.microBusiness.manage.interceptor.MemberInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/register/**" />
+			<mvc:mapping path="/login/**" />
+			<mvc:mapping path="/logout.jhtml" />
+			<mvc:mapping path="/cart/**" />
+			<mvc:mapping path="/order/**" />
+			<mvc:exclude-mapping path="/cart/quantity.jhtml" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="com.microBusiness.manage.interceptor.CartQuantityInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:mapping path="/member/**" />
+			<mvc:mapping path="/order/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<property name="cacheSeconds" value="0" />
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+				<property name="entityManagerFactory" ref="entityManagerFactory" />
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="com.microBusiness.manage.interceptor.ListInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/adminlaod/goods/save.jhtml" />
+			<bean class="com.microBusiness.manage.interceptor.LogInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<bean class="com.microBusiness.manage.interceptor.MobileCrossOriginInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/shop/member/**" />
+			<bean class="com.microBusiness.manage.interceptor.ShopMemberInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/ass/customerRelation/getShare.jhtml" />
+			<mvc:mapping path="/ass/goods/getShare.jhtml" />
+			<mvc:mapping path="/ass/goods/findAssGoods.jhtml" />
+			<bean class="com.microBusiness.manage.interceptor.AssVisitInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+		</mvc:interceptor>
+
+
+		<mvc:interceptor>
+			<mvc:mapping path="/openapi/**" />
+			<bean class="com.microBusiness.manage.interceptor.SignValidateInterceptor" />
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+	<!--4.2版本后支持跨域设置-->
+	<!--<mvc:cros>
+		<mvc:mapping path="/api/**" />
+	</mvc:cros>-->
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<bean id="messageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json; charset=UTF-8</value>
+				<value>text/html; charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="objectMapper">
+			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+				<property name="serializerProvider">
+					<bean class="com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl">
+						<property name="nullValueSerializer">
+							<bean class="com.microBusiness.manage.NullJsonToEmptyStr"></bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- 增加移动端支持-->
+	<bean id="liteDeviceDelegatingViewResolver" class="org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver">
+		<constructor-arg>
+			<bean id="viewResolver" class="com.microBusiness.manage.FreeMarkerViewResolver">
+				<property name="contentType" value="text/html; charset=UTF-8" />
+				<property name="suffix" value="${template.suffix}" />
+			</bean>
+		</constructor-arg>
+		<!--mobile 的请求走这里 view 后缀 -->
+		<property name="mobileSuffix" value="_mobile" />
+		<!-- ipad 等支持-->
+		<property name="tabletSuffix" value="_table"/>
+		<property name="enableFallback" value="true"/>
+	</bean>
+
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<!-- 让Device支持在注解的controller中使用 -->
+			<bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+
+</beans>
