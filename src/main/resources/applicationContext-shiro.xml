@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	default-lazy-init="true">
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/admin/login.jhtml" />
+		<property name="successUrl" value="/admin/common/deviceOauth.jhtml" />
+		<property name="unauthorizedUrl" value="/admin/common/unauthorized.jhtml" />
+		<property name="filterChainDefinitionMap">
+			<map>
+				<entry key="/admin/" value="anon" />
+				<entry key="/admin/index.jsp" value="anon" />
+				<entry key="/admin/notice/check.jhtml" value="anon" />
+				<entry key="/admin/registered/**" value="anon" />
+				<entry key="/admin/login.jhtml" value="authc" />
+				<entry key="/admin/certification/**" value="authc" />
+				<entry key="/admin/logout.jhtml" value="logout" />
+				<entry key="/admin/common/captcha.jhtml" value="anon" />
+				<entry key="/admin/common/noAuthority.jhtml" value="authc"/>
+				<entry key="/admin/common/mobileOauthCheck.jhtml" value="authc" />
+
+				<entry key="/admin/common/captcha.jhtml" value="anon" />
+				<entry key="/admin/retrievePassword/**" value="anon"/>
+				<!--<entry key="/admin/goods/**" value="perms[admin:goods]" />-->
+
+				<!-- 首页 -->
+				<entry key="/admin/homePage/**" value="perms[admin:homePage]" />
+				
+				<!-- 商品 -->
+				<!--<entry key="/admin/goods/list.jhtml" value="perms[admin:goods:list]" />-->
+				<entry key="/admin/goods/add.jhtml" value="perms[admin:goods:add]" />
+				<entry key="/admin/goods/edit.jhtml" value="perms[admin:goods:edit]" />
+				<entry key="/admin/goods/delete.jhtml" value="perms[admin:goods:delete]" />
+				<entry key="/admin/goods/importMore.jhtml" value="perms[admin:goods:importMore]" />
+				
+				<entry key="/admin/goodsCenter/add.jhtml" value="perms[admin:goods:add]" />
+				<entry key="/admin/goodsCenter/edit.jhtml" value="perms[admin:goods:edit]" />
+				<entry key="/admin/goodsCenter/delete.jhtml" value="perms[admin:goods:delete]" />
+				<entry key="/admin/goodsCenter/importMore.jhtml" value="perms[admin:goods:importMore]" />
+				
+				<!-- 规格 -->
+				<!--<entry key="/admin/specification/**" value="perms[admin:specification]" />-->
+				<entry key="/admin/specification/add.jhtml" value="perms[admin:specification:add]" />
+				<entry key="/admin/specification/edit.jhtml" value="perms[admin:specification:edit]" />
+				<entry key="/admin/specification/delete.jhtml" value="perms[admin:specification:delete]" />
+				
+				<!-- 分类 -->
+				<!--<entry key="/admin/product_category/**" value="perms[admin:productCategory]" />-->
+				<entry key="/admin/product_category/add.jhtml" value="perms[admin:productCategory:add]" />
+				<entry key="/admin/product_category/edit.jhtml" value="perms[admin:productCategory:edit]" />
+				<entry key="/admin/product_category/delete.jhtml" value="perms[admin:productCategory:delete]" />
+				
+				<!-- 个体客户 -->
+				<!--<entry key="/admin/need/**" value="perms[admin:need]" />	-->
+				<entry key="/admin/need/add.jhtml" value="perms[admin:need:add]" />
+				<entry key="/admin/need/edit.jhtml" value="perms[admin:need:edit]" />
+				<entry key="/admin/need/delete.jhtml" value="perms[admin:need:delete]" />
+				<!-- 暂停/启用个体客户 -->
+				<entry key="/admin/need/updateneedStatus.jhtml" value="perms[admin:need:updateneedStatus]" />
+				<!-- 个体客户导入 -->
+				<entry key="/admin/need/importMore.jhtml" value="perms[admin:need:importMore]" />
+				
+				<!-- 正式供应 -->
+				<!--<entry key="/admin/formalSupply/**" value="perms[admin:formalSupply]" />-->
+				<entry key="/admin/formalSupply/add.jhtml" value="perms[admin:formalSupply:add]" />
+				<!-- 查看 -->
+				<entry key="/admin/formalSupply/view.jhtml" value="perms[admin:formalSupply:view]" />
+				<entry key="/admin/formalSupply/edit.jhtml" value="perms[admin:formalSupply:edit]" />
+				<entry key="/admin/formalSupply/delete.jhtml" value="perms[admin:formalSupply:delete]" />
+				<!-- 暂停/启用供应 -->
+				<entry key="/admin/formalSupply/updateStatus.jhtml" value="perms[admin:formalSupply:updateStatus]" />
+				
+				<!-- 个体供应 -->
+				<entry key="/admin/needSupply/add.jhtml" value="perms[admin:needSupply:add]" />
+				<!-- 查看 -->
+				<entry key="/admin/needSupply/view.jhtml" value="perms[admin:needSupply:view]" />
+				<entry key="/admin/needSupply/edit.jhtml" value="perms[admin:needSupply:edit]" />
+				<entry key="/admin/needSupply/delete.jhtml" value="perms[admin:needSupply:delete]" />
+				<entry key="/admin/needSupply/batchAddIndex.jhtml" value="perms[admin:needSupply:batchAddIndex]" />
+				
+				<!-- 流水供应 -->
+				<entry key="/admin/turnoverSupply/**" value="perms[admin:turnoverSupply]" />
+				
+				<!-- 供应分配 -->
+				<!-- <entry key="/admin/supplyDistribution/**" value="perms[admin:supplyDistribution]" /> -->
+				<!-- 查看 -->
+				<entry key="/admin/supplyDistribution/view.jhtml" value="perms[admin:supplyDistribution:view]" />
+				<!-- 收货点分配商品 -->
+				<entry key="/admin/supplyDistribution/distributionList.jhtml" value="perms[admin:supplyDistribution:distributionList]" />
+				
+				<!-- 供应商管理-->
+				<!--<entry key="/admin/supplierRelation/**" value="perms[admin:supplierRelation]" /> -->
+				<entry key="/admin/supplierRelation/edit.jhtml" value="perms[admin:supplierRelation:edit]" />
+				
+				<!-- 订货单 -->
+				<!--<entry key="/admin/order/**" value="perms[admin:order]" />-->
+				<!-- 批量打印订货单 -->
+				<entry key="/admin/print/orderBatchPrint.jhtml" value="perms[admin:print:orderBatchPrint]" />
+				<!-- 批量审核 -->
+				<entry key="/admin/order/checkBatchReview.jhtml" value="perms[admin:order:checkBatchReview]" />
+				<!-- 导出 -->
+				<entry key="/admin/order/getOut*.jhtml" value="perms[admin:order:getOut]" />
+				<!-- 订货单打印 -->
+				<entry key="/admin/print/order.jhtml" value="perms[admin:print:order]" />
+				<!-- 订单审核 -->
+				<entry key="/admin/order/review.jhtml" value="perms[admin:order:review]" />
+				<!-- 订单修改 -->
+				<entry key="/admin/order/updateItems.jhtml" value="perms[admin:order:updateItems]" />
+				<!-- 订单发货 -->
+				<entry key="/admin/order/shipping.jhtml" value="perms[admin:order:shipping]" />
+				<!-- 订单用户申请 -->
+				<entry key="/admin/order/applyCancel.jhtml" value="perms[admin:order:applyCancel]" />
+				<!-- 订单取消 -->
+				<entry key="/admin/order/cancel.jhtml" value="perms[admin:order:cancel]" />
+				<!-- 订单完成 -->
+				<entry key="/admin/order/complete.jhtml" value="perms[admin:order:complete]" />
+				<!-- 订单备注 -->
+				<entry key="/admin/order/addRemarks.jhtml" value="perms[admin:order:addRemarks]" />
+				<!-- 发货单打印 -->
+				<entry key="/admin/print/orderShippingInfo.jhtml" value="perms[admin:print:orderShippingInfo]" />
+				<!-- 发货单作废 -->
+				<entry key="/admin/order/cancelShipped.jhtml" value="perms[admin:order:cancelShipped]" />
+				
+				<!-- 分销单 -->
+				<!--<entry key="/admin/distributionOrder/**" value="perms[admin:distributionOrder]" />-->
+				<!-- 分销单打印 -->
+				<entry key="/admin/print/distributionOrder.jhtml" value="perms[admin:print:distributionOrder]" />
+				<!-- 批量审核 -->
+				<entry key="/admin/distributionOrder/checkBatchReview.jhtml" value="perms[admin:distributionOrder:checkBatchReview]" />
+				<!-- 导出 -->
+				<entry key="/admin/distributionOrder/getOut*.jhtml" value="perms[admin:distributionOrder:getOut]" />
+				<!-- 订单审核 -->
+				<entry key="/admin/distributionOrder/review.jhtml" value="perms[admin:distributionOrder:review]" />
+				<!-- 订单用户申请 -->
+				<entry key="/admin/distributionOrder/applyCancel.jhtml" value="perms[admin:distributionOrder:applyCancel]" />
+				<!-- 订单取消 -->
+				<entry key="/admin/distributionOrder/cancel.jhtml" value="perms[admin:order:cancel]" />
+				
+				<!-- 采购单 -->
+				<!--<entry key="/admin/ownOrder/**" value="perms[admin:ownOrder]" />-->
+				<!-- 批量打印采购单 -->
+				<entry key="/admin/print/verificationDeliveryInfo.jhtml" value="perms[admin:print:verificationDeliveryInfo]" />
+				<!-- 收货点代下单 -->
+				<entry key="/admin/ownOrder/add.jhtml" value="perms[admin:ownOrder:add]" />
+				<!-- 多地址代下单 -->
+				<entry key="/admin/ownOrder/addMore.jhtml" value="perms[admin:ownOrder:addMore]" />
+				<!-- 导出 -->
+				<entry key="/admin/ownOrder/getOut*.jhtml" value="perms[admin:ownOrder:getOut]" />
+				<!-- 采购单打印 -->
+				<entry key="/admin/print/purchaseorder.jhtml" value="perms[admin:print:purchaseorder]" />
+				<!-- 修改 -->
+				<entry key="/admin/ownOrder/updateItems.jhtml" value="perms[admin:ownOrder:updateItems]" />
+				<!-- 取消申请 -->
+				<entry key="/admin/ownOrder/applicationCancel.jhtml" value="perms[admin:ownOrder:applicationCancel]" />
+				<!-- 订单备注 -->
+				<entry key="/admin/ownOrder/addRemarks.jhtml" value="perms[admin:ownOrder:addRemarks]" />
+				<!-- 发货单打印 -->
+				<entry key="/admin/print/deliveryInfor.jhtml" value="perms[admin:print:deliveryInfor]" />
+				
+				<!-- 代下单 -->
+				<!-- 个体客户代下单 -->
+				<entry key="/admin/proxyOrder/individualAdd.jhtml" value="perms[admin:proxyOrder:individualAdd]" />
+				<!-- 流水客户代下单 -->
+				<entry key="/admin/proxyOrder/multipleAdd.jhtml" value="perms[admin:proxyOrder:multipleAdd]" />
+				
+				
+				<!-- 客户管理 -->
+				<!--<entry key="/admin/customerRelation/**" value="perms[admin:customerRelation]" />-->
+				<entry key="/admin/customerRelation/add.jhtml" value="perms[admin:customerRelation:add]" />
+				<entry key="/admin/customerRelation/edit.jhtml" value="perms[admin:customerRelation:edit]" />
+				<entry key="/admin/customerRelation/delete.jhtml" value="perms[admin:customerRelation:delete]" />
+				
+				<!-- 助手供应商 -->
+				<entry key="/admin/assCustomerRelation/add.jhtml" value="perms[admin:assCustomerRelation:add]" />
+				<entry key="/admin/assCustomerRelation/edit.jhtml" value="perms[admin:assCustomerRelation:edit]" />
+				<entry key="/admin/assCustomerRelation/delete.jhtml" value="perms[admin:assCustomerRelation:delete]" />
+
+				<!-- 订单报表 -->
+				<entry key="/admin/orderReport/index.jhtml" value="perms[admin:orderReport:orderList]" />
+				<entry key="/admin/orderReport/purchaseFormIndex.jhtml" value="perms[admin:orderReport:purchaseList]" />
+				
+				<entry key="/admin/orderReport/orderList.jhtml" value="perms[admin:orderReport:orderList]" />
+				<entry key="/admin/orderReport/purchaseList.jhtml" value="perms[admin:orderReport:purchaseList]" />
+				
+				<!-- 客户报表 -->
+				<entry key="/admin/customerReport/**" value="perms[admin:customerReport]" />
+				
+				<!-- 商品报表 -->
+				<entry key="/admin/commodityReport/index.jhtml" value="perms[admin:commodityReport:orderForm]" />
+				<entry key="/admin/commodityReport/orderForm.jhtml" value="perms[admin:commodityReport:orderForm]" />
+				
+				<entry key="/admin/commodityReport/supplyIndex.jhtml" value="perms[admin:commodityReport:purchaseOrder]" />
+				<entry key="/admin/commodityReport/purchaseOrder.jhtml" value="perms[admin:commodityReport:purchaseOrder]" />
+				
+				<!-- 员工管理 -->
+				<!--<entry key="/admin/admin/**" value="perms[admin:admin]" /> -->
+				<entry key="/admin/admin/add.jhtml" value="perms[admin:admin:add]" />
+				<entry key="/admin/admin/edit.jhtml" value="perms[admin:admin:edit]" />
+				<entry key="/admin/admin/delete.jhtml" value="perms[admin:admin:delete]" />
+				
+				<!-- 消息通知 -->
+				<!--<entry key="/admin/notice/**" value="perms[admin:notice]" />-->
+				<entry key="/admin/notice/add.jhtml" value="perms[admin:notice:add]" />
+				<entry key="/admin/notice/delete.jhtml" value="perms[admin:notice:delete]" />
+				<!-- 编辑订货单通知 -->
+				<entry key="/admin/notice/orderNotice.jhtml" value="perms[admin:notice:orderNotice]" />
+				<!-- 编辑采购单通知 -->
+				<entry key="/admin/notice/purchaseNotice.jhtml" value="perms[admin:notice:purchaseNotice]" />
+
+				<!-- 部门相关 -->
+				<entry key="/admin/department/add.jhtml" value="perms[admin:department:add]" />
+				<entry key="/admin/department/edit.jhtml" value="perms[admin:department:edit]" />
+				<entry key="/admin/department/delete.jhtml" value="perms[admin:department:delete]" />
+
+				<!-- 角色 -->
+				<!--<entry key="/admin/role/**" value="perms[admin:role]" />-->
+				<entry key="/admin/role/add.jhtml" value="perms[admin:role:add]" />
+				<entry key="/admin/role/edit.jhtml" value="perms[admin:role:edit]" />
+				<entry key="/admin/role/delete.jhtml" value="perms[admin:role:delete]" />
+
+
+				<entry key="/admin/goodsCenter/**" value="perms[admin:goodsCenter]" />
+				<entry key="/admin/stock/**" value="perms[admin:stock]" />
+				<entry key="/admin/parameter/**" value="perms[admin:parameter]" />
+				<entry key="/admin/attribute/**" value="perms[admin:attribute]" />
+				<entry key="/admin/brand/**" value="perms[admin:brand]" />
+				<entry key="/admin/product_notify/**" value="perms[admin:productNotify]" />
+
+				<entry key="/admin/payment/**" value="perms[admin:payment]" />
+				<entry key="/admin/refunds/**" value="perms[admin:refunds]" />
+				<entry key="/admin/shipping/**" value="perms[admin:shipping]" />
+				<entry key="/admin/returns/**" value="perms[admin:returns]" />
+				<entry key="/admin/delivery_center/**" value="perms[admin:deliveryCenter]" />
+				<entry key="/admin/delivery_template/**" value="perms[admin:deliveryTemplate]" />
+
+				<entry key="/admin/member/**" value="perms[admin:member]" />
+				<entry key="/admin/member_rank/**" value="perms[admin:memberRank]" />
+				<entry key="/admin/member_attribute/**" value="perms[admin:memberAttribute]" />
+				<entry key="/admin/point/**" value="perms[admin:point]" />
+				<entry key="/admin/deposit/**" value="perms[admin:deposit]" />
+				<entry key="/admin/review/**" value="perms[admin:review]" />
+				<entry key="/admin/consultation/**" value="perms[admin:consultation]" />
+				<entry key="/admin/message_config/**" value="perms[admin:messageConfig]" />
+
+				<entry key="/admin/navigation/**" value="perms[admin:navigation]" />
+				<entry key="/admin/article/**" value="perms[admin:article]" />
+				<entry key="/admin/article_category/**" value="perms[admin:articleCategory]" />
+				<entry key="/admin/tag/**" value="perms[admin:tag]" />
+				<entry key="/admin/friend_link/**" value="perms[admin:friendLink]" />
+				<entry key="/admin/ad_position/**" value="perms[admin:adPosition]" />
+				<entry key="/admin/ad/**" value="perms[admin:ad]" />
+				<entry key="/admin/template/**" value="perms[admin:template]" />
+				<entry key="/admin/theme/**" value="perms[admin:theme]" />
+				<entry key="/admin/cache/**" value="perms[admin:cache]" />
+				<entry key="/admin/static/**" value="perms[admin:static]" />
+				<entry key="/admin/index/**" value="perms[admin:index]" />
+
+				<entry key="/admin/promotion/**" value="perms[admin:promotion]" />
+				<entry key="/admin/coupon/**" value="perms[admin:coupon]" />
+				<entry key="/admin/seo/**" value="perms[admin:seo]" />
+				<entry key="/admin/sitemap/**" value="perms[admin:sitemap]" />
+
+				<entry key="/admin/statistics/**" value="perms[admin:statistics]" />
+				<entry key="/admin/member_statistic/**" value="perms[admin:memberStatistic]" />
+				<entry key="/admin/order_statistic/**" value="perms[admin:orderStatistic]" />
+				<entry key="/admin/member_ranking/**" value="perms[admin:memberRanking]" />
+				<entry key="/admin/goods_ranking/**" value="perms[admin:goodsRanking]" />
+
+				<entry key="/admin/setting/**" value="perms[admin:setting]" />
+				<entry key="/admin/area/**" value="perms[admin:area]" />
+				<entry key="/admin/payment_method/**" value="perms[admin:paymentMethod]" />
+				<entry key="/admin/shipping_method/**" value="perms[admin:shippingMethod]" />
+				<entry key="/admin/freight_config/**" value="perms[admin:shippingMethod]" />
+				<entry key="/admin/delivery_corp/**" value="perms[admin:deliveryCorp]" />
+				<entry key="/admin/payment_plugin/**" value="perms[admin:paymentPlugin]" />
+				<entry key="/admin/storage_plugin/**" value="perms[admin:storagePlugin]" />
+				<entry key="/admin/login_plugin/**" value="perms[admin:loginPlugin]" />
+				
+				<entry key="/admin/message/**" value="perms[admin:message]" />
+				<entry key="/admin/log/**" value="perms[admin:log]" />
+
+				<!--临时收货点管理权限-->
+				<entry key="/admin/temporary/**" value="perms[admin:temporary]" />
+
+				<entry key="/admin/supplier/**" value="perms[admin:supplier]" />
+				<entry key="/admin/recommendSupplier/**" value="perms[admin:recommendSupplier]" />
+				<!-- 企业信息 -->
+				<entry key="/admin/enterpriseInfo/**" value="perms[admin:enterpriseInfo]" />
+				<!-- 订单设置 -->
+				<entry key="/admin/orderSetting/**" value="perms[admin:orderSetting]" />
+				<!--商流分类管理-->
+				<entry key="/admin/common_category/**" value="perms[admin:commonCategory]" />
+
+				<!--供应审核-->
+				<entry key="/admin/supplyCheck/**" value="perms[admin:supplyCheck]" />
+				<!--采购审核-->
+				<entry key="/admin/purchaseCheck/**" value="perms[admin:purchaseCheck]" />
+
+				<!-- 分销设置 -->
+				<entry key="/admin/systemSetting/**" value="perms[admin:systemSetting]" />
+				
+				<!-- 订货助理 -->
+				<!-- 商品目录 -->
+				<!--
+				<entry key="/admin/ass/goodDirectory/**" value="perms[admin:goodDirectory]" />
+				-->
+				<entry key="/admin/ass/goodDirectory/add.jhtml" value="perms[admin:goodDirectory:add]" />
+				<entry key="/admin/ass/goodDirectory/edit.jhtml" value="perms[admin:goodDirectory:edit]" />
+				<entry key="/admin/ass/goodDirectory/delete.jhtml" value="perms[admin:goodDirectory:delete]" />
+				<!-- 分享统计 -->
+				<entry key="/admin/ass/shareStatistics/**" value="perms[admin:shareStatistics]" />
+				<!-- 清单统计 -->
+				<entry key="/admin/ass/listStatistics/**" value="perms[admin:listStatistics]" />
+
+				<entry key="/admin/**" value="authc" />
+			</map>
+		</property>
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="authenticationFilter" />
+				<entry key="logout" value-ref="logoutFilter" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="authenticationRealm" />
+		<property name="cacheManager" ref="shiroCacheManager" />
+	</bean>
+
+	<bean id="authenticationRealm" class="com.microBusiness.manage.AuthenticationRealm">
+		<property name="authorizationCacheName" value="authorization" />
+	</bean>
+
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+
+	<bean id="authenticationFilter" class="com.microBusiness.manage.filter.AuthenticationFilter" />
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+
+	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+		<property name="redirectUrl" value="/admin" />
+	</bean>
+
+</beans>

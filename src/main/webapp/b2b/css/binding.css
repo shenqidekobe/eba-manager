@@ -1,0 +1,136 @@
+html,body{
+	width:100%;
+	height:100%;
+	background:url(../images/sybj_icon.jpg);
+	background-size:100% 100%;
+}
+
+.logo{
+	width:100%;
+	text-align: center;
+	padding-top:0.8rem;
+}
+.logo img{
+	width:2.9rem;
+	display:block;
+	margin:0 auto;
+	margin-bottom:0.3rem;
+}
+.logo img:nth-of-type(1){
+	height:2.9rem;
+}
+.logo img:nth-of-type(2){
+	height:1.16rem;
+}
+.blingding{
+    /*background:#fff;*/
+    /*padding: 0.6rem 0;*/
+}
+.blingding li{
+    width: 80%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    margin:0 auto;
+    margin-bottom: 0.4rem;
+}
+.blingding li input{
+    width: 60%;
+    padding-left:0.25rem;
+    color: #586897;
+    height: 0.78rem;
+}
+::-webkit-input-placeholder{ /* WebKit browsers */
+　　color:#b6c5dc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#b6c5dc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#b6c5dc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:#b6c5dc;
+}
+.blingding li:nth-child(1){
+	height:0.3rem;
+    line-height: 0.3rem;
+    color: #fff;
+    font-size: 0.3rem;
+    text-align: left;
+}
+.blingding li:nth-child(2){
+    background: #fff url(../images/sj_icon.png)right center no-repeat;
+    background-size: 10%;
+    border:1px solid #b6c5dc;
+    
+}
+.blingding li:nth-child(3){
+    border:1px solid #b6c5dc;
+    background:#fff;
+}
+.blingding li:nth-child(3)input{
+    width: 55%!important;
+    float: left;
+}
+.blingding .yzm .yzm_name{
+    width: 55%;
+    float: left;
+    height: 0.8rem;
+    /*margin-top: 0.01rem;*/
+}
+.blingding li .yzm_djs{
+    display: inline-block;
+    width: 40%;
+    float: right;
+    color: #FFF;
+    background:#b6c5dc;
+    height: 0.8rem;
+    text-align: center;
+    font-size:0.26rem;
+    padding-left:0rem;
+}
+.blingding li:nth-child(4){
+    background: #ff9974;
+    border:1px solid #ff9974;
+}
+.blingding li a{
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.3rem;
+}
+
+/*弹出提示*/
+.loginTest{
+	width: 75%;
+    margin: 1rem auto;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 0.08rem;
+    height: 0.6rem;
+    font-size: 0.32rem;
+    line-height: 0.6rem;
+	display:none;
+}
+
+.active{
+	display:block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

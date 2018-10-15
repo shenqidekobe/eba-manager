@@ -1,0 +1,199 @@
+*{
+		margin:0;padding:0;
+	}
+		.pageView{
+			width:calc(100% - 30px);
+			padding:15px;
+			background:#eee;
+		}
+		.conView{
+			background:#fff;
+		}
+		.header{
+			width:100%;
+			height:300px;
+			position:relative;
+			color:#fff;
+			background:url(../images/haibao-bg.png) no-repeat;
+			background-size:100% 100%;
+		}
+		.title{
+			width:100%;
+			position:absolute;
+			left:0;
+			top:0;
+			text-align:center;
+			line-height:190px;
+			font-size:50px
+		}
+		.theme{
+			width:100%;
+			position:absolute;
+			left:0;
+			top:170px;
+			text-align:center;
+			font-size:46px
+		}
+		.textView{
+			font-size:38px;
+			width:calc(100% - 40px);
+			padding:40px 20px; 
+			color:#333;
+		}
+		.textView p:nth-of-type(1){
+			text-indent: 73px;
+		}
+		.goodsView{
+			width:calc(100% - 40px);
+			overflow:hidden;
+			padding:30px 20px;
+		}
+		.goodsLi{
+			width:calc(33% - 10px);
+			float:left;
+			box-sizing: border-box;
+			margin-right:20px;
+			border:1px solid #eee;
+			margin-bottom:20px;
+			border-radius: 10px;
+			overflow: hidden;
+		}
+		.goodsLi:nth-of-type(3n){
+			margin-right:0;
+		}
+		.goodsImg{
+			width:100%;
+			position: relative;
+			overflow: hidden;
+		}
+		.goodsImg:before{
+			content: "";
+			width:100%;
+		    display: block;
+		    padding-top: 100%;
+		}
+		.goodsImg img{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+		}
+		.goodsName{
+			width:100%;
+			height:100px;
+			background:#eee;
+			line-height:100px;
+			text-align: center;
+			font-size:34px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			color:#333;
+		}
+		.liNine{
+			text-align: center;
+			position:relative;
+		}
+		.liNine:before{
+			content: "";
+		    display: block;
+		    padding-top: calc(100% + 100px);
+		}
+		.gengduoDiv{
+			width:100%;
+			height:100%;
+			position:absolute;
+			left:0;
+			top:0;
+			color:#333;
+		}
+		.jiange{
+			width:100%;
+			height:160px;
+		}
+		.gengduoDiv img{
+			width:60px;
+			height:60px;
+		}
+		.gengduoText{
+			width:100%;
+			font-size:36px;
+		}
+		.codeDiv{
+			width:calc(100% - 40px);
+			padding:60px 20px;
+			margin-bottom:40px;
+			position: relative;
+		}
+		.codeText{
+			line-height: 80px;
+			font-size:40px;
+			text-indent: 50px;
+			color:#333;
+		}
+		.codeDiv img{
+			position:absolute;
+			width:240px;
+			height:240px;
+			top:40px;
+			right:80px;
+		}
+		.cardDiv{
+			width:100%;
+			height:300px;
+			background:#fafafa;
+			border-top:1px dashed #eee;
+			position:relative;
+			color:#333;
+		}
+		.infoDiv{
+			padding:40px 0 30px 50px;
+			color:#333;
+		}
+		.infoDiv .name{
+			font-size:46px;
+			margin-right:50px;
+			color:#333;
+		}
+		.infoDiv .position{
+			font-size:42px;
+			color:#333;
+		}
+		.weixin{
+			width:80%;
+			margin-left:10%;
+			padding-left:8%;
+			height:70px;
+			background:url(../images/weixin.png) no-repeat left center;
+			background-size:44px;
+			line-height: 70px;
+			font-size:36px;
+		}
+		.phone{
+			width:80%;
+			margin-left:10%;
+			padding-left:8%;
+			height:70px;
+			background:url(../images/shouji.png) no-repeat left center;
+			background-size:44px;
+			line-height: 70px;
+			font-size:36px;
+		}
+		.cardDiv img{
+			width:300px;
+			position:absolute;
+			top:100px;
+			right:60px;
+		}
+		.footer{
+			width:100%;
+			line-height: 120px;
+			background:#eee;
+			text-align: center;
+			color:#bbb;
+			font-size:36px;
+		}
+		.timeP{
+			color:#dcdcdc;
+		}

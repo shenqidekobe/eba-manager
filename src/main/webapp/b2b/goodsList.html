@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>在线订货</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/shopping_cart.css">
+    <!--<link rel="stylesheet" href="css/myorder.css">-->
+    <link rel="stylesheet" href="css/goodsList.css">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+<div class="search">
+  <div class="searchOut">
+      <div class="input">
+          <a href="search.html"><input type="text" id="search" placeholder="搜索"></a>
+      </div>
+  </div>
+</div>
+
+<!--<h1><a href="js/generic/web/viewer.html">tiaozhuan</a></h1>-->
+
+<div class="twoSearchBox">
+	<div class="twoSearch">
+	  <div class="allType">全部分类</div>
+	  <div class="priceChoose">销量最高</div>
+	</div>
+	<div class="twoBottom goodsType">
+		<ul>
+			<!--<li class="activeBage">全部分类</li>
+			<li>西湖龙井</li>
+			<li>香飘飘</li>
+			<li>康师傅</li>
+			<li>携程</li>
+			<li>绿茶</li>-->
+		</ul>
+	</div>
+	<div class="twoBottom goodsPrice">
+		<ul>
+			<li  class="activeBage" idNum="desc">销量最高</li>
+			<li  idNum="asc">销量最低</li>
+			<!--<li>评价最高</li>
+			<li>优惠最多</li>-->
+		</ul>
+	</div>
+</div>
+
+
+
+
+<ul class="company goodsListUl">
+    <!--<li class="product">
+        <div class="img lf">
+            <img src="images/22.png" alt="">
+        </div>
+        <div class="detail lf">
+            <p class="title2">德国Aptamil爱他美白金版奶粉1段（新包装）</p>
+            <p class="jieshao">香飘飘飘满地球500圈</p>
+            <p class="size"><span>库存充足</span><span>又乐供应</span></p>
+            <div class="price_num">
+                <div class="goodsnum num2 rf">
+                    <button type="button" class="minus">-</button>
+                    <input type="text" value="1";/>
+                    <button type="button" class="plus">+</button>
+                </div>
+            </div>
+        </div>
+    </li>-->
+  <!--<li class="product">
+      <div class="production_box">
+          <div class="production">
+              <div class="img lf">
+                  <img src="images/22.png" alt="">
+              </div>
+              <div class="detail lf">
+                  <p class="title2">德国Aptamil爱他美白金版奶粉1段（新包装）</p>
+                  <p class="jieshao">香飘飘飘满地球500圈</p>
+                  <p class="size"><span>2013年茶</span><span>过期了</span></p>
+                  <div class="price_num">
+                       <div class="price2 lf">
+                          ￥<span>248.11</span>
+                      </div> 
+                      <a class="choose1 cd-popup-trigger2" href="javascript:0;">选规格</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </li>-->
+</ul>
+
+<!-- 底部结算 -->
+<div class="totalPrice">
+    <span class="icon">
+    	<a href="shoppingCart.html"><span class="num">0</span></a>
+    </span>
+     <!-- <span class="sum">￥168.00</span> -->
+    <a class="account">结算</a>
+</div>
+
+<!-- 弹出商品规格选择 -->
+<div class="cd-popup2">
+    <div class="cd-popup-container2">
+        <div class="con clearfix">
+            <div class="left">
+                <img src="images/mr_icon.png" alt="">
+            </div>
+            <div class="right">
+                <p class="product_name2"></p>
+                <p class="product_intro2"></p>
+                <p class="product_tip2">
+                	<!--<span></span><span></span>-->
+                </p>
+                <p class="product_price2">
+                	<!--<span class="price">￥168.00</span>-->
+                </p>
+            </div>
+        </div>
+        <div class="modelType">
+        	<p class="rule">选择规格</p>
+        	<ul class="modelTypeUl">
+        		<!--<li>2014年L</li>-->
+        	</ul>
+        </div>
+        
+        <div class="add">
+            <span class="buyNum">购买数量</span>
+            <div class="goodsnum num2 rf">
+              <button type="button" class="minus">-</button>
+                <input type="text" value="1" />
+              <button type="button" class="plus">+</button>
+            </div>
+        </div>
+        <a href="###" class="addCart">加入购物车</a>
+        <a href="#0" class="cd-popup-close"></a>
+    </div>
+</div>
+<p class="pageRemind"></p>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/others/public.js"></script>
+<script src="js/adaptive.js"></script>	
+<script src="js/others/goodsList.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>iucheng-1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4FACFE" offset="0%"></stop>
+            <stop stop-color="#0088FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="8.12247257%" y1="48.5040737%" x2="105.648391%" y2="0%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.499377264" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M21.2700409,32.6985037 L19.1277748,27.7568911 C19.1529512,27.7056211 19.1815913,27.6543511 19.2067677,27.5993917 C20.2937866,25.4742343 21.5279163,23.0708191 27.8637759,23.6423581 C29.0190617,23.7485874 30.1491337,23.5543851 31.2254265,23.0670917 C31.2936561,23.0378054 31.3582359,23.0048298 31.4263166,22.9718542 C32.4022388,22.4955527 33.3350334,21.7737789 34.1925221,20.8285545 C35.5342848,19.3483419 36.7182106,17.2708792 37.4393889,15.1274654 C37.7156594,14.3104541 37.8950229,13.5557427 37.9667534,12.9401982 C38.0348341,12.3649318 38.0528598,11.5479586 37.4643792,11.159592 C37.2994288,11.0533626 36.714598,10.7527788 36.0149462,11.4232827 C35.9289888,11.5076804 35.8392325,11.591926 35.7567387,11.6761716 C33.9341284,13.445786 32.7323258,14.6108857 26.0448154,12.3173892 C24.2474187,11.6981554 22.4176949,11.4232827 20.6094977,11.4966885 C19.1637145,11.5552231 17.7250449,11.8373603 16.3436926,12.3356836 C14.4271037,13.0247013 13.1446866,13.9352725 12.6972309,14.2827844 C12.7829683,14.3660397 12.8551224,14.4661804 12.9082005,14.581183 L21.2700409,32.6985037 Z" id="path-3"></path>
+        <filter x="-9.9%" y="-11.5%" width="119.8%" height="123.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="-1" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M11.0922818,15.4192993 L23.0922818,41.4192993 C23.3237212,41.9207515 23.9178472,42.13964 24.4192993,41.9082005 C24.9207515,41.6767611 25.13964,41.0826351 24.9082005,40.581183 L12.9082005,14.581183 C12.6767611,14.0797309 12.0826351,13.8608423 11.581183,14.0922818 C11.0797309,14.3237212 10.8608423,14.9178472 11.0922818,15.4192993 Z" id="path-5"></path>
+        <filter x="-7.1%" y="-3.6%" width="114.3%" height="107.1%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="1" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iucheng-1">
+            <g id="1">
+                <circle id="Oval-8-Copy-9" fill="url(#linearGradient-1)" cx="25" cy="25" r="25"></circle>
+                <g id="Combined-Shape">
+                    <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                </g>
+                <g id="Path-3" fill-rule="nonzero">
+                    <use fill-opacity="0.900000036" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

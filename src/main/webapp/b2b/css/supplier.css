@@ -1,0 +1,90 @@
+
+
+.supHeader {
+	width:100%;
+	background:#fff;
+	height:0.8rem;
+	border-bottom:0.02rem solid #eee;
+}
+.supHeader>div{
+	width:49%;
+	height:0.8rem;
+	float:left;
+	
+}
+.supHeader .left{
+	border-right:1px solid #eee;
+}
+.supHeader>div>div{
+	width:1.8rem;
+	font-size:0.32rem;
+	color:#586897;
+	height:0.74rem;
+	line-height:0.74rem;
+	font-weight: 900;
+	text-align: center;
+	margin:0 auto;
+}
+.supHeader>div>div.supHeaderActive{
+	border-bottom:0.08rem solid #ff8874;
+	color:#ff8874;
+}
+
+
+.supplier{
+	background:#fff;
+	width:100%;
+	border-bottom:1px solid #eee;
+}
+
+.supplier li{
+	width:100%;
+	height:1.4rem;
+}
+.supplier li:nth-last-child(1) .right{
+	border:none;
+}
+.supplier li .left{
+	width:20%;
+	height:1.4rem;
+	float:left;
+	border-radius: 50%;
+}
+.supplier li .left .img{
+	width:0.8rem;
+	height:0.8rem;
+	border-radius: 50%;
+	margin:0.3rem 0 0 0.35rem;
+}
+.supplier li:nth-of-type(odd) .img{
+	background:url(../images/gysh_icon.png) no-repeat;
+	background-size:0.8rem 0.8rem;
+}
+.supplier li:nth-of-type(even) .img{
+	background:url(../images/gysl_icon.png) no-repeat;
+	background-size:0.8rem 0.8rem;
+}
+.supplier li .right{
+	float:left;
+	width:80%;
+	height:1.39rem;
+	line-height: 1.39rem;
+	color:#586897;
+	font-size:0.32rem;
+	font-weight:900;
+	border-bottom:1px solid #eee;
+	background:url(../images/jiantou.png) right center no-repeat;
+	background-size:0.6rem 0.6rem;
+}
+.supplierTip{
+	background: #F8F8F8;
+	border:none;
+	color: #586897;
+	font-size: 0.3rem;
+	text-align: center;
+	margin:5rem auto;
+	display: none;
+}
+
+
+

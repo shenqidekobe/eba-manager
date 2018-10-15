@@ -1,0 +1,379 @@
+.reg10 .dh-company-wrapper,.reg10 .dh-company-box .company-con,.reg10 .company-con .company-have
+,.reg10 .dh-company-box .company-supply,.reg10 .dh-company-box .company-need{
+    min-width: 1200px;
+}
+.dh-company-wrapper{
+    position: relative;
+    width:100%;
+    margin:0;
+    min-width: 990px;
+    overflow: hidden;
+    border-top: 2px solid #4DA1FF;
+    background-color: #f9f9f9;
+}
+.dh-company-box{
+    position: relative;
+    width:1920px;
+    top:0;
+    left:50%;
+    margin-left: -960px;
+    overflow: hidden;
+    z-index: 6;
+}
+.dh-company-box .company-con{
+    width: 990px;
+    min-width: 990px;
+    margin: 0 auto;
+    /*background-color: #fff;*/
+    box-sizing: border-box;
+}
+.company-con .company-have{
+    position: relative;
+    width:990px;
+    background-color: #fff;
+    top:0;
+}
+.company-con .company-box-img{
+    position: relative;
+    width:100%;
+    height:140px;
+    background: url("../images/qiyebg.jpg") no-repeat 50% 50%;
+    background-size: 100% 100%;
+    /*-webkit-filter: blur(3px);*/
+    /*-moz-filter: blur(3px);*/
+    /*-o-filter: blur(3px);*/
+    /*-ms-filter: blur(3px);*/
+    /*filter: blur(3px);*/
+}
+.company-con .company-detail{
+    position: relative;
+    width:100%;
+    height:auto;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+.company-con .company-logo{
+    position: absolute;
+    width: 123px;
+    height: 123px;
+    border-radius: 50%;
+    left:70px;
+    top:-60px;
+    overflow: hidden;
+    background: url(../images/moren.svg) 50% 50% no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    background-size: 50% 50%;
+    background-color: #fff;
+    border: 1px solid #EEEEEE;
+}
+.company-con .company-logo a{
+    display: inline-block;
+    width:120px;
+    height:120px;
+}
+.company-con .company-logo a img{
+    display: inline-block;
+    width:100%;
+    height:100%;
+    min-width: 120px;
+}
+.company-con .company-title{
+    position: absolute;
+    height:40px;
+    color: #fff;
+    left:220px;
+    top:-50px;
+}
+.company-con .company-title h5{
+    display: inline-block;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.company-con .company-title span{
+    display: inline-block;
+    line-height: 20px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: #7EC855;
+    border-radius: 3px;
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-family: 'MicroSoft YaHei';
+}
+.company-con .company-info{
+    height:90px;
+    padding:10px 0 0 210px;
+    border-bottom: 1px dashed #eee;
+    box-sizing: border-box;
+}
+.company-con .company-info p{
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    font-size: 13px;
+    color: #333;
+}
+.company-con .company-info p span i{
+    display: inline-block;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+.company-con .company-summary{
+    position: relative;
+    padding: 15px 0 5px 0;
+    overflow: hidden;
+}
+.company-con .company-le{
+    float: left;
+    width:210px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.company-con .company-ce{
+    float: left;
+    width:800px;
+}
+.company-con .company-ce .over-h{
+    font-size: 13px;
+    text-indent: 16px;
+    color: #333;
+}
+.company-con .company-ce .over-h{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+.company-con .summary-more{
+    position: relative;
+    float: left;
+    padding-left: 10px;
+    bottom: -36px;
+    font-size: 12px;
+    color: #4DA1FF;
+}
+.company-con .summary-more span{
+    display: inline-block;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.company-con .summary-more span i{
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 10px;
+}
+.dh-company-box .company-supply{
+    width: 990px;
+    min-width: 990px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+.dh-company-box .company-need{
+    width: 990px;
+    min-width: 990px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+.company-supply .supply-title {
+    width: 100%;
+    height: 38px;
+    border-bottom: 2px solid #4DA2FF;
+}
+.company-need .need-title {
+    width: 100%;
+    height: 38px;
+    border-bottom: 2px solid #FFA84E;
+    margin-top: 10px;
+}
+.company-supply .supply-name {
+    float: left;
+    width: 190px;
+    padding: 0 0 0 15px;
+    height: 38px;
+    background: #f9f9f9;
+    margin: -2px 0 0 0;
+    color: #4DA2FF;
+    font: bold 20px/38px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    border-bottom: 2px solid #4DA2FF;
+}
+.company-need .need-name {
+    float: left;
+    width: 190px;
+    padding: 0 0 0 15px;
+    height: 38px;
+    background: #f9f9f9;
+    margin: -2px 0 0 0;
+    color: #FFA84E;
+    font: bold 20px/38px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    border-bottom: 2px solid #FFA84E;
+}
+.company-supply .dh-more, .company-need .dh-more{
+    position: relative;
+    float: right;
+    padding: 0 5px;
+    height: 24px;
+    margin: 12px 10px 0 0;
+    color: #999;
+    text-decoration: none;
+    text-align: center;
+    font: 12px/24px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+    z-index: 2;
+}
+.company-supply .dh-more img {
+    display: inline-block;
+    margin-top: -2px;
+    margin-left: -4px;
+}
+.company-supply .dh-more i, .company-need .dh-more i {
+    width: 6px;
+    height: 9px;
+    margin-left: -2px;
+    font-weight: lighter;
+    color: #333;
+    font-size: 11px;
+}
+.company-supply .dh-more:hover span, .company-supply .dh-more:hover i {
+    color: #4DA2FF;
+}
+.company-need .dh-more:hover span, .company-need .dh-more:hover i {
+    color: #4DA2FF;
+}
+.company-supply .supply-box,.company-need .need-box{
+    width: 100%;
+    height:282px;
+    overflow: hidden;
+}
+.supply-box .container, .need-box .container{
+    padding: 0;
+}
+.supply-box .row,.need-box .row{
+    border:1px solid #EEEEEE;
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+.supply-box .col-md-2,.need-box .col-md-2{
+    padding: 0 7px;
+}
+.supply-box .supply-item,.need-box .need-item{
+    position: relative;
+    border: 1px solid #eee;
+}
+.supply-box .supply-item:hover,.need-box .need-item:hover{
+    border: 1px solid #4DA2FF;
+}
+.supply-box .supply-item .supply-pa,.need-box .need-item .need-pa{
+    padding: 1px 10px -1px;
+}
+.supply-box .supply-item a,.need-box .need-item a{
+    display: inline-block;
+    font-size: 13px;
+    width:100%;
+    white-space: normal;
+    height:38px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.supply-box .supply-item a.img-pa,.need-box .need-item a.img-pa{
+    display: inline-block;
+    font-size: 13px;
+    width:178px;
+    height:178px;
+}
+.supply-box .supply-item .foods-img,.need-box .need-item .foods-img {
+    display: block;
+    width: 178px;
+    height: 178px;
+    margin: 0 auto;
+    background: url(../images/moren.svg) 50% 50% no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    background-size: 50% 50%;
+    background-color: #fff;
+}
+.supply-box .supply-item .goods-title,.need-box .need-item .goods-title {
+    max-height: 60px;
+    /*margin: 5px 0;*/
+    overflow: hidden;
+    padding: 0 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*.supply-box .supply-item .goods-title a:hover,.need-box .need-item .goods-title a:hover {*/
+    /*color: #4DA2FF;*/
+    /*text-decoration: underline;*/
+/*}*/
+.supply-box .supply-item .goods-price, .need-box .need-item .goods-price{
+    color: #333;
+    vertical-align: top;
+    height: 22px;
+    overflow: hidden;
+    text-align: left;
+    padding: 0 10px;
+    font-size: 13px;
+}
+.supply-box .supply-item .goods-price span, .need-box .need-item .goods-price span{
+    color: #f60;
+    font-weight: 700;
+    vertical-align: top;
+    height: 22px;
+}
+.company-info .company-set {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    line-height: 27px;
+    right: -420px;
+    top:0;
+}
+.company-info .company-set span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    position: relative;
+    top: 0;
+    text-align: center;
+}
+.company-info .company-set span i {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 22px;
+    top: 5px;
+    left: 5px;
+    color: #5DA4F2;
+}
+.company-info .company-set span:hover {
+    border: 1px solid #4DA2FF;
+}
+.company-info .company-set span.company-collect {
+    left: 22px;
+}
+.company-info .company-set span:hover {
+    border: 1px solid #4DA2FF;
+}
+.company-info .company-set span.company-collect:hover i {
+    color: #FF5555;
+}
+.company-info .company-set span.company-weixin {
+    left: 1px;
+}
+.company-info .company-set span.company-collect i {
+    color: #999;
+}
+
+
+
+
+

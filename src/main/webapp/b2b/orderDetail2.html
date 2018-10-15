@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/orderdetails.css">
+    
+    <title>订单详情</title>
+</head>
+<body>
+<!-- 订单编号 -->
+<ul class="order_num">
+    <p class="state">待发货</p>
+    <!--<p class="state state2" style="display: none">已完成</p>
+    <p class="state state3" style="display: black">已取消</p>-->
+    <li class="num">
+    	<span class="name">订单编号：</span>
+        <span class="no">32342343243244</span>
+    </li>
+    <li class="time">
+    	<span class="name">下单时间：</span>
+        <span class="date">2343243243432</span>
+    </li>
+    
+</ul>
+<!-- 收货信息 -->
+<ul class="receiving_info takeGoodsInfo">
+    <p class="name">收货信息</p>
+    <li>
+        <span class="name2">门店名称</span>
+        <span class="detail sroreName"></span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">门店地址</span>
+        <span class="detail address"></span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">联系人</span>
+        <span class="detail contactName"></span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">手机号</span>
+        <span class="detail phone"></span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">收货时间</span>
+        <span class="detail appDate"></span>
+        <div class="clearfix"></div>
+    </li>
+   <li>
+        <span class="name2">留言</span>
+        <span class="detail message"></span>
+        <div class="clearfix"></div>
+    </li>
+</ul>
+<!--物流信息-->
+<div class="logisiticsInfo">
+	<p class="info">物流信息</p>
+	<!--<ul>
+		<li>
+			<span>物流公司</span>
+			<span class="logCompany">上海优递莱思</span>
+			<p>配送12</p>
+		</li>
+		<li>
+			<span>订单号</span>
+			<span class="logCode">23234423423</span>
+		</li>
+		<li class="twoCode">
+			<div class="content">
+				<div class="img">
+					<img src="images/twoCode.png" alt="" />
+				</div>
+				<p>向司机展示此二维码，扫描确认收货信息</p>
+				<span class="left"></span>
+				<span class="right"></span>
+			</div>
+		</li>
+		<li class="conButton">
+			<button type="button">带司机确认</button>
+		</li>
+	</ul>-->
+</div>
+
+
+<!-- 订单信息 -->
+<div class='orderAllInfo'>
+	<p class="name">订单信息</p>
+	<ul class="order_info">
+	    <!--<li>
+	        <img src="images/22.png" alt="">
+	        <ol class="detail">
+	            <p class="left">
+	                <span class="goodsName">贵州茅台</span>
+	                <span class="goodsTip"><span>陈酿</span><span>500年</span></span>
+	            </p>
+	            <p class="right">
+	                 <span class="price">￥<span>1465.00</span></span> 
+	                <span class="sum">×<span>3</span></span>
+	            </p>
+	        </ol>
+	        <div class="clearfix"></div>
+	    </li>
+	    <li>
+	        <img src="images/22.png" alt="">
+	        <ol class="detail">
+	            <p class="left">
+	                <span class="goodsName">贵州茅台</span>
+	                <span class="goodsTip"><span>陈酿</span><span>500年</span></span>
+	            </p>
+	            <p class="right">
+	                 <span class="price">￥<span>1465.00</span></span> 
+	                <span class="sum">×<span>3</span></span>
+	            </p>
+	        </ol>
+	        <div class="clearfix"></div>
+	    </li>-->
+	</ul>
+	<p class="total">共<i></i>件商品
+       <!--  <span class="price">￥<span>1465.00</span></span> -->
+    </p>
+</div>
+
+<div class="attachment">
+	<p class="name">附件</p>
+	<ul>
+		<!--<li>
+			<div class="fileImg">
+				<img src="images/PDF_icon.png" alt="" />
+			</div>
+			<div class="right">
+				<p class="fileName">几十块大街上看到速度快.pdf</p>
+				<span>2.89M</span>
+			</div>
+			
+		</li>
+		<li>
+			<div class="fileImg">
+				<img src="images/PDF_icon.png" alt="" />
+			</div>
+			<div class="right">
+				<p class="fileName">几十块大街上看到速度快.png</p>
+				<span>2.89M</span>
+			</div>
+		</li>-->
+	</ul>
+</div>
+
+
+<div class="mutailImg">
+	<div class="title">
+		<p></p>
+		<span></span>
+	</div>
+	
+	<div class="img">
+		<img src="images/22.png" alt="" />
+	</div>
+</div>
+
+<!--弹出确认框-->
+<div class="mutail">
+	<div class="mutailContent">
+		<p>确定要取消订单么?</p>
+		<span class="cancel">取消</span>
+		<span class="delSure">确定</span>
+	</div>
+</div>
+
+
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/others/public.js"></script>
+<script src="js/others/orderDetail2.js"></script>
+<script src="js/adaptive.js"></script>
+<script src="js/pdf.js"></script>
+
+
+</body>
+</html>

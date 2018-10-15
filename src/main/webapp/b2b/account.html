@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/orderdetails.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/timer/mobiscroll_002.js" type="text/javascript"></script>
+    <script src="js/timer/mobiscroll_004.js" type="text/javascript"></script>
+    <link href="css/timer/mobiscroll_002.css" rel="stylesheet" type="text/css">
+    <link href="css/timer/mobiscroll.css" rel="stylesheet" type="text/css">
+    <link href="css/timer/mobiscroll_003.css" rel="stylesheet" type="text/css">
+    <script src="js/timer/mobiscroll.js" type="text/javascript"></script>
+    <script src="js/timer/mobiscroll_003.js" type="text/javascript"></script>
+    <script src="js/timer/mobiscroll_005.js" type="text/javascript"></script>
+    
+    <script src="js/others/public.js"></script>
+    <script src="js/others/account.js"></script>
+    <script src="js/adaptive.js"></script>
+    <style>
+    	.dwbc-p .dwb-n{
+    		display:none;
+    	}
+    	.dwbc-p .dwbw{
+    		width:49.5%;
+    	}
+    </style>
+    <title>结算</title>
+</head>
+<body>
+<!-- 收货信息 -->
+<ul class="receiving_info">
+    <p class="name">收货信息</p>
+    <li>
+        <span class="name2">门店名称</span>
+        <span class="detail2">
+        	<input class="sroreName" type="text" placeholder="请输入门店名称" readOnly="true" >
+        </span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">门店地址</span>
+        <span class="detail2">
+        	<input class="takeGoodsAddress" type="text" placeholder="请输入收货地址" readOnly="true">
+        </span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">联系人</span>
+        <span class="detail2">
+        	<input class="contactName" type="text" placeholder="请输入联系人姓名">
+        </span>
+        <div class="clearfix"></div>
+    </li>
+    <li>
+        <span class="name2">手机号</span>
+        <span class="detail2">
+        	<input class="phone" type="text" placeholder="请输入手机号">
+        </span>
+        <div class="clearfix"></div>
+    </li>
+    <li class="demos">
+        <span class="name2">收货时间<label for="appDate"></label></span>
+        <span class="detail2">
+        	<input value="" class="" readonly="readonly" name="appDate" id="appDate" type="text" placeholder="请选择收货时间">
+        </span>
+        <div class="clearfix"></div>
+    </li>
+    <li class="orderMess">
+    	<textarea id="textarea"
+    onfocus="if(value=='给供应商留言'){value=''}"
+    onblur="if (value ==''){value='给供应商留言'}">给供应商留言</textarea>
+    </li>
+</ul>
+
+<!-- 订单信息 -->
+<div class='orderAllInfo'>
+	<p class="name">订单信息</p>
+	<ul class="order_info"> 
+	    <!--<li>
+	        <img src="images/22.png" alt="">
+	        <div class="detail">
+	            <p class="left">
+	                <span class="goodsName">贵州茅台</span>
+	                <span class="goodsTip"><span>陈酿</span><span>500年</span></span>
+	            </p>
+	            <p class="right">
+	                <span class="sum">×<span>3</span></span>
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </li>-->
+	    <!--<li>
+	        <img src="images/22.png" alt="">
+	        <ol class="detail">
+	            <p class="left">
+	                <span class="goodsName">贵州茅台</span>
+	                <span class="goodsTip"><span>陈酿</span><span>500年</span></span>
+	            </p>
+	            <p class="right">
+	                <span class="price">￥<span>1465.00</span></span> 
+	                <span class="sum">×<span>3</span></span>
+	            </p>
+	        </ol>
+	        <div class="clearfix"></div>
+	    </li>-->
+	    
+	</ul>
+	<p class="total">共<i>2</i>件商品
+	    <!--<span class="price">￥<span>1465.00</span></span>--> 
+	</p>
+</div>
+
+<p class="pageRemind"></p>
+
+<div class="bottom2">
+    <p class="price">
+        <!-- <span class="sum">￥<span class="price">1465.00</span></span> -->
+        <!--<span class="count">共<i>2</i>件商品</span>-->
+    </p>
+    <a class="confirm">确认订单</a>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear , //开始年份
+            endYear: currYear + 10, //结束年份
+            minDate:new Date()
+        };
+
+        $("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+        var optDateTime = $.extend(opt['datetime'], opt['default']);
+        var optTime = $.extend(opt['time'], opt['default']);
+    });
+</script>

@@ -1,0 +1,147 @@
+
+
+/*首页*/
+.h3_title{
+    height:1rem;
+    line-height: 1rem;
+    text-indent: 0.3rem;
+    font-size:0.3rem;
+}
+.orderForm,.purchaseForm{
+    background:#fff;
+}
+.query_switch{
+    width:calc(100% - 0.5rem);
+    height:1rem;
+    background:#f8f8f8;
+    margin:0 0 0 0.25rem;
+    position:relative;
+}
+.query_switch>input{
+    width:calc(25% - 0.05rem);
+    height:0.8rem;
+    position:absolute;
+    top:0.1rem;
+    border:0;
+    color:#666;
+    background:none;
+    z-index:9;
+}
+
+.query_switch .thisWeek{
+    left:0.1rem;
+}
+.query_switch .lastWeek{
+    left:calc(25% + 0.05rem);
+}
+.query_switch .lastMonth{
+    left:calc(50% + 0.05rem);
+}
+.query_switch .thisMonth{
+    left:calc(75% - 0.05rem);
+}
+
+.select_B{
+    display: block;
+    width:calc(25% - 0.05rem);
+    background:#fff;
+    position:absolute;
+    top:0.1rem;
+    left:0.1rem;
+    height:0.8rem;
+}
+.query_switch .select_color{
+    color:#333;
+}
+
+
+.orderNum{
+    /*overflow: hidden;*/
+    padding-top:0.4rem;
+    height:1.2rem;
+    position: relative;
+}
+.orderNum .formNum,.orderNum .price{
+    width:calc(50%);
+    height:1.2rem;
+    float:left;
+    box-sizing: border-box;
+    padding-left:0.4rem;
+}
+.orderNum .formNum{
+    border-right:1px dashed #ddd;
+}
+.orderNum .order_p{
+    font-size:0.26rem;
+    margin-bottom:0.3rem;
+}
+.orderNum .order_num{
+    font-size:0.4rem;
+}
+.hasColor{
+    color:#4da1ff;
+}
+
+.purchaseForm{
+    margin-bottom:1.5rem;
+}
+
+
+/*弹出问题框*/
+.center_q,.center_q_r{
+    position:absolute;
+    top:1.7rem;
+    left:calc(50% - 3.2rem);
+    width:6rem;
+    background:#fff;
+    padding:0.2rem;
+    line-height:0.4rem;
+    display:none;
+    z-index: 12;
+    font-size:0.26rem;
+}
+.center_q .sanjiao,.center_q_r .sanjiao{
+    position: absolute;
+    width:0.2rem;
+    height:0.2rem;
+    left:40%;
+    top:-0.1rem;
+    transform: rotate(45deg);
+    background:#fff;
+}
+.center_q_r .sanjiao{
+    left:calc(96%);
+}
+.modelDiv{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index: 11;
+    top:0;
+    left:0;
+    display:none;
+}
+
+.question_o,.question_r{
+    position:absolute;
+    display:block;
+    width:0.4rem;
+    height:0.4rem;
+    background:url(../images/tishi-1.svg) no-repeat center;
+    background-size:100%;
+    bottom:0.06rem;
+    left:40%;
+}
+.question_r{
+    left:88%;
+}
+
+.q_select{
+    background:url(../images/tishi-2.svg) no-repeat center;
+    background-size:100%;
+    z-index:12;
+}
+
+
+

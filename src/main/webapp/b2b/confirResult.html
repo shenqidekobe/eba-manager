@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no,email=no" name="format-detection">
+ 	<style>
+ 		*{
+ 			margin:0;
+ 			padding:0;
+ 		}
+	 	body{
+	 		background:#f8f8f8;
+	 	}
+	 	diV{
+	 		text-align: center;
+	 		display:none;
+	 	}
+ 		img{
+ 			width:2rem;
+ 			height:2rem;
+ 			margin-top:2rem;
+ 		}
+ 		p{
+ 			font-size:0.36rem;
+ 			line-height:2rem;
+ 			color:#586897;
+ 		}
+ 		.active{
+ 			display: block;
+ 		}
+ 	</style>
+</head>
+<body>
+	<div class="success">
+		<img src="images/succes.png" alt="" />
+		<p>你已确认此条收货信息</p>
+	</div>
+	<div class="refuse">
+		<img src="images/error2.png" alt="" />
+		<p>你已拒绝此条收货信息</p>
+	</div>
+	
+ 	<script src="js/jquery.min.js"></script>
+    <script src="js/adaptive.js"></script>
+    <script>
+    	$(function(){
+    		
+    		var pass = localStorage.getItem("pass");
+    		console.log(pass);
+    		if(pass == "true"){
+    			$(".success").addClass("active");
+    		}else{
+    			$(".refuse").addClass("active");
+    		}
+    		
+    	})
+    </script>
+</body>
+</html>

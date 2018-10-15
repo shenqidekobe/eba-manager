@@ -1,0 +1,479 @@
+/*css初始化*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,p,blockquote,th,td{margin:0; padding:0;font-family:"微软雅黑","华文细黑";}
+button{font-family:"微软雅黑","华文细黑";}
+body{font-family:"微软雅黑","华文细黑"}
+del,ins,u,s,a,a:hover{text-decoration:none;color:#000;}
+ol,li,ul,dl,dt,dd{list-style:none;}
+a,button,input{outline:none;cursor: none;}
+button{border:0;}
+html,body{
+    width:100%;
+    /*height:100%;*/
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {font-family:"微软雅黑";color:#ddd;}
+input:-moz-placeholder,textarea:-moz-placeholder {font-family:"微软雅黑";color:#ddd;}
+input::-moz-placeholder,textarea::-moz-placeholder {font-family:"微软雅黑";color:#ddd;}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {font-family:"微软雅黑";color:#ddd;}
+
+/*隐藏显示*/
+.none{
+    display: none;
+}
+.block{
+    display: block;
+}
+
+/*底部导航*/
+.footer_nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:1rem;
+    background:#fff;
+    z-index: 10;
+}
+.footer_nav .nav_li{
+    width:20%;
+    height:0.5rem;
+    float:left;
+    text-align: center;
+    font-size:0.26rem;
+    color:#ddd;
+    padding-top:0.54rem;
+}
+.nav_index{
+    background:url(../images/shouye-b.png) no-repeat center 0.1rem;
+    background-size:0.44rem;
+}
+.nav_order{
+    background:url(../images/dingdan-b.png) no-repeat center 0.1rem;
+    background-size:0.44rem;
+}
+.nav_setting{
+    background:url(../images/shezhi-b.png) no-repeat center 0.1rem;
+    background-size:0.44rem;
+}
+.nav_Customer{
+    background:url(../images/kehu-b.png) no-repeat center 0.1rem;
+    background-size:0.44rem;
+}
+.nav_supply{
+     background:url(../images/gongying-b.png) no-repeat center 0.1rem;
+     background-size:0.44rem;
+ }
+
+
+
+
+/*按钮的基础样式*/
+.input_B{
+    width:100%;
+    color:#fff;
+    border:0;
+    font-size:0.32rem;
+    background: -webkit-linear-gradient(bottom right, #4DA1FF, #00C2F8);
+    background: -moz-linear-gradient(bottom right, #4DA1FF, #00C2F8);
+    background: -o-linear-gradient(bottom right, #4DA1FF, #00C2F8);
+    background: -webkit-gradient(linear, 100% 100%, 0 0, from(#4DA1FF), to(#00C2F8));
+    background: linear-gradient(bottom right, #4DA1FF, #00C2F8);
+}
+
+
+/*弹出框提醒样式*/
+.pageRemind{
+    background:rgba(0,0,0,0.7);
+    position:absolute;
+    color:#fff;
+    width:4.3rem;
+    padding:0.1rem 0.1rem;
+    font-size:0.28rem;
+    border-radius: 0.1rem;
+    left:50%;
+    margin-left:-2.15rem;
+    text-align: center;
+    z-index: 999;
+    display:none;
+    top:6rem;
+}
+
+
+/**弹出确认框***弹出确认框***/
+.mutail{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index: 999;
+    display:none;
+}
+
+.mutail .mutailContent{
+    width:5.6rem;
+    height:3.4rem;
+    background:#fff;
+    margin:0 auto;
+    margin-top:50%;
+    border-radius: 0.2rem;
+    font-size:0.36rem;
+}
+.mutail .content_M{
+    width:100%;
+    height:2.4rem;
+    line-height:2.4rem;
+    border-bottom:1px solid #eee;
+    text-align: center;
+    color:#333;
+    font-weight:900;
+}
+.mutail .mutailContent span.cancel,.mutail .mutailContent span.delSure{
+    display:inline-block;
+    width:49%;
+    height:0.98rem;
+    text-align:center;
+    line-height:0.99rem;
+    color:#333;
+    float:left;
+}
+.mutail .mutailContent span.cancel{
+    border-right:1px solid #eee;
+    color:#999;
+}
+
+.mutail.isToClass{
+    display:block;
+}
+
+
+/*添加按钮*/
+.addButton{
+    position:fixed;
+    bottom:1.4rem;
+    right:0.3rem;
+    text-align: center;
+    line-height: 0.8rem;
+    width:0.8rem;
+    height:0.8rem;
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size:0.26rem;
+    background: url(../images/tianjia.png) no-repeat center center;
+    background-size: 0.8rem 0.8rem;
+}
+
+
+/*输入信息*/
+
+.li_info{
+    width:100%;
+    height:1rem;
+}
+.li_info:nth-last-child(1){
+    border-bottom:1px solid #ddd;
+}
+.info_ul li.errorBorder{
+    border-bottom:1px solid red;
+}
+.li_info .label{
+    display: block;
+    float:left;
+    width:1.6rem;
+    height:100%;
+    line-height: 1rem;
+    font-size:0.32rem;
+    padding-left:0.2rem;
+}
+.li_info .input{
+    float:left;
+    width:calc(100% - 1.8rem);
+    height:100%;
+    border:0;
+    box-sizing: border-box;
+}
+.li_info:nth-last-child(1) .input{
+    border-bottom:none;
+}
+.li_info div.errorInfo{
+    border-bottom:1px solid red;
+}
+.li_info .input input{
+    width:94%;
+    height:100%;
+    border:0;
+    padding-left:0.2rem;
+    font-size:0.32rem;
+    background:none;
+}
+.li_jiantou{
+    background:url(../images/jiantou.svg) no-repeat 96% center;
+    background-size:0.4rem;
+    position:relative;
+}
+.li_jiantou::after{
+    content: '';
+    display: block;
+    width:90%;
+    height:1px;
+    background:#eee;
+    position:absolute;
+    left:5%;
+    bottom:0;
+}
+
+/*保存--提交--按钮*/
+.input_s{
+    height:1rem;
+    bottom:0;
+    position:fixed;
+}
+/*头部tab切换*/
+.tab-top .tab-ul{
+    height:0.9rem;
+    display:flex;
+    margin:0 0.5rem;
+    background:#f5f5f5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.tab-top .tab-item{
+    width:2.15rem;
+    text-align: center;
+    font-size: 0.32rem;
+    line-height: 0.9rem;
+    border-right:1px solid #eee;
+}
+.tab-top .tab-item:nth-last-child(1){
+    border:0;
+}
+.tab-top .tab-item a{
+    display:block;
+    width:100%;
+    height:100%;
+    color:#999;
+}
+.tab-top .tab-active{
+    background:#4da1ff;
+    color:#fff;
+}
+.tab-top .tab-active a{
+    color: #fff;
+}
+/*加载*/
+.p_loading{
+    margin-bottom:1rem;
+    line-height: 0.8rem;
+    text-align: center;
+    font-size:0.28rem;
+    color:#999;
+}
+
+/*删除和编辑*/
+.cz_B{
+    width:0.8rem;
+    height:0.4rem;
+    line-height:0.4rem;
+    border:1px solid #ddd;
+    position:absolute;
+    background:#fff;
+    font-size:0.26rem;
+    color:#333;
+    border-radius: 0.05rem;
+    bottom:0.24rem;
+    right:0.2rem;
+    text-align: center;
+}
+/*数量*/
+.li_info .number{
+    display: inline-block;
+    min-width:0.6rem;
+    height:0.32rem;
+    margin:0.34rem 0 0.34rem 0.2rem;
+    color: #fff;
+    float:right;
+    text-align: center;
+    font-size: 0.24rem;
+    line-height: 0.32rem;
+    border-radius: 0.32rem;
+    background: #5DA4F3;
+    margin-right:0.8rem;
+}
+
+/*页面头部--设置*/
+.headerSet{
+    width:100%;
+    height:0.8rem;
+    text-align: center;
+    position:relative;
+    background:#fff;
+    line-height: 0.8rem;
+    font-size:0.32rem;
+    font-weight:800;
+}
+.headerSet .setting_a{
+    display:block;
+    position:absolute;
+    right:0.4rem;
+    top:0.2rem;
+    width:0.4rem;
+    height:0.4rem;
+    background:url(../images/shezhi.svg) no-repeat center;
+    background-size:100%;
+}
+
+
+/*弹出框*/
+
+.xxMessage {
+    /*padding: 5px 10px;*/
+    /*display: none;*/
+    /*position: fixed;*/
+    /*_position: absolute;*/
+    /*top: 25%;*/
+    /*_top: expression(documentElement.scrollTop + Math.round(documentElement.offsetHeight * 0.25));*/
+    /*left: 50%;*/
+    /*z-index: 100;*/
+    /*overflow: hidden;*/
+    /*-webkit-box-shadow: 1px 1px 6px #add8f7;*/
+    /*-moz-box-shadow: 1px 1px 6px #add8f7;*/
+    /*box-shadow: 1px 1px 6px #add8f7;*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#e5e5e5, direction=0, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#d4d4d4, direction=90, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#d4d4d4, direction=180, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#e5e5e5, direction=270, strength=3)";*/
+    /*filter: progid:DXImageTransform.Microsoft.Shadow(color=#e5e5e5, direction=0, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#d4d4d4, direction=90, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#d4d4d4, direction=180, strength=3) progid:DXImageTransform.Microsoft.Shadow(color=#e5e5e5, direction=270, strength=3);*/
+    /*border: 1px solid #add8f7;*/
+    /*background-color: #ecf6fd;*/
+    /*border-radius: 5px;*/
+    background:rgba(0,0,0,0.7);
+    position:fixed;
+    color:#fff;
+    width:4.3rem;
+    padding:0.1rem 0.1rem;
+    font-size:0.28rem;
+    border-radius: 0.1rem;
+    left:50%;
+    margin-left:-2.15rem;
+    text-align: center;
+    z-index: 999;
+    display:none;
+    top:6rem;
+}
+
+.xxMessage .messageContent {
+    line-height: 24px;
+    padding: 0px 10px 0px 30px;
+    color:#fff;
+}
+
+/*.xxMessage .messagewarnIcon {*/
+    /*background: url(../images/xunwen_icon.svg) no-repeat left center;*/
+/*}*/
+
+/*.xxMessage .messagesuccessIcon {*/
+    /*background: url(../images/chenggong_icon.svg) no-repeat left center;*/
+/*}*/
+
+/*.xxMessage .messageerrorIcon {*/
+    /*background: url(../images/yichang_icon.svg) no-repeat left center;*/
+/*}*/
+
+.xxMessage .messageIframe {
+    width: 2000px;
+    height: 2000px;
+    position: absolute;
+    left: -100px;
+    top: -100px;
+    z-index: -10;
+}
+
+.jiangeDiv{
+    width:100%;
+    height:0.2rem;
+    background:#fbfbfb;
+}
+
+
+/*加载圈*/
+.addModel{
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0);
+    position:fixed;
+    top:0;
+    left:0;
+    z-index: 9999;
+    display:none;
+}
+.addModel img{
+    width:0.5rem;
+    height:0.5rem;
+    margin:4rem 48%;
+
+}
+
+.modelDisplay{display:block;}
+
+
+input[type="checkbox"],input[type="radio"]{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    border:0;
+    border: expression((this.type=="checkbox"||this.type=="radio"?"!important":"0px #ced4e2 solid"));
+    width:16px;
+    height:16px;
+}
+
+.check-box {
+    display: inline-block;
+    box-sizing: border-box;
+    /*cursor: pointer;*/
+    vertical-align: middle;
+    float: none;
+}
+
+.check-box span{
+    vertical-align: middle;
+    float: none;
+    margin-right:0.2rem;
+    margin-left: 0.2rem;
+}
+
+input[type="radio"]{
+    width:0.36rem;
+    height:0.36rem;
+    line-height: normal;
+    background:url(../images/xuanze-1.svg) no-repeat;
+    background-size:0.36rem 0.36rem;
+    float: none;
+    vertical-align: middle;
+}
+input[type="radio"]:nth-of-type(2){
+    margin-left: 0.4rem;
+}
+
+input[type="radio"]:checked{
+    background:url(../images/xuanze-2.svg) no-repeat;
+    background-size:0.36rem 0.36rem;
+}
+.li_bot{
+    background-size: 0.4rem;
+    position: relative;
+}
+.li_bot::after {
+    content: '';
+    display: block;
+    width: 90%;
+    height: 1px;
+    background: #eee;
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+}
+
+

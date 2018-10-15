@@ -1,0 +1,225 @@
+body{
+    background: #f8f8f8;
+}
+
+#menu{
+    width:100%;
+}
+/*-------------------nav样式----------------------*/
+#menu #nav {
+    display:block;
+    width:100%;
+    padding:0;
+    margin:0;
+    list-style:none;
+    background:#FFF;
+    height:1.2rem;
+    border-bottom: 1px solid #F8F8F8;
+    /*margin-bottom: 0.2rem;*/
+}
+#menu #nav li {
+    float:left;
+    width:25%;
+    height: 1.2rem;
+    line-height:1.8rem;
+    color:#586897;
+    text-align:center;
+    font-size:0.26rem;
+    font-weight:900;
+}
+/*#menu #nav li a {
+    display:block;
+    height: 1.2rem;
+    
+    text-decoration:none;
+    
+}*/
+/*-------------------列表标题样式----------------------*/
+#menu_con{
+    width:100%;
+    background:#f8f8f8;
+}
+#nav li:nth-child(1) {
+    background:url(../images/qbdd_icon.png)center 0.2rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(1).selected{
+    background:url(../images/qbdddj_icon.png)center 0.2rem no-repeat;
+    color:#ff9974!important;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(2) {
+    background:url(../images/dfh_icon.png)center 0.2rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(2).selected{
+    background:url(../images/dfhdj_icon.png)center 0.2rem no-repeat;
+    color:#ff9974!important;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(3) {
+    background:url(../images/dsh_icon.png)center 0.2rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(3).selected{
+    background:url(../images/dshdj_icon.png)center 0.2rem no-repeat;
+    color:#ff9974!important;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(4) {
+    background:url(../images/ywc_icon.png)center 0.2rem no-repeat;
+    background-size: 0.44rem 0.44rem;
+}
+#nav li:nth-child(4).selected{
+    background:url(../images/ywcdj_icon.png)center 0.2rem no-repeat;
+    color:#ff9974!important;
+    background-size: 0.44rem 0.44rem;
+}
+.selected{
+    color: #ff9974;
+}
+.clear{
+    clear:both
+}
+.orderdetail{
+    margin-bottom: 0.2rem;
+    background: #FFF;
+}
+.orderdetail .provide{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background: url(../images/che_icon.png) 0.25rem center no-repeat;
+    background-size: 0.44rem 0.44rem;
+    border-bottom: 1px solid #F8F8F8;
+}
+.orderdetail .provide .provideName{
+    margin-left: 1rem;
+    font-weight: bold;
+    color: #586897;
+    font-size: 0.3rem;
+}
+.orderdetail .provide .content{
+    float: right;
+    margin-right: 0.25rem;
+    color: #ff9974;
+    text-align: right;
+    font-size: 0.26rem;
+    line-height: 0.8rem;
+}
+.orderdetail .provide .content2{
+    float: right;
+    margin-right: 0.25rem;
+    color: #b6c5dc;
+    text-align: right;
+    font-size: 0.26rem;
+    line-height: 0.8rem;
+}
+.orderdetail .orderNumber{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    color: #586897;
+    text-indent: 0.25rem;
+    font-size: 0.3rem;
+}
+.orderdetail .orderImages{
+    width: 100%;
+    /*padding: 0 5%;*/
+    background: #F8F8F8;
+    height: 1.4rem;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.orderdetail .orderImages img{
+    display: inline-block;
+    float: left;
+    height: 1rem;
+    margin:0.2rem 0 0 0.2rem;
+}
+.orderdetail .orderImages img.imgEllipsis{
+	position:absolute;
+	right:0;
+}
+
+
+.orderdetail .price{
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    color: #586897;
+    text-indent: 0.25rem;
+    font-size: 0.3rem;
+    border-bottom: 1px solid #f8f8f8;
+}
+.orderdetail .price .sum{
+    float: right;
+    margin-right: 0.2rem;
+    color: #ff9974;
+}
+.orderdetail .button{
+    width: 100%;
+    height: 1rem;
+    font-size:0.28rem;
+}
+.orderdetail .button a{
+    display: inline-block;
+    float: right;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    margin-top: 0.1rem;
+    border-left: 1px solid #F8F8F8;
+    padding: 0 0.5rem;
+    color: #ff9974;
+}
+
+.button .cancelOrder{
+	float:right;
+	background:#fff;
+	height: 0.8rem;
+    line-height: 0.8rem;
+    margin-top: 0.1rem;
+    padding: 0 0.5rem;
+    color: #586897;
+    border:0;
+    border-left: 1px solid #F8F8F8;
+    font-size:0.28rem;
+}
+
+
+
+.orderdetail .button .again{
+    color:#586897;
+}
+.tag{
+	margin-top:0.2rem;
+}
+
+
+.orderNumNot{
+	width:100%;
+	background:#fff url(../images/mydd_icon.png) center 1.5rem no-repeat;
+	background-size:3rem 3rem;
+	height:15rem;
+	margin:0;
+	color:#586897;
+	font-size:0.34rem;
+	text-align: center;
+	line-height:10rem;
+	display:none;
+}
+
+.orderNumActive{
+	display:block;
+}
+
+
+
+
+
+
+
+
+
+

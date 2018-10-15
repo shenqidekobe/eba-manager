@@ -1,0 +1,265 @@
+.login-box{
+    width: 100%;
+    height:100%;
+    background-color: #fff;
+    padding: 0.59rem 0.75rem 0 0.75rem;
+    box-sizing: border-box;
+    position: relative;
+    top:0;
+}
+.login-box .title{
+    font-family: PingFangSC-Medium;
+    color: #333;
+    font-size: 0.42rem;
+    line-height: 0.59rem;
+}
+.login-box .user-b{
+    width:100%;
+    height:1rem;
+    margin-top:0.47rem;
+    border:1px solid #ddd;
+    position: relative;
+}
+.login-box .img-c{
+    width:0.99rem;
+    height:1rem;
+    background: url(../images/yonghuming-1.svg) no-repeat center;
+    background-size: 0.42rem 0.42rem;
+    border-right: 1px solid #ddd;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.login-box .input-b{
+    width:5rem;
+    height: 1rem;
+    padding: 0.29rem 0.2rem;
+    box-sizing: border-box;
+    position: absolute;
+    left: 1rem;
+    top:0;
+}
+.login-box .input-b input{
+    width:100%;
+    border:none;
+    color: #333;
+    font-family: PingFangSC-Regular;
+    font-size: 0.3rem;
+    line-height: 0.42rem;
+}
+.login-box .password-b{
+    width:100%;
+    height:1rem;
+    margin-top:0.4rem;
+    border:1px solid #ddd;
+    position: relative;
+}
+.login-box .pass-i{
+    width:1rem;
+    height:1rem;
+    background: url(../images/mima-1.svg) no-repeat center;
+    background-size: 0.42rem 0.42rem;
+    border-right: 1px solid #ddd;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.login-box .login-b{
+    width:100%;
+    height:1rem;
+    margin-top:0.6rem;
+    background-color: #ddd;
+    line-height: 1rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.32rem;
+    font-family: PingFangSC-Regular;
+}
+.login-box .forget-pa{
+    display: inline-block;
+    float: right;
+    margin-top: 1rem;
+    line-height: 0.37rem;
+    color: #999;
+    font-size: 0.26rem;
+    font-family: PingFangSC-Regular;
+}
+.logo-b{
+    width:1.36rem;
+    height:0.42rem;
+    margin:0 auto;
+    margin-top: 4.2rem;
+    clear: both;
+    background: url(../images/logo.svg) no-repeat center;
+    background-size: 1.36rem 0.42rem;
+}
+/*按钮颜色渐变*/
+.back-color{
+    background: -webkit-linear-gradient(#00C2F8, #4DA1FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#00C2F8, #4DA1FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#00C2F8, #4DA1FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#00C2F8, #4DA1FF); /* 标准的语法 */
+}
+/*聚焦边框颜色变化*/
+.login-box .border-ch{
+    border:1px solid #4DA1FF !important;
+}
+.login-box .border-r-ch{
+    border-right:1px solid #4DA1FF !important;
+    background: url(../images/yonghuming-2.svg)  no-repeat center;
+    background-size: 0.42rem 0.42rem;
+}
+.login-box .border-p-ch{
+    border-right:1px solid #4DA1FF;
+    background: url(../images/mima-2.svg)  no-repeat center;
+    background-size: 0.42rem 0.42rem;
+}
+/*手机短信验证页面*/
+.login-box .phone,.login-box .code,.login-box .password{
+    display: inline-block;
+    font-family: PingFangSC-Regular;
+    margin-top: 0.37rem;
+    color: #333;
+    font-size: 0.22rem;
+    line-height: 0.3rem;
+}
+.login-box .code{
+    margin-top: 0.3rem;
+}
+.login-box .phone-c,.login-box .code-c,.login-box .password-c1,.login-box .password-c2{
+    width:100%;
+    height:1rem;
+    border:1px solid #ddd;
+    margin-top: 0.1rem;
+    position: relative;
+
+}
+.login-box .phone-c,.login-box .password-c1,.login-box .password-c2{
+    padding: 0.29rem 0.2rem;
+    box-sizing: border-box;
+}
+.login-box .next-b,.login-box .finish-b{
+    width:100%;
+    height:1rem;
+    margin-top:0.6rem;
+    background-color: #ddd;
+    line-height: 1rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.32rem;
+    font-family: PingFangSC-Regular;
+}
+.login-box .phone-c input,.login-box .password-c1 input,.login-box .password-c2 input{
+    width:100%;
+    border:none;
+    color: #333;
+    font-family: PingFangSC-Regular;
+    font-size: 0.3rem;
+    line-height: 0.42rem;
+}
+.login-box .phone-de{
+    width:0.24rem;
+    height:0.24rem;
+    position: absolute;
+    top:0.38rem;
+    left:5.56rem;
+    background: url(../images/cha.svg) no-repeat center;
+    background-size: 0.24rem 0.24rem;
+    /*display: none;*/
+}
+.login-box .code-input{
+    width:4rem;
+    height:1rem;
+    padding: 0.29rem 0.2rem;
+    box-sizing: border-box;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.login-box .code-input input{
+    width:100%;
+    border:none;
+    color: #333;
+    font-family: PingFangSC-Regular;
+    font-size: 0.3rem;
+    line-height: 0.42rem;
+}
+.login-box .code-sent{
+    width:2rem;
+    height:1rem;
+    line-height: 1rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.3rem;
+    border:none;
+    background: -webkit-linear-gradient(#00C2F8, #4DA1FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#00C2F8, #4DA1FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#00C2F8, #4DA1FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#00C2F8, #4DA1FF); /* 标准的语法 */
+    position: absolute;
+    top:0;
+    right:0;
+}
+.login-box .finish-im{
+    width:2rem;
+    height:2rem;
+    margin:0 auto;
+    margin-top: 1.4rem;
+    background: url(../images/chenggong.svg) no-repeat center;
+    background-size: 2rem 2rem;
+}
+.login-box .finish-ti{
+    width:100%;
+    text-align: center;
+    color: #333;
+    line-height: 0.45rem;
+    font-family: PingFangSC-Light;
+    font-size: 0.32rem;
+    margin-top: 0.4rem;
+}
+.login-box .login-b{
+    width:100%;
+    height:1rem;
+    margin-top:1rem;
+    background-color: #ddd;
+    line-height: 1rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.32rem;
+    font-family: PingFangSC-Regular;
+    background: -webkit-linear-gradient(#00C2F8, #4DA1FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#00C2F8, #4DA1FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#00C2F8, #4DA1FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#00C2F8, #4DA1FF); /* 标准的语法 */
+}
+.login-box .code-b{
+    width:100%;
+    height:1rem;
+    margin-top:0.4rem;
+    border:1px solid #ddd;
+    position: relative;
+}
+.code-b .code-i{
+    display: inline-block;
+    width:70%;
+    height:100%;
+    box-sizing: border-box;
+    padding: 0.29rem 0.2rem;
+    vertical-align: top;
+}
+.code-b .code-i input{
+    width: 100%;
+    border: none;
+    color: #333;
+    font-family: PingFangSC-Regular;
+    font-size: 0.3rem;
+    line-height: 0.42rem;
+
+}
+.code-b img{
+    display: inline-block;
+    width: 1.6rem;
+    height: 0.8rem;
+    margin-top: 0.1rem;
+
+}
