@@ -56,7 +56,7 @@
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">${webapp.root}/WEB-INF/index</prop>
 
-				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>
