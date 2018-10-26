@@ -780,7 +780,6 @@
             <version>1.1.5.RELEASE</version>
         </dependency>
         
-        
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
