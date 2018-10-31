@@ -69,11 +69,11 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 			return false;
 		}
-		String loginToken = com.microBusiness.manage.util.WebUtils.getCookie(request, Admin.LOGIN_TOKEN_COOKIE_NAME);
+		/*String loginToken = com.microBusiness.manage.util.WebUtils.getCookie(request, Admin.LOGIN_TOKEN_COOKIE_NAME);
 		if (!StringUtils.equalsIgnoreCase(loginToken, adminService.getLoginToken())) {
 			WebUtils.issueRedirect(request, response, "/");
 			return false;
-		}
+		}*/
 		return super.onAccessDenied(request, response);
 	}
 
