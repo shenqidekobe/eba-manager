@@ -49,10 +49,10 @@ public class LoginController extends BaseController {
 		String redirectUrl = request.getParameter("redirectUrl");
 		model.addAttribute("redirectUrl", redirectUrl);
 		request.getSession().setAttribute("redirectUrl", redirectUrl);
-		String loginToken = WebUtils.getCookie(request, Admin.LOGIN_TOKEN_COOKIE_NAME);
+		/*String loginToken = WebUtils.getCookie(request, Admin.LOGIN_TOKEN_COOKIE_NAME);
 		if (!StringUtils.equalsIgnoreCase(loginToken, adminService.getLoginToken())) {
 			return "redirect:/";
-		}
+		}*/
 		if (adminService.isAuthenticated()) {
 			/*//如果是手机端，则跳转到 ／homePage/index.jhtml
 			if(DeviceUtils.getCurrentDevice(request).isMobile()){
