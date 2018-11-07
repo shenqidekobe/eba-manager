@@ -72,6 +72,12 @@ public class LoginController extends BaseController{
 	@Value("${childMember.template.common.templateId}")
 	private String templateId;
 
+	
+	/**
+	 * 用户进入小程序
+	 * 通过code换取openId和sessionKey  smOpenId即为用户的微信ID
+	 * parentOpenId记录用户推荐人，保存用户和关系
+	 * */
 	@ResponseBody
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public JsonEntity index(String iv, String encryptedData, String code, 

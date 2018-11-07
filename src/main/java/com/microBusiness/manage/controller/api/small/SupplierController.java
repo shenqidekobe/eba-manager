@@ -22,9 +22,10 @@ import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.dto.SupplierDto;
 import com.microBusiness.manage.util.Code;
 
+//供应商-店主
 @Controller("smallSupplierController")
 @RequestMapping("/api/small/supplier")
-public class supplierController extends BaseController{
+public class SupplierController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Resource
 	private SupplierService supplierService ;
