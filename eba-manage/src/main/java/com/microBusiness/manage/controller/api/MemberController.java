@@ -74,6 +74,12 @@ public class MemberController extends BaseController {
     @Resource
     private ChildMemberService childMemberService ;
 
+    /**
+     * 前端用户登录
+     * 通过微信用户code登录获取openId和sessionKey
+     * 通过openId再获取微信用户信息、保存数据库
+     * parentOpenId记录当前登录用户的推荐人
+     * */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void login(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
