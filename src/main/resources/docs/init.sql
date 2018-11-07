@@ -17,3 +17,10 @@ INSERT INTO `xx_role` (`id`, `create_date`, `modify_date`, `version`, `authoriti
 
 
 INSERT INTO `xx_admin_role` (`admins`, `roles`) VALUES (1, 7);
+
+
+
+INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (1, '2015-12-01 00:59:09', '2015-12-01 00:59:09', 0, 0.000000, b'1', b'0', '普通会员', 1, b'0');
+INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (2, '2015-12-01 00:59:10', '2015-12-01 00:59:10', 0, 1000.000000, b'0', b'0', '铜牌会员', 1, b'0');
+INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (3, '2015-12-01 00:59:11', '2015-12-01 00:59:11', 0, 10000.000000, b'0', b'0', '银牌会员', 1, b'0');
+INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (4, '2015-12-01 00:59:12', '2015-12-01 00:59:12', 0, 100000.000000, b'0', b'0', '金牌会员', 1, b'0');
