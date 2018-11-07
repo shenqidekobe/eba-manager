@@ -70,7 +70,10 @@ public class IndexController extends BaseController {
 	@Resource
 	private AdService adService;
 	
-	
+	/**
+	 * 首页数据加载
+	 * 轮播图、广告、商品、分类
+	 * */
 	@SuppressWarnings("serial")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
