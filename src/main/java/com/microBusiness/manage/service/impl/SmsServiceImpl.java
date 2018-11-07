@@ -6,10 +6,14 @@
 package com.microBusiness.manage.service.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,7 +26,6 @@ import com.microBusiness.manage.service.MessageConfigService;
 import com.microBusiness.manage.service.SmsService;
 import com.microBusiness.manage.util.SmsClient;
 import com.microBusiness.manage.util.SystemUtils;
-
 import com.microBusiness.manage.Setting;
 import com.microBusiness.manage.TemplateConfig;
 import com.microBusiness.manage.entity.Member;
@@ -31,6 +34,15 @@ import com.microBusiness.manage.service.MessageConfigService;
 import com.microBusiness.manage.util.SystemUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.task.TaskExecutor;
@@ -77,12 +89,13 @@ public class SmsServiceImpl extends BaseServiceImpl<Sms , Long> implements SmsSe
 			return;
 		}
 		try {
-			Client client = new Client(smsSn, smsKey);
+			/*Client client = new Client(smsSn, smsKey);
 			if (sendTime != null) {
 				client.sendScheduledSMS(mobiles, content, DateFormatUtils.format(sendTime, "yyyyMMddhhmmss"));
 			} else {
 				client.sendSMS(mobiles, content, 5);
-			}
+			}*/
+			sendMessageByYuexin(StringUtils.join(mobiles,","), content);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
@@ -361,5 +374,60 @@ public class SmsServiceImpl extends BaseServiceImpl<Sms , Long> implements SmsSe
 			e.printStackTrace();
 			return false ;
 		}
+	}
+	
+	/**
+	 * 悦信发送短信
+	 * 
+	 * @param mobile
+	 * @param content
+	 * @return
+	 */
+	public int sendMessageByYuexin(String mobile, String content) {
+		String YuexinUserName = "mylx";// 悦信接口的用户名
+		String YuexinUserPwd = "mylx666";// 悦信接口的密码
+		String sendMsgUrl = "http://mt.549k.com/send.do";
+		String sendMsgRes = getResFromUrl(sendMsgUrl, YuexinUserName, YuexinUserPwd, mobile, content);
+		if (sendMsgRes != null) {
+			if (sendMsgRes.contains("成功")) {
+				return 0;
+			} else if (sendMsgRes.contains("余额不足")) {
+				logger.info("短信服务商余额不足，无法发送短信.");
+				return -2;
+			}
+		}
+		logger.error("【yuexin】 send sms to  mobile =" + mobile + " message=" + content + " sendResult=" + sendMsgRes);
+		return -1;
+	}
+	public String getResFromUrl(String reqUrl, String sn, String pwd, String mobile, String content) {
+		CloseableHttpClient httpclient=HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost(reqUrl);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("Account", sn));
+		nvps.add(new BasicNameValuePair("Password", pwd));
+		nvps.add(new BasicNameValuePair("Mobile", mobile));
+		nvps.add(new BasicNameValuePair("Content", content));
+		nvps.add(new BasicNameValuePair("Exno", "0"));
+
+		httpPost.setEntity(
+				new UrlEncodedFormEntity((Iterable<? extends org.apache.http.NameValuePair>) nvps, Consts.UTF_8));
+		StringBuffer result = new StringBuffer();
+		try {
+			HttpResponse response = httpclient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			InputStream in = entity.getContent();
+			InputStreamReader isr = new InputStreamReader(in, "UTF-8");
+
+			char[] c = new char[1024];
+			int a = isr.read(c);
+			while (a != -1) {
+				result.append(new String(c, 0, a));
+				a = isr.read(c);
+			}
+			logger.warn("..http client response = " + result.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result.toString();
 	}
 }
