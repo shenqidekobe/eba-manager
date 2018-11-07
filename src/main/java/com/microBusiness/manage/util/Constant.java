@@ -116,14 +116,14 @@ public class Constant {
     public static final String SECRET_OLD="";
     
     
-    //春晓农场正式公众号账号
-    public static final String APP_ID = "wxe286b6743dc3f1d7";
-    public static final String SECRET = "f350ff8d7b9099a6afa19ed6bc70a115";
+    //正式公众号账号
+    public static final String APP_ID = "wxe8dde426b3876eb0";
+    public static final String SECRET = "cf00d6d3bd2d34bd60d4d98a6ff5a7fb";
     
     
-    //春晓农场小程序密匙
-    public static final String SMALL_APPID = "wxd2d5a5831e423617";
-    public static final String SMALL_SECRET = "ea63f0d9f060fc04084d84674ff888ba";
+    //小程序密匙
+    public static final String SMALL_APPID = "wxe8dde426b3876eb0";
+    public static final String SMALL_SECRET = "cf00d6d3bd2d34bd60d4d98a6ff5a7fb";
     
     public static final String SMALL_TEMPLATE_ID = "C-c1RLZrb1RXsjCSsTd_L9mZ5l25WCd28aG9tj-qiL8";
     
