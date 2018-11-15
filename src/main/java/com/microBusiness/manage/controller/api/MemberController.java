@@ -123,15 +123,7 @@ public class MemberController extends BaseController {
              String unionId = userMap.get("unionId");
              String openId = userMap.get("openid");
              String access_token = userMap.get("access_token");
-
-//             if(StringUtils.isEmpty(unionId)){
-//                 logger.error("unionId is null");
-//                 //response.sendRedirect("/b2b/error.html");
-//                 logger.error("通过接口获取到的用户信息异常!");
-//                 return;
-//             }
-             //通过unionId 获取用户信息
-//             ChildMember userInfo = childMemberService.findByUnionId(unionId);
+             
              ChildMember userInfo = childMemberService.findByOpenId(openId);
              if(null == userInfo){
                  String globalToken = weChatService.getGlobalToken();
@@ -235,44 +227,6 @@ public class MemberController extends BaseController {
           } else {//cookie为空或者token值为空，则新增cookie，并将微信用户信息插入缓存
               CookieUtil.addCookie(response, "parentOpenId", parentOpenId, "/", 60 * 60 * 24 * 30);
           }
-          
-
-
-            //token 保存到cookie
-//            Cookie cookie = CookieUtil.getCookieByName(request, Constant.COOKIE_UNION_ID_NAME);
-//            //判断cookie是否为空且token值是否为空
-//            if (null != cookie) {
-//                //刷新token的值
-//                CookieUtil.editCookie(response, request, Constant.COOKIE_UNION_ID_NAME, unionId, "/", 60 * 60 * 24 * 30);
-//            } else {//cookie为空或者token值为空，则新增cookie，并将微信用户信息插入缓存
-//                CookieUtil.addCookie(response, Constant.COOKIE_UNION_ID_NAME, unionId, "/", 60 * 60 * 24 * 30);
-//            }
-
-//            if (null == userInfo.getMember() /* && super.needCheckMobile(shareUrl)*/) {
-//                String backUrl = StringUtils.isEmpty(shareUrl) ? "/b2b/supplier.html" : shareUrl;
-//                response.sendRedirect("/b2b/binding.html?backurl=" + backUrl);
-//                return;
-//            }
-            /** Need need = userInfo.getMember().getNeed();
-            if (need.getNeedStatus() == NeedStatus.suspend) {
-                response.sendRedirect("/b2b/error.html?status=" + Error.needSuspend);
-                return;
-            }*/
-            /*
-             * 判断当前的账号是否认证，如果未认证，则判断是否过试用期，过了试用期不能操作
-                */
-            /**Supplier supplier = need.getSupplier();
-            if (supplier.isProbation()) {
-                if (supplier.isExpired()) {
-                    response.sendRedirect("/b2b/error.html?status=" + Error.pastTrialPeriod);
-                    return;
-                }
-            }*/
-
-//            if (StringUtils.isNotEmpty(shareUrl)) {
-//                response.sendRedirect(shareUrl);
-//                return;
-//            }
             logger.info("https://shcxnc.com/b2b/activation2.html...");
             response.sendRedirect("https://shcxnc.com/b2b/activation2.html");
 
