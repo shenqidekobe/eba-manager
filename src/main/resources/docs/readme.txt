@@ -1,3 +1,4 @@
+welcome发起跳转到api/member/login 再到b2b/activation2 再转发到/pages/index/index
 小程序流程：
 调用wx.login 获取code，请求后台接口获取用户openId、sessionKey
 缓存openId和sessionKey
