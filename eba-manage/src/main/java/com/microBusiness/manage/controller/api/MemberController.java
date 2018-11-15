@@ -120,9 +120,7 @@ public class MemberController extends BaseController {
              * 业务修改，原先使用openId 来确认用户，现在使用 unionId 来区分用户
              * unionId 只要在接入了微信开发平台才会返回
              */
-             String unionId = userMap.get("unionId");
              String openId = userMap.get("openid");
-             String access_token = userMap.get("access_token");
              
              ChildMember userInfo = childMemberService.findByOpenId(openId);
              if(null == userInfo){
@@ -307,6 +305,97 @@ public class MemberController extends BaseController {
             e.printStackTrace();
         }
     }
+    
+    
+    /**
+     * 前端用户登录
+     * 通过微信用户code登录获取openId和sessionKey
+     * 通过openId再获取微信用户信息、保存数据库
+     * parentOpenId记录当前登录用户的推荐人
+     * */
+    @ResponseBody
+    @RequestMapping(value = "/login2", method = RequestMethod.GET)
+    public Map<String,String> login2(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+    	Map<String,String> map=new HashMap<>();
+    	try {
+            String code = null;
+            String shareUrl = request.getParameter("url");
+            if(shareUrl != null){
+            	shareUrl = shareUrl.trim();
+            }
+            String parentOpenId = request.getParameter("parentOpenId");
+            logger.info("【shareUrl】：" + shareUrl);
+            logger.info("【parentOpenId】：" + parentOpenId);
+            String queryString = request.getQueryString();
+            String url = request.getRequestURL().toString();
+            url = StringUtils.isEmpty(queryString) ? url : url + "?" + queryString;
+            //对url进行URLEncode转换
+            String strUrl = URLEncoder.encode(url, "utf-8");
+            //得到请求的参数Map，注意map的value是String数组类型
+            code = request.getParameter(Constant.MAP_KEY);
+            if (StringUtils.isEmpty(code)) {
+                //获取code值
+                String jumpPath = weChatService.getCode(strUrl);
+                response.sendRedirect(jumpPath);
+                return map;
+            }
+            Map<String, String> userMap = weChatService.getWebAuthAccessToken(code);
+            if (null == userMap) {
+            	logger.error("通过接口获取到的用户信息异常!");
+                return map;
+            }
+             String unionId = userMap.get("unionId");
+             String openId = userMap.get("openid");
+             ChildMember userInfo = childMemberService.findByOpenId(openId);
+             if(null == userInfo){
+                 String globalToken = weChatService.getGlobalToken();
+                 logger.info("【globalToken】:{}", globalToken);
+                 if(globalToken != null){
+                	 //通过微信接口获取用户信息，可能获取用户信息失败
+                     userInfo = weChatService.getChildFromUnionId(userMap, globalToken);
+                 }
+                 if (null == userInfo) {
+                	 userInfo = new ChildMember();
+                 }
+                 logger.info("【公众号获取 昵称】:{}", userInfo.getNickName());
+            	 userInfo.setOpenId(openId);
+                 userInfo.setSourceType(ChildMember.SourceType.wx_public);
+                 userInfo.setIsChecked(false);
+                 userInfo.setUnionId(unionId);
+                 userInfo = childMemberService.save(userInfo);
+             }else{
+            	 if(StringUtils.isEmpty(userInfo.getNickName())){
+            		 String globalToken = weChatService.getGlobalToken();
+                     logger.info("【globalToken】:{}", globalToken);
+                     if(globalToken != null){
+                    	 //通过微信接口获取用户信息，可能获取用户信息失败
+                         ChildMember tmpinfo = weChatService.getChildFromUnionId(userMap, globalToken);
+                         if(tmpinfo != null){
+                        	 userInfo.setNickName(tmpinfo.getNickName());
+                             userInfo.setHeadImgUrl(tmpinfo.getHeadImgUrl());
+                         }
+                     }
+                     //更新数据库
+                     logger.info("【公众号获取 昵称】:{}", userInfo.getNickName());
+                     userInfo = childMemberService.update(userInfo);
+            	 }
+             }
+            //获取用户信息异常
+            if (null == userInfo) {
+            	logger.error("通过接口获取到的用户信息异常!");
+                return map;
+            }
+            map.put("openId", openId);
+            map.put("parentOpenId", parentOpenId);
+            map.put("shareUrl", shareUrl);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	return map;
+    }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(String redirectUrl, HttpServletRequest request, ModelMap model) {
