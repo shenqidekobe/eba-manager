@@ -132,6 +132,12 @@ public class CartController extends BaseController {
 			map.put("addValue",product.getAddValue());
 			map.put("price",product.getPrice());
 			map.put("cartType",cartItem.getCartType());
+			Map<String,Object> carttool=new HashMap<>();
+			carttool.put("pri", product.getPrice());
+			carttool.put("sum", product.getPrice());
+			carttool.put("num", cartItem.getQuantity());
+			carttool.put("status", "disabled");
+			map.put("carttool",carttool);
 			resultList.add(map);
 		}
 
