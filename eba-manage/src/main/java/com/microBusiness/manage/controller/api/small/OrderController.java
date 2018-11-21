@@ -239,6 +239,7 @@ public class OrderController extends BaseController {
 				orderItemMap.put("goodsName", orderItem.getName());
 				orderItemMap.put("img", orderItem.getProduct().getImage());
 				orderItemMap.put("amount", orderItem.getPrice());
+				orderMap.put("goodsId", orderItem.getProduct().getGoods().getId());
 				orderItemList.add(orderItemMap);
 			}
 			orderMap.put("amount" , order.getAmount());
