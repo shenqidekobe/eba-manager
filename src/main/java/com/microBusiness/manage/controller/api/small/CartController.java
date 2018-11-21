@@ -1,5 +1,6 @@
 package com.microBusiness.manage.controller.api.small;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -134,7 +135,7 @@ public class CartController extends BaseController {
 			map.put("cartType",cartItem.getCartType());
 			Map<String,Object> carttool=new HashMap<>();
 			carttool.put("pri", product.getPrice());
-			carttool.put("sum", product.getPrice());
+			carttool.put("sum", product.getPrice().multiply(new BigDecimal(cartItem.getQuantity())));
 			carttool.put("num", cartItem.getQuantity());
 			carttool.put("status", "disabled");
 			map.put("carttool",carttool);
