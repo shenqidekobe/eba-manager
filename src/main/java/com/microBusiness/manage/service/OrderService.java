@@ -140,7 +140,7 @@ public interface OrderService extends BaseService<Order, Long> {
 
 	void review(Order order, boolean passed, Admin operator , List<OrderItem> orderItems , String deniedReason , Date reDate);
 
-	Order create( Cart cart, Shop shop,SupplierType supplierType,Types types,Need need,Set<CartItem> cartItems,
+	Order create( Cart cart, Shop shop,SupplierType supplierType,Types types,Need need,Set<CartItem> cartItems,String itemIds,
 				 PaymentMethod paymentMethod, ShippingMethod shippingMethod, CouponCode couponCode,
 				 Invoice invoice, BigDecimal balance, String memo, Date reDate , 
 				 Long supplierId , SupplyType supplyType , ChildMember childMember,Long relationId, Receiver receiver);

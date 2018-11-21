@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1656,7 +1657,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	@Transactional
 	@Override
 	public Order create(Cart cart, Shop shop, SupplierType supplierType, 
-			Types types, Need need, Set<CartItem> cartItems, PaymentMethod paymentMethod, 
+			Types types, Need need, Set<CartItem> cartItems,String itemIds, PaymentMethod paymentMethod, 
 			ShippingMethod shippingMethod, CouponCode couponCode, Invoice invoice, 
 			BigDecimal balance, String memo, Date reDate, Long supplierId, 
 			SupplyType supplyType , ChildMember childMember, Long relationId, Receiver receiver) {
@@ -1678,55 +1679,15 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
         List<CartItem> cartItemList=new ArrayList<>();
 		Integer sumQuantity=0;
 		//处理购物车商品金额
+		String[] ids=StringUtils.split(itemIds,",");
 		for (CartItem cartItem : cartItems) {
+			//不包含的项不加入
+			if(!ArrayUtils.contains(ids, cartItem.getId().toString())) {
+				continue;
+			}
 			if (!cartItem.getValid()) {
 				continue;
 			}
-			/**if (SupplierType.ONE.equals(supplierType) || SupplierType.THREE.equals(supplierType)){
-				supplyNeed = cartItem.getSupplyNeed();
-				if (supplyNeed == null && !supplyNeed.getStatus().equals(SupplyNeed.Status.SUPPLY)) {//判断供应关系状态
-					continue;
-				}
-				//个体关系单价和总价
-				NeedShopProduct needShopProduct=needShopProductDao.getNeedShopProduct(supplyNeed,shop,null,cartItem.getProduct());
-				BigDecimal proPrice = needShopProduct.getSupplyPrice().multiply(new BigDecimal(cartItem.getQuantity()));
-				cartItem.setNewPrice(proPrice);
-				cartItem.setNewPriceUnit(needShopProduct.getSupplyPrice());
-				totalPrice = totalPrice.add(proPrice);
-
-				//企业供应关系单价和总价
-				if (cartItem.getProduct().getGoods().getSource() != null && cartItem.getProduct().getSource() != null) {
-					SupplierProduct supplierProduct=supplierProductDao.getSupplierProduct(cartItem.getProduct().getGoods().getSupplierSupplier(), cartItem.getProduct().getSource());
-					BigDecimal proPriceB = supplierProduct.getSupplyPrice().multiply(new BigDecimal(cartItem.getQuantity()));
-					cartItem.setNewBToBPrice(proPriceB);
-					cartItem.setNewBToBPriceUnit(supplierProduct.getSupplyPrice());
-					totalPriceB=totalPriceB.add(proPriceB);
-				}
-				cartItemList.add(cartItem);
-
-			}else if(SupplierType.TWO.equals(supplierType)){
-				supplierSupplier=cartItem.getSupplierSupplier();
-				if (supplierSupplier == null && !supplierSupplier.getEndDate().before(now)) {//判断供应关系状态
-					continue;
-				}
-				SupplierProduct supplierProduct=supplierProductDao.getSupplierProduct(supplierSupplier, cartItem.getProduct());
-				BigDecimal proPrice = supplierProduct.getSupplyPrice().multiply(new BigDecimal(cartItem.getQuantity()));
-				cartItem.setNewPrice(proPrice);
-				cartItem.setNewPriceUnit(supplierProduct.getSupplyPrice());
-				cartItem.setNewBToBPrice(proPrice);
-				cartItem.setNewBToBPriceUnit(supplierProduct.getSupplyPrice());
-				totalPrice = totalPrice.add(proPrice);
-				totalPriceB=totalPriceB.add(proPrice);
-				cartItemList.add(cartItem);
-			}else if(SupplierType.FOUR.equals(supplierType)){
-				cartItem.setNewPrice(BigDecimal.ZERO);
-				cartItem.setNewPriceUnit(BigDecimal.ZERO);
-				cartItem.setNewBToBPrice(BigDecimal.ZERO);
-				cartItem.setNewBToBPriceUnit(BigDecimal.ZERO);
-				totalPrice = totalPrice.add(BigDecimal.ZERO);
-				totalPriceB=totalPriceB.add(BigDecimal.ZERO);
-				cartItemList.add(cartItem);
-			}**/
 			Product product = cartItem.getProduct();
 			Goods goods = product.getGoods();
 			if(goods.getSales() == null){
@@ -1764,7 +1725,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		/**
 		 * 订单成功后，删除购物车中的购物项
 		 */
-		for (CartItem cartItem : cartItems){
+		for (CartItem cartItem : cartItemList) {
+			//不包含的项不加入
+			if(!ArrayUtils.contains(ids, cartItem.getId().toString())) {
+				continue;
+			}
 			cartItemDao.remove(cartItem);
 		}
 		return order;

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -318,15 +319,19 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 预备下单，填写收货地址信息，展示购物车商品列表
+	 * itemIds:需下单的购物车项ID
 	 * @param supplierId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/preOrder")
 	public @ResponseBody
-	JsonEntity preOrder(String unionId, String smOpenId, Long supplierId , Long shopId, Long relationId, SupplierType supplierType,Types types) {
+	JsonEntity preOrder(String unionId, String smOpenId, Long supplierId , Long shopId,
+			Long relationId, SupplierType supplierType,Types types,String itemIds) {
 		Map<String, Object> resultMap = new HashMap<>();
 		Map<String, Object> shopMap = new HashMap<>();
+		if(StringUtils.isEmpty(itemIds)) {
+			return new JsonEntity("13002" , "请选择您要下单的商品");
+		}
 		//ChildMember childMember = childMemberService.findByUnionId(unionId);
 		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
 		Member member = childMember.getMember();
@@ -392,8 +397,13 @@ public class OrderController extends BaseController {
 			return JsonEntity.error(Code.code11103, Code.code11103.getDesc());
 		}
 
+		String[] ids=StringUtils.split(itemIds,",");
 		List<Map<String, Object>> resultList = new ArrayList<>();
 		for (CartItem cartItem : cartItemList) {
+			//不包含的项不加入
+			if(!ArrayUtils.contains(ids, cartItem.getId().toString())) {
+				continue;
+			}
 			if (!cartItem.getValid()) {
 				continue;
 			}
@@ -487,23 +497,22 @@ public class OrderController extends BaseController {
 	@Value("${order.template.common.templateId}")
 	private String commonTemplateId;
 
+	/**
+	 * itemIds：购物车项
+	 * */
 	@RequestMapping(value = "/create")
 	public @ResponseBody
 	JsonEntity create(String unionId, String smOpenId, String reDate,
 			Long supplierId , SupplyType supplyType , String memo,Long relationId, 
-			Long shopId, SupplierType supplierType, Types types, Long receiverId) {
+			Long shopId, SupplierType supplierType, Types types, Long receiverId,
+			String itemIds) {
+		if(StringUtils.isEmpty(itemIds)) {
+			return new JsonEntity("13002" , "请选择您要下单的商品");
+		}
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
 		Member member = childMember.getMember();
-
-//		Shop shop=shopService.find(shopId);
-//		Need needEntity=null;
-//		if (SupplierType.ONE.equals(supplierType) || SupplierType.THREE.equals(supplierType)){
-//			needEntity=supplyNeedService.find(relationId).getNeed();
-//		}else if (SupplierType.TWO.equals(supplierType)){
-//			needEntity=shop.getNeeds().iterator().next();
-//		}
 		
 		Receiver receiver = receiverService.find(receiverId);
 
@@ -521,25 +530,16 @@ public class OrderController extends BaseController {
 
 		ShippingMethod shippingMethod = shippingMethodService.find(1l);
 		PaymentMethod paymentMethod = paymentMethodService.find(3l);
-		Date date = DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
+		Date date = new Date();//DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
 		// FIXME: 2017/3/21 创建订单的时候需要知道是那个公众号下的单
 		//ChildMember childMember = super.getCurrChildMem(request);
 		Set<CartItem> cartItemList = cartItemService.getCartItems(cart,null,supplierId,relationId,supplierType,types);
-		Order order = orderService.create(cart, null, supplierType, types, null, cartItemList,
+		Order order = orderService.create(cart, null, supplierType, types, null, cartItemList,itemIds,
 				paymentMethod, shippingMethod, null, null, null, memo, date , supplierId , 
 				supplyType , childMember,relationId, receiver);
 		data.put("sn", order.getSn());
 		data.put("orderId", order.getId());
 		
-		//本地订单备注需要另外存放
-//		if (types == Types.local && StringUtils.isNotBlank(memo)) {
-//			ShareNotes shareNotes=new ShareNotes();
-//			shareNotes.setDescription(memo);
-//			shareNotes.setOrder(order);
-//			shareNotes.setChildMember(childMember);
-//			shareNotes.setName(childMember.getNickName());
-//			shareNotesService.save(shareNotes);
-//		}
 		return JsonEntity.successMessage(data);
 	}
 
