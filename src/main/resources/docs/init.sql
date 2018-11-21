@@ -24,3 +24,22 @@ INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `am
 INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (2, '2015-12-01 00:59:10', '2015-12-01 00:59:10', 0, 1000.000000, b'0', b'0', '铜牌会员', 1, b'0');
 INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (3, '2015-12-01 00:59:11', '2015-12-01 00:59:11', 0, 10000.000000, b'0', b'0', '银牌会员', 1, b'0');
 INSERT INTO `xx_member_rank` (`id`, `create_date`, `modify_date`, `version`, `amount`, `is_default`, `is_special`, `name`, `scale`, `deleted`) VALUES (4, '2015-12-01 00:59:12', '2015-12-01 00:59:12', 0, 100000.000000, b'0', b'0', '金牌会员', 1, b'0');
+
+
+INSERT INTO `xx_plugin_config` (`id`, `create_date`, `modify_date`, `version`, `orders`, `attributes`, `is_enabled`, `plugin_id`, `deleted`) VALUES (1, '2015-12-01 00:57:42', '2015-12-01 00:57:42', 0, 100, NULL, b'1', 'localStoragePlugin', b'0');
+INSERT INTO `xx_plugin_config` (`id`, `create_date`, `modify_date`, `version`, `orders`, `attributes`, `is_enabled`, `plugin_id`, `deleted`) VALUES (2, '2015-12-01 00:57:43', '2015-12-01 00:57:43', 0, 1, '{"fee":"0","paymentName":"财付通","logo":"http://image.demo.shopxx.net/4.0/201501/2e05d165-ff0a-4bf7-ab32-0f5431b579e4.gif","description":null,"feeType":"fixed","partner":"abc","key":"abc"}', b'1', 'tenpayDirectPaymentPlugin', b'0');
+INSERT INTO `xx_plugin_config` (`id`, `create_date`, `modify_date`, `version`, `orders`, `attributes`, `is_enabled`, `plugin_id`, `deleted`) VALUES (3, '2015-12-01 22:32:38', '2015-12-01 22:32:38', 0, NULL, NULL, b'0', 'weiboLoginPlugin', b'0');
+
+
+
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (1, '2015-12-01 00:57:35', '2018-07-31 17:44:20', 188, 182, 0, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (2, '2015-12-01 00:57:36', '2018-09-24 08:14:16', 186, 175, 1, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (3, '2015-12-01 00:57:37', '2015-12-01 00:57:37', 0, 0, 2, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (4, '2015-12-01 00:57:38', '2017-02-09 15:28:11', 1, 0, 3, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (5, '2015-12-01 00:57:39', '2015-12-01 00:57:39', 0, 0, 4, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (6, '2015-12-01 00:57:40', '2018-07-28 02:36:35', 107, 99, 5, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (7, '2015-12-01 00:57:41', '2015-12-01 00:57:41', 0, 0, 6, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (8, '2015-12-01 00:57:41', '2018-04-02 22:27:30', 100, 100, 7, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (9, '2017-11-30 18:42:13', '2018-04-02 22:27:50', 26, 26, 8, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (10, '2017-11-30 18:42:24', '2018-03-27 15:50:55', 21, 21, 9, b'0');
+INSERT INTO `xx_sn` (`id`, `create_date`, `modify_date`, `version`, `last_value`, `type`, `deleted`) VALUES (11, '2018-01-10 18:11:16', '2018-04-10 12:16:05', 11, 11, 10, b'0');
