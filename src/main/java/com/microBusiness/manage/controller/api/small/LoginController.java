@@ -103,10 +103,7 @@ public class LoginController extends BaseController{
 
 	   // 获取用户基本信息,微信废弃
 	   //ChildMember childMember = ApiSmallUtils.getUserInfo(encryptedData, iv, sessionKey);
-	   
-	   
        //childMember.setUnionId(unionId);
-
        // 通过unionId 获取用户信息
        //ChildMember userInfo = childMemberService.findByUnionId(childMember.getUnionId());
 	   
@@ -150,7 +147,7 @@ public class LoginController extends BaseController{
     	   
        }
 	   result.put("sessionKey", sessionKey);
-       result.put("smOpenId", childMember.getSmOpenId());
+       result.put("smOpenId", smOpenId);
        result.put("openId", childMember.getOpenId());
        result.put("unionId", childMember.getUnionId());
        result.put("flag", true);

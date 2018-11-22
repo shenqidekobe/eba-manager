@@ -72,15 +72,12 @@ public final class ApiSmallUtils {
 
        //解析相应内容（转换成json对象）
        JSONObject json = JSONObject.fromObject(data);
-       
        String sessionKey = json.get("session_key") == null ? null : String.valueOf(json.get("session_key"));
        String openId = json.get("openid") == null ? null : String.valueOf(json.get("openid"));
-
        if (sessionKey == null) {
     	   return null;
 	   }
-
-	   Map map = new HashMap<Object, Object>();
+	   Map<Object, Object> map = new HashMap<Object, Object>();
 	   map.put("sessionKey", sessionKey);
 	   map.put("openId", openId);
 
@@ -89,7 +86,6 @@ public final class ApiSmallUtils {
 	
 	public static Map<Object, Object> getAssInfo(String code, String assKey, String assSecret){
 		   String url ="https://api.weixin.qq.com/sns/jscode2session?appid="+assKey+"&secret="+assSecret+"&js_code="+code+"&grant_type="+Constant.GRANT_TYPE;
-
 		   //发送请求
 	       String data = getResponse(url);
 
@@ -107,7 +103,7 @@ public final class ApiSmallUtils {
 	    	   return null;
 		   }
 
-		   Map map = new HashMap<Object, Object>();
+		Map<Object, Object> map = new HashMap<Object, Object>();
 		   map.put("sessionKey", sessionKey);
 		   map.put("openId", openId);
 

@@ -239,7 +239,7 @@ public class OrderController extends BaseController {
 				orderItemMap.put("goodsName", orderItem.getName());
 				orderItemMap.put("img", orderItem.getProduct().getImage());
 				orderItemMap.put("amount", orderItem.getPrice());
-				orderMap.put("goodsId", orderItem.getProduct().getGoods().getId());
+				//orderMap.put("goodsId", orderItem.getProduct().getGoods().getId());
 				orderItemList.add(orderItemMap);
 			}
 			orderMap.put("amount" , order.getAmount());
@@ -559,7 +559,7 @@ public class OrderController extends BaseController {
 		//ChildMember childMember = childMemberService.findByUnionId(unionId);
 		ShippingMethod shippingMethod = shippingMethodService.find(1l);
 		PaymentMethod paymentMethod = paymentMethodService.find(3l);
-		Date date = DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
+		Date date = new Date();//DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
 		// FIXME: 2017/3/21 创建订单的时候需要知道是那个公众号下的单
 		//ChildMember childMember = super.getCurrChildMem(request);
 		Order order = orderService.create(productId,  quantity,
@@ -1052,6 +1052,10 @@ public class OrderController extends BaseController {
 		orderMap.put("orderDate", order.getCreateDate());
 		orderMap.put("status", order.getStatus().ordinal());
 		orderMap.put("price", order.getPrice());
+		orderMap.put("freight", order.getFreight());
+		orderMap.put("promotionDiscount", order.getPromotionDiscount());
+		orderMap.put("couponDiscount", order.getCouponDiscount());
+		orderMap.put("amountPaid", order.getAmountPaid());
 		//orderMap.put("needName", order.getMember().getNeed().getName());
 //		Need need = order.getNeed();
 //		orderMap.put("needName", need.getName());
@@ -1103,7 +1107,7 @@ public class OrderController extends BaseController {
 		orderMap.put("orderLogSize", order.getOrderLogs().size());
 		//订单备注数量
 		Integer remarksSize=0;
-		if (order.getSupplyType().equals(SupplyType.temporary)) {
+		/*if (order.getSupplyType().equals(SupplyType.temporary)) {
 			for (OrderRemarks orderRemarks : order.getOrderRemarks()) {
 				if (orderRemarks.getMsgType().equals(MsgType.btoc)) {
 					remarksSize++;
@@ -1111,7 +1115,7 @@ public class OrderController extends BaseController {
 			}
 		}else {
 			remarksSize=order.getOrderRemarks().size();
-		}
+		}*/
 		orderMap.put("orderRemarksSize", remarksSize);
 
 		orderMap.put("deniedReason" , order.getDeniedReason()) ;
@@ -1127,8 +1131,9 @@ public class OrderController extends BaseController {
 				Map<String, Object> orderItemMap = new HashMap<String, Object>();
 				orderItemMap.put("goodsId", orderItem.getProduct().getGoods().getId());
 				orderItemMap.put("productId", orderItem.getProduct().getId());
-				orderItemMap.put("productName", orderItem.getName());
-				orderItemMap.put("img", orderItem.getThumbnail());
+				orderItemMap.put("name", orderItem.getName());
+				orderItemMap.put("image", orderItem.getThumbnail());
+				orderItemMap.put("price", orderItem.getPrice());
 				orderItemMap.put("quantity", orderItem.getQuantity());
 				//新增规格项显示
 				orderItemMap.put("specs", orderItem.getProduct().getSpecifications());

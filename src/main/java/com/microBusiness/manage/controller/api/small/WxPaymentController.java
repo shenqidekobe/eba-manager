@@ -105,8 +105,7 @@ public class WxPaymentController extends BaseController {
 				orderService.updatePaySn(member, order);
 				
 				//生成支付记录和日志
-				//TODO:
-				smOpenId="o64Y-5U4k3zemQCVJXsJmGA4qdsg";
+				//smOpenId="o64Y-5U4k3zemQCVJXsJmGA4qdsg";
 
 				// 得到统一下单prepay_id
 				Map<String, String> prepayIdMap = wechatPayService.getPrepayIdResult(smOpenId, total_fee, body,
