@@ -623,6 +623,7 @@ public class GoodsController extends BaseController {
 				 this.put("addValue", product.getAddValue());
 				 this.put("specifications", product.getSpecifications());
 				 this.put("sales", product.getSales());
+				 this.put("isDefault", product.getIsDefault());
 			 }});
 		 }
 		 goodMap.put("products", productList);
