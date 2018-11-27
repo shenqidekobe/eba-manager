@@ -115,6 +115,7 @@ public class WxPaymentController extends BaseController {
 				if ("success".equals(prepayIdResult)) {// 判断返回的结果
 					String prepay_id = prepayIdMap.get("prepay_id");
 
+					order.setPrepay_id(prepay_id);
 					// 得到网页端调起支付API的参数
 					returnMap = wechatPayService.getH5Params(prepay_id);
 

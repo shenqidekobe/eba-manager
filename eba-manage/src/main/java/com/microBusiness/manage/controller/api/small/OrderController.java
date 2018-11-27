@@ -18,10 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
+import com.microBusiness.manage.entity.Admin;
 import com.microBusiness.manage.entity.Cart;
 import com.microBusiness.manage.entity.CartItem;
 import com.microBusiness.manage.entity.ChildMember;
@@ -57,6 +59,7 @@ import com.microBusiness.manage.entity.SupplyNeed;
 import com.microBusiness.manage.entity.SupplyType;
 import com.microBusiness.manage.entity.Types;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
+import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.CartItemService;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.HostingShopService;
@@ -123,7 +126,8 @@ public class OrderController extends BaseController {
 	private OrderFormService orderFormService;
 	@Value("${small.template.common.microBusiness.templateId}")
 	private String smallCommonTemplateId;
-	
+	@Resource(name = "adminServiceImpl")
+	private AdminService adminService;
 	@Resource
 	private ProxyUserService proxyUserService;
 	
@@ -1434,6 +1438,27 @@ public class OrderController extends BaseController {
 		}
 		map.put("orderRelations", orderRelations);
 		return map;
+	}
+	
+	//用户点击确认收货
+	@RequestMapping(value = "/receive", method = RequestMethod.GET)
+	public @ResponseBody JsonEntity receive(String unionId, String smOpenId,Long orderId ) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Order order = orderService.find(orderId);
+		if (order == null || order.hasExpired() || !Order.Status.shipped.equals(order.getStatus())) {
+			return JsonEntity.error(Code.code_order_011803);
+		}
+		/*ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+		if (orderService.isLocked(order, childMember.getMember(), true)) {
+			return JsonEntity.error(Code.code_order_011803);
+		}*/
+		Admin admin=this.adminService.find(1L);
+		orderService.receive(order, admin);
+		//收货就标示完成
+		orderService.complete(order, admin);
+		// TODO: 2017/2/14 发送模版消息
+		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.completed) ;
+		return JsonEntity.successMessage(resultMap);
 	}
 
 }
