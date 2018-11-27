@@ -15,13 +15,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import com.microBusiness.manage.interceptor.MemberInterceptor;
-import com.microBusiness.manage.util.JsonUtils;
-import com.microBusiness.manage.util.JsonUtils;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -31,6 +43,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.microBusiness.manage.interceptor.MemberInterceptor;
+import com.microBusiness.manage.util.JsonUtils;
+
 @Entity
 @Table(name = "xx_member")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_member")
@@ -39,19 +54,14 @@ public class Member extends BaseEntity<Long> {
 	private static final long serialVersionUID = 6933701227949781992L;
 
 	public enum Gender {
-
 		male,
-
 		female,
 		unknow
 	}
 
 	public enum RankingType {
-
 		point,
-
 		balance,
-
 		amount
 	}
 

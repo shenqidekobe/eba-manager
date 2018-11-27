@@ -315,6 +315,7 @@ public class Order extends BaseEntity<Long> {
 	
 	
 	private String paySn;
+	private String prepay_id;
 	
 	
 	
@@ -1229,6 +1230,14 @@ public class Order extends BaseEntity<Long> {
 
 	public void setSharingStatus(SharingStatus sharingStatus) {
 		this.sharingStatus = sharingStatus;
+	}
+
+	public String getPrepay_id() {
+		return prepay_id;
+	}
+
+	public void setPrepay_id(String prepay_id) {
+		this.prepay_id = prepay_id;
 	}
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

@@ -526,7 +526,10 @@ public class WeChatServiceImpl implements WeChatService {
      */
     @Override
     public boolean sendTemplateMessage(TemplateInfo templateInfo, String access_token) {
-        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + access_token;
+        //公众号消息推送
+    	//String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + access_token;
+        //小程序消息推送，必须带有form_id
+    	String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + access_token;
         String jsonStr = JsonUtils.toJson(templateInfo);
         WebUtils.post(url, jsonStr);
         return true;
@@ -671,7 +674,7 @@ public class WeChatServiceImpl implements WeChatService {
         
         // 增加参数，跳转小程序
         Map<String, String> miniprogram = new HashMap<String, String>();
-        miniprogram.put("appid", Constant.APP_ID);
+        miniprogram.put("appid", Constant.SMALL_APPID);
         miniprogram.put("pagepath", String.format(Constant.PAGE_PATH, order.getId()));
         
         templateInfo.setMiniprogram(miniprogram);
