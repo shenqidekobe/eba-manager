@@ -87,9 +87,12 @@ public class Member extends BaseEntity<Long> {
 
 	private BigDecimal point;
 
-	private BigDecimal balance;
-
-	private BigDecimal amount;
+	private BigDecimal balance;//我的余额
+	private BigDecimal income;//总收益
+	private BigDecimal yesterdayIncome;//昨日收益
+	private String lastDay;
+	
+	private BigDecimal amount;//已付金额
 
 	private Boolean isEnabled;
 
@@ -193,6 +196,7 @@ public class Member extends BaseEntity<Long> {
 	
 	//没有下单的天数
 	private Integer noOrderDays;
+	private Boolean isShoper;//是否店主
 	
 	//融合版  新增主账号绑定企业账号  区分前端操作权限
 	private Admin admin;
@@ -238,6 +242,14 @@ public class Member extends BaseEntity<Long> {
 		this.nickname = nickname;
 	}
 
+	public Boolean getIsShoper() {
+		return isShoper;
+	}
+
+	public void setIsShoper(Boolean isShoper) {
+		this.isShoper = isShoper;
+	}
+
 	@Column(nullable = false)
 	public BigDecimal getPoint() {
 		return point;
@@ -263,6 +275,21 @@ public class Member extends BaseEntity<Long> {
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+	public BigDecimal getIncome() {
+		return income;
+	}
+
+	public void setIncome(BigDecimal income) {
+		this.income = income;
+	}
+
+	public BigDecimal getYesterdayIncome() {
+		return yesterdayIncome;
+	}
+
+	public void setYesterdayIncome(BigDecimal yesterdayIncome) {
+		this.yesterdayIncome = yesterdayIncome;
 	}
 
 	@NotNull
@@ -367,6 +394,13 @@ public class Member extends BaseEntity<Long> {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+	public String getLastDay() {
+		return lastDay;
+	}
+
+	public void setLastDay(String lastDay) {
+		this.lastDay = lastDay;
 	}
 
 	@Length(max = 200)

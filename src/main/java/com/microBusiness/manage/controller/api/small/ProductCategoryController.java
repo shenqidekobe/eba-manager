@@ -1,26 +1,46 @@
 package com.microBusiness.manage.controller.api.small;
 
-import com.microBusiness.manage.Filter;
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.Order;
-import com.microBusiness.manage.Filter.Operator;
-import com.microBusiness.manage.Order.Direction;
-import com.microBusiness.manage.controller.api.BaseController;
-import com.microBusiness.manage.dao.SupplierDao;
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-import com.microBusiness.manage.util.Code;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.*;
+import com.microBusiness.manage.Filter;
+import com.microBusiness.manage.Filter.Operator;
+import com.microBusiness.manage.Order;
+import com.microBusiness.manage.Order.Direction;
+import com.microBusiness.manage.controller.api.BaseController;
+import com.microBusiness.manage.dao.SupplierDao;
+import com.microBusiness.manage.entity.Goods;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Need;
+import com.microBusiness.manage.entity.ProductCategory;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.entity.SupplierSupplier;
+import com.microBusiness.manage.entity.SupplierType;
+import com.microBusiness.manage.entity.SupplyNeed;
+import com.microBusiness.manage.entity.Types;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.GoodsService;
+import com.microBusiness.manage.service.NeedService;
+import com.microBusiness.manage.service.ProductCategoryService;
+import com.microBusiness.manage.service.ShopService;
+import com.microBusiness.manage.service.SupplierService;
+import com.microBusiness.manage.service.SupplierSupplierService;
+import com.microBusiness.manage.service.SupplyNeedService;
+import com.microBusiness.manage.util.Code;
 
 /**
  * Created by mingbai on 2017/3/29.
@@ -183,10 +203,11 @@ public class ProductCategoryController extends BaseController {
      * @Description: TODO
      * @return: JsonEntity
      */
-    @ResponseBody
+    @SuppressWarnings("serial")
+	@ResponseBody
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public JsonEntity edit(Long id ,String unionId) {
-    	Member member = childMemberService.findByUnionId(unionId).getMember();
+    	//Member member = childMemberService.findByUnionId(unionId).getMember();
     	if(null == id) {
     		return JsonEntity.error(Code.code_small_category_100001, Code.code_small_category_100001.getDesc());
     	}
@@ -262,7 +283,7 @@ public class ProductCategoryController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public JsonEntity delete(Long id , String unionId) {
-    	Member member = childMemberService.findByUnionId(unionId).getMember();
+    	//Member member = childMemberService.findByUnionId(unionId).getMember();
     	ProductCategory productCategory = productCategoryService.find(id);
 		if (productCategory == null) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());

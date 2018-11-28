@@ -15,7 +15,6 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +30,6 @@ import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.OrderItem;
 import com.microBusiness.manage.entity.Product;
-import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.entity.ProxyUser;
 import com.microBusiness.manage.entity.Receiver;
 import com.microBusiness.manage.service.ChildMemberService;

@@ -161,6 +161,8 @@ public class NeedServiceImpl extends BaseServiceImpl<Need , Long> implements Nee
             userInfo.setEmail("afeijackcool@163.com");
             userInfo.setPoint(BigDecimal.ZERO);
             userInfo.setBalance(BigDecimal.ZERO);
+            userInfo.setIncome(BigDecimal.ZERO);
+        	userInfo.setYesterdayIncome(BigDecimal.ZERO);
             userInfo.setAmount(BigDecimal.ZERO);
             userInfo.setIsEnabled(true);
             userInfo.setIsLocked(false);

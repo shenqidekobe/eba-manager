@@ -26,6 +26,7 @@ public class OrderFormController extends BaseController {
 	@Resource
 	private ChildMemberService childMemberService;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody JsonEntity add(String unionId, OrderForm orderForm, HttpServletRequest request, HttpServletResponse response) {
 		ChildMember childMember = childMemberService.findByUnionId(unionId);

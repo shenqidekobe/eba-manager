@@ -22,16 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Filter;
+import com.microBusiness.manage.Filter.Operator;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.Filter.Operator;
 import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.dto.SupplyProductDto;
 import com.microBusiness.manage.entity.Attribute;
 import com.microBusiness.manage.entity.BaseEntity;
-import com.microBusiness.manage.entity.Cart;
-import com.microBusiness.manage.entity.CartItem;
-import com.microBusiness.manage.entity.CartItem.CartType;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.entity.JsonEntity;
@@ -77,17 +74,12 @@ import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.Code;
 
 /**
- * 
  * 商流供应商Controller
- * 
- * @author 吴战波
- *
  */
 @Controller("apiGoodsController")
 @RequestMapping("/api/small/goods")
 public class GoodsController extends BaseController {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Resource
 	private CategoryCenterService categoryCenterService ;
 	@Resource

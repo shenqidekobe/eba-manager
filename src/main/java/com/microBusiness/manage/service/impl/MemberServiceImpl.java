@@ -280,6 +280,8 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     	member.setEmail("afeijackcool@163.com");
     	member.setPoint(BigDecimal.ZERO);
     	member.setBalance(BigDecimal.ZERO);
+    	member.setIncome(BigDecimal.ZERO);
+    	member.setYesterdayIncome(BigDecimal.ZERO);
     	member.setAmount(BigDecimal.ZERO);
     	member.setIsEnabled(true);
     	member.setIsLocked(false);

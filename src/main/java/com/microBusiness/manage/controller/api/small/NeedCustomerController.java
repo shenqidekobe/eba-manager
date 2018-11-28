@@ -2,22 +2,26 @@ package com.microBusiness.manage.controller.api.small;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Need;
 import com.microBusiness.manage.entity.Sms;
 import com.microBusiness.manage.entity.SourceType;
 import com.microBusiness.manage.entity.Supplier;
-import com.microBusiness.manage.entity.ass.AssChildMember;
-import com.microBusiness.manage.entity.ass.AssUpdateTips;
 import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.AreaService;
 import com.microBusiness.manage.service.ChildMemberService;
@@ -28,14 +32,6 @@ import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.service.ass.AssChildMemberService;
 import com.microBusiness.manage.service.ass.AssUpdateTipsService;
 import com.microBusiness.manage.util.Code;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 个体客户

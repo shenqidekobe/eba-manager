@@ -11,6 +11,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
@@ -20,7 +25,6 @@ import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.entity.ProductCenter;
-import com.microBusiness.manage.entity.Specification;
 import com.microBusiness.manage.service.CategoryCenterService;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.GoodsCenterService;
@@ -28,11 +32,6 @@ import com.microBusiness.manage.service.ProductCategoryService;
 import com.microBusiness.manage.service.ProductCenterService;
 import com.microBusiness.manage.service.SpecificationService;
 import com.microBusiness.manage.util.Code;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by afei.
@@ -276,7 +275,7 @@ public class GoodsCenterController extends BaseController {
 	 @ResponseBody
 	 @RequestMapping(value = "/query" , method = RequestMethod.GET)
 	 public JsonEntity query(Long goodsId , String unionId) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		 
 		GoodsCenter goods = goodsCenterService.find(goodsId);
@@ -295,7 +294,12 @@ public class GoodsCenterController extends BaseController {
 
 		List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
 		for(final ProductCenter product : products) {
-			productList.add(new HashMap<String, Object>(){{
+			productList.add(new HashMap<String, Object>(){/**
+				 * 
+				 */
+				private static final long serialVersionUID = 3528498956250623793L;
+
+			{
 				this.put("productId", product.getId());
 				this.put("barCode", product.getBarCode());
 				this.put("cost", product.getCost());

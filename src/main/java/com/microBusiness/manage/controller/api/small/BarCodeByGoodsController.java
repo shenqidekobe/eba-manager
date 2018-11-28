@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -16,21 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.microBusiness.manage.Page;
-import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.dto.ProductSupplierDto;
+import com.microBusiness.manage.entity.CategoryCenter;
 import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.entity.GoodsCenter;
-import com.microBusiness.manage.entity.GoodsCenter.Label;
-import com.microBusiness.manage.entity.CategoryCenter;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Product;
 import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.entity.ProductCenter;
 import com.microBusiness.manage.entity.Shop;
-import com.microBusiness.manage.entity.SpecificationItem;
 import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.Types;
 import com.microBusiness.manage.service.CategoryCenterService;

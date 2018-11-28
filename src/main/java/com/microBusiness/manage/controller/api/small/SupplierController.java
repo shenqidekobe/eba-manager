@@ -1,32 +1,60 @@
 package com.microBusiness.manage.controller.api.small;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.Page;
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
-import com.microBusiness.manage.dto.SupplierDto;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.Goods;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Need;
+import com.microBusiness.manage.entity.NeedShopProduct;
+import com.microBusiness.manage.entity.Product;
+import com.microBusiness.manage.entity.ProductCategory;
+import com.microBusiness.manage.entity.Shop;
+import com.microBusiness.manage.entity.ShopType;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.entity.SupplierNeedProduct;
+import com.microBusiness.manage.entity.SupplierProduct;
+import com.microBusiness.manage.entity.SupplierSupplier;
+import com.microBusiness.manage.entity.SupplierType;
+import com.microBusiness.manage.entity.SupplyNeed;
+import com.microBusiness.manage.entity.SupplyType;
+import com.microBusiness.manage.entity.SystemSetting;
+import com.microBusiness.manage.entity.Types;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.GoodsService;
+import com.microBusiness.manage.service.NeedShopProductService;
+import com.microBusiness.manage.service.ProductCategoryService;
+import com.microBusiness.manage.service.ProductService;
+import com.microBusiness.manage.service.ShopService;
+import com.microBusiness.manage.service.SupplierNeedProductService;
+import com.microBusiness.manage.service.SupplierProductService;
+import com.microBusiness.manage.service.SupplierService;
+import com.microBusiness.manage.service.SupplierSupplierService;
+import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.util.Code;
 
 //供应商-店主
 @Controller("smallSupplierController")
 @RequestMapping("/api/small/supplier")
 public class SupplierController extends BaseController{
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Resource
 	private SupplierService supplierService ;
 	@Resource
@@ -227,7 +255,7 @@ public class SupplierController extends BaseController{
 		if(null == id) {
 			return JsonEntity.error(Code.code13004, Code.code13004.getDesc());
 		}
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		Supplier supplier = supplierService.find(id);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("id", supplier.getId());
@@ -280,7 +308,7 @@ public class SupplierController extends BaseController{
 		if(null == id && null == unionId) {
 			return JsonEntity.error(Code.code13004, Code.code13004.getDesc());
 		}
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		Supplier supplier = supplierService.find(id);
 		List<NeedShopProduct> list=needShopProductService.getList(null,null,supplier);
 		if(list.size() > 0) {

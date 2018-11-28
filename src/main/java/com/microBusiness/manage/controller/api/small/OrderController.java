@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
@@ -81,7 +80,6 @@ import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.DateUtils;
-import com.microBusiness.manage.util.DateformatEnum;
 
 @Controller("smallOrderController")
 @RequestMapping("/api/small/order")
@@ -651,7 +649,7 @@ public class OrderController extends BaseController {
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public JsonEntity delete(String unionId,Long orderId){
-		ChildMember childMember = childMemberService.findByUnionId(unionId);
+		//ChildMember childMember = childMemberService.findByUnionId(unionId);
 		Order order=orderService.find(orderId);
 		if (order.getType() != Order.Type.local){
 			return new JsonEntity("010533" , "只能删除本地订单");
@@ -916,7 +914,6 @@ public class OrderController extends BaseController {
 	 * @param id 订单id
 	 * @return
 	 */
-	@SuppressWarnings("serial")
 	@RequestMapping(value = "/getOrderItems" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity getOrderItems(String unionId, Long id , final Long supplierId, final Long needId , HttpServletRequest request){
@@ -1206,7 +1203,7 @@ public class OrderController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getShareNotes" , method = RequestMethod.GET)
 	public JsonEntity getShareNotes(String unionId,Long orderId,Long shareNotesId, Pageable pageable) {
-		ChildMember childMember = childMemberService.findByUnionId(unionId);
+		//ChildMember childMember = childMemberService.findByUnionId(unionId);
 		Order order = orderService.find(orderId);
 		if(null == orderId || null == order) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
@@ -1327,7 +1324,7 @@ public class OrderController extends BaseController {
 		if(null == unionId || null == orderId) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
-		ChildMember childMember = childMemberService.findByUnionId(unionId);
+		//ChildMember childMember = childMemberService.findByUnionId(unionId);
 		Order order = orderService.find(orderId);
 		List<Map<String, Object>> resultMap = new ArrayList<Map<String,Object>>();
 		if(order != null) {
@@ -1376,6 +1373,7 @@ public class OrderController extends BaseController {
 		return orderRelations;
 	}
 	
+	@SuppressWarnings("serial")
 	private Map<String, Object> getCommonOrderDetail(Order order , ChildMember childMember , Member member) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//订单信息
