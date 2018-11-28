@@ -29,7 +29,6 @@ import com.microBusiness.manage.service.PaymentLogService;
 import com.microBusiness.manage.service.PaymentService;
 import com.microBusiness.manage.service.WechatPayService;
 import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.Constant.PAYMENT_PLUGIN;
 import com.microBusiness.manage.util.DateUtils;
 import com.microBusiness.manage.util.DateformatEnum;
 import com.microBusiness.manage.util.IpUtil;
@@ -155,7 +154,7 @@ public class WxPaymentController extends BaseController {
 	@RequestMapping(value = "/notifyFun")
 	public void notifyFun(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			System.out.println("notifyFun:");
+			//System.out.println("notifyFun:");
 			// 设置Response
 			response.setContentType("text/xml; charset=UTF-8");
 			response.setHeader("Cache-Control", "no-cache");
@@ -218,19 +217,15 @@ public class WxPaymentController extends BaseController {
 						request.getSession().setAttribute("transaction_id", transaction_id);
 
 					}
-
-					// 告诉微信服务器，不要在调用回调，告诉微信服务器，收到信息了，不要在调用回调action了
 					response.getWriter().write(XmlUtils.setXML("SUCCESS", "OK"));
 
 				} else {
 					// 记录操作日志
 					logService.createLog("订单支付", operator, "订单支付失败",
 							"订单支付失败，返回转换成json的数据：" + new Gson().toJson(map).toString(), IpUtil.getHostIp());
-
 					response.getWriter().write(XmlUtils.setXML("FAIL", "报文为空"));
 				}
 			}
-
 			logger.info("[notifyFun()]: wechatUser=" + operator + "'s payment 微信支付回调接口完成 finish...");
 
 		} catch (Exception e) {

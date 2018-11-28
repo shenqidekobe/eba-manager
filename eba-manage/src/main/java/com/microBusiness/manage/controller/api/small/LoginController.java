@@ -287,7 +287,7 @@ public class LoginController extends BaseController{
 	        return count >= MAX_SEND ? true : false ;
 	}
 
-	private static String getResponse(String serverUrl){  
+   public static String getResponse(String serverUrl){  
         StringBuffer result = new StringBuffer();  
         try {  
             URL url = new URL(serverUrl);  
@@ -308,7 +308,8 @@ public class LoginController extends BaseController{
         return result.toString();  
     }
 
-	private static String getResponse(String serverUrl, Map map){
+	@SuppressWarnings("rawtypes")
+	public static String getResponse(String serverUrl, Map map){
 		PrintWriter out = null;
         StringBuffer result = new StringBuffer();  
         try {  
@@ -355,6 +356,7 @@ public class LoginController extends BaseController{
 	 * @param response
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/formal")
 	@ResponseBody
 	public JsonEntity formalSupplier(HttpServletRequest request, HttpServletResponse response , Pageable pageable, String unionId){

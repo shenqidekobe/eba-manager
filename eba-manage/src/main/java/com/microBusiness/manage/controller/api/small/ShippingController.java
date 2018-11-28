@@ -1,7 +1,27 @@
 package com.microBusiness.manage.controller.api.small;
 
-import com.google.zxing.WriterException;
-import com.microBusiness.manage.Setting;
+import static com.microBusiness.manage.util.Code.code019998;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.JsonEntity;
@@ -13,33 +33,6 @@ import com.microBusiness.manage.service.ShippingService;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.ApiSmallUtils;
 import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.QRCodeUtil;
-import com.microBusiness.manage.util.SystemUtils;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.microBusiness.manage.util.Code.code019998;
 
 /**
  * Created by mingbai on 2017/3/22.
@@ -49,8 +42,6 @@ import static com.microBusiness.manage.util.Code.code019998;
 @Controller("smallShippingController")
 @RequestMapping(value = "/api/small/shipping")
 public class ShippingController extends BaseController {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(ShippingController.class) ;
 
     @Resource
     private ShippingService shippingService ;

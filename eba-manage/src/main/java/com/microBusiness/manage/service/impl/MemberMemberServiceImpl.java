@@ -49,6 +49,8 @@ public class MemberMemberServiceImpl extends BaseServiceImpl<MemberMember, Long>
         	byMember.setEmail("afeijackcool@163.com");
         	byMember.setPoint(BigDecimal.ZERO);
         	byMember.setBalance(BigDecimal.ZERO);
+        	byMember.setIncome(BigDecimal.ZERO);
+        	byMember.setYesterdayIncome(BigDecimal.ZERO);
         	byMember.setAmount(BigDecimal.ZERO);
         	byMember.setIsEnabled(true);
         	byMember.setIsLocked(false);
@@ -101,6 +103,8 @@ public class MemberMemberServiceImpl extends BaseServiceImpl<MemberMember, Long>
         	byMember.setEmail("afeijackcool@163.com");
         	byMember.setPoint(BigDecimal.ZERO);
         	byMember.setBalance(BigDecimal.ZERO);
+        	byMember.setIncome(BigDecimal.ZERO);
+        	byMember.setYesterdayIncome(BigDecimal.ZERO);
         	byMember.setAmount(BigDecimal.ZERO);
         	byMember.setIsEnabled(true);
         	byMember.setIsLocked(false);

@@ -261,6 +261,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private String orderDetailBrowser ;
 	@Resource
 	private PaymentLogDao paymentLogDao;
+	@Value("${distribution.rate1}")
+	private Float distributionRate1;
+	@Value("${distribution.rate2}")
+	private Float distributionRate2;
+	@Value("${distribution.rate3}")
+	private Float distributionRate3;
 	
 	@Resource
 	private PlatformTransactionManager transactionManager;
@@ -1264,17 +1270,31 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Assert.state(!order.hasExpired()/* && Order.Status.received.equals(order.getStatus())*/);
 
 		Member member = order.getMember();
+		Boolean isShoper=false;
+		//产品销量增加
+		for (OrderItem orderItem : order.getOrderItems()) {
+			Product product = orderItem.getProduct();
+			isShoper=product.getGoods().getIs2Member();
+			if (product != null && product.getGoods() != null) {
+				goodsService.addSales(product.getGoods(), orderItem.getQuantity());
+			}
+		}
+		member.setIsShoper(isShoper);
+		//奖励积分
 		if (order.getRewardPoint() > 0) {
 			memberService.addPoint(member, order.getRewardPoint(), PointLog.Type.reward, operator, null);
 		}
+		//使用的优惠卷
 		if (CollectionUtils.isNotEmpty(order.getCoupons())) {
 			for (Coupon coupon : order.getCoupons()) {
 				couponCodeService.generate(coupon, member);
 			}
 		}
+		//已付金额累加
 		if (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
 			memberService.addAmount(member, order.getAmountPaid());
 		}
+		//产品销量增加
 		for (OrderItem orderItem : order.getOrderItems()) {
 			Product product = orderItem.getProduct();
 			if (product != null && product.getGoods() != null) {
@@ -6690,6 +6710,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		try {
 			//step1.修改支付信息
 			Payment payment = paymentDao.findBySn(order.getPaySn());
+			payment.setTransactionId(transactionId);
+			
 			PaymentLog paymentLog = paymentLogDao.findBySn(order.getPaySn());
 			paymentLog.setStatus(PaymentLog.Status.success);
 			paymentLogDao.persist(paymentLog);
@@ -6894,6 +6916,134 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			}
 		}
 	}
+	
+	//分销结算
+	public void distributionSettlement(Order order) {
+		ChildMember childMember = order.getChildMember();
+		//根据商品利率 判断级别，计算上级返利
+		int level = 0;
+		ChildMember c1 = childMember.getParent();
+		ChildMember c2 = null;
+		ChildMember c3 = null;
+		if(c1 != null){
+			level++;
+			c2 = c1.getParent();
+			if(c2 != null){
+				level++;
+				c3 = c2.getParent();
+				if(c3 != null){
+					level++;
+				}
+			}
+		}
+		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
+		for (OrderItem orderItem : order.getOrderItems()) {
+			if(level == 1){
+				Float rate1 = distributionRate1;
+				rate1 = rate1 == null ? 0 : rate1;
+				BigDecimal price = orderItem.getProduct().getPrice();
+				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				//分销返利记录
+				orderItem.setDone(c1);
+				orderItem.setDone_score(ratePrice1);
+				orderItemDao.persist(orderItem);
+				
+				//总积分
+				Member member1 = c1.getMember();
+				member1.setBalance(member1.getBalance().add(ratePrice1));
+				member1.setIncome(member1.getIncome().add(ratePrice1));
+				member1.setLastDay(lastDay);
+				memberDao.persist(member1);
+				
+			}else if(level == 2){
+				Float rate1 = distributionRate1;
+				rate1 = rate1 == null ? 0 : rate1;
+				BigDecimal price = orderItem.getProduct().getPrice();
+				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				orderItem.setDone(c1);
+				orderItem.setDone_score(ratePrice1);
+				
+				Member member1 = c1.getMember();
+				member1.setBalance(member1.getBalance().add(ratePrice1));
+				member1.setIncome(member1.getIncome().add(ratePrice1));
+				member1.setLastDay(lastDay);
+				memberDao.persist(member1);
+				
+				Float rate2 = distributionRate2;
+				rate2 = rate2 == null ? 0 : rate2;
+				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				orderItem.setDtwo(c2);
+				orderItem.setDtwo_score(ratePrice2);
+				
+				Member member2 = c2.getMember();
+				member2.setBalance(member2.getBalance().add(ratePrice2));
+				member2.setIncome(member2.getIncome().add(ratePrice2));
+				member2.setLastDay(lastDay);
+				memberDao.persist(member2);
+				
+				orderItemDao.persist(orderItem);
+			}else if(level == 3){
+				Float rate1 = distributionRate1;
+				rate1 = rate1 == null ? 0 : rate1;
+				logger.info("rate1:" + rate1);
+				BigDecimal price = orderItem.getProduct().getPrice();
+				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				orderItem.setDone(c1);
+				orderItem.setDone_score(ratePrice1);
+				
+				
+				Member member1 = c1.getMember();
+				member1.setBalance(member1.getBalance().add(ratePrice1));
+				member1.setIncome(member1.getIncome().add(ratePrice1));
+				member1.setLastDay(lastDay);
+				memberDao.persist(member1);
+				
+				
+				
+				Float rate2 = distributionRate2;
+				rate2 = rate2 == null ? 0 : rate2;
+				logger.info("rate2:" + rate2);
+				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				orderItem.setDtwo(c2);
+				orderItem.setDtwo_score(ratePrice2);
+				
+				Member member2 = c2.getMember();
+				member2.setBalance(member2.getBalance().add(ratePrice2));
+				member2.setIncome(member2.getIncome().add(ratePrice2));
+				member2.setLastDay(lastDay);
+				memberDao.persist(member2);
+				
+				Float rate3 = distributionRate3;
+				rate3 = rate3 == null ? 0 : rate3;
+				logger.info("rate3:" + rate3);
+				BigDecimal ratePrice3 = price.multiply(new BigDecimal(rate3))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				orderItem.setDthree(c3);
+				orderItem.setDthree_score(ratePrice3);
+				
+				Member member3 = c3.getMember();
+				member3.setBalance(member3.getBalance().add(ratePrice3));
+				member3.setIncome(member3.getIncome().add(ratePrice3));
+				member3.setLastDay(lastDay);
+				memberDao.persist(member3);
+				
+				orderItemDao.persist(orderItem);
+				
+			}
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		

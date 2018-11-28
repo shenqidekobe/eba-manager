@@ -1,7 +1,6 @@
 package com.microBusiness.manage.controller.api.small;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,27 +9,32 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.controller.api.BaseController;
-import com.microBusiness.manage.dto.AssListStatisticsDto;
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.CommonUtils;
-import com.microBusiness.manage.util.DateUtils;
-
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Filter;
+import com.microBusiness.manage.Filter.Operator;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.Filter.Operator;
-import com.microBusiness.manage.Order.Direction;
+import com.microBusiness.manage.controller.api.BaseController;
+import com.microBusiness.manage.dto.AssListStatisticsDto;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.MemberMember;
+import com.microBusiness.manage.entity.Order;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.HostingShopService;
+import com.microBusiness.manage.service.MemberMemberService;
+import com.microBusiness.manage.service.OrderService;
+import com.microBusiness.manage.util.Code;
+import com.microBusiness.manage.util.CommonUtils;
+import com.microBusiness.manage.util.DateUtils;
 
 /**
  * Created by afei.
@@ -42,7 +46,7 @@ import com.microBusiness.manage.Order.Direction;
 @Controller("smallMemberController")
 @RequestMapping("/api/small/member")
 public class MemberController extends BaseController {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+	
     @Resource
     private OrderService orderService;
     @Resource
@@ -186,7 +190,8 @@ public class MemberController extends BaseController {
      * id 当前主账号member的id
      * @return: JsonEntity
      */
-    @ResponseBody
+    @SuppressWarnings("serial")
+	@ResponseBody
     @RequestMapping(value = "/clerkList" , method = RequestMethod.GET)
     public JsonEntity clerkList(String unionId , Pageable pageable) {
     	Member member = childMemberService.findByUnionId(unionId).getMember();
@@ -247,7 +252,7 @@ public class MemberController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/editClerk" , method = RequestMethod.GET)
     public JsonEntity editClerk(Long id , String unionId) {
-    	Member member = childMemberService.findByUnionId(unionId).getMember();
+    	//Member member = childMemberService.findByUnionId(unionId).getMember();
     	MemberMember memberMember = memberMemberService.find(id);
     	Map<String, Object> resultMap = new HashMap<String, Object>();
     	resultMap.put("id", memberMember.getId());
@@ -405,9 +410,16 @@ public class MemberController extends BaseController {
 	public JsonEntity index(String smOpenId, String searchName) {
     	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
     	Member member = childMember.getMember();
+    	if(!member.getIsShoper()) {
+    		return JsonEntity.error(Code.code132,"您还不是店主！");
+    	}
 		Map<String, Object> rootMap = new HashMap<String, Object>();
 		rootMap.put("isChecked", childMember.getIsChecked());
 		rootMap.put("point", member.getPoint());
+		rootMap.put("id", member.getId());
+		rootMap.put("balance", member.getBalance());
+		rootMap.put("income", member.getIncome());
+		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
 		rootMap.put("id", member.getId());
 		rootMap.put("nickName", childMember.getNickName());
 		rootMap.put("headPic", childMember.getHeadImgUrl());

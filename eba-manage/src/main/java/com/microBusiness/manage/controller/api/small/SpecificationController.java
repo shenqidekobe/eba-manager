@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -21,12 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
-import com.microBusiness.manage.entity.BaseEntity;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.entity.Specification;
-import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.Types;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.MemberService;
@@ -148,7 +145,7 @@ public class SpecificationController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/edit" , method = RequestMethod.GET)
 	public JsonEntity edit(Long id , String unionId) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if(null == id) {
 			return JsonEntity.error(Code.code_small_specification_100002, Code.code_small_specification_100002.getDesc());
 		}
@@ -183,7 +180,7 @@ public class SpecificationController extends BaseController {
 		if(null == specification.getName()) {
 			return JsonEntity.error(Code.code_small_specification_100001, Code.code_small_specification_100001.getDesc());
 		}
-		Specification specification2 = specificationService.find(specification.getId());
+		// specification2 = specificationService.find(specification.getId());
 		ProductCategory productCategory = productCategoryService.find(productCategoryId);
 		//验证名称不能重复
 		if(!oldName.equals(specification.getName())) {
@@ -207,7 +204,7 @@ public class SpecificationController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/delete" , method = RequestMethod.POST)
 	public JsonEntity delete(Long id , String unionId) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if(null == id) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		}

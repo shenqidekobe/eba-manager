@@ -82,20 +82,21 @@ public class OrderItem extends BaseEntity<Long> {
 	
 	private ProxyUser proxyUser;
 	
+	//积分返利
 	private ChildMember uone;
-	
-	//积分返利
 	private BigDecimal uone_score;
-	
 	private ChildMember utwo;
-	
-	//积分返利
 	private BigDecimal utwo_score;
-	
 	private ChildMember uthree;
-	
-	//积分返利
 	private BigDecimal uthree_score;
+	
+	//分销利润
+	private ChildMember done;
+	private BigDecimal done_score;
+	private ChildMember dtwo;
+	private BigDecimal dtwo_score;
+	private ChildMember dthree;
+	private BigDecimal dthree_score;
 	
 	public BigDecimal getUone_score() {
 		return uone_score;
@@ -149,6 +150,60 @@ public class OrderItem extends BaseEntity<Long> {
 
 	public void setUthree(ChildMember uthree) {
 		this.uthree = uthree;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDone() {
+		return done;
+	}
+
+	public void setDone(ChildMember done) {
+		this.done = done;
+	}
+
+	public BigDecimal getDone_score() {
+		return done_score;
+	}
+
+	public void setDone_score(BigDecimal done_score) {
+		this.done_score = done_score;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDtwo() {
+		return dtwo;
+	}
+
+	public void setDtwo(ChildMember dtwo) {
+		this.dtwo = dtwo;
+	}
+
+	public BigDecimal getDtwo_score() {
+		return dtwo_score;
+	}
+
+	public void setDtwo_score(BigDecimal dtwo_score) {
+		this.dtwo_score = dtwo_score;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDthree() {
+		return dthree;
+	}
+
+	public void setDthree(ChildMember dthree) {
+		this.dthree = dthree;
+	}
+
+	public BigDecimal getDthree_score() {
+		return dthree_score;
+	}
+
+	public void setDthree_score(BigDecimal dthree_score) {
+		this.dthree_score = dthree_score;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

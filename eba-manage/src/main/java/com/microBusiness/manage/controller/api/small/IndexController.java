@@ -29,7 +29,6 @@ import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.entity.ImgType;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Product;
-import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.service.AdPositionService;
 import com.microBusiness.manage.service.AdService;
 import com.microBusiness.manage.service.ChildMemberService;
@@ -259,6 +258,71 @@ public class IndexController extends BaseController {
 		return JsonEntity.successMessage(map);
 	}
 
+	/**
+	 * 会员店主商品
+	 * */
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonEntity memberList(String unionId, String smOpenId, Long supplierId ,Long relationId, 
+    		HttpServletRequest request , HttpServletResponse response){
+		long startTime = System.currentTimeMillis();
+		if(supplierId == null){
+			supplierId = 1l;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+        
+		//会员商品
+		List<Filter> filters = new ArrayList<Filter>();
+		Filter filter = new Filter();
+		
+		filters = new ArrayList<Filter>();
+		filter = new Filter();
+		filter.setIgnoreCase(true);
+		filter.setOperator(Operator.eq);
+		filter.setProperty("is2Member");
+		filter.setValue(true);
+		filters.add(filter);
+		filter = new Filter();
+		filter.setIgnoreCase(true);
+		filter.setOperator(Operator.eq);
+		filter.setProperty("deleted");
+		filter.setValue(false);
+		filters.add(filter);
+		filter = new Filter();
+		filter.setIgnoreCase(true);
+		filter.setOperator(Operator.eq);
+		filter.setProperty("isMarketable");
+		filter.setValue(true);
+		filters.add(filter);
+		List<Goods> mainGoodsList = goodsService.findList(0, 3, filters, null);
+		List<Map<String, Object>> memberMapList = new ArrayList<Map<String, Object>>();
+		if(mainGoodsList != null){
+			for (Goods goods : mainGoodsList) {
+				Map<String, Object> gmap = new HashMap<String, Object>();
+				gmap.put("goodsId", goods.getId());
+				gmap.put("name", goods.getName());
+				gmap.put("image", goods.getImage());
+				if(StringUtils.isNotBlank(goods.getImage())){
+					String storePath = goods.getImage();
+					String destMediumPath = getMImagePath(storePath);
+					gmap.put("image", destMediumPath);
+				}
+				
+				gmap.put("price", goods.getPrice());
+				gmap.put("sales", goods.getSales());
+				memberMapList.add(gmap);
+			}
+		}
+		map.put("memberMapList", memberMapList);
+		
+		
+		logger.info("time : " + (System.currentTimeMillis()-startTime));
+		
+        return JsonEntity.successMessage(map);
+    }
+	
+	
 	
 	public String getMImagePath(String storePath){
 		logger.info(storePath);

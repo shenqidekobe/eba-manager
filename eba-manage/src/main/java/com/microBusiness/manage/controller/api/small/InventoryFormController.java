@@ -9,6 +9,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
@@ -18,7 +23,6 @@ import com.microBusiness.manage.entity.InventoryFormLog;
 import com.microBusiness.manage.entity.InventoryGoods;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.entity.Product;
 import com.microBusiness.manage.entity.SfIfStatus;
 import com.microBusiness.manage.entity.Shop;
 import com.microBusiness.manage.entity.StockGoods;
@@ -32,13 +36,6 @@ import com.microBusiness.manage.service.StockGoodsService;
 import com.microBusiness.manage.service.StorageFormService;
 import com.microBusiness.manage.util.Code;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
  * 盘点单Controller
  * 
@@ -49,8 +46,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("inventoryFormController")
 @RequestMapping("/api/small/inventoryForm")
 public class InventoryFormController extends BaseController {
-
-	private static Logger LOGGER = LoggerFactory.getLogger(InventoryFormController.class);
 
 	@Resource
 	private InventoryFormService inventoryFormService;
@@ -85,7 +80,7 @@ public class InventoryFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public JsonEntity list(String unionId, String inventoryCode, Long shopId, SfIfStatus status, HttpServletRequest request, HttpServletResponse response, Pageable pageable) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 
 		if (shopId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
@@ -168,7 +163,7 @@ public class InventoryFormController extends BaseController {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
 		
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		InventoryForm inventoryForm = inventoryFormService.find(InventoryFormId);
@@ -209,7 +204,7 @@ public class InventoryFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/viewLog", method = RequestMethod.GET)
 	public JsonEntity viewLog(String unionId, Long InventoryFormId, Long shopId, HttpServletRequest request, HttpServletResponse response) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if (InventoryFormId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
@@ -291,7 +286,7 @@ public class InventoryFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/stockGoodsList", method = RequestMethod.GET)
 	public JsonEntity stockGoodsList(String unionId, Long shopId, String keyword, StockGoods.Status status, HttpServletRequest request, HttpServletResponse response, Pageable pageable) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		Page<StockGoods> page = stockGoodsService.page(shopService.find(shopId), keyword, status, pageable);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -322,7 +317,7 @@ public class InventoryFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getStockGoods", method = RequestMethod.GET)
 	public JsonEntity getStockGoods(String unionId, Long shopId, String barCode, StockGoods.Status status, HttpServletRequest request, HttpServletResponse response, Pageable pageable) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		List<StockGoods> list = stockGoodsService.findByBarCode(barCode, shopService.find(shopId), status);
 		List<Map<String, Object>> lis = new ArrayList<Map<String, Object>>();
@@ -343,11 +338,11 @@ public class InventoryFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/byProduct", method = RequestMethod.GET)
 	public JsonEntity byProduct(String unionId, Long shopId, Long productId, HttpServletRequest request, HttpServletResponse response, Pageable pageable) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		StockGoods stockGoods = stockGoodsService.findByProduct(productService.find(productId), shopService.find(shopId));
 		
-		Map map = new HashMap<>();
+		HashMap<String, Object> map = new HashMap<>();
 		
 		if (stockGoods != null) {
 			map.put("image", stockGoods.getProduct().getGoods().getImage());
@@ -357,7 +352,6 @@ public class InventoryFormController extends BaseController {
 			map.put("actualStock", stockGoods.getActualStock());
 			
 		}
-		
 		return JsonEntity.successMessage(map);
 	}
 	

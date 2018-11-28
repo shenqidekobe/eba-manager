@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +15,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.Area;
+import com.microBusiness.manage.entity.HostingShop;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Shop;
+import com.microBusiness.manage.entity.ShopType;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.HostingShopService;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.service.ShopService;
 import com.microBusiness.manage.util.Code;
 
 @Controller("smallShopController")
 @RequestMapping("/api/small/shop")
 public class ShopController extends BaseController{
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Resource
 	private ShopService shopService ;

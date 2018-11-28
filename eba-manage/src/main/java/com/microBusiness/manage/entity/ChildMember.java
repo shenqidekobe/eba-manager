@@ -48,6 +48,7 @@ public class ChildMember extends BaseEntity<Long> {
      * 是否认证
      */
     private Boolean isChecked;
+  
     
     public Boolean getIsChecked() {
 		return isChecked;
@@ -56,7 +57,6 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setIsChecked(Boolean isChecked) {
 		this.isChecked = isChecked;
 	}
-
 	public String getOpenId() {
         return openId;
     }

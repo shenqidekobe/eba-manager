@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,6 @@ import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.util.Code;
 /**
  * 地址管理
- *
  */
 @Controller("smallAddressController")
 @RequestMapping("/api/small/address")

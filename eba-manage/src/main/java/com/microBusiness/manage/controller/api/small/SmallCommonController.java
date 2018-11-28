@@ -1,46 +1,29 @@
 package com.microBusiness.manage.controller.api.small;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.controller.api.BaseController;
-import com.microBusiness.manage.entity.Ad;
 import com.microBusiness.manage.entity.Area;
 import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Sn;
-import com.microBusiness.manage.entity.ass.AssCard;
-import com.microBusiness.manage.entity.ass.AssChildMember;
-import com.microBusiness.manage.entity.ass.AssCustomerRelation;
-import com.microBusiness.manage.entity.ass.AssGoods;
 import com.microBusiness.manage.service.AreaService;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.SnService;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.service.ass.AssCustomerRelationService;
-import com.microBusiness.manage.util.ApiSmallUtils;
 import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.WebUtils;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
 
 /**
  * Created by afei.
@@ -68,9 +51,8 @@ public class SmallCommonController extends BaseController {
     @Resource
     private ChildMemberService childMemberService ;
     
-    private static Logger LOGGER = LoggerFactory.getLogger(SmallCommonController.class);
-
-    @RequestMapping(value = "/area", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/area", method = RequestMethod.GET)
     public @ResponseBody
     JsonEntity area(Long parentId, Integer level) {
 
@@ -78,7 +60,8 @@ public class SmallCommonController extends BaseController {
             return JsonEntity.error(Code.code019998) ;
         }
 
-        Map<String, Map<String, Object>> result = new HashMap();
+        @SuppressWarnings("rawtypes")
+		Map<String, Map<String, Object>> result = new HashMap();
 
         this.getAreas(parentId , level , result) ;
 

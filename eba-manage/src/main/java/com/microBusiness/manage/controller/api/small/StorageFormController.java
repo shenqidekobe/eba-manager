@@ -1,7 +1,5 @@
 package com.microBusiness.manage.controller.api.small;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +9,11 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
@@ -38,7 +41,6 @@ import com.microBusiness.manage.entity.SystemSetting;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.HostingShopService;
 import com.microBusiness.manage.service.InventoryFormService;
-import com.microBusiness.manage.service.MemberMemberService;
 import com.microBusiness.manage.service.NeedShopProductService;
 import com.microBusiness.manage.service.OrderService;
 import com.microBusiness.manage.service.ProductCategoryService;
@@ -54,13 +56,6 @@ import com.microBusiness.manage.service.SupplierSupplierService;
 import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.util.Code;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
  * 入库单Controller
  * 
@@ -71,8 +66,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("storageFormController")
 @RequestMapping("/api/small/storageForm")
 public class StorageFormController extends BaseController {
-
-	private static Logger LOGGER = LoggerFactory.getLogger(StorageFormController.class);
 
 	@Resource
 	private InventoryFormService inventoryFormService;
@@ -131,8 +124,7 @@ public class StorageFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public JsonEntity list(String unionId, String keyword, Long shopId, HttpServletRequest request, HttpServletResponse response, Pageable pageable) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
-
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if (shopId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
@@ -231,7 +223,7 @@ public class StorageFormController extends BaseController {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
 		
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		StorageForm storageForm = storageFormService.find(storageFormId);
@@ -280,7 +272,7 @@ public class StorageFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/viewLog", method = RequestMethod.GET)
 	public JsonEntity viewLog(String unionId, Long storageFormId, Long shopId, HttpServletRequest request, HttpServletResponse response) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if (storageFormId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
@@ -329,7 +321,7 @@ public class StorageFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/viewLogByOrder", method = RequestMethod.GET)
 	public JsonEntity viewLogByOrder(String unionId,Long shopId, Long orderId, HttpServletRequest request, HttpServletResponse response) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if (orderId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
@@ -864,7 +856,7 @@ public class StorageFormController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getProduct", method = RequestMethod.GET)
 	public JsonEntity getProduct(Long productId, String unionId , HttpServletRequest request, HttpServletResponse response) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		
 		if (productId == null) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
