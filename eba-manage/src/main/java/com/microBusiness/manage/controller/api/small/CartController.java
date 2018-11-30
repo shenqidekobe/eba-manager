@@ -123,6 +123,7 @@ public class CartController extends BaseController {
 			map.put("valid",cartItem.getValid());
 			map.put("goodsId",product.getGoods().getId());
 			map.put("cartItemId",cartItem.getId());
+			map.put("cartId",cart.getId());
 			map.put("productId",product.getId());
 			map.put("name",product.getGoods().getName());
 			map.put("image",product.getGoods().getImage());

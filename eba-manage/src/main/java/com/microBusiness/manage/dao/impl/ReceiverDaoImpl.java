@@ -79,7 +79,7 @@ public class ReceiverDaoImpl extends BaseDaoImpl<Receiver, Long> implements Rece
 	@Override
 	public List<Receiver> find(Member member, boolean isDefault) {
 		try {
-			StringBuffer buffer = new StringBuffer("select receiver from Receiver receiver where 1=1");
+			StringBuffer buffer = new StringBuffer("select receiver from Receiver receiver where deleted=0");
 			if(null != member) {
 				buffer.append(" and receiver.member = :member");
 			}
