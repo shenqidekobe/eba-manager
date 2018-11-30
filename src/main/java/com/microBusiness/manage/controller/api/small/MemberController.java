@@ -1,5 +1,8 @@
 package com.microBusiness.manage.controller.api.small;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,9 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +39,8 @@ import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.HostingShopService;
 import com.microBusiness.manage.service.MemberMemberService;
 import com.microBusiness.manage.service.OrderService;
+import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.util.ApiSmallUtils;
 import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.CommonUtils;
 import com.microBusiness.manage.util.DateUtils;
@@ -56,7 +65,9 @@ public class MemberController extends BaseController {
     @Resource
     private HostingShopService hostingShopService;
     @Resource
-	private AdminService adminService ;
+	private AdminService adminService;
+    @Resource
+	private WeChatService weChatService;
 
     /**
      * 解除用户的绑定
@@ -465,5 +476,41 @@ public class MemberController extends BaseController {
 		rootMap.put("l1", plist.size());
 		return JsonEntity.successMessage(rootMap);
 	}
+    
+    //我的店铺二维码
+    @RequestMapping(value = "/getQRCode", method={RequestMethod.GET})
+    public void getQRCode(HttpServletRequest request, HttpServletResponse response,String smOpenId) {
+    	response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
+		response.setContentType("image/jpeg");
+
+        CloseableHttpResponse httpResponse = null;
+		try {
+			String accessToken = weChatService.getSmallGlobalToken();
+
+			httpResponse = ApiSmallUtils.getInputStream("/pages/index/index?parentOpenId="+smOpenId, accessToken, request, response);
+
+			InputStream inputStream = null;
+			
+			HttpEntity httpEntity = httpResponse.getEntity();
+			if (httpEntity != null) {
+				inputStream = httpEntity.getContent();
+			}
+			
+			OutputStream stream = response.getOutputStream();
+			ImageIO.write(ImageIO.read(inputStream), "jpg", stream);
+			stream.flush();
+			stream.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally{
+			try {
+				httpResponse.close();
+			} catch (IOException e) {
+			}
+		}
+    }
     
 }
