@@ -1321,6 +1321,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		
 		orderLogDao.persist(orderLog);
 		
+		//分销结算
+		distributionSettlement(order);
+		
 		//后台消息通知
 		Supplier supplier = order.getSupplier();
 		if(order.getType().equals(Order.Type.billDistribution)) {
@@ -3683,9 +3686,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	public void applyCancel(Order order, String operatorName , Supplier supplier) {
 		order.setBeforeStatus(order.getStatus());
 		//orderDao.flush();
-		order.setStatus(Order.Status.applyCancel);
+		order.setStatus(Order.Status.canceled);
 		order.setExpire(null);
-
 
 		OrderLog orderLog = new OrderLog();
 		orderLog.setType(OrderLog.Type.applyCancel);
@@ -3695,28 +3697,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLog.setLogType(LogType.member);
 		orderLogDao.persist(orderLog);
 		
-		/*OrderNewsPush orderNewsPush = new OrderNewsPush();
-		//Need need = order.getMember().getNeed();
-		Need need = order.getNeed();
-		
-		orderNewsPush.setBuyers(need.getSupplier());
-		orderNewsPush.setSupplier(order.getSupplier());
-		orderNewsPush.setOrder(order);
-		orderNewsPush.setNeed(need);
-		orderNewsPush.setOrderStatus(OrderNewsPush.OrderStatus.applicationCancel);
-		orderNewsPush.setStatus(OrderNewsPush.Status.unread);
-		orderNewsPush.setPurchaseViewStatus(OrderNewsPush.PurchaseViewStatus.unread);
-		orderNewsPush.setMark(OrderNewsPush.Mark.all);
-		orderNewsPush.setOperator(OrderNewsPush.Operator.microLetter);
-		orderNewsPushDao.persist(orderNewsPush);*/
 		if(order.getType() == Order.Type.formal) {
 			//orderNewsPushDao.addOrderNewPush(order.getSupplier(), order, OrderNewsPush.OrderStatus.applicationCancel, order.getNeed(), order.getToSupplier().getName(), order.getNeed().getName(), OrderNewsPush.NoticeObject.order);
 			//orderNewsPushDao.addOrderNewPush(order.getToSupplier(), order, OrderNewsPush.OrderStatus.applicationCancel, order.getNeed(),order.getToSupplier().getName(), order.getNeed().getName(), OrderNewsPush.NoticeObject.purchase);
 		}else {
 			orderNewsPushDao.addOrderNewPush(order.getSupplier(), order, OrderNewsPush.OrderStatus.applicationCancel, order.getNeed(), order.getSupplier().getName(), null, OrderNewsPush.NoticeObject.order);
 		}
-
-
 		//发送模版消息
 		//weChatService.sendTemplateMessageByOrderStatus(order , Order.OrderStatus.applyCancel ,  weChatService.getGlobalToken() , null , commonTemplateId , null , null);
 
@@ -6936,6 +6922,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 			}
 		}
+		String sn=order.getSn();
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
 		for (OrderItem orderItem : order.getOrderItems()) {
 			if(level == 1){
@@ -6956,7 +6943,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member1.setIncome(member1.getIncome().add(ratePrice1));
 				member1.setLastDay(lastDay);
 				memberDao.persist(member1);
-				
+				logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			}else if(level == 2){
 				Float rate1 = distributionRate1;
 				rate1 = rate1 == null ? 0 : rate1;
@@ -6972,7 +6959,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member1.setIncome(member1.getIncome().add(ratePrice1));
 				member1.setLastDay(lastDay);
 				memberDao.persist(member1);
-				
+				logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 				Float rate2 = distributionRate2;
 				rate2 = rate2 == null ? 0 : rate2;
 				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
@@ -6986,12 +6973,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member2.setIncome(member2.getIncome().add(ratePrice2));
 				member2.setLastDay(lastDay);
 				memberDao.persist(member2);
-				
+				logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
 				orderItemDao.persist(orderItem);
 			}else if(level == 3){
 				Float rate1 = distributionRate1;
 				rate1 = rate1 == null ? 0 : rate1;
-				logger.info("rate1:" + rate1);
+				//logger.info("rate1:" + rate1);
 				BigDecimal price = orderItem.getProduct().getPrice();
 				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
 						.setScale(2, RoundingMode.HALF_UP);
@@ -7005,12 +6992,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member1.setIncome(member1.getIncome().add(ratePrice1));
 				member1.setLastDay(lastDay);
 				memberDao.persist(member1);
-				
+				logger.info("订单号："+sn+" 的三级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 				
 				
 				Float rate2 = distributionRate2;
 				rate2 = rate2 == null ? 0 : rate2;
-				logger.info("rate2:" + rate2);
+				//logger.info("rate2:" + rate2);
 				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
 						.setScale(2, RoundingMode.HALF_UP);
 				
@@ -7022,10 +7009,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member2.setIncome(member2.getIncome().add(ratePrice2));
 				member2.setLastDay(lastDay);
 				memberDao.persist(member2);
+				logger.info("订单号："+sn+" 的三级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
 				
 				Float rate3 = distributionRate3;
 				rate3 = rate3 == null ? 0 : rate3;
-				logger.info("rate3:" + rate3);
+				//logger.info("rate3:" + rate3);
 				BigDecimal ratePrice3 = price.multiply(new BigDecimal(rate3))
 						.setScale(2, RoundingMode.HALF_UP);
 				
@@ -7037,6 +7025,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member3.setIncome(member3.getIncome().add(ratePrice3));
 				member3.setLastDay(lastDay);
 				memberDao.persist(member3);
+				logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
 				
 				orderItemDao.persist(orderItem);
 				
