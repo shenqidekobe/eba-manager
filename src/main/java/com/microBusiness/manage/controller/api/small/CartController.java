@@ -219,6 +219,33 @@ public class CartController extends BaseController {
 	}
 	
 	/**
+	 * 清空购物车
+	 */
+	@RequestMapping(value = "/clear")
+	public @ResponseBody
+	JsonEntity clear(String unionId, String smOpenId, Long cartItemId, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
+		Member member = childMemberService.findBySmOpenId(smOpenId).getMember();
+		Cart cart = null;
+		try {
+			cart = member.getCart();
+		} catch (Exception e) {
+			return JsonEntity.error(Code.code11104, Code.code11104.getDesc());
+		}
+		if (cart == null || cart.isEmpty()) {
+			return  JsonEntity.error(Code.code11105, Code.code11105.getDesc());
+		}
+		try {
+			cartService.clearCart(cart);
+			return JsonEntity.successMessage();
+		} catch (Exception e) {
+			return  JsonEntity.error(Code.code11107, Code.code11107.getDesc());
+		}
+	}
+	
+	
+	/**
      * 再来一单
      * @param unionId
      * @param orderId
