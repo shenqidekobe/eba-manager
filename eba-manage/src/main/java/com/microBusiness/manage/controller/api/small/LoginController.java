@@ -123,7 +123,7 @@ public class LoginController extends BaseController{
            childMember.setIsChecked(false);
            childMember.setSourceType(ChildMember.SourceType.wx_small);
            //如果是分享，更新为下属
-           if(parentOpenId != null){
+           if(StringUtils.isNotEmpty(parentOpenId)){
          	  ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
          	  childMember.setParent(parent);
          	  logger.info("【templateId】：" + templateId);
@@ -136,7 +136,7 @@ public class LoginController extends BaseController{
         	   logger.info("【smOpenId】：" + smOpenId);
                childMember.setSmOpenId(smOpenId);
                //如果是分享，更新为下属
-               if(parentOpenId != null){
+               if(StringUtils.isNotEmpty(parentOpenId)){
             	   ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
              	   childMember.setParent(parent);
              	   logger.info("【templateId】：" + templateId);
