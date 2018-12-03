@@ -498,7 +498,7 @@ public class MemberController extends BaseController {
 			if (httpEntity != null) {
 				inputStream = httpEntity.getContent();
 			}
-			
+			 
 			OutputStream stream = response.getOutputStream();
 			ImageIO.write(ImageIO.read(inputStream), "jpg", stream);
 			stream.flush();

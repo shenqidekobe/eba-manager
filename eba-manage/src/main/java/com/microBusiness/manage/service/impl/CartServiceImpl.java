@@ -161,6 +161,13 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long> implements Cart
 			}
 		}
 	}
+	
+	public void clearCart(Cart cart) {
+		for(CartItem cartItem:cart.getCartItems()) {
+			cartItemDao.deleteByCartItem(cartItem);
+		}
+		cartDao.delete(cart);
+	}
 
 	@Override
 	public Cart add(Member member, Product product, int quantity, Long supplierId, SupplyType supplyType, SupplyNeed supplyNeed , Long relationId) {

@@ -27,6 +27,8 @@ public interface CartService extends BaseService<Cart, Long> {
 	void merge(Member member, Cart cart);
 
 	void evictExpired();
+	
+	void clearCart(Cart cart);
 
 	Cart add(Member member, Product product, int quantity , Long supplierId , SupplyType supplyType, SupplyNeed supplyNeed , Long relationId);
 	
