@@ -56,7 +56,7 @@
 				<!--	<img src="${base}/resources/admin1.0/images/logo_icon.svg" alt="" />-->
 				</div>
 				<div class="con_right" style="">
-					<a href="registered/index.jhtml" class="toReg">注册账号</a>
+				<!--<a href="registered/index.jhtml" class="toReg">注册账号</a>-->
 					<form id="loginForm" action="login.jhtml" method="post">
 						<input type="hidden" name="redirectUrl" value="${redirectUrl}" />
                         <input type="hidden" id="enPassword" name="enPassword" />
