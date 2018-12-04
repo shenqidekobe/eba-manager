@@ -152,6 +152,7 @@ public class LoginController extends BaseController{
        result.put("unionId", childMember.getUnionId());
        result.put("flag", true);
        result.put("isShoper", childMember.getMember().getIsShoper());
+       result.put("nickName", childMember.getNickName());
        result.put("proxyUserId", getProxyUserId(childMember.getSmOpenId()));
        
        return new JsonEntity(Code.code0,"",request.getRequestURL().toString(), result);
