@@ -1137,7 +1137,7 @@ public class OrderController extends BaseController {
 				orderItemMap.put("price", orderItem.getPrice());
 				orderItemMap.put("quantity", orderItem.getQuantity());
 				//新增规格项显示
-				orderItemMap.put("specs", orderItem.getProduct().getSpecifications());
+				orderItemMap.put("specifications", orderItem.getProduct().getSpecifications());
 				orderItemMapList.add(orderItemMap);
 			}
 			orderMap.put("orderItems", orderItemMapList);
