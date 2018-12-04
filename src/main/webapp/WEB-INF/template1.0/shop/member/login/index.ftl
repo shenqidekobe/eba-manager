@@ -65,7 +65,7 @@
 			</form>
 		</div>
 		<div class="login_footer">
-			<p class="l_f_p1">所有方：上海云食信息技术有限公司 &nbsp;&nbsp;        沪ICP备17037813号-1</p>
+			<p class="l_f_p1">所有方：上海驿游科技技术有限公司 &nbsp;&nbsp;        沪ICP备17037813号-1</p>
             <p class="l_f_p2"></p>
             <div class="l_f_-img">
                 <!--<img src="${base}/resources/shop/common/images/05.jpg" alt="">-->

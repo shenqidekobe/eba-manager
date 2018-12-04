@@ -39,7 +39,7 @@
         </div>
         <div class="dh-fs-footer">
             <div class="dh-fs-con">
-                <p class="dh-copyright">所有方：上海云食信息技术有限公司 &nbsp;&nbsp;        沪ICP备17037813号-1</p>
+                <p class="dh-copyright">所有方：上海驿游科技技术有限公司 &nbsp;&nbsp;        沪ICP备17037813号-1</p>
                 <!--<p class="dh-footer-i">增值电信业务许可证：沪B2-20150033 | 沪ICP备 09007032 | 上海工商行政管理 Copyright @2008-2017 ele.me All Rights Reserved.</p>-->
                 <!--<div class="dh-footer-img">
                     <img src="" alt="">
