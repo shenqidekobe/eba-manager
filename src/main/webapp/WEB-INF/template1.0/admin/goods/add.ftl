@@ -388,7 +388,7 @@
                         <div class="formControls col-xs-8 col-sm-7">
                             <span class="isAdLabel isInLabel">广告</span>
                             <span class="isVideoAdLabel isInLabel">视频</span>
-                            <span class="isMainSellLabel isInLabel">主推</span>
+                            <span class="isMainSellLabel isInLabel">精选</span>
                         </div>
                     </div>
                     
