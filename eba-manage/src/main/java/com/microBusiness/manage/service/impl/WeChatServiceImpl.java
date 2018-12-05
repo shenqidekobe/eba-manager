@@ -741,7 +741,7 @@ public class WeChatServiceImpl implements WeChatService {
 
         for(ChildMember childMember : childMembers){
 
-            templateInfo.setToUser(childMember.getOpenId());
+            templateInfo.setToUser(childMember.getSmOpenId());
             templateInfo.setUrl(url);
 
             this.sendTemplateMessage(templateInfo , accessToken) ;
@@ -805,12 +805,6 @@ public class WeChatServiceImpl implements WeChatService {
 
     /**
      * 配置的接收员发送模版消息
-     *
-     * @param supplier
-     * @param order
-     * @param orderStatus
-     * @param templateId
-     * @return
      */
     @Override
     public boolean sendTemplateMessageToNoticeUser(Supplier supplier, final Order order, Order.OrderStatus orderStatus, String templateId , String accessToken) {
@@ -950,7 +944,7 @@ public class WeChatServiceImpl implements WeChatService {
 
         for(ChildMember childMember : childMembers){
 
-            templateInfo.setToUser(childMember.getOpenId());
+            templateInfo.setToUser(childMember.getSmOpenId());
             this.sendTemplateMessage(templateInfo , accessToken) ;
 
         }
@@ -3092,16 +3086,7 @@ public class WeChatServiceImpl implements WeChatService {
 
 
     /**
-     * 向客户发送模版消息
-     *
-     * @param order
-     * @param orderStatus
-     * @param accessToken
-     * @param childMembers
-     * @param sell         卖方企业
-     * @param buy
-     * @param need         客户
-     * @param remark
+     * 向下单客户发送模版消息
      */
     @Override
     public void sendTemplateMessageToCustomer(Order order, Order.OrderStatus orderStatus,
@@ -3151,35 +3136,19 @@ public class WeChatServiceImpl implements WeChatService {
 
         //主账号用户
         for(ChildMember childMember : childMembers){
-            templateInfo.setToUser(childMember.getOpenId());
+            templateInfo.setToUser(childMember.getSmOpenId());
+            OrderForm orderForm = childMember.getOrderFormOne();
+    		Date now=new Date();
+    		if(orderForm != null) {
+    			//formId是否过期
+    			if(DateUtils.daysBetween(orderForm.getCreateDate(), now) < 7) {
+    				 templateInfo.setFormId(orderForm.getFormId());
+    			     //templateInfo.setPage(orderForm.getPage());
+    			}
+    			orderFormDao.clearExpired();//删除formId
+    		}
             this.sendTemplateMessage(templateInfo , accessToken) ;
         }
-
-        //托管账号
-//        List<Filter> filters = new ArrayList<>(1) ;
-//        final Shop shop = order.getShop() ;
-//
-//        filters.add(new Filter(){{
-//            this.setProperty("shop");
-//            this.setOperator(Operator.eq);
-//            this.setValue(shop);
-//        }});
-
-//        List<HostingShop> hostingShops = hostingShopDao.findList(null , null , filters , null);
-//
-//        for(HostingShop hostingShop : hostingShops){
-//            Member byMember = hostingShop.getByMember() ;
-//
-//            Set<ChildMember> childMemberSet = byMember.getChildMembers() ;
-//
-//            for(ChildMember childMember : childMemberSet){
-//
-//                templateInfo.setToUser(childMember.getOpenId());
-//                this.sendTemplateMessage(templateInfo , accessToken) ;
-//
-//            }
-//
-//        }
 
         logger.debug("发送给客户结束：");
     }
