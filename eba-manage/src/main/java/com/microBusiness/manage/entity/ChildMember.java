@@ -48,7 +48,7 @@ public class ChildMember extends BaseEntity<Long> {
      * 是否认证
      */
     private Boolean isChecked;
-  
+    
     
     public Boolean getIsChecked() {
 		return isChecked;
@@ -146,7 +146,7 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setSmOpenId(String smOpenId) {
 		this.smOpenId = smOpenId;
 	}
-	
+
 	@Transient
 	public OrderForm getOrderFormOne() {
 		List<OrderForm> orderForms = this.getOrderForms();

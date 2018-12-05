@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,13 +29,14 @@ public class OrderFormController extends BaseController {
 	
 	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody JsonEntity add(String unionId, OrderForm orderForm, HttpServletRequest request, HttpServletResponse response) {
-		ChildMember childMember = childMemberService.findByUnionId(unionId);
-
-		if (orderForm == null) {
+	public @ResponseBody JsonEntity add(String smOpenId, String formId, HttpServletRequest request, HttpServletResponse response) {
+		if (StringUtils.isEmpty(formId)||StringUtils.isEmpty(smOpenId)) {
 			return new JsonEntity("010502" , "参数错误");
 		}
+		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
 
+		OrderForm orderForm=new OrderForm();
+		orderForm.setFormId(formId);
 		try {
 			orderForm.setChildMember(childMember);
 			orderFormService.save(orderForm);

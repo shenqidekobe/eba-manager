@@ -38,6 +38,7 @@ import net.sf.json.JSONObject;
 import com.microBusiness.manage.Setting;
 import com.microBusiness.manage.dao.NeedDao;
 import com.microBusiness.manage.dao.NoticeUserDao;
+import com.microBusiness.manage.dao.OrderFormDao;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.Constant;
 import com.microBusiness.manage.util.DateUtils;
@@ -86,7 +87,9 @@ public class WeChatServiceImpl implements WeChatService {
 	private String commonTemplateId;
 
     @Resource
-    private HostingShopDao hostingShopDao ;
+    private HostingShopDao hostingShopDao;
+    @Resource
+    private OrderFormDao orderFormDao;
 
     @Override
     public Member getUserInfo(String openId) {
@@ -532,6 +535,16 @@ public class WeChatServiceImpl implements WeChatService {
     	String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + access_token;
         String jsonStr = JsonUtils.toJson(templateInfo);
         WebUtils.post(url, jsonStr);
+       /* try {
+        	//更新formId的使用次数
+        	OrderForm orderForm=orderFormDao.getByFormId(templateInfo.getFormId());
+            if(orderForm!=null) {
+            	orderForm.setUseNum(orderForm.getUseNum()+1);
+            	orderFormDao.persist(orderForm);
+            }
+		} catch (Exception e) {
+		}*/
+        
         return true;
     }
 
@@ -3937,6 +3950,16 @@ public class WeChatServiceImpl implements WeChatService {
 
         TemplateInfo templateInfo = new TemplateInfo() ;
         templateInfo.setTemplateId(templateId);
+        OrderForm orderForm = childMember.getOrderFormOne();
+		Date now=new Date();
+		if(orderForm != null) {
+			//formId是否过期
+			if(DateUtils.daysBetween(orderForm.getCreateDate(), now) < 7) {
+				 templateInfo.setFormId(orderForm.getFormId());
+			     //templateInfo.setPage(orderForm.getPage());
+			}
+			orderFormDao.clearExpired();//删除formId
+		}
         if(StringUtils.isEmpty(childMember.getNickName())){
         	childMember.setNickName("未更新昵称");
         }

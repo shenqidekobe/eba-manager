@@ -16,6 +16,8 @@ public class OrderForm extends BaseEntity<Long> {
 	private String formId;
 	
 	private ChildMember childMember;
+	
+	private Integer useNum=0;//使用次数
 
 	public String getFormId() {
 		return formId;
@@ -32,6 +34,14 @@ public class OrderForm extends BaseEntity<Long> {
 
 	public void setChildMember(ChildMember childMember) {
 		this.childMember = childMember;
+	}
+
+	public Integer getUseNum() {
+		return useNum;
+	}
+
+	public void setUseNum(Integer useNum) {
+		this.useNum = useNum;
 	}
 	
 	
