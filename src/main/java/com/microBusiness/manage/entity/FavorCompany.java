@@ -9,7 +9,6 @@ import com.microBusiness.manage.entity.CompanyGoods.Delflag;
 /**
  * 收藏企业关联
  * 
- * @author 吴战波
  *
  */
 @Entity
