@@ -3771,13 +3771,13 @@ public class WeChatServiceImpl implements WeChatService {
         BigDecimal newPoint2 = new BigDecimal(0l);
         BigDecimal newPoint3 = new BigDecimal(0l);
         for (OrderItem orderItem : order.getOrderItems()) {
-        	if(orderItem.getUone_score() != null){
+        	if(orderItem.getDone_score() != null){
         		newPoint1 = newPoint1.add(orderItem.getDone_score());
         	}
-        	if(orderItem.getUtwo_score() != null){
+        	if(orderItem.getDtwo_score() != null){
         		newPoint2 = newPoint2.add(orderItem.getDtwo_score());
         	}
-        	if(orderItem.getUthree_score() != null){
+        	if(orderItem.getDthree_score() != null){
         		newPoint3 = newPoint3.add(orderItem.getDthree_score());
         	}
 		}
