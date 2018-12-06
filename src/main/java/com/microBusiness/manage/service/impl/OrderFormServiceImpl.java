@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.microBusiness.manage.dao.OrderFormDao;
+import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.OrderForm;
 import com.microBusiness.manage.service.OrderFormService;
 @Service
@@ -16,6 +17,12 @@ public class OrderFormServiceImpl extends BaseServiceImpl<OrderForm, Long> imple
 	@Override
 	public void clearExpired() {
 		orderFormDao.clearExpired();
+	}
+	
+
+	@Override
+	public OrderForm getDoOrderForm(ChildMember childMember) {
+		return orderFormDao.getDoOrderForm(childMember);
 	}
 
 }

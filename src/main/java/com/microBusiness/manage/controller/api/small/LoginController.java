@@ -126,8 +126,7 @@ public class LoginController extends BaseController{
            if(StringUtils.isNotEmpty(parentOpenId)){
          	  ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
          	  childMember.setParent(parent);
-         	  logger.info("【templateId】：" + templateId);
-         	  weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
+         	  //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
            }
            childMemberService.saveChildMember(childMember);
        }else{
@@ -139,8 +138,7 @@ public class LoginController extends BaseController{
                if(StringUtils.isNotEmpty(parentOpenId)){
             	   ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
              	   childMember.setParent(parent);
-             	   logger.info("【templateId】：" + templateId);
-             	   weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
+             	   //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
                }
          	  childMemberService.saveChildMember(childMember);
     	   }

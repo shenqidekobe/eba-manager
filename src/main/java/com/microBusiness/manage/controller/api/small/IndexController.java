@@ -218,7 +218,7 @@ public class IndexController extends BaseController {
 		 map.put("goodsList", goodsMapList);
 		
 		
-		logger.info("time : " + (System.currentTimeMillis()-startTime));
+		logger.debug("time : " + (System.currentTimeMillis()-startTime));
 		
         return JsonEntity.successMessage(map);
     }
@@ -325,19 +325,19 @@ public class IndexController extends BaseController {
 	
 	
 	public String getMImagePath(String storePath){
-		logger.info(storePath);
+		logger.debug(storePath);
 		int index = storePath.lastIndexOf("\\.");
-		logger.info("index : " + index);
+		logger.debug("index : " + index);
 		int index2 = storePath.lastIndexOf(".");
 		if(index == -1){
 			index = index2;
-			logger.info("index = index2 : " + index2);
+			logger.debug("index = index2 : " + index2);
 		}
-		logger.info("index2 : " + index2);
+		logger.debug("index2 : " + index2);
 		String path1 = storePath.substring(0, index) + "-" + ImgType.medium;
 		String path2 = storePath.substring(index);
     	String destMediumPath = path1 + path2;
-    	logger.info(destMediumPath);
+    	logger.debug(destMediumPath);
     	return destMediumPath;
 	}
 	

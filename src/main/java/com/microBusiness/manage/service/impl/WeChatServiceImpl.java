@@ -535,51 +535,53 @@ public class WeChatServiceImpl implements WeChatService {
     	String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + access_token;
         String jsonStr = JsonUtils.toJson(templateInfo);
         WebUtils.post(url, jsonStr);
-       /* try {
+       try {
         	//更新formId的使用次数
         	OrderForm orderForm=orderFormDao.getByFormId(templateInfo.getFormId());
             if(orderForm!=null) {
             	orderForm.setUseNum(orderForm.getUseNum()+1);
             	orderFormDao.persist(orderForm);
             }
+            //清除超过7天的数据
+            orderFormDao.clearExpired();
 		} catch (Exception e) {
-		}*/
+		}
         
         return true;
     }
 
     public static void main(String args[]) {
 
-//    	String token = new WeChatServiceImpl().getGlobalToken();
-//    	String templateId = "1ag_JKXjqi6ch6PrzJhn6_UUdopgpX5sYqdIsgEYOFw";
-//    	
-//
-//        TemplateInfo templateInfo = new TemplateInfo();
-//        templateInfo.setToUser("oo9hm09EutpKQa4ZytWf3iIpB2dg");
-//        templateInfo.setTemplateId(templateId);
-//        templateInfo.setData(new HashMap<String, Map<String, String>>(){{
-//            this.put("first" , new HashMap<String, String>(){{
-//                this.put("value" , "成员加入提醒");
-//            }});
-//            this.put("keyword1" , new HashMap<String, String>(){{
-//                this.put("value" , "nickName");
-//            }});
-//
-//            this.put("keyword2" , new HashMap<String, String>(){{
-//                this.put("value" , DateUtils.formatDateToString(new Date() , DateformatEnum.yyyyMMddHHmm));
-//            }});
-//
-//            this.put("remark" , new HashMap<String, String>(){{
-//                this.put("value" , "您有新下级加入。");
-//            }});
-//
-//        }});        
-//
-//        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" +  token;
-//
-//        String jsonStr = JsonUtils.toJson(templateInfo);
-//
-//        WebUtils.post(url, jsonStr);
+    	String token = new WeChatServiceImpl().getGlobalToken();
+    	String templateId = "nsd1yDfbBTNqjCTiZag0McGhYgEODTsbLwrS9OHZnxo";
+    
+        TemplateInfo templateInfo = new TemplateInfo();
+        templateInfo.setToUser("o64Y-5U4k3zemQCVJXsJmGA4qdsg");
+        templateInfo.setTemplateId(templateId);
+        templateInfo.setFormId("56a58811b073adf541d1f1dcb8f842e4");
+        templateInfo.setData(new HashMap<String, Map<String, String>>(){{
+            this.put("first" , new HashMap<String, String>(){{
+                this.put("value" , "成员加入提醒");
+            }});
+            this.put("keyword1" , new HashMap<String, String>(){{
+                this.put("value" , "nickName");
+            }});
+            this.put("keyword2" , new HashMap<String, String>(){{
+                this.put("value" , DateUtils.formatDateToString(new Date() , DateformatEnum.yyyyMMddHHmm));
+           }});
+
+            this.put("remark" , new HashMap<String, String>(){{
+                this.put("value" , "您有新下级加入。");
+            }});
+
+        }});        
+
+        String url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + token;
+        //String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" +  token;
+
+        String jsonStr = JsonUtils.toJson(templateInfo);
+
+        WebUtils.post(url, jsonStr);
     	
     	BigDecimal amount = new BigDecimal(10);
 		System.out.println(amount.setScale(2, RoundingMode.HALF_UP));
@@ -3762,40 +3764,8 @@ public class WeChatServiceImpl implements WeChatService {
         }
 
         TemplateInfo templateInfo = new TemplateInfo() ;
-        
-//        Map<String, String> miniprogram = new HashMap<String, String>();
-//        miniprogram.put("appid", Constant.APP_ID);
- //       miniprogram.put("pagepath", String.format(Constant.PAGE_PATH, order.getId()));
-        
- //       templateInfo.setMiniprogram(miniprogram);
-        
         templateInfo.setTemplateId(templateId);
-        
-//        Setting setting = SystemUtils.getSetting() ;
-//        String url = setting.getSiteUrl() + Constant.LOGIN_URL_PRE + String.format(orderDetailUrl, order.getId());
-//        templateInfo.setUrl(url);
-        
         final String sn = order.getSn();
-
-//        templateInfo.setData(new HashMap<String, Map<String, String>>(){{
-//            this.put("first" , new HashMap<String, String>(){{
-//                this.put("value" , "下级购买通知");
-//            }});
-//            this.put("keyword1" , new HashMap<String, String>(){{
-//                this.put("value" , sn);
-//            }});
-//
-//            this.put("keyword2" , new HashMap<String, String>(){{
-//                this.put("value" , DateUtils.formatDateToString(new Date() , DateformatEnum.yyyyMMddHHmm));
-//            }});
-//            if(order.getAmount() == null){
-//            	order.setAmount(BigDecimal.ZERO);
-//            }
-//            this.put("remark" , new HashMap<String, String>(){{
-//                this.put("value" , "您的下级购买了" + order.getAmount().setScale(2, RoundingMode.CEILING) + "元的商品。");
-//            }});
-//
-//        }});
         BigDecimal newPoint1 = new BigDecimal(0l);
         BigDecimal newPoint2 = new BigDecimal(0l);
         BigDecimal newPoint3 = new BigDecimal(0l);
@@ -3883,16 +3853,6 @@ public class WeChatServiceImpl implements WeChatService {
     		}
     		
     	}
-
-//        for(ChildMember childMember : childMembers){
-//        	if(childMember.getParent() != null){
-//        		logger.info("【本人】：" + childMember.getId());
-//        		logger.info("【上级】：" + childMember.getParent().getId());
-//        		templateInfo.setToUser(childMember.getParent().getOpenId());
-//	            this.sendTemplateMessage(templateInfo , accessToken) ;
-//	            logger.info("【发送模板消息成功】：" + childMember.getParent().getOpenId());
-//        	}
-//        }
 		return false;
 	}
 	
@@ -3919,16 +3879,8 @@ public class WeChatServiceImpl implements WeChatService {
 
         TemplateInfo templateInfo = new TemplateInfo() ;
         templateInfo.setTemplateId(templateId);
-        OrderForm orderForm = childMember.getOrderFormOne();
-		Date now=new Date();
-		if(orderForm != null) {
-			//formId是否过期
-			if(DateUtils.daysBetween(orderForm.getCreateDate(), now) < 7) {
-				 templateInfo.setFormId(orderForm.getFormId());
-			     //templateInfo.setPage(orderForm.getPage());
-			}
-			orderFormDao.clearExpired();//删除formId
-		}
+     
+	     //templateInfo.setPage(orderForm.getPage());
         if(StringUtils.isEmpty(childMember.getNickName())){
         	childMember.setNickName("未更新昵称");
         }
@@ -3957,10 +3909,14 @@ public class WeChatServiceImpl implements WeChatService {
     		logger.info("【本人】：" + childMember.getId());
     		logger.info("【上级1】：" + childMember.getParent().getId());
     		ChildMember c1 = childMember.getParent();
-    		templateInfo.setToUser(c1.getOpenId());
-            this.sendTemplateMessage(templateInfo , accessToken) ;
-            logger.info("【发送模板消息成功1】：" + c1.getOpenId());
-    		ChildMember c2 = c1.getParent();
+			templateInfo.setToUser(c1.getSmOpenId());
+			OrderForm orderForm = orderFormDao.getDoOrderForm(c1);
+			if (orderForm != null) {
+				templateInfo.setFormId(orderForm.getFormId());
+				this.sendTemplateMessage(templateInfo, accessToken);
+				logger.info("【发送模板消息成功1】：" + c1.getSmOpenId());
+			}
+			ChildMember c2 = c1.getParent();
     	    ChildMember c3 = null;
     		if(c2 != null){
     			templateMap.put("keyword2" , new HashMap<String, String>(){{
@@ -3968,15 +3924,23 @@ public class WeChatServiceImpl implements WeChatService {
                 }});
     			templateInfo.setData(templateMap);
     			logger.info("【上级2】：" + c2.getId());
-    			templateInfo.setToUser(c2.getOpenId());
-                this.sendTemplateMessage(templateInfo , accessToken) ;
-                logger.info("【发送模板消息成功2】：" + c2.getOpenId());
+    			templateInfo.setToUser(c2.getSmOpenId());
+    			orderForm = orderFormDao.getDoOrderForm(c2);
+    			if (orderForm != null) {
+    				templateInfo.setFormId(orderForm.getFormId());
+    				this.sendTemplateMessage(templateInfo, accessToken);
+    				logger.info("【发送模板消息成功2】：" + c2.getSmOpenId());
+    			}
                 c3 = c2.getParent();
                 if(c3 != null){
                 	logger.info("【上级3】：" + c3.getId());
-        			templateInfo.setToUser(c3.getOpenId());
-                    this.sendTemplateMessage(templateInfo , accessToken) ;
-                    logger.info("【发送模板消息成功2】：" + c3.getOpenId());
+        			templateInfo.setToUser(c3.getSmOpenId());
+        			orderForm = orderFormDao.getDoOrderForm(c3);
+        			if (orderForm != null) {
+        				templateInfo.setFormId(orderForm.getFormId());
+        				this.sendTemplateMessage(templateInfo, accessToken);
+        				logger.info("【发送模板消息成功3】：" + c3.getSmOpenId());
+        			}
                 }
     		}
     		
