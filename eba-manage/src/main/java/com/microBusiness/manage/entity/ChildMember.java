@@ -150,6 +150,7 @@ public class ChildMember extends BaseEntity<Long> {
 	@Transient
 	public OrderForm getOrderFormOne() {
 		List<OrderForm> orderForms = this.getOrderForms();
+		if(orderForms==null)return null;
 		for(OrderForm form : orderForms) {
 			return form;
 		}

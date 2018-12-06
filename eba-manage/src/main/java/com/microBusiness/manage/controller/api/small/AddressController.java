@@ -114,7 +114,13 @@ public class AddressController extends BaseController {
 		receiver.setAddress(address);
 		receiver.setAreaName(area.getFullName());
 		receiver.setMember(member);
-		receiver.setIsDefault(false);
+		//如果没有默认地址，则当前保存的设为默认地址，否则非默认
+		List<Receiver> receivers = receiverService.find(member, true);
+		if(receivers.isEmpty()) {
+			receiver.setIsDefault(true);
+		}else {
+			receiver.setIsDefault(false);
+		}
 		receiver.setType(Receiver.Type.frontDesk);
 		receiver.setArea(area);
 		receiver.setZipCode("200000");

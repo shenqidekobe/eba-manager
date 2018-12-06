@@ -36,9 +36,6 @@ import com.microBusiness.manage.util.XmlUtils;
 
 /**
  * 微信支付Controller
- * 
- * @author xhs
- *
  */
 @Controller("wxpaymentController")
 @RequestMapping("/api/small/payment")

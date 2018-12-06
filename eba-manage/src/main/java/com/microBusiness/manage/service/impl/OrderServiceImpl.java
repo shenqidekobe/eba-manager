@@ -1343,7 +1343,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//订货单消息接受员接受消息
 		//weChatService.sendTemplateMessageToNoticeUser(order.getSupplier() , order , Order.OrderStatus.completed , commonTemplateId ,  weChatService.getGlobalToken()) ;
 
-		weChatService.sendTemplateMessageByOrderStatus(order , Order.OrderStatus.completed ,  weChatService.getGlobalToken() , null , commonTemplateId , null , null);
+		//weChatService.sendTemplateMessageByOrderStatus(order , Order.OrderStatus.completed ,  weChatService.getGlobalToken() , null , commonTemplateId , null , null);
 	}
 
 	public void fail(Order order, Admin operator) {
@@ -6753,7 +6753,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				authChildMember(order);
 			}
 			//根据商品利率 判断级别，计算上级返利
-			int level = 0;
+			/*int level = 0;
 			ChildMember c1 = childMember.getParent();
 			ChildMember c2 = null;
 			ChildMember c3 = null;
@@ -6863,7 +6863,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 					
 				}
 			}
-			
+			*/
 			
 			// 记录操作日志
 			String sn = order.getSn();
@@ -6880,10 +6880,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			logger.error("[payment()] error!", e);
 			e.printStackTrace();
 		}
-		
+		//支付成功通知
 		//发送支付成功 告知上级
-		weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,
-				weChatService.getGlobalToken());
+		//weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		
 	}
 	
