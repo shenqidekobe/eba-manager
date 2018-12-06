@@ -6880,8 +6880,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			logger.error("[payment()] error!", e);
 			e.printStackTrace();
 		}
-		//发送支付成功 告知上级
-		weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		
 	}
 	
@@ -7028,6 +7026,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				orderItemDao.persist(orderItem);
 				
 			}
+		}
+		if(level>0) {
+			//发送支付成功 告知上级
+			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		}
 	}
 	
