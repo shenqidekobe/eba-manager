@@ -41,7 +41,7 @@ public class OrderFormDaoImpl extends BaseDaoImpl<OrderForm, Long> implements Or
 	
 	@Override
 	public OrderForm getDoOrderForm(ChildMember childMember) {
-		String jpql = "select * from t_order_form where use_num <3 and (to_days(now())-to_days(create_date))<7 and child_member:childMember";
+		String jpql = "select * from t_order_form where use_num <3 and (to_days(now())-to_days(create_date))<7 and child_member=:childMember";
 		try {
 			List<OrderForm> list=entityManager.createNativeQuery(jpql, OrderForm.class).setParameter("childMember", childMember.getId()).getResultList();
 					//.createQuery(jpql, OrderForm.class).getResultList();
