@@ -123,7 +123,7 @@
 			                        </div>
 		                       	</div>
 		                    </div>
-		                    
+		                   <!-- 
 		                   <div name="firstDiv">
 		                      	<div class="check-box">
 		                          <input type="checkbox" name="one"/><span style="font-weight:bolder;">代理</span>
@@ -156,7 +156,7 @@
 		                       	</div>
 		                       	
 		                    </div> 
-		                    
+		                    -->
 		                    
 		                    <!--
 		                    <div name="firstDiv">

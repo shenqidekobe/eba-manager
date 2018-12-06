@@ -94,7 +94,7 @@
 				[/#list]
 				
 				
-				<ul class="index_nav_one">
+		<!--		<ul class="index_nav_one">
 			[#list ["admin:proxyUser:add", "admin:proxyUser:edit", "admin:proxyUser:delete", "admin:proxyCheck:check"] as permission]
 			[@shiro.hasPermission name = permission]
 				<li>
@@ -119,7 +119,7 @@
 				</li>
 					[#break /]
 				[/@shiro.hasPermission]
-				[/#list]
+				[/#list]-->
 				
 				
 				<ul class="index_nav_one">
