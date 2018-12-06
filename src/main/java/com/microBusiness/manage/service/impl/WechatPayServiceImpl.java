@@ -145,7 +145,7 @@ public class WechatPayServiceImpl implements WechatPayService {
 		String paySign = PayUtil.getSign(characterEncoding, key, packageParams);
 		packageParams.put("paySign", paySign);
 
-		System.out.println(paySign);
+		//System.out.println(paySign);
 		return packageParams;
 	}
 
