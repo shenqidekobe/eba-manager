@@ -6880,9 +6880,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			logger.error("[payment()] error!", e);
 			e.printStackTrace();
 		}
-		//支付成功通知
 		//发送支付成功 告知上级
-		//weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
+		weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		
 	}
 	

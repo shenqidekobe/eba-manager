@@ -96,10 +96,6 @@ public class WxPaymentController extends BaseController {
 				String out_trade_no = paySn;// "20151211091062_052636";
 				String ip = request.getRemoteHost();//返回发出请求的IP地址
 				
-				// 将pay_sn记录到订单表中
-				order.setPaySn(paySn);
-				orderService.updatePaySn(member, order);
-				
 				//生成支付记录和日志
 				//smOpenId="o64Y-5U4k3zemQCVJXsJmGA4qdsg";
 
@@ -107,11 +103,15 @@ public class WxPaymentController extends BaseController {
 				Map<String, String> prepayIdMap = wechatPayService.getPrepayIdResult(smOpenId, total_fee, body,
 						out_trade_no, ip);
 				String prepayIdResult = prepayIdMap.get("result");
+				
+				// 将pay_sn记录到订单表中
+				order.setPaySn(paySn);
+				order.setPrepay_id(prepayIdMap.get("prepay_id"));
+				orderService.updatePaySn(member, order);
 
 				if ("success".equals(prepayIdResult)) {// 判断返回的结果
 					String prepay_id = prepayIdMap.get("prepay_id");
 
-					order.setPrepay_id(prepay_id);
 					// 得到网页端调起支付API的参数
 					returnMap = wechatPayService.getH5Params(prepay_id);
 

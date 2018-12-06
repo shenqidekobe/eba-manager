@@ -3751,6 +3751,7 @@ public class WeChatServiceImpl implements WeChatService {
 		return false;
 	}
 
+	//奖励提醒
 	@Override
 	public boolean sendTemplateMessage2ParentChildMember(final Order order, String templateId, String accessToken) {
 		logger.info("【开始 发送模板消息】");
@@ -3762,7 +3763,7 @@ public class WeChatServiceImpl implements WeChatService {
         if(null != orderChildMem){
             childName = orderChildMem.getNickName() ;
         }
-
+        
         TemplateInfo templateInfo = new TemplateInfo() ;
         templateInfo.setTemplateId(templateId);
         final String sn = order.getSn();
@@ -3771,33 +3772,28 @@ public class WeChatServiceImpl implements WeChatService {
         BigDecimal newPoint3 = new BigDecimal(0l);
         for (OrderItem orderItem : order.getOrderItems()) {
         	if(orderItem.getUone_score() != null){
-        		newPoint1 = newPoint1.add(orderItem.getUone_score());
+        		newPoint1 = newPoint1.add(orderItem.getDone_score());
         	}
         	if(orderItem.getUtwo_score() != null){
-        		newPoint2 = newPoint2.add(orderItem.getUtwo_score());
+        		newPoint2 = newPoint2.add(orderItem.getDtwo_score());
         	}
         	if(orderItem.getUthree_score() != null){
-        		newPoint3 = newPoint3.add(orderItem.getUthree_score());
+        		newPoint3 = newPoint3.add(orderItem.getDthree_score());
         	}
 		}
         
         Map templateMap = new HashMap<String, Map<String, String>>(){{
-            this.put("first" , new HashMap<String, String>(){{
-                this.put("value" , "系统通知");
-            }});
             this.put("keyword1" , new HashMap<String, String>(){{
-                this.put("value" , "新增奖励积分");
-            }});
-
-            this.put("keyword2" , new HashMap<String, String>(){{
             	 String nickName = order.getChildMember().getNickName();
                  if(StringUtils.isEmpty(nickName)){
                 	 nickName = "未更新昵称";
                  }
-                this.put("value" , "您的关联用户" + nickName + "已成功购买商品，新增奖励积分已转入您的账户，可前往“我的积分”中查看");
+                this.put("value" , nickName);//"您的下级用户" + nickName + "已成功购买商品，新增奖励已转入您的店主账户");
             }});
-
-            this.put("remark" , new HashMap<String, String>(){{
+            this.put("keyword2" , new HashMap<String, String>(){{
+                this.put("value" , "");
+            }});
+            this.put("keyword3" , new HashMap<String, String>(){{
                 this.put("value" , "");
             }});
 
@@ -3814,41 +3810,66 @@ public class WeChatServiceImpl implements WeChatService {
     		
     		final String remark = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
             		newPoint1.setScale(2, RoundingMode.HALF_UP), 
-            		c1.getMember().getPoint().setScale(2, RoundingMode.HALF_UP));
-        	templateMap.put("remark" , new HashMap<String, String>(){{
+            		c1.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
+    		final String keyword2= newPoint1.setScale(2, RoundingMode.HALF_UP).toString();
+    		templateMap.put("keyword2" , new HashMap<String, String>(){{
+                this.put("value" ,keyword2);
+            }});
+        	templateMap.put("keyword3" , new HashMap<String, String>(){{
                 this.put("value" , remark);
             }});
 			templateInfo.setData(templateMap);
     		templateInfo.setToUser(c1.getOpenId());
-            this.sendTemplateMessage(templateInfo , accessToken) ;
-            logger.info("【发送模板消息成功】：" + c1.getOpenId());
+			OrderForm orderForm = orderFormDao.getDoOrderForm(c1);
+			if (orderForm != null) {
+				templateInfo.setFormId(orderForm.getFormId());
+				this.sendTemplateMessage(templateInfo , accessToken) ;
+	            logger.info("【发送模板消息成功】：" + c1.getOpenId());
+			}
     		ChildMember c2 = c1.getParent();
     	    ChildMember c3 = null;
     		if(c2 != null){
     			final String remark2 = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
-    	        		newPoint2, c2.getMember().getPoint().setScale(2, RoundingMode.HALF_UP));
-    			templateMap.put("remark" , new HashMap<String, String>(){{
+    	        		newPoint2, c2.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
+    			final String keyword22= newPoint2.setScale(2, RoundingMode.HALF_UP).toString();
+        		templateMap.put("keyword2" , new HashMap<String, String>(){{
+                    this.put("value" ,keyword22);
+                }});
+    			templateMap.put("keyword3" , new HashMap<String, String>(){{
                     this.put("value" , remark2);
                 }});
     			templateInfo.setData(templateMap);
     	        
     			logger.info("【上级2】：" + c2.getId());
     			templateInfo.setToUser(c2.getOpenId());
-                this.sendTemplateMessage(templateInfo , accessToken) ;
-                logger.info("【发送模板消息成功2】：" + c2.getOpenId());
+    			orderForm = orderFormDao.getDoOrderForm(c2);
+    			if (orderForm != null) {
+    				templateInfo.setFormId(orderForm.getFormId());
+    				this.sendTemplateMessage(templateInfo , accessToken) ;
+    			    logger.info("【发送模板消息成功2】：" + c2.getOpenId());
+    			}
+            
                 c3 = c2.getParent();
                 if(c3 != null){
                 	final String remark3 = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
-        	        		newPoint3, c3.getMember().getPoint().setScale(2, RoundingMode.HALF_UP));
-                	templateMap.put("remark" , new HashMap<String, String>(){{
+        	        		newPoint3, c3.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
+                	final String keyword222= newPoint3.setScale(2, RoundingMode.HALF_UP).toString();
+            		templateMap.put("keyword2" , new HashMap<String, String>(){{
+                        this.put("value" ,keyword222);
+                    }});
+                	templateMap.put("keyword3" , new HashMap<String, String>(){{
                         this.put("value" , remark3);
                     }});
         			templateInfo.setData(templateMap);
         			
                 	logger.info("【上级3】：" + c3.getId());
         			templateInfo.setToUser(c3.getOpenId());
-                    this.sendTemplateMessage(templateInfo , accessToken) ;
-                    logger.info("【发送模板消息成功2】：" + c3.getOpenId());
+        			orderForm = orderFormDao.getDoOrderForm(c3);
+        			if (orderForm != null) {
+        				templateInfo.setFormId(orderForm.getFormId());
+        				this.sendTemplateMessage(templateInfo , accessToken) ;
+        			    logger.info("【发送模板消息成功3】：" + c3.getOpenId());
+        			}
                 }
     		}
     		
@@ -3863,10 +3884,10 @@ public class WeChatServiceImpl implements WeChatService {
         remarkBuf.append(amount);
         remarkBuf.append("元");
         remarkBuf.append("\n");
-        remarkBuf.append("新增奖励积分：");
+        remarkBuf.append("新增奖励：");
         remarkBuf.append(newPoint);
         remarkBuf.append("\n");
-        remarkBuf.append("积分余额：");
+        remarkBuf.append("账户余额：");
         remarkBuf.append(totalPoint);
         remarkBuf.append("\n");
         remarkBuf.append("更新时间：" + DateUtils.formatDateToString(new Date() , DateformatEnum.yyyyMMddHHmm));
@@ -3886,19 +3907,14 @@ public class WeChatServiceImpl implements WeChatService {
         }
         
         Map templateMap = new HashMap<String, Map<String, String>>(){{
-            this.put("first" , new HashMap<String, String>(){{
-                this.put("value" , "系统通知");
-            }});
             this.put("keyword1" , new HashMap<String, String>(){{
-                this.put("value" , "新增关联用户");
+                this.put("value" , childMember.getNickName());
             }});
-
             this.put("keyword2" , new HashMap<String, String>(){{
-                this.put("value" , childMember.getNickName() + "已通过您的分享，成为您的关联用户，产生消费您将获得奖励积分");
+                this.put("value" , "0.0");
             }});
-
-            this.put("remark" , new HashMap<String, String>(){{
-                this.put("value" , "时间：" + DateUtils.formatDateToString(new Date() , DateformatEnum.yyyyMMddHHmm));
+            this.put("keyword3" , new HashMap<String, String>(){{
+                this.put("value" , childMember.getNickName() + "已通过您的分享，成为您的关联用户，产生消费您将获得奖励积分");
             }});
 
         }};
