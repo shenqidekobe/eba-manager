@@ -1,14 +1,20 @@
 package com.microBusiness.manage.service;
 
+import java.util.Date;
+
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.Withdraw;
+import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
 
 /**
- * Created by mingbai on 2017/2/11.
  * 功能描述：
  * 修改记录：
  */
 public interface ChildMemberService extends BaseService<ChildMember , Long> {
-    ChildMember findByOpenId(String openId);
+   
+	ChildMember findByOpenId(String openId);
 
     ChildMember unBind(ChildMember childMember);
 
@@ -29,4 +35,8 @@ public interface ChildMemberService extends BaseService<ChildMember , Long> {
     ChildMember findBySmOpenId(String smOpenId);
     
     ChildMember saveChildMember(ChildMember childMember);
+    
+	
+	Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+			ChildMember parent,Date startDate,Date endDate,Pageable pageable);
 }

@@ -1,10 +1,14 @@
 package com.microBusiness.manage.service.impl;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.ChildMemberDao;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Member;
@@ -12,13 +16,12 @@ import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.MemberService;
 
 /**
- * Created by mingbai on 2017/2/11.
- * 功能描述：
- * 修改记录：
+ *
  */
 @Service
 public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> implements ChildMemberService {
-    @Resource
+   
+	@Resource
     private ChildMemberDao childMemberDao ;
     @Resource
     private MemberService MemberService;
@@ -77,4 +80,10 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
 		}
 		return childMember;
 	}
+    
+    @Override
+	public Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
+    	return childMemberDao.findPage(nickName, smOpenId, type, parent, startDate, endDate, pageable);
+    }
 }
