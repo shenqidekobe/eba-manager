@@ -63,7 +63,7 @@
 
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">
-                                                                                       提现账户
+                                                                                                                       提现账户
                                 </label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                    <span class="input_no_span">${obj.account}</span>
@@ -84,6 +84,14 @@
 								</label>
 								<div class="formControls col-xs-8 col-sm-7">
 									<span class="input_no_span">${obj.amount}</span>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-3">
+									申请时间
+								</label>
+								<div class="formControls col-xs-8 col-sm-7">
+									<span class="input_no_span">${obj.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</div>
 							</div>
 							<div class="row cl">
