@@ -113,7 +113,7 @@
                                 	备注说明
                                 </label>
                                 <div class="formControls col-xs-8 col-sm-7">
-                                    <input type="text" class="input-text radius" name="remark" value="${obj.remark}" maxlength="200"/>
+                                    <textarea id="remark" name="remark" rows="5" class="text_area" cols="50" placeholder="如审核请输入审核原因">${obj.remark}</textarea>
                                 </div>
                             </div>
 						</div>

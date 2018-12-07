@@ -39,6 +39,7 @@
 			<div class="cus_nav">
 				<ul>
 					<li><a id="goHome"	href="../homePage/index.jhtml">${message("admin.breadcrumb.home")}</a></li>
+					<li><a href="../list.jhtml">会员列表</a></li>
 					<li>收益列表<span>(${message("admin.page.total", page.total)})</span></li>
 				</ul>
 			</div>
@@ -65,6 +66,8 @@
 				
 				<button type="submit" class="search_button">查询</button>
 				<div class="ch_operate">
+				    <button type="button" class="op_button shenhe_B" onclick="javascript:window.location.href='../list.jhtml'">返回</button>
+				    
 					<button type="button" class="op_button update_B" id="refreshButtons" onclick="javascript:window.location.href='list.jhtml'">${message("admin.common.refresh")}</button>
 				</div>
 			</div>
@@ -95,6 +98,7 @@
 							</tr>
 						</thead>
 						<tbody>
+						[#if page.content?? && (page.content?size > 0)]
 						[#list page.content as order]
 							<tr class="text-l">
 								<td><input type="checkbox" name="ids" value="${order.id}"></td>
@@ -105,9 +109,13 @@
 									${order.title}
 								</td>
 								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
-
 							</tr>
 						[/#list]
+						[#else]
+						<tr class="text-l">
+						<td colspan="4" style="text-align:center;"><strong>暂无任何收益记录</strong></td>
+						</tr>
+						[/#if]
 						</tbody>
 					</table>
 				</div>
