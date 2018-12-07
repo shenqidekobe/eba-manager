@@ -214,11 +214,27 @@ public class MemberController extends BaseController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Pageable pageable, ModelMap model) {
+	public String list(Pageable pageable,Date startDate,Date endDate,String nickName,
+			String smOpenId,ChildMember.SourceType type,
+			Long parentId,String searchName,ModelMap model) {
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findAll());
 		//model.addAttribute("page", memberService.findPage(pageable));
-		model.addAttribute("page", childMemberService.findPage(pageable));
+		model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("searchName", searchName);
+        
+        if(startDate != null) {
+        	startDate = DateUtils.specifyDateZero(startDate);
+        }
+        if(endDate != null) {
+        	endDate = DateUtils.specifyDatetWentyour(endDate);
+        }
+        ChildMember parent=null;
+        if(parentId!=null) {
+        	parent=this.childMemberService.find(parentId);
+        }
+		model.addAttribute("page", childMemberService.findPage(nickName, smOpenId, type, parent, startDate, endDate, pageable));
 		return "/admin/member/list";
 	}
 

@@ -1,5 +1,9 @@
 package com.microBusiness.manage.dao;
 
+import java.util.Date;
+
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.ChildMember;
 
 /**
@@ -15,4 +19,7 @@ public interface ChildMemberDao extends BaseDao<ChildMember , Long> {
     ChildMember findByUnionId(String unionId);
     
     ChildMember findBySmOpenId(String smOpenId);
+    
+    Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+			ChildMember parent,Date startDate,Date endDate,Pageable pageable);
 }

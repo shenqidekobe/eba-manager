@@ -1,11 +1,21 @@
 package com.microBusiness.manage.dao.impl;
 
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.ChildMemberDao;
 import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.Withdraw;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  * Created by mingbai on 2017/2/11.
@@ -40,7 +50,35 @@ public class ChildMemberDaoImpl extends BaseDaoImpl<ChildMember , Long> implemen
         }
     }
     
-    
+    @Override
+    public  Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+ 			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
+    	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ChildMember> criteriaQuery = criteriaBuilder.createQuery(ChildMember.class);
+		Root<ChildMember> root = criteriaQuery.from(ChildMember.class);
+		criteriaQuery.select(root);
+		Predicate restrictions = criteriaBuilder.conjunction();
+		if (StringUtils.isNotEmpty(nickName)) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("nickName"), nickName));
+		}
+		if (StringUtils.isNotEmpty(smOpenId)) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("smOpenId"), smOpenId));
+		}
+		if (parent != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("parent"), parent));
+		}
+		if (type != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("sourceType"), type));
+		}
+		if (startDate != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("createDate"), startDate));
+		}
+		if (endDate != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lessThanOrEqualTo(root.<Date> get("createDate"), endDate));
+		}
+		criteriaQuery.where(restrictions);
+		return super.findPage(criteriaQuery, pageable);
+    }
 
     @Override
     public ChildMember findByUnionId(String unionId) {
