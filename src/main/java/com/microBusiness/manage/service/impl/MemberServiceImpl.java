@@ -283,6 +283,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     	member.setIncome(BigDecimal.ZERO);
     	member.setYesterdayIncome(BigDecimal.ZERO);
     	member.setAmount(BigDecimal.ZERO);
+    	member.setIsShoper(false);
     	member.setIsEnabled(true);
     	member.setIsLocked(false);
     	member.setLoginFailureCount(0);
