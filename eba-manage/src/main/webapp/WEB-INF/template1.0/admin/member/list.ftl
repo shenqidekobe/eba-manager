@@ -13,7 +13,24 @@
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />
 		<style>
 			body{background:#f9f9f9;}
-
+			.search_button{margin-left:36px;}
+			.timeType[type="text"]{float:left;border:0;width:60px;height:30px;background:#f9f9f9;}
+			.proxyUserType[type="text"]{float:left;border:0;width:60px;height:30px;background:#f9f9f9;}
+			.dialogContent {
+	            height: calc(100% - 80px);
+	            overflow: auto;
+	            overflow-x: hidden;
+	        }
+	        .ch_time .ta_date .date_title,.ch_time .ta_date .opt_sel,.ch_time .ta_date,.ch_time .chooseTime{height:30px;}
+			.ch_time .chooseTime{line-height: 30px;}
+			.drop_down:hover .check{
+				display:block;
+			}
+			.daochuDown .check{
+				left:-50px;
+			}
+			.form-horizontal .form-label{width:160px;}
+			.check-box i{color:#999;font-size:12px;padding-left:20px;}
 		</style>
 	</head>
 	<body >
@@ -24,7 +41,6 @@
 				</ul>
 			</div>
 		<form id="listForm" action="list.jhtml" method="get">
-			<input type="hidden" id="status" name="status" value="${status}" />
 			<div class="ch_condition">
 				<div class="ch_search">
 					<img class="search_img" src="${base}/resources/admin1.0/images/sousuo_icon.svg" alt="" />
@@ -34,9 +50,27 @@
 					</div>
 				</div>
 				
+				<div>
+					<div class="drop_down" id="dropDown">
+						<span class="timeType">注册时间</span>
+						<ul class="check">
+							<li name="timeSearch" class="checked" val="createTime">注册时间</li>
+						</ul>
+					</div>
+					<div class="ch_time">
+						<span class="chooseTime">${(startDate?string("yyyy-MM-dd"))!}~${(endDate?string("yyyy-MM-dd"))!}</span>
+						<input type="hidden" class="startTime" id="startDate" name="startDate" value="${(startDate?string("yyyy-MM-dd"))!}"/>
+						<input type="hidden" class="endTime" id="endDate" name="endDate" value="${(endDate?string("yyyy-MM-dd"))!}"/>
+						<div class="ta_date" id="div_date_demo3">
+				            <span class="date_title" id="date_demo3"></span>
+				            <a class="opt_sel" id="input_trigger_demo3" href="#"></a>
+				        </div>
+					</div>		
+				</div>
+				
 				<button type="submit" class="search_button">查询</button>
 				<div class="ch_operate">
-					<button type="button" class="op_button update_B" id="refreshButton">${message("admin.common.refresh")}</button>
+					<button type="button" class="op_button update_B" id="refreshButton" onclick="javascript:window.location.href='list.jhtml'">${message("admin.common.refresh")}</button>
 				</div>
 			</div>
 			
@@ -117,6 +151,25 @@
 	        		}
 	        		$listForm.submit();
 	        	});
+	        	
+	        	var dateRange = new pickerDateRange('date_demo3', {
+                aRecent7Days: 'aRecent7DaysDemo3', //最近7天
+                isTodayValid: true,
+                startDate : '${(startDate?string("yyyy-MM-dd"))!}',
+                endDate : '${(endDate?string("yyyy-MM-dd"))!}',
+                /*needCompare : true,
+                   isSingleDay : false,*/
+                shortOpr : true,
+                stopToday:false,
+                defaultText: ' 至 ',
+                inputTrigger: 'input_trigger_demo3',
+                theme: 'ta',
+                success: function (obj) {
+                    $(".chooseTime").html( obj.startDate + "～" + obj.endDate);
+                    $(".startTime").val(obj.startDate);
+                    $(".endTime").val(obj.endDate);
+                }
+            });
 	        	
 	        	var checkedDom =  $("#filterMenu li.checked");
                 var firstDom;
