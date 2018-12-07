@@ -4,8 +4,8 @@
     <footer class="footer_nav">
         <a href="javascript:;" class="nav_li nav_index">首页</a>
         <a href="javascript:;" class="nav_li nav_order ">订单</a>
-        <a href="javascript:;" class="nav_li nav_Customer">客户</a>
-        <a href="javascript:;" class="nav_li nav_supply">供应</a>
+        <a href="javascript:;" class="nav_li nav_Customer">会员</a>
+        <a href="javascript:;" class="nav_li nav_supply">店主</a>
         <a href="javascript:;" class="nav_li nav_setting">设置</a>
     </footer>
 
@@ -40,8 +40,6 @@
                     customerReport = true;
                 [/@shiro.hasPermission]
             }
-
-
             function reportTest(){//是否有权限，跳转页面
                     if(orderReport){
                         window.location.href = '../orderReport/index.jhtml';
@@ -53,8 +51,6 @@
                         errorInfoFun("无操作权限");
                     }
             }
-
-
             /*点击报表的按钮判断是否权限*/
             $(".reportClass li").on("click",function(){
 
@@ -85,25 +81,14 @@
                 }
 
             });
-
-
-
-
-
-
-
-
             /*订单*/
             var order = false,
                 ownOrder = false,
                 distribution = false;
 
             function orderFun(){
-
                 orderBoolTest();
-
                 orderTest();
-
             }
 
             function orderBoolTest(){
@@ -124,11 +109,6 @@
                 [/#if]
 
             }
-
-
-
-
-
             function orderTest(){
                     if(order){
                         window.location.href = '../order/list.jhtml';
@@ -140,7 +120,6 @@
                         errorInfoFun("无操作权限");
                     }
             }
-
             /*点击订单的按钮判断是否权限*/
             $(".orderClass a").on("click",function(){
 
@@ -168,23 +147,12 @@
                         errorInfoFun("无操作权限");
                     }
                 }
-
             });
-
-
-
-
-
-
-
-
-
             /*客户*/
             var customer = false,
                 need = false;
 
             function customerFun(){
-
                 customerBoolTest();
                 customerTest();
 
@@ -204,9 +172,9 @@
 
             function customerTest(){//客户是否有权限，跳转页面
                     if(customer){
-                        window.location.href = '../customerRelation/list.jhtml';
+                        window.location.href = '../member/list.jhtml';
                     }else if(need){
-                        window.location.href = '../need/list.jhtml';
+                        window.location.href = '../member/list.jhtml';
                     }else{
                         errorInfoFun("无操作权限");
                     }
@@ -220,35 +188,25 @@
                 customerBoolTest();
                 if(customerData == 'customerRelation'){
                     if(customer){
-                        window.location.href = '../customerRelation/list.jhtml';
+                        window.location.href = '../member/list.jhtml';
                     }else{
                         errorInfoFun("无操作权限");
                     }
                 }
                 if(customerData == 'need'){
                     if(need){
-                        window.location.href = '../need/list.jhtml';
+                        window.location.href = '../member/list.jhtml';
                     }else{
                         errorInfoFun("无操作权限");
                     }
                 }
-
             });
-
-
-
-
-
-
-
-
             /*供应*/
             var formalSupply = false,
                 needSupply = false,
                 supplydistribution = false;
 
             function supplyFun(){
-
                 supplyBoolTest();
                 supplyTest();
 
@@ -270,8 +228,6 @@
                     supplydistribution = true;
                 [/@shiro.orPermission]
             }
-
-
             function supplyTest(){
                     if(formalSupply){
                         window.location.href = '../formalSupply/list.jhtml';
@@ -313,10 +269,7 @@
                         errorInfoFun("无操作权限");
                     }
                 }
-
             });
-
-
 
             /*设置*/
             var wxSettingBool = false;
@@ -338,11 +291,6 @@
             $(".qyInfo").on("click",function(){
                 wxSettingFun();
             });
-
-
-
-
-
             //首页
             $(".nav_index").on("click",function(){
                 //window.location = "../orderReport/index.jhtml";
@@ -367,19 +315,7 @@
                 //window.location = "../formalSupply/list.jhtml";
                 supplyFun();
             });
-
-
-
-
-
-
-
-
-
-
         })
-
     </script>
-
 
 [/#escape]

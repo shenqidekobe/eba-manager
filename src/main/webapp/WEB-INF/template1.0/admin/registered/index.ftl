@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>微商平台新用户注册</title>
+		<title>华奕优选新用户注册</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/public.css" />
@@ -26,7 +26,7 @@
 					<div class="twoCode">
 						<span></span>
 						<img src="${base}/resources/admin1.0/images/twoCode.jpg" alt="" />
-						<p>微商平台微信公众号</p>
+						<p>华奕优选微信公众号</p>
 					</div>
 				</li>
 				<!--<li><a href="javascript:;"></a></li>-->

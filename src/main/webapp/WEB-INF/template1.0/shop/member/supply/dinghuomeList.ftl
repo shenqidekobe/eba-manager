@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>微商平台</title>
+		<title>华奕优选</title>
 		<link rel="stylesheet" href="${base}/resources/shop/common/config/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/public.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/index.css" />
@@ -40,7 +40,7 @@
 					<form id="listForm" action="dinghuomeList.jhtml" method="get">
 					<div class="conList">
 						<div class="search_div">
-							<span style="float:left;line-height:40px;">微商平台产品分类</span>
+							<span style="float:left;line-height:40px;">华奕优选产品分类</span>
 							<div class="search_type">
 								<input type="hidden" :value="searchVal | arrLast" name="productCategoryId" />
 								<input type="hidden" :value="searchVal" name="productCategoryIdStr" />
@@ -63,7 +63,7 @@
 	                                    	<input type="checkbox" class="allCheck" />
 	                                    </th>
 	                                    <th width="24%">产品名称</th>
-	                                    <th width="15%">微商平台产品分类</th>
+	                                    <th width="15%">华奕优选产品分类</th>
 	                                    <th width="28%">商流系统分类</th>
 	                                    <th width="10%">基本单位</th>
 	                                    <th width="10%">产品规格</th>

@@ -899,7 +899,7 @@
 					</div>
 					<div class="img_box">
 						<img src="${base}/resources/admin1.0/images/caigou-4.png" alt="" />
-						<p class="bz_text">第四步：各个收货点（门店）可在“微商平台”公众号里下采购单，信息同步给企业后台</p>
+						<p class="bz_text">第四步：各个收货点（门店）可在“华奕优选”公众号里下采购单，信息同步给企业后台</p>
 					</div>
 				</div>
 				<span class="nextImg"></span>
@@ -925,7 +925,7 @@
 					</div>
 					<div class="img_box">
 						<img src="${base}/resources/admin1.0/images/gongying-2.png" alt="" />
-						<p class="bz_text">第二步：创建客户，填写客户的微商平台专属邀请码建立客户关系</p>
+						<p class="bz_text">第二步：创建客户，填写客户的华奕优选专属邀请码建立客户关系</p>
 					</div>
 					<div class="img_box">
 						<img src="${base}/resources/admin1.0/images/gongying-3.png" alt="" />

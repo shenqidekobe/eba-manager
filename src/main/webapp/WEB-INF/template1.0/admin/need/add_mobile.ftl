@@ -30,7 +30,7 @@
             <li class="li_info li_bot">
                 <span class="label">联系方式</span>
                 <div class="input">
-                    <input type="text" id="tel" name="tel" value="" placeholder="此电话作为微商平台登录账号 必填" class="info">
+                    <input type="text" id="tel" name="tel" value="" placeholder="此电话作为华奕优选登录账号 必填" class="info">
                 </div>
             </li>
             <li class="li_info li_bot">

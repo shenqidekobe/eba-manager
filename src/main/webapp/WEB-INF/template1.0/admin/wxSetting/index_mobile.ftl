@@ -40,9 +40,9 @@
             <li class="li_info userSet">
                 <span class="label">账号信息</span>
             </li>
-            <li class="li_info qyInfo">
+            <!--<li class="li_info qyInfo">
                 <span class="label">企业信息</span>
-            </li>
+            </li>-->
         </ul>
 
     </div>

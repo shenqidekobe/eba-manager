@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>微商平台</title>
+		<title>华奕优选</title>
 		<link rel="stylesheet" href="${base}/resources/shop/common/config/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/public.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/index.css" />
@@ -24,7 +24,7 @@
 					</div>
 					<div class="button_box dhm_goods">
 						<div class="img"></div>
-						<a href="javascript:void(0);" class='rel_B' onclick="checkDing();">发布微商平台产品</a>
+						<a href="javascript:void(0);" class='rel_B' onclick="checkDing();">发布华奕优选产品</a>
 					</div>
 				</div>
 			</div>
