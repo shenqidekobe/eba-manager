@@ -10,9 +10,6 @@ import javax.persistence.*;
 /**
  * 
  * 类别
- * 
- * @author 吴战波
- *
  */
 @Entity
 @Table(name = "t_category")

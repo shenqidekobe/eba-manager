@@ -65,6 +65,7 @@ import com.microBusiness.manage.dao.CartItemDao;
 import com.microBusiness.manage.dao.ChildMemberDao;
 import com.microBusiness.manage.dao.HostingShopDao;
 import com.microBusiness.manage.dao.MemberDao;
+import com.microBusiness.manage.dao.MemberIncomeDao;
 import com.microBusiness.manage.dao.NeedDao;
 import com.microBusiness.manage.dao.NeedProductDao;
 import com.microBusiness.manage.dao.NeedShopProductDao;
@@ -106,6 +107,7 @@ import com.microBusiness.manage.entity.Invoice;
 import com.microBusiness.manage.entity.LocalOrderSharingStatus;
 import com.microBusiness.manage.entity.LogType;
 import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.MemberIncome;
 import com.microBusiness.manage.entity.Need;
 import com.microBusiness.manage.entity.NeedProduct;
 import com.microBusiness.manage.entity.NoticeType;
@@ -115,7 +117,6 @@ import com.microBusiness.manage.entity.Order.BuyType;
 import com.microBusiness.manage.entity.Order.Status;
 import com.microBusiness.manage.entity.Order.Type;
 import com.microBusiness.manage.entity.OrderFile;
-import com.microBusiness.manage.entity.OrderForm;
 import com.microBusiness.manage.entity.OrderItem;
 import com.microBusiness.manage.entity.OrderItemInfo;
 import com.microBusiness.manage.entity.OrderItemLog;
@@ -165,7 +166,6 @@ import com.microBusiness.manage.service.SmsService;
 import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.service.WeChatService;
-import com.microBusiness.manage.util.Constant;
 import com.microBusiness.manage.util.Constant.ORDER_LOG_CONTENT;
 import com.microBusiness.manage.util.Constant.PAYMENT_PLUGIN;
 import com.microBusiness.manage.util.DateformatEnum;
@@ -192,6 +192,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private ShippingDao shippingDao;
 	@Resource(name = "returnsDaoImpl")
 	private ReturnsDao returnsDao;
+	@Resource(name = "memberIncomeDaoImpl")
+	private MemberIncomeDao memberIncomeDao;
 	@Resource(name = "memberServiceImpl")
 	private MemberService memberService;
 	@Resource(name = "couponCodeServiceImpl")
@@ -6933,13 +6935,20 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				orderItem.setDone_score(ratePrice1);
 				orderItemDao.persist(orderItem);
 				
-				//总积分
+				MemberIncome income1=new MemberIncome();
+				income1.setMember(c1);
+				income1.setAmount(ratePrice1);
+				income1.setOrderId(order.getId());
+				income1.setTitle("下级收益提成");
+				memberIncomeDao.persist(income1);
+				//总收益
 				Member member1 = c1.getMember();
 				member1.setBalance(member1.getBalance().add(ratePrice1));
 				member1.setIncome(member1.getIncome().add(ratePrice1));
 				member1.setLastDay(lastDay);
 				memberDao.persist(member1);
 				logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
+				
 			}else if(level == 2){
 				Float rate1 = distributionRate1;
 				rate1 = rate1 == null ? 0 : rate1;
@@ -6949,6 +6958,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				
 				orderItem.setDone(c1);
 				orderItem.setDone_score(ratePrice1);
+				
+				MemberIncome income1=new MemberIncome();
+				income1.setMember(c1);
+				income1.setAmount(ratePrice1);
+				income1.setOrderId(order.getId());
+				income1.setTitle("下级收益提成");
+				memberIncomeDao.persist(income1);
 				
 				Member member1 = c1.getMember();
 				member1.setBalance(member1.getBalance().add(ratePrice1));
@@ -6963,6 +6979,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				
 				orderItem.setDtwo(c2);
 				orderItem.setDtwo_score(ratePrice2);
+				
+				MemberIncome income2=new MemberIncome();
+				income2.setMember(c2);
+				income2.setAmount(ratePrice2);
+				income2.setOrderId(order.getId());
+				income2.setTitle("下级收益提成");
+				memberIncomeDao.persist(income2);
 				
 				Member member2 = c2.getMember();
 				member2.setBalance(member2.getBalance().add(ratePrice2));
@@ -6982,6 +7005,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				orderItem.setDone(c1);
 				orderItem.setDone_score(ratePrice1);
 				
+				MemberIncome income1=new MemberIncome();
+				income1.setMember(c1);
+				income1.setAmount(ratePrice1);
+				income1.setOrderId(order.getId());
+				income1.setTitle("下级收益提成");
+				memberIncomeDao.persist(income1);
+				
 				
 				Member member1 = c1.getMember();
 				member1.setBalance(member1.getBalance().add(ratePrice1));
@@ -7000,6 +7030,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				orderItem.setDtwo(c2);
 				orderItem.setDtwo_score(ratePrice2);
 				
+				MemberIncome income2=new MemberIncome();
+				income2.setMember(c2);
+				income2.setAmount(ratePrice2);
+				income2.setOrderId(order.getId());
+				income2.setTitle("下级收益提成");
+				memberIncomeDao.persist(income2);
+				
 				Member member2 = c2.getMember();
 				member2.setBalance(member2.getBalance().add(ratePrice2));
 				member2.setIncome(member2.getIncome().add(ratePrice2));
@@ -7015,6 +7052,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				
 				orderItem.setDthree(c3);
 				orderItem.setDthree_score(ratePrice3);
+				
+				MemberIncome income3=new MemberIncome();
+				income3.setMember(c3);
+				income3.setAmount(ratePrice3);
+				income3.setOrderId(order.getId());
+				income3.setTitle("下级收益提成");
+				memberIncomeDao.persist(income3);
 				
 				Member member3 = c3.getMember();
 				member3.setBalance(member3.getBalance().add(ratePrice3));
