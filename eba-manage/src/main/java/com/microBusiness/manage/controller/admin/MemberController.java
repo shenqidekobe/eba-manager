@@ -1,12 +1,8 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.controller.admin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +30,16 @@ import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.MemberAttribute;
+import com.microBusiness.manage.entity.Withdraw;
+import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.MemberAttributeService;
+import com.microBusiness.manage.service.MemberIncomeService;
 import com.microBusiness.manage.service.MemberRankService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.PluginService;
+import com.microBusiness.manage.service.WithdrawService;
+import com.microBusiness.manage.util.DateUtils;
 import com.microBusiness.manage.util.SystemUtils;
 
 @Controller("adminMemberController")
@@ -55,6 +56,10 @@ public class MemberController extends BaseController {
 	private PluginService pluginService;
 	@Resource
 	private ChildMemberService childMemberService;
+	@Resource(name = "memberIncomeServiceImpl")
+	private MemberIncomeService memberIncomeService;
+	@Resource(name = "withdrawServiceImpl")
+	private WithdrawService withdrawService;
 
 	@RequestMapping(value = "/check_username", method = RequestMethod.GET)
 	public @ResponseBody
@@ -76,11 +81,10 @@ public class MemberController extends BaseController {
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(Long id, ModelMap model) {
-		Member member = memberService.find(id);
+		ChildMember member = childMemberService.find(id);
 		model.addAttribute("genders", Member.Gender.values());
 		model.addAttribute("memberAttributes", memberAttributeService.findList(true, true));
 		model.addAttribute("member", member);
-		model.addAttribute("loginPlugin", pluginService.getLoginPlugin(member.getLoginPluginId()));
 		return "/admin/member/view";
 	}
 
@@ -213,7 +217,8 @@ public class MemberController extends BaseController {
 	public String list(Pageable pageable, ModelMap model) {
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findAll());
-		model.addAttribute("page", memberService.findPage(pageable));
+		//model.addAttribute("page", memberService.findPage(pageable));
+		model.addAttribute("page", childMemberService.findPage(pageable));
 		return "/admin/member/list";
 	}
 
@@ -282,6 +287,72 @@ public class MemberController extends BaseController {
 		rootMap.put("childrenSize", plist.size());
 		rootMap.put("list", list);
 		return JsonEntity.successMessage(rootMap);
+	}
+	
+	
+	
+	/*******************************************2018新加功能***************************************/
+	@RequestMapping(value = "/withdraw/list", method = RequestMethod.GET)
+	public String withdrawList(Pageable pageable,Withdraw_Status status,
+			Date startDate , Date endDate , String searchName , String timeSearch,
+			Long memberId, ModelMap model) {
+		ChildMember member=null;
+		if(memberId!=null) {
+			member=this.childMemberService.find(memberId);
+		}
+		model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("searchName", searchName);
+        model.addAttribute("timeSearch", timeSearch);
+        
+        if(startDate != null) {
+        	startDate = DateUtils.specifyDateZero(startDate);
+        }
+        if(endDate != null) {
+        	endDate = DateUtils.specifyDatetWentyour(endDate);
+        }
+		model.addAttribute("page", withdrawService.findPage(status, member, startDate, endDate, timeSearch, pageable));
+		return "/admin/member/withdraw/list";
+	}
+	@RequestMapping(value = "/withdraw/edit", method = RequestMethod.GET)
+	public String withdrawEdit(Long id, ModelMap model) {
+		Withdraw withdraw = withdrawService.find(id);
+		model.addAttribute("obj", withdraw);
+		model.addAttribute("statusList", Withdraw.Withdraw_Status.values());
+		return "/admin/member/withdraw/edit";
+	}
+	@RequestMapping(value = "/withdraw/update", method = RequestMethod.POST)
+	public String withdrawUpdate(Withdraw withdraw,HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		if (!isValid(withdraw)) {
+			return ERROR_VIEW;
+		}
+		Withdraw pWithdraw = withdrawService.find(withdraw.getId());
+		if (pWithdraw == null) {
+			return ERROR_VIEW;
+		}
+		withdraw.setProcessTime(new Date());
+		
+		withdrawService.update(withdraw, "sn","member","createDate","account","accountName","phone","amount");
+		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
+		return "redirect:list.jhtml";
+	}
+	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
+	public String incomeList(Pageable pageable,Date startDate , Date endDate ,
+			String searchName , String type,Long memberId, ModelMap model) {
+		ChildMember childMember=this.childMemberService.find(memberId);
+		model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("searchName", searchName);
+        
+        if(startDate != null) {
+        	startDate = DateUtils.specifyDateZero(startDate);
+        }
+        if(endDate != null) {
+        	endDate = DateUtils.specifyDatetWentyour(endDate);
+        }
+		model.addAttribute("page", memberIncomeService.findPage(type, childMember, startDate, endDate, pageable));
+		return "/admin/member/income/list";
 	}
 
 }

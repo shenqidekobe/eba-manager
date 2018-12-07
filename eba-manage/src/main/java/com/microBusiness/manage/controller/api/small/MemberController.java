@@ -3,6 +3,7 @@ package com.microBusiness.manage.controller.api.small;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,25 +33,25 @@ import com.microBusiness.manage.entity.Admin;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.MemberIncome;
 import com.microBusiness.manage.entity.MemberMember;
 import com.microBusiness.manage.entity.Order;
+import com.microBusiness.manage.entity.Withdraw;
 import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.HostingShopService;
+import com.microBusiness.manage.service.MemberIncomeService;
 import com.microBusiness.manage.service.MemberMemberService;
 import com.microBusiness.manage.service.OrderService;
 import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.service.WithdrawService;
 import com.microBusiness.manage.util.ApiSmallUtils;
 import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.CommonUtils;
 import com.microBusiness.manage.util.DateUtils;
 
 /**
- * Created by afei.
- * User: afei
- * Date: 2016/5/26 10:06
- * Describe:
- * Update:
+ * 会员逻辑接口
  */
 @Controller("smallMemberController")
 @RequestMapping("/api/small/member")
@@ -68,7 +69,73 @@ public class MemberController extends BaseController {
 	private AdminService adminService;
     @Resource
 	private WeChatService weChatService;
+	@Resource(name = "memberIncomeServiceImpl")
+	private MemberIncomeService memberIncomeService;
+	@Resource(name = "withdrawServiceImpl")
+	private WithdrawService withdrawService;
+	
+	//申请提现
+    @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonEntity withdraw(String smOpenId,String account,String accountName,String phone,
+			BigDecimal amount,String searchName) {
+    	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+    	Member member = childMember.getMember();
+    	if(amount==null||StringUtils.isEmpty(account)) {
+    		return JsonEntity.error(Code.code132,"请填写完整的表单！");
+    	}
+    	if(member.getIsShoper()==null||!member.getIsShoper()) {
+    		return JsonEntity.error(Code.code132,"您还不是店主！");
+    	}
+    	if(amount.compareTo(BigDecimal.ONE)==-1) {
+    		return JsonEntity.error(Code.code132,"提现金额最低不能低于1元！");
+    	}
+    	if(member.getBalance().compareTo(amount)==-1) {
+    		return JsonEntity.error(Code.code132,"提现金额超过了您的余额！");
+    	}
+    	Withdraw withdraw=new Withdraw();
+    	withdraw.setMember(childMember);
+    	withdraw.setAccount(account);
+    	withdraw.setAccountName(accountName);
+    	withdraw.setAmount(amount);
+    	withdraw.setCreateDate(new Date());
+    	withdraw.setSn(childMember.getId()+DateUtils.convertToString(new Date(), DateUtils.DEFAULT_TIMENO_FORMAT));
+    	withdraw.setFee(BigDecimal.ZERO);
+    	withdraw.setStatus(Withdraw.Withdraw_Status.await);
+    	withdrawService.save(withdraw);
+    	
+		Map<String, Object> rootMap = new HashMap<String, Object>();
+		rootMap.put("id", member.getId());
+		return JsonEntity.successMessage(rootMap);
+	}
 
+    
+    /**
+	 * 收益记录列表
+	 */
+	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
+	public @ResponseBody
+	JsonEntity orderList(String unionId, String smOpenId, Long proxyUserId, 
+			Pageable pageable,  Date startDate, Date endDate, String searchName, String ts) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<MemberIncome> incomeList = new ArrayList<MemberIncome>();
+		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+		if(null != startDate) {
+			startDate = DateUtils.specifyDateZero(startDate);
+		}
+		if(null != endDate) {
+			endDate = DateUtils.specifyDatetWentyour(endDate);
+		}
+		Page<MemberIncome> page = memberIncomeService.findPage(null, childMember, startDate, endDate, pageable);
+		incomeList=page.getContent();
+		resultMap.put("incomes", incomeList);
+		resultMap.put("pageNumber", page.getPageNumber());
+		resultMap.put("totalPages", page.getTotalPages());
+		return JsonEntity.successMessage(resultMap);
+
+	}
+	
+	
     /**
      * 解除用户的绑定
      * @param request

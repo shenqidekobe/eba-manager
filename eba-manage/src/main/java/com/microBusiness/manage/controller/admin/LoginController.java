@@ -1,39 +1,24 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.controller.admin;
 
 import java.security.interfaces.RSAPublicKey;
-
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.RSAService;
-import com.microBusiness.manage.util.SystemUtils;
-import com.microBusiness.manage.util.WebUtils;
-
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.RSAService;
-import com.microBusiness.manage.util.SystemUtils;
-import com.microBusiness.manage.util.WebUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.microBusiness.manage.Message;
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.RSAService;
+import com.microBusiness.manage.util.SystemUtils;
 
 @Controller("adminLoginController")
 @RequestMapping("/admin/login")
