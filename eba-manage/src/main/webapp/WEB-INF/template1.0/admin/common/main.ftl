@@ -313,7 +313,8 @@
 				[/@shiro.hasPermission]
 				[/#list]
 				
-				[#list ["admin:member", "admin:memberRank", "admin:memberAttribute", "admin:point", "admin:deposit", "admin:review", "admin:consultation", "admin:messageConfig"] as permission]
+				[#list ["admin:member:add","admin:member:edit","admin:member:delete","admin:withdraw:edit", "admin:memberRank", "admin:memberAttribute", "admin:point",
+				 "admin:deposit", "admin:review", "admin:consultation", "admin:messageConfig"] as permission]
 				[@shiro.hasPermission name = permission]
 				<li>
 					<div class="nav_title">
@@ -322,11 +323,17 @@
 						<i></i>
 					</div>
 					<ul class="nav_two">
-						[@shiro.hasPermission name="admin:member"]
+					    [@shiro.orPermission name="admin:member:add or admin:member:edit or admin:member:delete"]
 							<li>
 								<a href="../member/list.jhtml" target="iframe">${message("admin.main.member")}</a>
 							</li>
-						[/@shiro.hasPermission]
+						[/@shiro.orPermission]
+						[@shiro.orPermission name="admin:withdraw:edit"]
+							<li>
+								<a href="../member/withdraw/list.jhtml" target="iframe">提现列表</a>
+							</li>
+						[/@shiro.orPermission]
+						
 						[@shiro.hasPermission name="admin:memberRank"]
 							<li>
 								<a href="../member_rank/list.jhtml" target="iframe">${message("admin.main.memberRank")}</a>

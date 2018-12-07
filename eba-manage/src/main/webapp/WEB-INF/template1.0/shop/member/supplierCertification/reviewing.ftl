@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>微商平台</title>
+		<title>华奕优选</title>
 		<link rel="stylesheet" href="${base}/resources/shop/common/config/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/public.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/index.css" />

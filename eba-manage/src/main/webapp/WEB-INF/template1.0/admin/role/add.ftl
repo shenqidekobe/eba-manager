@@ -471,6 +471,37 @@
 		                    </div>
 		                    <div name="firstDiv"> 
 		                      	<div class="check-box">
+		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">会员</span>
+		                        </div>
+                                <div style="padding-left:70px;" name="secondDiv">
+                                    <div class="check-box">
+                                        <input type="checkbox" name="two" /><span>会员管理</span>
+                                    </div>
+                                    <div style="padding-left:100px;" name="thirdDiv">
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:member:add" /><span>添加会员</span>
+                                        </div>
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:member:edit" /><span>编辑会员</span>
+                                        </div>
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:member:income" /><span>收益记录</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-left:70px;" name="secondDiv">
+                                    <div class="check-box">
+                                        <input type="checkbox" name="two" /><span>提现管理</span>
+                                    </div>
+                                    <div style="padding-left:100px;" name="thirdDiv">
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:withdraw:edit" /><span>编辑提现</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+		                    <div name="firstDiv"> 
+		                      	<div class="check-box">
 		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">系统</span>
 		                        </div>
                                 <div style="padding-left:70px;" name="secondDiv">

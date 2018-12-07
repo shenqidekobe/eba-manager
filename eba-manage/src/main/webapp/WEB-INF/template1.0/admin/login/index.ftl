@@ -45,7 +45,7 @@
 						<div class="twoCode">
 							<span></span>
 							<img src="${base}/resources/admin1.0/images/twoCode.jpg" alt="" />
-							<p>微商平台微信公众号</p>
+							<p>华奕优选微信公众号</p>
 						</div>
 					</li>
 					<!--<li class=""><a href="javascript:;"></a></li>-->

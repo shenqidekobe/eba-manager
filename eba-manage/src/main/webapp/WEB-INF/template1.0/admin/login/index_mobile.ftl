@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>微商平台</title>
+    <title>华奕优选</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=7; IE=EDGE"> -->
     <link rel="stylesheet" href="${base}/resources/mobile/css/public.css" />

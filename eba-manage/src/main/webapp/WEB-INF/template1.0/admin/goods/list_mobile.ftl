@@ -12,7 +12,7 @@
     <script src="${base}/resources/mobile/js/adaptive.js"></script>
     <link rel="stylesheet" href="${base}/resources/mobile/css/public.css" />
     <link rel="stylesheet" href="${base}/resources/mobile/css/goods.css" />
-    <title>微商平台</title>
+    <title>华奕优选</title>
     <style>
         body{background:#fbfbfb;}
         .footer_nav .nav_goods {

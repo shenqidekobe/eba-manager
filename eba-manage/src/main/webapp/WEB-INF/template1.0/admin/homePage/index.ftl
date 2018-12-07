@@ -232,9 +232,7 @@
 						</div>
 					</div>
 				</div>
-				
 			-->	
-				
 			</form>
 		</div>
 		<script src="${base}/resources/admin1.0/js/jquery.min.js"></script>
