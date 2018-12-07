@@ -57,7 +57,7 @@
 					<ul class="check">
 						<li name="status" val="">所有状态</li>
 						<li name="status"[#if "await" == status] class="checked"[/#if] val="await">等待审核</li>
-                        <li name="status"[#if "complete" == status] class="checked"[/#if] val="complete">已完成</li>
+                        <li name="status"[#if "complete" == status] class="checked"[/#if] val="complete">提现成功</li>
                         <li name="status"[#if "fail" == status] class="checked"[/#if] val="fail">操作失败</li>
                         <li name="status"[#if "repeal" == status] class="checked"[/#if] val="repeal">已取消</li>
 					</ul>
@@ -120,6 +120,7 @@
 							<th width="14%">账户姓名</th>
 							<th width="10%">状态</th>
 							<th width="14%">申请时间</th>
+							<th width="14%">处理时间</th>
 							<th width="6%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
@@ -139,6 +140,7 @@
 								<th width="14%"><div class="th_div">账户姓名</div></th>
 								<th width="10%"><div class="th_div">状态</div></th>
 								<th width="14%"><div class="th_div">申请时间</div></th>
+								<th width="14%"><div class="th_div">处理时间</div></th>
 								<th width="6%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
@@ -160,7 +162,7 @@
 									${order.status.label}
 								</td>
 								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
-
+                                <td><span title="${order.processTime?string("yyyy-MM-dd HH:mm:ss")}">${order.processTime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
 								<td class="td-manage">
 									<a title="${message("admin.common.view")}" href="edit.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
 								</td>

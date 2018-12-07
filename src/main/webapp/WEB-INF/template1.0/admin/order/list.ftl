@@ -90,7 +90,7 @@
 						</div>
 					</div>-->
 					<div class="search_input">
-						<input type="text" id="searchName" name="searchName" value="${searchName}" maxlength="200" placeholder="请输入编号/企业名称/收货点" />
+						<input type="text" id="searchName" name="searchName" value="${searchName}" maxlength="200" placeholder="请输入编号/收货点" />
 
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 				            <a class="opt_sel" id="input_trigger_demo3" href="#"></a>
 				        </div>
 					</div>
-					
+					<!--
 					<div class="drop_down" id="dropDown2" style="margin-left:50px;width:160px;">
 						<span class="proxyUserType">所有代理</span>
 						<ul class="check">
@@ -122,7 +122,7 @@
 	                        [/#list]
 						</ul>
 					</div>
-					
+					-->
 					
 					
 				</div>
