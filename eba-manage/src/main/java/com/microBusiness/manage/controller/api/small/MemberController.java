@@ -78,7 +78,7 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity withdraw(String smOpenId,String account,String accountName,String phone,
-			BigDecimal amount,String searchName) {
+			BigDecimal amount,String type) {
     	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
     	Member member = childMember.getMember();
     	if(amount==null||StringUtils.isEmpty(account)) {
@@ -93,16 +93,15 @@ public class MemberController extends BaseController {
     	if(member.getBalance().compareTo(amount)==-1) {
     		return JsonEntity.error(Code.code132,"提现金额超过了您的余额！");
     	}
+    	if("all".equals(type)){
+    		amount=member.getBalance();//全部提现
+    	}
     	Withdraw withdraw=new Withdraw();
     	withdraw.setMember(childMember);
     	withdraw.setAccount(account);
     	withdraw.setAccountName(accountName);
     	withdraw.setAmount(amount);
-    	withdraw.setCreateDate(new Date());
-    	withdraw.setSn(childMember.getId()+DateUtils.convertToString(new Date(), DateUtils.DEFAULT_TIMENO_FORMAT));
-    	withdraw.setFee(BigDecimal.ZERO);
-    	withdraw.setStatus(Withdraw.Withdraw_Status.await);
-    	withdrawService.save(withdraw);
+    	withdrawService.createWithdraw(withdraw);
     	
 		Map<String, Object> rootMap = new HashMap<String, Object>();
 		rootMap.put("id", member.getId());

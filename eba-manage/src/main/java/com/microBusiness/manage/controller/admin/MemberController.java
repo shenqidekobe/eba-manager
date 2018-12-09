@@ -348,8 +348,14 @@ public class MemberController extends BaseController {
 			return ERROR_VIEW;
 		}
 		withdraw.setProcessTime(new Date());
-		
-		withdrawService.update(withdraw, "sn","member","createDate","account","accountName","phone","amount");
+		if(pWithdraw.getStatus().equals(withdraw.getStatus())){
+			withdrawService.update(withdraw, "sn","member","createDate","account","accountName","phone","amount");
+		}else{
+			pWithdraw.setStatus(withdraw.getStatus());
+			pWithdraw.setRemark(pWithdraw.getRemark()==null?withdraw.getRemark():pWithdraw.getRemark()+" | "+withdraw.getRemark());
+			pWithdraw.setFee(withdraw.getFee());
+			withdrawService.auditWithdraw(pWithdraw);
+		}
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}
