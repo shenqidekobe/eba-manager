@@ -17,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.MemberDao;
+import com.microBusiness.manage.dao.MemberIncomeDao;
 import com.microBusiness.manage.dao.WithdrawDao;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.MemberIncome;
 import com.microBusiness.manage.entity.Withdraw;
 import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
 import com.microBusiness.manage.service.WithdrawService;
@@ -32,6 +34,9 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 	private WithdrawDao withdrawDao;
 	@Resource
 	private MemberDao memberDao;
+	@Resource(name = "memberIncomeDaoImpl")
+	private MemberIncomeDao memberIncomeDao;
+	
 	
 	@Override
 	@Transactional
@@ -59,6 +64,16 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 			Member member1 = obj.getMember().getMember();
 			member1.setBalance(member1.getBalance().add(obj.getAmount()));
 			memberDao.persist(member1);
+		}
+		if(Withdraw_Status.complete.equals(obj.getStatus())){
+			//提现成功保存到收益记录一条支出
+			MemberIncome income = new MemberIncome();
+			income.setAmount(obj.getAmount());
+			income.setTypes(MemberIncome.TYPE_WITHDRAW);
+			income.setMember(obj.getMember());
+			income.setTitle("提现成功");
+			income.setCreateDate(new Date());
+			memberIncomeDao.persist(income);
 		}
 		obj.setProcessTime(new Date());
 		withdrawDao.persist(obj);

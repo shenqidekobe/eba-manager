@@ -37,6 +37,7 @@ import com.microBusiness.manage.entity.MemberIncome;
 import com.microBusiness.manage.entity.MemberMember;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.Withdraw;
+import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
 import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.HostingShopService;
@@ -107,6 +108,31 @@ public class MemberController extends BaseController {
 		rootMap.put("id", member.getId());
 		return JsonEntity.successMessage(rootMap);
 	}
+    
+    /**
+   	 * 提现记录列表
+   	 */
+   	@RequestMapping(value = "/withdraw/list", method = RequestMethod.GET)
+   	public @ResponseBody
+   	JsonEntity withdrawList(String unionId, String smOpenId, Withdraw_Status status, 
+   			Pageable pageable,  Date startDate, Date endDate, String timeSearch, String ts) {
+   		Map<String, Object> resultMap = new HashMap<String, Object>();
+   		List<Withdraw> list = new ArrayList<Withdraw>();
+   		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+   		if(null != startDate) {
+   			startDate = DateUtils.specifyDateZero(startDate);
+   		}
+   		if(null != endDate) {
+   			endDate = DateUtils.specifyDatetWentyour(endDate);
+   		}
+   		Page<Withdraw> page = withdrawService.findPage(status, childMember, startDate, endDate, timeSearch, pageable);
+   		list=page.getContent();
+   		resultMap.put("withdraws", list);
+   		resultMap.put("pageNumber", page.getPageNumber());
+   		resultMap.put("totalPages", page.getTotalPages());
+   		return JsonEntity.successMessage(resultMap);
+
+   	}
 
     
     /**
@@ -114,7 +140,7 @@ public class MemberController extends BaseController {
 	 */
 	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
 	public @ResponseBody
-	JsonEntity orderList(String unionId, String smOpenId, Long proxyUserId, 
+	JsonEntity incomeList(String unionId, String smOpenId, Long proxyUserId, 
 			Pageable pageable,  Date startDate, Date endDate, String searchName, String ts) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<MemberIncome> incomeList = new ArrayList<MemberIncome>();

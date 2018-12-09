@@ -6939,6 +6939,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income1.setMember(c1);
 				income1.setAmount(ratePrice1);
 				income1.setOrderId(order.getId());
+				income1.setTypes(MemberIncome.TYPE_INCOME);
 				income1.setTitle("下级收益提成");
 				memberIncomeDao.persist(income1);
 				//总收益
@@ -6963,6 +6964,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income1.setMember(c1);
 				income1.setAmount(ratePrice1);
 				income1.setOrderId(order.getId());
+				income1.setTypes(MemberIncome.TYPE_INCOME);
 				income1.setTitle("下级收益提成");
 				memberIncomeDao.persist(income1);
 				
@@ -6984,6 +6986,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income2.setMember(c2);
 				income2.setAmount(ratePrice2);
 				income2.setOrderId(order.getId());
+				income2.setTypes(MemberIncome.TYPE_INCOME);
 				income2.setTitle("下级收益提成");
 				memberIncomeDao.persist(income2);
 				
@@ -7009,6 +7012,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income1.setMember(c1);
 				income1.setAmount(ratePrice1);
 				income1.setOrderId(order.getId());
+				income1.setTypes(MemberIncome.TYPE_INCOME);
 				income1.setTitle("下级收益提成");
 				memberIncomeDao.persist(income1);
 				
@@ -7034,6 +7038,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income2.setMember(c2);
 				income2.setAmount(ratePrice2);
 				income2.setOrderId(order.getId());
+				income2.setTypes(MemberIncome.TYPE_INCOME);
 				income2.setTitle("下级收益提成");
 				memberIncomeDao.persist(income2);
 				
@@ -7057,6 +7062,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income3.setMember(c3);
 				income3.setAmount(ratePrice3);
 				income3.setOrderId(order.getId());
+				income3.setTypes(MemberIncome.TYPE_INCOME);
 				income3.setTitle("下级收益提成");
 				memberIncomeDao.persist(income3);
 				
