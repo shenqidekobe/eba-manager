@@ -19,8 +19,11 @@ public class MemberIncome extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1108913572196082302L;
 	
+	public static final String TYPE_INCOME="income";
+	public static final String TYPE_WITHDRAW="withdraw";
+	
 	private String title;
-	private String types;//收益类型
+	private String types;//收益类型{income、withdraw}
 	private BigDecimal amount;//收益金额
 	private ChildMember member;//收益人
 	private String remark;
