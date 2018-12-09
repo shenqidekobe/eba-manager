@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +75,49 @@ public class MemberController extends BaseController {
 	private MemberIncomeService memberIncomeService;
 	@Resource(name = "withdrawServiceImpl")
 	private WithdrawService withdrawService;
+	
+	/**
+	 * 会员首页
+	 * */
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonEntity index(String smOpenId, String searchName) {
+    	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+    	Member member = childMember.getMember();
+    	if(member.getIsShoper()==null||!member.getIsShoper()) {
+    		return JsonEntity.error(Code.code132,"您还不是店主！");
+    	}
+    	//计算昨日收益
+    	Pageable pageable=new Pageable();
+    	Calendar cal=Calendar.getInstance();
+    	cal.add(Calendar.DAY_OF_MONTH, -1);
+    	cal.set(Calendar.HOUR_OF_DAY, 0);
+    	cal.set(Calendar.MINUTE, 0);
+    	cal.set(Calendar.SECOND, 0);
+    	Date startDate=cal.getTime();
+    	Date endDate=cal.getTime();
+    	Page<MemberIncome> page=memberIncomeService.findPage(MemberIncome.TYPE_INCOME, childMember, startDate, endDate, pageable);
+    	BigDecimal yesterdayIncome=BigDecimal.ZERO;
+    	if(!page.getContent().isEmpty()){
+    		for(MemberIncome inc:page.getContent()){
+    			yesterdayIncome=yesterdayIncome.add(inc.getAmount());
+    		}
+    	}
+    	member.setYesterdayIncome(yesterdayIncome);
+		Map<String, Object> rootMap = new HashMap<String, Object>();
+		rootMap.put("isChecked", childMember.getIsChecked());
+		rootMap.put("point", member.getPoint());
+		rootMap.put("id", member.getId());
+		rootMap.put("balance", member.getBalance());
+		rootMap.put("income", member.getIncome());
+		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
+		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
+		rootMap.put("id", member.getId());
+		rootMap.put("nickName", childMember.getNickName());
+		rootMap.put("headPic", childMember.getHeadImgUrl());
+		return JsonEntity.successMessage(rootMap);
+	}
+
 	
 	//申请提现
     @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
@@ -508,27 +552,6 @@ public class MemberController extends BaseController {
 		return JsonEntity.successMessage(rootMap);
 	}
     
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-	@ResponseBody
-	public JsonEntity index(String smOpenId, String searchName) {
-    	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
-    	Member member = childMember.getMember();
-    	if(member.getIsShoper()==null||!member.getIsShoper()) {
-    		return JsonEntity.error(Code.code132,"您还不是店主！");
-    	}
-		Map<String, Object> rootMap = new HashMap<String, Object>();
-		rootMap.put("isChecked", childMember.getIsChecked());
-		rootMap.put("point", member.getPoint());
-		rootMap.put("id", member.getId());
-		rootMap.put("balance", member.getBalance());
-		rootMap.put("income", member.getIncome());
-		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
-		rootMap.put("id", member.getId());
-		rootMap.put("nickName", childMember.getNickName());
-		rootMap.put("headPic", childMember.getHeadImgUrl());
-		return JsonEntity.successMessage(rootMap);
-	}
-
     @RequestMapping(value = "/myFarm", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity myFarm(String smOpenId, String searchName, Pageable pageable) {
