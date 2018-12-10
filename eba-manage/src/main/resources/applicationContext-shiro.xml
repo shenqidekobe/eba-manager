@@ -236,7 +236,12 @@
 				<entry key="/admin/delivery_center/**" value="perms[admin:deliveryCenter]" />
 				<entry key="/admin/delivery_template/**" value="perms[admin:deliveryTemplate]" />
 
-				<entry key="/admin/member/**" value="perms[admin:member]" />
+				<!--<entry key="/admin/member/**" value="perms[admin:member]" />-->
+				<entry key="/admin/member/add.jhtml" value="perms[admin:member:add]" />
+				<entry key="/admin/member/edit.jhtml" value="perms[admin:member:edit]" />
+				<entry key="/admin/member/delete.jhtml" value="perms[admin:member:delete]" />
+				<entry key="/admin/member/withdraw/edit.jhtml" value="perms[admin:withdraw:edit]" />
+				
 				<entry key="/admin/member_rank/**" value="perms[admin:memberRank]" />
 				<entry key="/admin/member_attribute/**" value="perms[admin:memberAttribute]" />
 				<entry key="/admin/point/**" value="perms[admin:point]" />
