@@ -881,10 +881,10 @@
 									<span class="ListNum"></span>
 									订货单
 								</div>
-								<!--<div typeId="purchase" class="purshase_Bu">
+								<div typeId="withdraw" class="withdraw_Bu infoChecked">
 									<span class="ListNum"></span>
-									采购单
-								</div>-->
+									提现
+								</div>
 							</div>
 							<div class="infoConList">
 								<ul class="supplyConList">
@@ -894,10 +894,11 @@
 										</span>
 									</li>
 								</ul>
-								<ul class="purshaseConList">
+								<ul class="withdrawConList">
 									<li class="info_li">
 										<p class="content"><i class="noRead"></i></p>
-										<span class="time"></span>
+										<span class="time">
+										</span>
 									</li>
 								</ul>
 							</div>
@@ -972,10 +973,10 @@
 							$(".infoType_B .supply_Bu .ListNum").html(dat.orderTotal);
 						}
 						if(dat.purchaseTotal == 0) {
-							$(".infoType_B .purshase_Bu .ListNum").css("display","none");
+							$(".infoType_B .withdraw_Bu .ListNum").css("display","none");
 						}else {
-							$(".infoType_B .purshase_Bu .ListNum").css("display","block");
-							$(".infoType_B .purshase_Bu .ListNum").html(dat.purchaseTotal);
+							$(".infoType_B .withdraw_Bu .ListNum").css("display","block");
+							$(".infoType_B .withdraw_Bu .ListNum").html(dat.purchaseTotal);
 						}
 						if(dat.orderTotal == 0 && dat.purchaseTotal == 0) {
 							$(".info_num").css("display","none");
@@ -1036,15 +1037,15 @@
 	                         } */
 							
 						}
-						//采购单
-						$(".purshaseConList").html("");
+						//采购单-提现
+						$(".withdrawConList").html("");
 						var purchaseDataList = data.data.purchaseList;
 						var inforleng = purchaseDataList.length;
 						if(purchaseDataList.length>10) {
 							inforleng = 10;
 						}
 						for(var i=0;i<inforleng;i++) {
-							$(".purshaseConList").append('<li class="info_li">'+
+							$(".withdrawConList").append('<li class="info_li">'+
 									'<a href="javascript:void(0);" onclick="purchaseJump('+purchaseDataList[i].orderId+','+purchaseDataList[i].id+')">'+
 									'<p class="content">'+
 									'<i class="noRead"></i>'+purchaseDataList[i].send+'-'+purchaseDataList[i].receive+
@@ -1058,7 +1059,7 @@
 							
                     		/* if(purchaseDataList[i].operator == 'OrderParty') {
                     			if(purchaseDataList[i].orderStatus == 'complete') {
-                    				$(".purshaseConList").append('<li class="info_li">'+
+                    				$(".withdrawConList").append('<li class="info_li">'+
     										'<a href="javascript:void(0);" onclick="purchaseJump('+purchaseDataList[i].orderId+','+purchaseDataList[i].id+')">'+
     										'<p class="content">'+
     										'<i class="noRead"></i>'+purchaseDataList[i].need+
@@ -1069,7 +1070,7 @@
     										'</a>'+
     									'</li>');
                     			}else {
-                    				$(".purshaseConList").append('<li class="info_li">'+
+                    				$(".withdrawConList").append('<li class="info_li">'+
     										'<a href="javascript:void(0);" onclick="purchaseJump('+purchaseDataList[i].orderId+','+purchaseDataList[i].id+')">'+
     										'<p class="content">'+
     										'<i class="noRead"></i>'+purchaseDataList[i].supplier+'-'+
@@ -1081,7 +1082,7 @@
     									'</li>');
                     			}
                     		}else if(purchaseDataList[i].operator == 'buyer') {
-                    			$(".purshaseConList").append('<li class="info_li">'+
+                    			$(".withdrawConList").append('<li class="info_li">'+
 										'<a href="javascript:void(0);" onclick="purchaseJump('+purchaseDataList[i].orderId+','+purchaseDataList[i].id+')">'+
 										'<p class="content">'+
 										'<i class="noRead"></i>'+purchaseDataList[i].need+
@@ -1093,7 +1094,7 @@
 									'</li>');
                     			
                     		}else {
-                    			$(".purshaseConList").append('<li class="info_li">'+
+                    			$(".withdrawConList").append('<li class="info_li">'+
 										'<a href="javascript:void(0);" onclick="purchaseJump('+purchaseDataList[i].orderId+','+purchaseDataList[i].id+')">'+
 										'<p class="content">'+
 										'<i class="noRead"></i>'+purchaseDataList[i].need+
@@ -1142,11 +1143,10 @@
 				data: {"id":newsPushId},
 				dataType: "json",
 				success: function(data) {
-
+        	      goToOrder('/admin/member/withdraw/edit.jhtml?id='+orderId);
 				}
 			});
-        	goToOrder('/admin/ownOrder/view.jhtml?id='+orderId);
-        	
+        	//goToOrder('/admin/ownOrder/view.jhtml?id='+orderId);
         }
 
 		
@@ -1266,7 +1266,7 @@
 
 
             $("*").click(function (event) {
-                if (!$(this).hasClass("purshase_Bu")&&!$(this).hasClass("setRead")&&!$(this).hasClass("supply_Bu")&&!$(this).hasClass("info_num")&&!$(this).hasClass("userInfoDiv")){
+                if (!$(this).hasClass("withdraw_Bu")&&!$(this).hasClass("setRead")&&!$(this).hasClass("supply_Bu")&&!$(this).hasClass("info_num")&&!$(this).hasClass("userInfoDiv")){
                     $(".show_news").removeClass("show");
                 }
                 event.stopPropagation();
@@ -1310,9 +1310,9 @@
 								<span class="ListNum"><\/span>
 								订货单
 							<\/div>
-							<div class="purshase_Bu">
+							<div class="withdraw_Bu">
 								<span class="ListNum"><\/span>
-								采购单
+								提现
 							<\/div>
 						<\/div>
 						<iframe class="modelIframe" id="sonFrame" frameborder="0" width="" height="" src="'+iframeUrl+'"><\/iframe>
@@ -1368,7 +1368,7 @@
         							$(".infoType_B .supply_Bu .ListNum").css("display","none");
         						}
         						if(purchaseTotal == 0) {
-        							$(".infoType_B .purshase_Bu .ListNum").css("display","none");
+        							$(".infoType_B .withdraw_Bu .ListNum").css("display","none");
         						}
         						if(orderTotal == 0 && purchaseTotal == 0) {
         							$(".info_num").css("display","none");
@@ -1376,9 +1376,9 @@
         						
        							$(".info_num").html(data.data.orderTotal+data.data.purchaseTotal);
            						$(".infoType_B .supply_Bu .ListNum").html(data.data.orderTotal);
-           						$(".infoType_B .purshase_Bu .ListNum").html(data.data.purchaseTotal);
+           						$(".infoType_B .withdraw_Bu .ListNum").html(data.data.purchaseTotal);
         						
-        						$(".purshaseConList").html("");
+        						$(".withdrawConList").html("");
         						return;
         						
         					}
@@ -1399,7 +1399,7 @@
         							$(".infoType_B .supply_Bu .ListNum").css("display","none");
         						}
         						if(purchaseTotal == 0) {
-        							$(".infoType_B .purshase_Bu .ListNum").css("display","none");
+        							$(".infoType_B .withdraw_Bu .ListNum").css("display","none");
         						}
         						if(orderTotal == 0 && purchaseTotal == 0) {
         							$(".info_num").css("display","none");
@@ -1407,7 +1407,7 @@
         						
        							$(".info_num").html(data.data.orderTotal+data.data.purchaseTotal);
            						$(".infoType_B .supply_Bu .ListNum").html(data.data.orderTotal);
-           						$(".infoType_B .purshase_Bu .ListNum").html(data.data.purchaseTotal);
+           						$(".infoType_B .withdraw_Bu .ListNum").html(data.data.purchaseTotal);
         						
         						$(".supplyConList").html("");
         						return;
