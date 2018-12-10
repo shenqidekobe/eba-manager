@@ -106,7 +106,7 @@
                 </div>
             </li>
         </ul>
-        <p class="p_tishi">多规格商品请至华奕优选pc后台进行管理</p>
+        <p class="p_tishi">多规格商品请至微信小程序pc后台进行管理</p>
     </div>
     <input type="button" class="input_s input_B" value="保存">
 

@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>华奕优选管理系统</title>
+		<title>微信小程序管理系统</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<!-- <meta http-equiv="X-UA-Compatible" content="IE=7; IE=EDGE"> -->
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />
@@ -45,7 +45,7 @@
 						<div class="twoCode">
 							<span></span>
 							<img src="${base}/resources/admin1.0/images/twoCode.jpg" alt="" />
-							<p>华奕优选微信公众号</p>
+							<p>微信小程序微信公众号</p>
 						</div>
 					</li>
 					<!--<li class=""><a href="javascript:;"></a></li>-->

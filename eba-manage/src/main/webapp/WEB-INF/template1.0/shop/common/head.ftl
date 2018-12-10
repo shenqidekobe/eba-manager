@@ -4,7 +4,7 @@
                 <div class="dh-toolbar-left">
                     <div class="lazy-bar-box">
                         <a class="dh-bar-node dh-bar-node-site" href="javascript:void(0);">
-                            <span>欢迎使用华奕优选商流平台</span>
+                            <span>欢迎使用微信小程序商流平台</span>
                         </a>
                     </div>
                     [@shiro.user]
@@ -104,14 +104,14 @@
                     </div>
                     <div class="dh-bar-node-box my-weixin">
                           <a class="dh-bar-node reg-touch" href="javascript:void(0);">
-                              <span>关注华奕优选</span>
+                              <span>关注微信小程序</span>
                               <img src="${base}/resources/shop/common/images/caidanjt-a.svg" alt="" />
                           </a>
                           <div class="dh-down-box dh-d-box dh-wei" style="display: none;">
                                 <div class="my-qr-code">
                                     <img src="/resources/shop/common/images/weixin.jpg" alt="二维码">
                                 </div>
-                                <div class="dh-about-wei">扫码关注华奕优选</div>
+                                <div class="dh-about-wei">扫码关注微信小程序</div>
                           </div>
                     </div>
                 </div>
@@ -122,9 +122,9 @@
         </div>
         <div class="dh-header-con">
             <div class="dh-header-logo">
-                <a class="logo-set" href="/shop/index.jhtml" title="华奕优选">
-                    <img class="logo1" src="${base}/resources/shop/common/images/logo.svg" alt="华奕优选">
-                    <img class="logo2" src="${base}/resources/shop/common/images/slogan.svg" alt="华奕优选">
+                <a class="logo-set" href="/shop/index.jhtml" title="微信小程序">
+                    <img class="logo1" src="${base}/resources/shop/common/images/logo.svg" alt="微信小程序">
+                    <img class="logo2" src="${base}/resources/shop/common/images/slogan.svg" alt="微信小程序">
                 </a>
             </div>
             <div class="dh-search">

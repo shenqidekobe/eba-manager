@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>华奕优选</title>
+		<title>微信小程序</title>
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/public.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/index.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/member.css" />
