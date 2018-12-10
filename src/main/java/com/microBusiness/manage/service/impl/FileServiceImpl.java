@@ -249,12 +249,15 @@ public class FileServiceImpl implements FileService, ServletContextAware {
 //		            		Thumbnails.of(servletContext.getRealPath(storePath)).size(500, 500).toFile(servletContext.getRealPath(destMediumPath));
 //		            		Thumbnails.of(servletContext.getRealPath(storePath)).size(300, 300).toFile(servletContext.getRealPath(destSmallPath));
 //		            	}
-//		            	logger.info("压缩图片成功：中图： " + destMediumPath);
-//		            	logger.info("压缩图片成功：小图： " + destSmallPath);
+		            	
 						
 						String[] paths=storePath.split("\\.");
 		            	String destMediumPath=paths[0]+"-"+ImgType.medium+"."+paths[1];
 		            	String destSmallPath=paths[0]+"-"+ImgType.small+"."+paths[1];
+		            	
+		            	logger.info("压缩图片成功：中图： " + destMediumPath);
+		            	logger.info("压缩图片成功：小图： " + destSmallPath);
+		            	
 		            	ImgCompress imgCompress = new ImgCompress(storePath);
 		            	imgCompress.resize(imgCompress.getWidth(), imgCompress.getHeight(), destMediumPath);
 		            	imgCompress.resize(imgCompress.getWidth()/2, imgCompress.getWidth()/2, destSmallPath);
