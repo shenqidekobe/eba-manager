@@ -318,6 +318,15 @@ public class Order extends BaseEntity<Long> {
 	private String prepay_id;
 	
 	
+	//分销利润
+	private ChildMember done;
+	private BigDecimal done_score;
+	private ChildMember dtwo;
+	private BigDecimal dtwo_score;
+	private ChildMember dthree;
+	private BigDecimal dthree_score;
+	
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = true, updatable = true)
@@ -829,6 +838,60 @@ public class Order extends BaseEntity<Long> {
 
 	public void setOrderLogs(Set<OrderLog> orderLogs) {
 		this.orderLogs = orderLogs;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDone() {
+		return done;
+	}
+
+	public void setDone(ChildMember done) {
+		this.done = done;
+	}
+
+	public BigDecimal getDone_score() {
+		return done_score;
+	}
+
+	public void setDone_score(BigDecimal done_score) {
+		this.done_score = done_score;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDtwo() {
+		return dtwo;
+	}
+
+	public void setDtwo(ChildMember dtwo) {
+		this.dtwo = dtwo;
+	}
+
+	public BigDecimal getDtwo_score() {
+		return dtwo_score;
+	}
+
+	public void setDtwo_score(BigDecimal dtwo_score) {
+		this.dtwo_score = dtwo_score;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = true, updatable = true ,foreignKey = @ForeignKey(name = "null"))
+	public ChildMember getDthree() {
+		return dthree;
+	}
+
+	public void setDthree(ChildMember dthree) {
+		this.dthree = dthree;
+	}
+
+	public BigDecimal getDthree_score() {
+		return dthree_score;
+	}
+
+	public void setDthree_score(BigDecimal dthree_score) {
+		this.dthree_score = dthree_score;
 	}
 
 	@Transient

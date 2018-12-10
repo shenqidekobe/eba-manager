@@ -26,6 +26,7 @@ public class MemberIncome extends BaseEntity<Long> {
 	private String types;//收益类型{income、withdraw}
 	private BigDecimal amount;//收益金额
 	private ChildMember member;//收益人
+	private Integer level;//几级收益
 	private String remark;
 	
 	private Long orderId;//收益来源的订单
@@ -62,6 +63,12 @@ public class MemberIncome extends BaseEntity<Long> {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public Integer getLevel() {
+		return level;
+	}
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 	public Long getOrderId() {
 		return orderId;
