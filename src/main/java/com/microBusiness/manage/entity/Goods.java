@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,16 +36,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.microBusiness.manage.BaseAttributeConverter;
-import com.microBusiness.manage.BigDecimalNumericFieldBridge;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.TemplateConfig;
-import com.microBusiness.manage.util.SystemUtils;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.FieldBridge;
@@ -60,6 +48,12 @@ import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.microBusiness.manage.BaseAttributeConverter;
+import com.microBusiness.manage.BigDecimalNumericFieldBridge;
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.TemplateConfig;
+import com.microBusiness.manage.util.SystemUtils;
 
 @Indexed
 @Entity
