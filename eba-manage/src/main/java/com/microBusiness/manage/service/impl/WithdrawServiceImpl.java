@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service.impl;
 
 import java.math.BigDecimal;
@@ -18,10 +13,13 @@ import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.MemberDao;
 import com.microBusiness.manage.dao.MemberIncomeDao;
+import com.microBusiness.manage.dao.OrderNewsPushDao;
 import com.microBusiness.manage.dao.WithdrawDao;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.MemberIncome;
+import com.microBusiness.manage.entity.OrderNewsPush;
+import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.Withdraw;
 import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
 import com.microBusiness.manage.service.WithdrawService;
@@ -36,6 +34,8 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 	private MemberDao memberDao;
 	@Resource(name = "memberIncomeDaoImpl")
 	private MemberIncomeDao memberIncomeDao;
+	@Resource
+	private OrderNewsPushDao orderNewsPushDao;
 	
 	
 	@Override
@@ -51,6 +51,21 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 		obj.setFee(BigDecimal.ZERO);
 		obj.setStatus(Withdraw.Withdraw_Status.await);
 		withdrawDao.persist(obj);
+		
+		//后台消息推送
+		Supplier supplier=new Supplier();
+		supplier.setId(1l);
+		OrderNewsPush newsPush = new OrderNewsPush();
+		newsPush.setLinkId(obj.getId());
+		newsPush.setSn(obj.getSn());
+		newsPush.setNeed(null);
+		newsPush.setSupplier(supplier);
+		newsPush.setOrderStatus(OrderNewsPush.OrderStatus.leaveAMessage);
+		newsPush.setStatus(OrderNewsPush.Status.unread);
+		newsPush.setSend("会员用户");
+		newsPush.setReceive(obj.getMember().getNickName());
+		newsPush.setNoticeObject(OrderNewsPush.NoticeObject.withdraw);
+		orderNewsPushDao.persist(newsPush);
 		
 		return obj;
 	}

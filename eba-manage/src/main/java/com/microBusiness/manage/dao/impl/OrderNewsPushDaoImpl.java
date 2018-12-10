@@ -90,6 +90,13 @@ public class OrderNewsPushDaoImpl extends BaseDaoImpl<OrderNewsPush, Long> imple
 		super.persist(newsPush);
 		return newsPush;
 	}
+	
+	@Override
+	public  OrderNewsPush addWithdrawPush(String send,String receive,Long linkId) {
+		OrderNewsPush newsPush = new OrderNewsPush();
+		
+		return newsPush;
+	}
 
 	@Override
 	public Page<OrderNewsPush> findPage(Supplier supplier, Status status,

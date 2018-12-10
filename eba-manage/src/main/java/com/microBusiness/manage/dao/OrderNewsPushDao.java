@@ -21,5 +21,9 @@ public interface OrderNewsPushDao extends BaseDao<OrderNewsPush, Long> {
 	
 	public OrderNewsPush addOrderNewPush(Supplier supplier,Order order,OrderNewsPush.OrderStatus orderStatus,Need need,String send,String receive,OrderNewsPush.NoticeObject noticeObject);
 	
+	
+	public OrderNewsPush addWithdrawPush(String send,String receive,Long linkId);
+	
+	
 	public boolean update(Supplier supplier, OrderNewsPush.NoticeObject noticeObject);
 }
