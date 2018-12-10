@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>华奕优选新用户注册</title>
+    <title>微信小程序新用户注册</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" type="text/css" href="${base}/resources/admin1.0/H-ui/static/h-ui/css/H-ui.min.css" />
     <link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />

@@ -3,7 +3,7 @@
  */
 
 $(function () {
-	$("title").html("华奕优选商流系统");
+	$("title").html("微信小程序商流系统");
 	var oneCategory = $("#oneCategory").val();
 	var twoCategory = $("#twoCategory").val();
 	var threeCategory = $("#threeCategory").val();

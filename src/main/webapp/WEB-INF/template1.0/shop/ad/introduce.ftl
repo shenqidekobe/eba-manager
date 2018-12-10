@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>华奕优选</title>
+		<title>微信小程序</title>
 		<link rel="stylesheet" href="${base}/resources/shop/common/config/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/public.css" />
 		<link rel="stylesheet" href="${base}/resources/shop/common/css/index.css" />
@@ -24,13 +24,13 @@
 							我们是谁？
 						</h3>
 					</div>
-					<div class="con">华奕优选是国内领先的餐饮食品采购供应链服务平台，以连锁餐饮为切入点，提供前端B2B贸易信息撮合，订单SAAS服务流转，物流跟踪，在线金融等一系列企业服务。我们做的不仅是一个第三方电商平台，更是为企业用户提供一篮子商业解决方案。</div>
+					<div class="con">微信小程序是国内领先的餐饮食品采购供应链服务平台，以连锁餐饮为切入点，提供前端B2B贸易信息撮合，订单SAAS服务流转，物流跟踪，在线金融等一系列企业服务。我们做的不仅是一个第三方电商平台，更是为企业用户提供一篮子商业解决方案。</div>
 				</div>
 			</div>
 		</div>
 		<div class="int_div2">
 			<div class="int_center">
-				<div class="function_title center_title">华奕优选为您提供了什么？</div>
+				<div class="function_title center_title">微信小程序为您提供了什么？</div>
 				<div class="fun_ul">
 					<div class="fun_li">
 						<div class="title">

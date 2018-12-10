@@ -91,7 +91,7 @@
 				</table>
 				
 				<div class="gain_ren"><p>收货人:</p></div>
-<!--				<div class="order_time"><p><span>2017/5/23</span><i>订单打印华奕优选</i></p></div>-->
+<!--				<div class="order_time"><p><span>2017/5/23</span><i>订单打印微信小程序</i></p></div>-->
 			</div>
 
 		</div>

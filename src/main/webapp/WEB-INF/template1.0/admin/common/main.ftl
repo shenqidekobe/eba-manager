@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>华奕优选管理系统</title>
+		<title>微信小程序管理系统</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />
 		<link rel="stylesheet" href="${base}/resources/admin1.0/css/public.css" />
