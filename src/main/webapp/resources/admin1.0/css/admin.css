@@ -811,7 +811,7 @@ label.error{
 	overflow: hidden;
 }
 
-.supply_Bu,.purshase_Bu{
+.supply_Bu,.purshase_Bu,.withdraw_Bu{
 	width:50px;
 	height:36px;
 	line-height: 36px;
@@ -825,6 +825,9 @@ label.error{
 	margin-left:80px;
 }
 .purshase_Bu{
+	margin-left:60px;
+}
+.withdraw_Bu{
 	margin-left:60px;
 }
 .ListNum{
@@ -899,6 +902,10 @@ i.noRead{
 }
 
 .purshaseConList{
+	display:none;
+}
+
+.withdrawConList{
 	display:none;
 }
 
