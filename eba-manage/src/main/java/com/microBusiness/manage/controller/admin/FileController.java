@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.controller.admin;
 
 import java.util.HashMap;
@@ -10,17 +5,16 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.microBusiness.manage.FileType;
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.service.FileService;
-
-import com.microBusiness.manage.FileType;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.microBusiness.manage.FileType;
+import com.microBusiness.manage.Message;
+import com.microBusiness.manage.service.FileService;
 
 @Controller("adminFileController")
 @RequestMapping("/admin/file")

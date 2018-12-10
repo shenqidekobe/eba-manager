@@ -32,8 +32,8 @@ public class ImgCompress {
         //img = ImageIO.read(file);      // 构造Image对象  
         width = img.getWidth(null);    // 得到源图宽  
         height = img.getHeight(null);  // 得到源图长
-        System.out.println(width);
-        System.out.println(height);
+        //System.out.println(width);
+        //System.out.println(height);
     }  
     /** 
      * 按照宽度还是高度进行压缩 
