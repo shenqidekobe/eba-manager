@@ -216,6 +216,7 @@
                         </div>
                     </div>
                     
+                    <!--
                     [#if goods.hasSpecification()]
                     
                     	
@@ -234,6 +235,20 @@
 		                        </div>
 		                    </div>
 				    [/#if]
+				    -->
+				    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">点击量初始值</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+                            <input type="text" name="hits" id="hits" class="input-text" maxlength="100" placeholder="点击量的初始化，如：100" value="${goods.hits}"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">销量初始值</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+                            <input type="text" name="sales" id="sales" class="input-text" maxlength="100" placeholder="销量的初始化，如：100" value="${goods.sales}"/>
+                        </div>
+                    </div>
 
 					
 
