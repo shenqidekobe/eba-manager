@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     
-                    
+                    <!--
                      <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">最小起订量</label>
                         <div class="formControls col-xs-8 col-sm-7">
@@ -208,6 +208,20 @@
                         <label class="form-label col-xs-4 col-sm-3">购买递增数量</label>
                         <div class="formControls col-xs-8 col-sm-7">
                             <input type="text" name="product.addValue" id="addValue" class="input-text" maxlength="100" />
+                        </div>
+                    </div>
+                    -->
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">点击量初始值</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+                            <input type="text" name="hits" id="hits" class="input-text" maxlength="100" placeholder="点击量的初始化，如：100"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">销量初始值</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+                            <input type="text" name="sales" id="sales" class="input-text" maxlength="100" placeholder="销量的初始化，如：100"/>
                         </div>
                     </div>
 
