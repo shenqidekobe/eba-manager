@@ -68,6 +68,10 @@ public class OrderNewsPush extends BaseEntity<Long> {
 	//发送内容
 	private String send;
 	
+	//外部ID
+	private Long linkId;
+	private String sn;
+	
 	//接收内容
 	private String receive;
 	
@@ -75,7 +79,9 @@ public class OrderNewsPush extends BaseEntity<Long> {
 		//订货单
 		order,
 		//采购单
-		purchase
+		purchase,
+		//提现
+		withdraw
 	}
 	
 	//通知对象
@@ -150,4 +156,21 @@ public class OrderNewsPush extends BaseEntity<Long> {
 	public void setNoticeObject(NoticeObject noticeObject) {
 		this.noticeObject = noticeObject;
 	}
+
+	public Long getLinkId() {
+		return linkId;
+	}
+
+	public void setLinkId(Long linkId) {
+		this.linkId = linkId;
+	}
+
+	public String getSn() {
+		return sn;
+	}
+
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
+	
 }

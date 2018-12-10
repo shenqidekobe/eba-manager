@@ -54,9 +54,15 @@ public class OrderNewsPushController extends BaseController {
 	@RequestMapping(value = "/purchase", method = RequestMethod.GET)
 	public String purchase(Pageable pageable , ModelMap model) {
 		Supplier supplier = super.getCurrentSupplier();
-		model.addAttribute("page", newsPushService.findPage(supplier, null, null, OrderNewsPush.NoticeObject.purchase, pageable));
+		/*model.addAttribute("page", newsPushService.findPage(supplier, null, null, OrderNewsPush.NoticeObject.purchase, pageable));
 		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
 		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.purchase, null).getTotal();
+		model.addAttribute("orderTotal", orderTotal);
+		model.addAttribute("purchaseTotal", purchaseTotal);*/
+		
+		model.addAttribute("page", newsPushService.findPage(supplier, null, null, OrderNewsPush.NoticeObject.withdraw, pageable));
+		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
+		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.withdraw, null).getTotal();
 		model.addAttribute("orderTotal", orderTotal);
 		model.addAttribute("purchaseTotal", purchaseTotal);
 		return "/admin/orderNewsPush/purchase";
@@ -93,10 +99,17 @@ public class OrderNewsPushController extends BaseController {
 		if(null == supplier) {
 			return ERROR_VIEW;
 		}
-		newsPushService.update(supplier, OrderNewsPush.NoticeObject.purchase);
+		/*newsPushService.update(supplier, OrderNewsPush.NoticeObject.purchase);
 		model.addAttribute("page", newsPushService.findPage(supplier, null, null, OrderNewsPush.NoticeObject.purchase, pageable));
 		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
 		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.purchase, null).getTotal();
+		model.addAttribute("orderTotal", orderTotal);
+		model.addAttribute("purchaseTotal", purchaseTotal);*/
+		
+		newsPushService.update(supplier, OrderNewsPush.NoticeObject.withdraw);
+		model.addAttribute("page", newsPushService.findPage(supplier, null, null, OrderNewsPush.NoticeObject.withdraw, pageable));
+		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
+		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.withdraw, null).getTotal();
 		model.addAttribute("orderTotal", orderTotal);
 		model.addAttribute("purchaseTotal", purchaseTotal);
 		return "/admin/orderNewsPush/purchase";
@@ -188,9 +201,16 @@ public class OrderNewsPushController extends BaseController {
 		if(null == supplier) {
 			return new JsonEntity("101001" , "用户不存在");
 		}
-		newsPushService.update(supplier, OrderNewsPush.NoticeObject.purchase);
+		/*newsPushService.update(supplier, OrderNewsPush.NoticeObject.purchase);
 		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
 		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.purchase, null).getTotal();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderTotal", orderTotal);
+		map.put("purchaseTotal", purchaseTotal);*/
+		
+		newsPushService.update(supplier, OrderNewsPush.NoticeObject.withdraw);
+		Long orderTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.order, null).getTotal();
+		Long purchaseTotal = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.withdraw, null).getTotal();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orderTotal", orderTotal);
 		map.put("purchaseTotal", purchaseTotal);
@@ -250,7 +270,7 @@ public class OrderNewsPushController extends BaseController {
 			}
 			orderList.add(orderMap);
 		}
-		Page<OrderNewsPush> purchaseOrderpage = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.purchase, pageable);
+		Page<OrderNewsPush> purchaseOrderpage = newsPushService.findPage(supplier, OrderNewsPush.Status.unread, null, OrderNewsPush.NoticeObject.withdraw, pageable);
 		//Page<OrderNewsPush> purchaseOrderpage = newsPushService.findPageByPurchaseOrder(supplier,OrderNewsPush.Mark.order,OrderNewsPush.PurchaseViewStatus.unread, pageable);
 		List<Object> purchaseList = new ArrayList<Object>();
 		
@@ -258,9 +278,9 @@ public class OrderNewsPushController extends BaseController {
 			Map<String, Object> purchaseMap = new HashMap<String, Object>();
 			OrderNewsPush.OrderStatus orderStatus = orderNewsPush.getOrderStatus();
 			purchaseMap.put("supplier", orderNewsPush.getSupplier().getName());
-			purchaseMap.put("need", orderNewsPush.getNeed().getName());
-			purchaseMap.put("orderId", orderNewsPush.getOrder().getId());
-			purchaseMap.put("orderSn", orderNewsPush.getOrder().getSn());
+			//purchaseMap.put("need", orderNewsPush.getNeed().getName());
+			purchaseMap.put("orderId", orderNewsPush.getLinkId());
+			purchaseMap.put("orderSn", orderNewsPush.getSn());
 			purchaseMap.put("id", orderNewsPush.getId());
 			purchaseMap.put("orderStatus", orderStatus);
 			purchaseMap.put("status", orderNewsPush.getStatus());
@@ -273,7 +293,7 @@ public class OrderNewsPushController extends BaseController {
 			}else if(orderStatus == OrderNewsPush.OrderStatus.applicationCancel) {
 				purchaseMap.put("statusName", "订单申请取消");
 			}else if(orderStatus == OrderNewsPush.OrderStatus.leaveAMessage) {
-				purchaseMap.put("statusName", "订单留言");
+				purchaseMap.put("statusName", "提现申请");
 			}else if(orderStatus == OrderNewsPush.OrderStatus.modify) {
 				purchaseMap.put("statusName", "订单进行了修改");
 			}else if(orderStatus == OrderNewsPush.OrderStatus.complete) {

@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service.impl;
 
 import java.math.BigDecimal;
@@ -11,6 +6,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.LockModeType;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
@@ -29,26 +33,6 @@ import com.microBusiness.manage.service.MailService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.SmsService;
 import com.microBusiness.manage.util.SystemUtils;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.Principal;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.dao.MemberDao;
-import com.microBusiness.manage.dao.MemberRankDao;
-import com.microBusiness.manage.dao.PointLogDao;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.entity.MemberRank;
-import com.microBusiness.manage.entity.PointLog;
-import com.microBusiness.manage.util.SystemUtils;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
 @Service("memberServiceImpl")
 public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements MemberService {
