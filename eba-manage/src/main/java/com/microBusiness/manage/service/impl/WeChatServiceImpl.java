@@ -3770,17 +3770,16 @@ public class WeChatServiceImpl implements WeChatService {
         BigDecimal newPoint1 = new BigDecimal(0l);
         BigDecimal newPoint2 = new BigDecimal(0l);
         BigDecimal newPoint3 = new BigDecimal(0l);
-        for (OrderItem orderItem : order.getOrderItems()) {
-        	if(orderItem.getDone_score() != null){
-        		newPoint1 = newPoint1.add(orderItem.getDone_score());
-        	}
-        	if(orderItem.getDtwo_score() != null){
-        		newPoint2 = newPoint2.add(orderItem.getDtwo_score());
-        	}
-        	if(orderItem.getDthree_score() != null){
-        		newPoint3 = newPoint3.add(orderItem.getDthree_score());
-        	}
-		}
+        
+    	if(order.getDone_score() != null){
+    		newPoint1 = newPoint1.add(order.getDone_score());
+    	}
+    	if(order.getDtwo_score() != null){
+    		newPoint2 = newPoint2.add(order.getDtwo_score());
+    	}
+    	if(order.getDthree_score() != null){
+    		newPoint3 = newPoint3.add(order.getDthree_score());
+    	}
         
         Map templateMap = new HashMap<String, Map<String, String>>(){{
             this.put("keyword1" , new HashMap<String, String>(){{
@@ -3804,8 +3803,8 @@ public class WeChatServiceImpl implements WeChatService {
         ChildMember childMember = order.getChildMember();
         
         if(childMember.getParent() != null){
-    		logger.info("【本人】：" + childMember.getId());
-    		logger.info("【上级1】：" + childMember.getParent().getId());
+    		logger.info("【本人ID】：" + childMember.getId());
+    		logger.info("【上级1级ID】：" + childMember.getParent().getId());
     		ChildMember c1 = childMember.getParent();
     		
     		final String remark = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
@@ -3840,7 +3839,7 @@ public class WeChatServiceImpl implements WeChatService {
                 }});
     			templateInfo.setData(templateMap);
     	        
-    			logger.info("【上级2】：" + c2.getId());
+    			logger.info("【上级2级ID】：" + c2.getId());
     			templateInfo.setToUser(c2.getOpenId());
     			orderForm = orderFormDao.getDoOrderForm(c2);
     			if (orderForm != null) {
@@ -3862,7 +3861,7 @@ public class WeChatServiceImpl implements WeChatService {
                     }});
         			templateInfo.setData(templateMap);
         			
-                	logger.info("【上级3】：" + c3.getId());
+                	logger.info("【上级3级ID】：" + c3.getId());
         			templateInfo.setToUser(c3.getOpenId());
         			orderForm = orderFormDao.getDoOrderForm(c3);
         			if (orderForm != null) {
