@@ -42,7 +42,7 @@
 										${moderated}
 									[/#if]
 									</div>
-									<h3 class="order_p">等待审核</h3>
+									<h3 class="order_p">等待付款</h3>
 								</div>
 								<div class="data_li">
 									<div class="order_num">
