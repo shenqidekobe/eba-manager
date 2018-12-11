@@ -73,7 +73,7 @@
 										${cancel}
 									[/#if]
 									</div>
-									<h3 class="order_p">申请取消</h3>
+									<h3 class="order_p">已取消</h3>
 								</div>
 							</div>
 						</div>
@@ -122,10 +122,10 @@
 									<div class="order_num">${orderRelated.goodTotal}</div>
 									<h3 class="order_p">订货商品SKU</h3>
 								</div>
-								<div class="right_li">
+								<!--<div class="right_li">
 									<div class="order_num">${orderRelated.supplierTotal}</div>
 									<h3 class="order_p">订货客户数</h3>
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</div>
@@ -175,7 +175,7 @@
 										${cancels}
 									[/#if]
 									</div>
-									<h3 class="order_p">申请取消</h3>
+									<h3 class="order_p">已取消</h3>
 								</div>
 							</div>
 						</div>
