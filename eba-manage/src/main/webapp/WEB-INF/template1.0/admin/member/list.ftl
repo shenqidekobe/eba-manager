@@ -107,7 +107,7 @@
 								<td>${member.member.balance}</td>
 								<td>${member.member.income}</td>
 								<td>
-									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate}</span>
+									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</td>
 								<td class="td-manage">
 								   <a title="${message("admin.common.view")}" href="view.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none">详情</a>

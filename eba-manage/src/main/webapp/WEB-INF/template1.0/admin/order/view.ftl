@@ -231,12 +231,13 @@
                                     <span class="input_no_span">${order.sn}</span>
                                 </div>
                             </div>
+                            <!--
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">收货点</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="input_no_span">${order.need.name}</span>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">${message("Order.consignee")}</label>
                                 <div class="formControls col-xs-8 col-sm-7">
@@ -263,14 +264,15 @@
                                 <label class="form-label col-xs-4 col-sm-3">下单人</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                 <span class="input_no_span">
-                                    ${order.getCreateOrderLog().operator}
+                                    ${order.childMember.nickName}
+                                    <!--${order.getCreateOrderLog().operator}-->
                                 </span>
                                 </div>
                             </div>
                         </div>
                         <div class="pag_div">
                             <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">收货点地址</label>
+                                <label class="form-label col-xs-4 col-sm-3">收货地址</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="adress_no">${order.areaName} ${order.address}</span>
                                 </div>
@@ -281,16 +283,23 @@
                                     <span class="input_no_span">${order.phone}</span>
                                 </div>
                             </div>
+                            <!--
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">收货时间</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="input_no_span">${order.reDate?string("yyyy-MM-dd")}</span>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">${message("Order.status")}</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="input_no_span">${message("Order.Status." + order.status)}</span>
+                                </div>
+                            </div>
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">已付金额</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${currency(order.amountPaid, true)}</span>
                                 </div>
                             </div>
                             <!-- <div class="row cl">

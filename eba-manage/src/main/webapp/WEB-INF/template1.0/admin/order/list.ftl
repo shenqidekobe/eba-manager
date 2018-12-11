@@ -165,7 +165,7 @@
 							<th width="13%">用户昵称</th>
 							<th width="14%">收货地址</th>
 							<th width="10%">${message("Order.status")}</th>
-							<th width="14%">${message("admin.common.createDate")}</th>
+							<th width="14%">下单时间</th>
 							<th width="6%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
@@ -184,7 +184,7 @@
 								<th width="13%"><div class="th_div">用户昵称</div></th>
 								<th width="14%"><div class="th_div">收货地址</div></th>
 								<th width="10%"><div class="th_div">${message("Order.status")}</div></th>
-								<th width="14%"><div class="th_div">${message("admin.common.createDate")}</div></th>
+								<th width="14%"><div class="th_div">下单时间</div></th>
 								<th width="6%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
