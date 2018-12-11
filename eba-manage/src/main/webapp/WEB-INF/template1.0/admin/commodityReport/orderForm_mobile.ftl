@@ -53,7 +53,7 @@
             <span class="question_r"></span>
             <div class="center_q_r">
                 <i class="sanjiao"></i>
-                此处统计：等待审核、等待发货、发货中、已发货、已完成、申请取消状态下的订货商品数
+                此处统计：等待付款、等待发货、发货中、已发货、已完成、申请取消状态下的订货商品数
             </div>
         </div>
         <div>
@@ -85,7 +85,7 @@
             <span class="question_r"></span>
             <div class="center_q_r">
                 <i class="sanjiao"></i>
-                此处统计：等待审核、等待发货、发货中、已发货、已完成、申请取消状态下的订货商品数
+                此处统计：等待付款、等待发货、发货中、已发货、已完成、申请取消状态下的订货商品数
             </div>
         </div>
         <div>
