@@ -39,8 +39,8 @@ public class HomePageController extends BaseController {
 		Integer waitForDelivery = orderService.searchByStatus(Order.Status.pendingShipment, supplier);
 		//发货中
 		Integer InDelivery = orderService.searchByStatus(Order.Status.inShipment, supplier);
-		//申请取消
-		Integer cancel = orderService.searchByStatus(Order.Status.applyCancel, supplier);
+		//已取消
+		Integer cancel = orderService.searchByStatus(Order.Status.canceled, supplier);
 		model.addAttribute("moderated", moderated);
 		model.addAttribute("waitForDelivery", waitForDelivery);
 		model.addAttribute("InDelivery", InDelivery);
@@ -66,8 +66,8 @@ public class HomePageController extends BaseController {
 		Integer waitForDeliverys = orderService.purchaseOrderByStaticQuery(Order.Status.pendingShipment, supplier);
 		//发货中
 		Integer InDeliverys = orderService.purchaseOrderByStaticQuery(Order.Status.inShipment, supplier);
-		//申请取消
-		Integer cancels = orderService.purchaseOrderByStaticQuery(Order.Status.applyCancel, supplier);
+		//已取消
+		Integer cancels = orderService.purchaseOrderByStaticQuery(Order.Status.canceled, supplier);
 		model.addAttribute("moderateds", moderateds);
 		model.addAttribute("waitForDeliverys", waitForDeliverys);
 		model.addAttribute("InDeliverys", InDeliverys);

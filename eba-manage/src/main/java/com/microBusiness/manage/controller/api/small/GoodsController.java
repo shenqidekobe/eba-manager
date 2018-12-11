@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -567,12 +565,8 @@ public class GoodsController extends BaseController {
 	 
 	 
 	 /**
-	  * 
-	  * @Title: edit
+	  * 商品详情接口
 	  */
-	 
-	
-	
 	 @SuppressWarnings("serial")
 	 @ResponseBody
 	 @RequestMapping(value = "/detail" , method = RequestMethod.GET)

@@ -767,7 +767,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long> implements
 		goods.setBarCode(defaultProduct.getBarCode());
 		setValue(goods, operator.getSupplier());
 		copyProperties(goods, pGoods, "sn", "type", "score", "totalScore",
-				"scoreCount", "hits", "weekHits", "monthHits", "sales",
+				"scoreCount",  "weekHits", "monthHits", //"hits","sales",
 				"weekSales", "monthSales", "weekHitsDate", "monthHitsDate",
 				"weekSalesDate", "monthSalesDate", "generateMethod", "reviews",
 				"consultations", "favoriteMembers", "products", "supplier");
