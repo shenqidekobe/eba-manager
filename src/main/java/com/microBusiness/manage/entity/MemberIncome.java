@@ -2,6 +2,7 @@ package com.microBusiness.manage.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -44,6 +45,7 @@ public class MemberIncome extends BaseEntity<Long> {
 	public void setTypes(String types) {
 		this.types = types;
 	}
+	@Column(nullable = false, updatable = true, precision = 21, scale = 6)
 	public BigDecimal getAmount() {
 		return amount;
 	}
