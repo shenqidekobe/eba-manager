@@ -89,7 +89,7 @@
 								<span style="margin-right:20px;">订单状态</span>
 								<div class="check-box">
 									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="pendingReview"/>
-									<span>等待审核</span>
+									<span>等待付款</span>
 								</div>
 								<div class="check-box">
 									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="pendingShipment"/>
