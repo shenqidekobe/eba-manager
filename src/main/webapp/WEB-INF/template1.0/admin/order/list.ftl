@@ -162,7 +162,7 @@
 							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
 							<th width="15%">${message("Order.sn")}</th>
 							<th width="11%">${message("Order.amount")}</th>
-							<th width="13%">代理昵称</th>
+							<th width="13%">用户昵称</th>
 							<th width="14%">收货地址</th>
 							<th width="10%">${message("Order.status")}</th>
 							<th width="14%">${message("admin.common.createDate")}</th>
@@ -181,7 +181,7 @@
 								</th>
 								<th width="15%"><div class="th_div">${message("Order.sn")}</div></th>
 								<th width="11%"><div class="th_div">${message("Order.amount")}</div></th>
-								<th width="13%"><div class="th_div">代理昵称</div></th>
+								<th width="13%"><div class="th_div">用户昵称</div></th>
 								<th width="14%"><div class="th_div">收货地址</div></th>
 								<th width="10%"><div class="th_div">${message("Order.status")}</div></th>
 								<th width="14%"><div class="th_div">${message("admin.common.createDate")}</div></th>
