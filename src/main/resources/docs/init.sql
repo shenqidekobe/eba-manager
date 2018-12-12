@@ -55,7 +55,10 @@ INSERT INTO `xx_shipping_method` (`id`, `create_date`, `modify_date`, `version`,
 INSERT INTO `xx_shipping_method` (`id`, `create_date`, `modify_date`, `version`, `orders`, `continue_weight`, `default_continue_price`, `default_first_price`, `description`, `first_weight`, `icon`, `name`, `default_delivery_corp`, `deleted`) VALUES (2, '2015-12-01 00:59:03', '2017-02-14 10:53:44', 1, 2, 1000, 1.000000, 10.000000, '支持货到付款，不享受免运费服务', 10000, 'http://image.demo.shopxx.net/4.0/201501/769c0550-1f8f-4313-a2c8-f79c30162b96.gif', '顺丰速运', NULL, b'0');
 
 
-
-INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (5, '2017-02-14 10:53:29', '2017-02-14 10:53:59', 1, 1, NULL, '顺丰', NULL, b'0');
-INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (6, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 2, 'debangwuliu', '德邦物流', 'http://www.deppon.com', b'0');
-INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (7, '2017-03-27 13:52:48', '2017-03-27 13:52:48', 0, NULL, NULL, '自有物流', NULL, b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (1, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 1, 'zhongtong', '中通', 'https://www.zto.com', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (2, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 2, 'shentong', '申通', 'http://www.sto.cn', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (3, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 3, 'yunatong', '圆通', 'http://www.yto.net.cn', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (4, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 4, 'yunda', '韵达', 'http://www.yundaex.com', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (5, '2017-02-14 10:53:29', '2017-02-14 10:53:59', 1, 5, 'shunfeng', '顺丰', 'http://www.sf-express.com', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (6, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 6, 'debangwuliu', '德邦', 'http://www.deppon.com', b'0');
+INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (7, '2017-03-27 13:52:48', '2017-03-27 13:52:48', 0, 7, 'ziyou', '自有物流', NULL, b'0');
