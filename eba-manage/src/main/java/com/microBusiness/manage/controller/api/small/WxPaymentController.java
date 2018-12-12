@@ -116,7 +116,7 @@ public class WxPaymentController extends BaseController {
 					returnMap = wechatPayService.getH5Params(prepay_id);
 
 					
-
+					returnMap.put("prepayId", prepay_id);
 					return JsonEntity.successMessage(returnMap);
 				} else {
 
