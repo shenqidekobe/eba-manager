@@ -1,25 +1,21 @@
 package com.microBusiness.manage.controller.api;
 
-import com.microBusiness.manage.DateEditor;
-import com.microBusiness.manage.StringEditor;
-import com.microBusiness.manage.entity.BaseEntity;
-import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.exception.UserException;
-import com.microBusiness.manage.exception.ValidExeption;
-import com.microBusiness.manage.service.ChildMemberService;
-import com.microBusiness.manage.service.MemberService;
-import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.Constant;
-import com.microBusiness.manage.util.CookieUtil;
-import com.microBusiness.manage.util.DateUtils;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -32,29 +28,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.microBusiness.manage.DateEditor;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.exception.UserException;
+import com.microBusiness.manage.exception.ValidExeption;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.util.Code;
+import com.microBusiness.manage.util.Constant;
+import com.microBusiness.manage.util.CookieUtil;
+import com.microBusiness.manage.util.DateUtils;
 
 /**
- * Created by afei.
- * User: afei
- * Date: 2016/5/26 10:05
- * Describe:
- * Update:
  */
 @Controller("apiBaseController")
 @RequestMapping("/api/small/base")
 public class BaseController {
+	
     public final Logger logger = LoggerFactory.getLogger(getClass());
     
     private static final String CONSTRAINT_VIOLATIONS_ATTRIBUTE_NAME = "constraintViolations";

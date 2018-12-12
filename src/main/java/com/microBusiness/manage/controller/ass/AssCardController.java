@@ -87,6 +87,7 @@ public class AssCardController extends BaseController {
 	 * @param supplierId
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseBody
 	public JsonEntity save(String unionId, AssCard assCard, String ids, HttpServletRequest request, HttpServletResponse response) {
@@ -108,10 +109,11 @@ public class AssCardController extends BaseController {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/edit" , method = RequestMethod.POST)
 	@ResponseBody
 	public JsonEntity edit(String unionId, AssCard assCard, String ids,HttpServletRequest request, HttpServletResponse response) {
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		
 		if (assCard.getId() == null) {
 			return new JsonEntity("010502" , "参数错误");
@@ -129,7 +131,7 @@ public class AssCardController extends BaseController {
 	
 	@RequestMapping(value = "/delete" , method = RequestMethod.POST)
 	public @ResponseBody JsonEntity delete(Long id, String unionId, HttpServletRequest request, HttpServletResponse response) {
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		if(id == null) {
 			return new JsonEntity("010502" , "参数错误");
 		}
@@ -163,7 +165,7 @@ public class AssCardController extends BaseController {
 
 	@RequestMapping(value = "/getAssCard", method = RequestMethod.GET)
 	public @ResponseBody JsonEntity getAssCard(String unionId, Long id, HttpServletRequest request, HttpServletResponse response) {
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		AssCard assCard = assCardService.find(id);
 
 		List<AssCardGoods> assCardGoodsList = assCardGoodsService.getAssCardGoodsByCard(assCard);
@@ -352,6 +354,7 @@ public class AssCardController extends BaseController {
 		return JsonEntity.successMessage(map);
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity list(String unionId, Pageable pageable , ModelMap model, HttpServletRequest request, HttpServletResponse response) {
@@ -414,7 +417,7 @@ public class AssCardController extends BaseController {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
 		
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		AssCard assCard = assCardService.find(cardId);
 		Page<AssCardGoods> page=assCardGoodsService.findPage(assCard, pageable);
 		

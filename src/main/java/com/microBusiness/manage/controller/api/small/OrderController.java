@@ -1090,9 +1090,7 @@ public class OrderController extends BaseController {
 		Set<Shipping> shippings = order.getShippings();
 		List<Map<String , Object>> shippingList = new ArrayList<Map<String, Object>>();
 		for (final Shipping shipping : shippings){
-
 			//final String qrPath = shippingService.getQrPath(shipping);
-
 			shippingList.add(new HashMap<String, Object>(){{
 				this.put("shippingName" , shipping.getDeliveryCorp());
 				this.put("trackingNo" , shipping.getTrackingNo()) ;

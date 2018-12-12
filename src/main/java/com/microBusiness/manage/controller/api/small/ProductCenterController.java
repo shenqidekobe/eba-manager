@@ -24,11 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by afei.
- * User: mingbai
- * Date: 2018/3/7 下午7:08
- * Describe:
- * Update:
  */
 @Controller(value = "apiProductCenterController")
 @RequestMapping(value = "/api/small/productCenter")
@@ -147,7 +142,8 @@ public class ProductCenterController extends BaseController {
     	return JsonEntity.successMessage(resultMap);
     }
     
-    public void dealProduct(List<Map<String,Object>> list,ProductCenter product,Integer minOrderQuantity){
+    @SuppressWarnings("unchecked")
+	public void dealProduct(List<Map<String,Object>> list,ProductCenter product,Integer minOrderQuantity){
 		Map<String,Object> productMap=new HashMap<>();
 		productMap.put("productId",product.getId());
 		productMap.put("specifications",product.getSpecifications());

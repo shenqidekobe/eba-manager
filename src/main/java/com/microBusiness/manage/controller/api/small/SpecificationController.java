@@ -56,6 +56,7 @@ public class SpecificationController extends BaseController {
 	 * @Description: 查询分类
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/getQueryCategory" , method = RequestMethod.GET)
 	public JsonEntity getQueryCategory(String unionId) {
@@ -80,6 +81,7 @@ public class SpecificationController extends BaseController {
 	 * @Description: 规格列表
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	public JsonEntity list(String unionId , Pageable pageable) {

@@ -1,7 +1,6 @@
 package com.microBusiness.manage.controller.ass;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,6 +13,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dto.AssListAndCustomerRelationDto;
@@ -21,8 +27,6 @@ import com.microBusiness.manage.dto.AssListStatisticsDto;
 import com.microBusiness.manage.dto.AssPurchaseListStatisticsDto;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.entity.Need;
-import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.ass.AssCart;
 import com.microBusiness.manage.entity.ass.AssCartItem;
 import com.microBusiness.manage.entity.ass.AssChildMember;
@@ -45,13 +49,6 @@ import com.microBusiness.manage.service.ass.AssListService;
 import com.microBusiness.manage.service.ass.AssShippingAddressService;
 import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.DateUtils;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("smallAssListController")
 @RequestMapping("/ass/assList")
@@ -140,7 +137,7 @@ public class AssListController extends BaseController {
 		if(null == assListId || null == assList || unionId == null){
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		Page<AssListRemarks> page=assListRemarksService.getAssListRemarks(pageable, assList, assListRemarksId);
 		List<Map<String, Object>> assListRemarks=this.dealAssListRemarks(page.getContent());
 		Map<String, Object> map=new HashMap<>();
@@ -166,7 +163,7 @@ public class AssListController extends BaseController {
 		if(null == assListId || null == assList || unionId == null){
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		Page<AssListRelation> page=assListRelationService.getAssListRelations(pageable, assList, assListRelationsId);
 		List<Map<String, Object>> assListRelations=this.dealAssListRelation(page.getContent());
 		Map<String, Object> map=new HashMap<>();
@@ -552,7 +549,7 @@ public class AssListController extends BaseController {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
 		AssChildMember assChildMember = super.getAssChildMember(unionId);
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		//Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		Map<Integer , List<AssListStatisticsDto>> assListStatisticsDtos = assListService.purchaseListKanban(assChildMember);
 		

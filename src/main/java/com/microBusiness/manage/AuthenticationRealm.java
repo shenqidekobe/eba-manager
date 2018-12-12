@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage;
 
 import java.util.Date;
@@ -10,14 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.exception.IncorrectCaptchaException;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.CaptchaService;
-import com.microBusiness.manage.util.SystemUtils;
-
-import com.microBusiness.manage.service.CaptchaService;
-import com.microBusiness.manage.util.SystemUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -31,6 +18,12 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.exception.IncorrectCaptchaException;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.CaptchaService;
+import com.microBusiness.manage.util.SystemUtils;
 
 public class AuthenticationRealm extends AuthorizingRealm {
 

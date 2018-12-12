@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage;
 
 import java.lang.reflect.Type;
@@ -13,13 +8,11 @@ import java.util.Set;
 
 import javax.persistence.AttributeConverter;
 
-import com.microBusiness.manage.util.JsonUtils;
-
-import com.microBusiness.manage.util.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.ResolvableType;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.microBusiness.manage.util.JsonUtils;
 
 public abstract class BaseAttributeConverter<T> implements AttributeConverter<Object, String> {
 

@@ -51,6 +51,7 @@ public class AssGoodsCatalogueController extends BaseController {
 	 * @param unionId
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	public JsonEntity list(String unionId , Pageable pageable) {
@@ -98,6 +99,7 @@ public class AssGoodsCatalogueController extends BaseController {
 	 * @param goodsName 商品名称
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/goodsList" , method = RequestMethod.GET)
 	public JsonEntity goodsList(String unionId , Long id , String goodsName , Pageable pageable) {
@@ -204,13 +206,14 @@ public class AssGoodsCatalogueController extends BaseController {
 	 * @param goodsId
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/queryGoodsDetail" , method = RequestMethod.GET)
 	public JsonEntity queryGoodsDetail(String unionId , Long goodsId) {
 		if(null == unionId) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
-		AssChildMember childMember = assChildMemberService.findByUnionId(unionId);
+		//AssChildMember childMember = assChildMemberService.findByUnionId(unionId);
 		if(null == goodsId) {
 			return new JsonEntity(Code.code_goods_catalog_100002, Code.code_goods_catalog_100002.getDesc());
 		}

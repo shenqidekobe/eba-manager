@@ -1,37 +1,18 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.controller.admin;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import com.microBusiness.manage.*;
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.entity.Order;
-import com.microBusiness.manage.entity.OrderRemarks.MsgType;
-import com.microBusiness.manage.form.OrderItemUpdateForm;
-import com.microBusiness.manage.service.*;
-import com.microBusiness.manage.util.DateUtils;
-import com.microBusiness.manage.util.SystemUtils;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.AreaService;
-import com.microBusiness.manage.service.DeliveryCorpService;
-import com.microBusiness.manage.service.OrderService;
-import com.microBusiness.manage.service.ProductCategoryService;
-import com.microBusiness.manage.service.ShippingService;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.solr.common.util.Hash;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
@@ -41,6 +22,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.microBusiness.manage.Message;
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.Area;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.Invoice;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Need;
+import com.microBusiness.manage.entity.Order;
+import com.microBusiness.manage.entity.OrderFile;
+import com.microBusiness.manage.entity.OrderItem;
+import com.microBusiness.manage.entity.OrderRemarks;
+import com.microBusiness.manage.entity.OrderRemarks.MsgType;
+import com.microBusiness.manage.entity.Payment;
+import com.microBusiness.manage.entity.PaymentMethod;
+import com.microBusiness.manage.entity.Product;
+import com.microBusiness.manage.entity.ProductCategory;
+import com.microBusiness.manage.entity.ProxyUser;
+import com.microBusiness.manage.entity.Refunds;
+import com.microBusiness.manage.entity.Returns;
+import com.microBusiness.manage.entity.ReturnsItem;
+import com.microBusiness.manage.entity.Shipping;
+import com.microBusiness.manage.entity.ShippingItem;
+import com.microBusiness.manage.entity.ShippingMethod;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.entity.SupplierSupplier;
+import com.microBusiness.manage.entity.SupplyNeed;
+import com.microBusiness.manage.entity.SupplyType;
+import com.microBusiness.manage.form.OrderItemUpdateForm;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.DeliveryCorpService;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.service.NeedService;
+import com.microBusiness.manage.service.OrderRemarksService;
+import com.microBusiness.manage.service.OrderService;
+import com.microBusiness.manage.service.PaymentMethodService;
+import com.microBusiness.manage.service.ProductCategoryService;
+import com.microBusiness.manage.service.ProductService;
+import com.microBusiness.manage.service.ProxyUserService;
+import com.microBusiness.manage.service.ShippingMethodService;
+import com.microBusiness.manage.service.ShippingService;
+import com.microBusiness.manage.service.SupplierSupplierService;
+import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.util.DateUtils;
+import com.microBusiness.manage.util.SystemUtils;
 
 @Controller("adminOrderController")
 @RequestMapping("/admin/order")
@@ -421,14 +452,11 @@ public class OrderController extends BaseController {
 		orderService.shipping(order, shipping, admin , orderFilesForm.getOrderFiles());
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 
-
 		/*// TODO: 2017/2/14 发送模版消息
 		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.shipped) ;
 
 		//采购单企业接受员通知
 		weChatService.sendTemplateMessageToNoticeUserPurchase(order , Order.OrderStatus.shipped , commonTemplateId , weChatService.getGlobalToken() , NoticeTypePurchase.Type.order_shipped , "");*/
-
-
 
 		return "redirect:view.jhtml?id=" + orderId;
 	}

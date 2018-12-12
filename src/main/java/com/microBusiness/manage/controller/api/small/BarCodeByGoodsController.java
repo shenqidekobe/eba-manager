@@ -71,6 +71,7 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @param shopId
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	public JsonEntity list(String barCode, String goodsName, String unionId) {
@@ -125,7 +126,7 @@ public class BarCodeByGoodsController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/queryGoodsDetails" , method = RequestMethod.GET)
 	public JsonEntity queryGoodsDetails(String unionId, Long productId , Long supplierId , String type) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if(null == type || null == productId) {
 			return new JsonEntity(Code.code13003, Code.code13003.getDesc());
 		}
@@ -176,6 +177,7 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @Description: 获取未分配的门店列表
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/shopList" , method = RequestMethod.GET)
 	public JsonEntity shopList(String unionId, Long productId) {
@@ -204,6 +206,7 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @Description: 获取未添加此商品的本地供应商
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/supplierList" , method = RequestMethod.GET)
 	public JsonEntity supplierList(String unionId, Long productId) {
@@ -238,7 +241,7 @@ public class BarCodeByGoodsController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/batchAllocationGoods" , method = RequestMethod.POST)
 	public JsonEntity batchAllocationGoods(String unionId, Long productId, Long supplierId, IdsForm idsForm) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if(unionId == null || supplierId == null || productId == null || idsForm.getIds() == null) {
 			return new JsonEntity(Code.code13003, Code.code13003.getDesc());
 		}
@@ -448,6 +451,7 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @Description: 查询本地商品（模糊搜索）
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/localSearchQuery" , method = RequestMethod.GET)
 	public JsonEntity localSearchQuery(String searchName, String unionId) {
@@ -481,10 +485,11 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @Description: 原料库搜索查询（模糊搜索）
 	 * @return: JsonEntity
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/rawMaterialLibrarySearchQuery" , method = RequestMethod.GET)
 	public JsonEntity rawMaterialLibrarySearchQuery(String searchName, String unionId) {
-		Member member = childMemberService.findByUnionId(unionId).getMember();
+		//Member member = childMemberService.findByUnionId(unionId).getMember();
 		if(StringUtils.isEmpty(searchName) || StringUtils.isEmpty(unionId)) {
 			return new JsonEntity(Code.code13012, Code.code13012.getDesc());
 		}
@@ -537,6 +542,7 @@ public class BarCodeByGoodsController extends BaseController {
 	 * @param shopId
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/listInshop" , method = RequestMethod.GET)
 	public JsonEntity listInshop(String barCode, String unionId, Long shopId) {

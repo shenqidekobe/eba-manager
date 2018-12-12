@@ -8,13 +8,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
 /**
- * Created by afei.
- * User: mingbai
- * Date: 2017/11/20 上午11:55
- * Describe:
- * Update:
  */
-public class NullJsonToEmptyStr extends JsonSerializer {
+public class NullJsonToEmptyStr extends JsonSerializer<Object> {
     /**
      * Method that can be called to ask implementation to serialize
      * values of type this serializer handles.

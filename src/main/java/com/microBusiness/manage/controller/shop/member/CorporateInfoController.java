@@ -7,19 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.controller.admin.BaseController;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.entity.Area;
-import com.microBusiness.manage.entity.BindPhoneSms;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Need;
-import com.microBusiness.manage.entity.Supplier;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.AreaService;
-import com.microBusiness.manage.service.BindPhoneSmsService;
-import com.microBusiness.manage.service.SmsService;
-import com.microBusiness.manage.service.SupplierService;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -27,12 +14,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.microBusiness.manage.controller.admin.BaseController;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.BindPhoneSms;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.BindPhoneSmsService;
+import com.microBusiness.manage.service.SmsService;
+import com.microBusiness.manage.service.SupplierService;
 
 /**
  * 企业信息controller
- * @author yuezhiwei 2017/8/7
- *
  */
 @Controller("shopMemberCorporateInfo")
 @RequestMapping("/shop/member/corporateInfo")

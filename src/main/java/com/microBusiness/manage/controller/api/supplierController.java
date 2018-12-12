@@ -9,8 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,19 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.microBusiness.manage.dto.SupplierDto;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.entity.Need;
-import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.util.Code;
 
 @Controller
 @RequestMapping("/api/supplier")
 public class supplierController extends BaseController{
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Resource
 	private SupplierService supplierService ;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/formal")
     @ResponseBody
     public JsonEntity selectSupplier(HttpServletRequest request, HttpServletResponse response){

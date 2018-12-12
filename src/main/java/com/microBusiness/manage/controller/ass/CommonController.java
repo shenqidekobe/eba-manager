@@ -1,23 +1,20 @@
 package com.microBusiness.manage.controller.ass;
 
-import com.microBusiness.manage.entity.Ad;
-import com.microBusiness.manage.entity.Area;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Sn;
-import com.microBusiness.manage.entity.ass.AssCard;
-import com.microBusiness.manage.entity.ass.AssChildMember;
-import com.microBusiness.manage.entity.ass.AssCustomerRelation;
-import com.microBusiness.manage.entity.ass.AssGoods;
-import com.microBusiness.manage.service.AreaService;
-import com.microBusiness.manage.service.SnService;
-import com.microBusiness.manage.service.WeChatService;
-import com.microBusiness.manage.service.ass.AssCustomerRelationService;
-import com.microBusiness.manage.util.ApiSmallUtils;
-import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.WebUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -29,23 +26,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import com.microBusiness.manage.entity.Area;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Sn;
+import com.microBusiness.manage.entity.ass.AssCard;
+import com.microBusiness.manage.entity.ass.AssCustomerRelation;
+import com.microBusiness.manage.entity.ass.AssGoods;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.SnService;
+import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.service.ass.AssCustomerRelationService;
+import com.microBusiness.manage.util.ApiSmallUtils;
+import com.microBusiness.manage.util.Code;
 
 /**
- * Created by afei.
- * User: mingbai
- * Date: 2017/11/2 下午6:19
- * Describe:
- * Update:
  */
 @Controller
 @RequestMapping("/ass/common")
@@ -73,7 +67,7 @@ public class CommonController extends BaseController {
             return JsonEntity.error(Code.code019998) ;
         }
 
-        Map<String, Map<String, Object>> result = new HashMap();
+        Map<String, Map<String, Object>> result = new HashMap<String, Map<String, Object>>();
 
         this.getAreas(parentId , level , result) ;
 
@@ -92,7 +86,7 @@ public class CommonController extends BaseController {
             return JsonEntity.error(Code.code019998) ;
         }
 
-        Map<String, Map<String, Object>> result = new HashMap();
+        Map<String, Map<String, Object>> result = new HashMap<String, Map<String, Object>>();
 
         this.getAreas(selectArea , selectArea.getParent() , result) ;
 
@@ -103,7 +97,8 @@ public class CommonController extends BaseController {
 
 
 
-    private void getAreas(Area currentArea , Area parent  , Map<String, Map<String, Object>> result ){
+    @SuppressWarnings("serial")
+	private void getAreas(Area currentArea , Area parent  , Map<String, Map<String, Object>> result ){
 
         List<Area> childs;
 
@@ -154,7 +149,8 @@ public class CommonController extends BaseController {
 
     }
 
-    private void getAreas(Long parentId , int level , Map<String, Map<String, Object>> result){
+    @SuppressWarnings("serial")
+	private void getAreas(Long parentId , int level , Map<String, Map<String, Object>> result){
         List<Area> childs ;
 
         if(null == parentId){

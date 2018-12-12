@@ -37,6 +37,7 @@ public class AssGoodsSyncLogController extends BaseController{
 	@Resource
 	private AssGoodsService assGoodsService;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity list(String unionId, String searchName, String startDate, String endDate, Pageable pageable, HttpServletRequest request, HttpServletResponse response) {
@@ -72,6 +73,7 @@ public class AssGoodsSyncLogController extends BaseController{
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/getTotal" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity getTotal(String unionId, Date startDate, Date endDate, String ts, Pageable pageable, HttpServletRequest request, HttpServletResponse response) {

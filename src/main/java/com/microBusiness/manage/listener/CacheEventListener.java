@@ -1,24 +1,18 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.listener;
 
 import javax.annotation.Resource;
 
-import net.sf.ehcache.CacheException;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
+
 import com.microBusiness.manage.entity.Article;
 import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.service.ArticleService;
 import com.microBusiness.manage.service.GoodsService;
 
-import com.microBusiness.manage.entity.Article;
-import com.microBusiness.manage.service.ArticleService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
+import net.sf.ehcache.CacheException;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 
 @Component("cacheEventListener")
 public class CacheEventListener implements net.sf.ehcache.event.CacheEventListener {

@@ -203,7 +203,8 @@ public class GoodsController extends BaseController {
      * @param pageable
      * @return
      */
-    @RequestMapping(value = "/goodsList")
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/goodsList")
     @ResponseBody
     public JsonEntity goodsListFormal(Long supplierId,String keyword, String unionId, Integer isMarketable,SupplyType supplyType,Long relationId,HttpServletRequest request,HttpServletResponse response , Pageable pageable){
         try {
@@ -240,7 +241,8 @@ public class GoodsController extends BaseController {
 
 	
 
-	 @RequestMapping(value = "/productSpecifications")
+	 @SuppressWarnings("static-access")
+	@RequestMapping(value = "/productSpecifications")
 	    @ResponseBody
 	    public JsonEntity productSpecifications(String unionId, Long id, SupplyType supplyType ,  Long supplierId ,Long relationId, HttpServletRequest request, HttpServletResponse response){
 	    	List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
@@ -292,7 +294,7 @@ public class GoodsController extends BaseController {
 	 @ResponseBody
 	 @RequestMapping(value = "/add" , method = RequestMethod.GET)
 	 public JsonEntity add(String unionId , Long supplierId) {
-		 Member member = childMemberService.findByUnionId(unionId).getMember();
+		 //Member member = childMemberService.findByUnionId(unionId).getMember();
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 if(null == supplierId) {
 			 return JsonEntity.error(Code.code13004, Code.code13004.getDesc());
@@ -722,7 +724,7 @@ public class GoodsController extends BaseController {
 		 if(null == id || null == unionId || null == supplierId) {
 			 return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		 }
-		 Member member = childMemberService.findByUnionId(unionId).getMember();
+		 //Member member = childMemberService.findByUnionId(unionId).getMember();
 		 Goods goods = goodsService.find(id);
 		 Supplier supplier = supplierService.find(supplierId);
 		 boolean bool = goodsService.existLocalDistributionGoods(supplier, goods);
@@ -743,6 +745,8 @@ public class GoodsController extends BaseController {
 			 return Product.Exchange.class;
 		 case gift:
 			 return Product.Gift.class;
+		default:
+			break;
 		 }
 		 return null; 
 	 }

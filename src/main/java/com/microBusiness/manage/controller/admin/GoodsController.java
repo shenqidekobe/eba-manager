@@ -79,6 +79,9 @@ import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.service.TagService;
 import com.microBusiness.manage.util.CommonUtils;
 
+/**
+ * 商品管理中心控制器
+ * */
 @Controller("adminGoodsController")
 @RequestMapping("/admin/goods")
 public class GoodsController extends BaseController {
@@ -412,11 +415,16 @@ public class GoodsController extends BaseController {
 			Long promotionId, Long tagId, Boolean isMarketable, Boolean isList,
 			Boolean isTop, Boolean isOutOfStock, Boolean isStockAlert,
 			Pageable pageable, ModelMap model) {
+		
 		ProductCategory productCategory = productCategoryService
 				.find(productCategoryId);
+		
 		Brand brand = brandService.find(brandId);
+		
 		Promotion promotion = promotionService.find(promotionId);
+		
 		Tag tag = tagService.find(tagId);
+		
 		model.addAttribute("types", Goods.Type.values());
 		model.addAttribute("productCategoryTree", productCategoryService
 				.findTree(super.getCurrentSupplier(), null));
@@ -486,6 +494,8 @@ public class GoodsController extends BaseController {
 			return Product.Exchange.class;
 		case gift:
 			return Product.Gift.class;
+		default:
+			break;
 		}
 		return null;
 	}
@@ -736,6 +746,7 @@ public class GoodsController extends BaseController {
 			}
 			if (b) {
 				for (Product product : goods.getProducts()) {
+					@SuppressWarnings("serial")
 					List<NeedProduct> needProducts = needProductService
 							.findNeedProductByProduct(product, currSupplier,
 									new ArrayList<SupplyNeed.Status>() {
@@ -886,7 +897,7 @@ public class GoodsController extends BaseController {
 			data.put("state", message("admin.upload.error"));
 			return data;
 		}
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		synchronized(this){
 			map = goodsService.uploadImage(sn, url, this.getCurrentSupplier(), batch);
 		}

@@ -65,6 +65,7 @@ public class AssCustomerRelationController extends BaseController {
 	@Resource
 	private AssCardGoodsService assCardGoodsService;
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity list(String unionId, Pageable pageable , ModelMap model, HttpServletRequest request, HttpServletResponse response) {
@@ -107,6 +108,7 @@ public class AssCustomerRelationController extends BaseController {
 	 * @param supplierId
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	@ResponseBody
 	public JsonEntity save(String unionId, AssCustomerRelation customerRelation , Long areaId, String clientName , ModelMap model) {
@@ -133,6 +135,7 @@ public class AssCustomerRelationController extends BaseController {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping("/edit")
 	public JsonEntity edit(Long id, String oldClientName, HttpServletRequest request, HttpServletResponse response) {
 		if (id == null) {
@@ -150,6 +153,7 @@ public class AssCustomerRelationController extends BaseController {
 
 	}
 
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	@ResponseBody
 	public JsonEntity update(String unionId, AssCustomerRelation customerRelation, ModelMap mode) {
@@ -208,7 +212,7 @@ public class AssCustomerRelationController extends BaseController {
 	@RequestMapping(value = "/checkName", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkName(String unionId, String clientName, String oldClientName){
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		
         if (StringUtils.isEmpty(clientName)) {
             return false;
@@ -467,6 +471,7 @@ public class AssCustomerRelationController extends BaseController {
 		return map;
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/copy", method = RequestMethod.POST)
     @ResponseBody
     public JsonEntity copy(String unionId, AssCustomerRelation assCustomerRelation, HttpServletRequest request, HttpServletResponse response){
@@ -485,7 +490,7 @@ public class AssCustomerRelationController extends BaseController {
 	@RequestMapping(value = "/getCopy", method = RequestMethod.GET)
     @ResponseBody
     public JsonEntity getCopy(String unionId, Long id, HttpServletRequest request, HttpServletResponse response){
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 
 		AssCustomerRelation assCustomerRelation = assRelationService.find(id);
 		

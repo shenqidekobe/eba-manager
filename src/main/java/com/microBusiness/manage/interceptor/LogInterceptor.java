@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.interceptor;
 
 import java.util.List;
@@ -12,19 +7,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import com.microBusiness.manage.LogConfig;
 import com.microBusiness.manage.entity.Log;
 import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.LogService;
 import com.microBusiness.manage.util.SystemUtils;
-
-import com.microBusiness.manage.LogConfig;
-import com.microBusiness.manage.entity.Log;
-import com.microBusiness.manage.util.SystemUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LogInterceptor extends HandlerInterceptorAdapter {
 

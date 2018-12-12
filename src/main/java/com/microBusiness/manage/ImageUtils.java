@@ -135,8 +135,8 @@ public class ImageUtils {
         in.close();
         
         
-        InputStream ins = new FileInputStream(saveFile);   
-        BufferedImage destImage = ImageIO.read(ins);
+        //InputStream ins = new FileInputStream(saveFile);   
+        //BufferedImage destImage = ImageIO.read(ins);
         return srcImage.getWidth() + "x" + srcImage.getHeight();   
     }   
     /**  

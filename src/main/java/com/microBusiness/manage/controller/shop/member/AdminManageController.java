@@ -1,30 +1,23 @@
 package com.microBusiness.manage.controller.shop.member;
 
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.controller.admin.BaseController;
-import com.microBusiness.manage.entity.NewMessageCompamy;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.FavorCompanyGoodsService;
-import com.microBusiness.manage.service.FavorCompanyService;
-import com.microBusiness.manage.service.NewMessageCompamyService;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.microBusiness.manage.Message;
+import com.microBusiness.manage.controller.admin.BaseController;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.FavorCompanyGoodsService;
+import com.microBusiness.manage.service.FavorCompanyService;
+import com.microBusiness.manage.service.NewMessageCompamyService;
+
 /**
  * 用户管理Controller
- * 
- * @author 吴战波
- *
  */
 @Controller("adminManageController")
 @RequestMapping("/shop/member/adminManage")

@@ -11,14 +11,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.dto.SupplyProductDto;
 import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
@@ -41,8 +38,8 @@ import com.microBusiness.manage.util.Code;
 @Controller
 @RequestMapping("/api/product")
 public class ProductController extends BaseController {
-	private Logger logger = LoggerFactory.getLogger(getClass());
-    @Resource
+    
+	@Resource
     private MemberService memberService;
     @Resource
     private ProductService productService;
@@ -60,7 +57,8 @@ public class ProductController extends BaseController {
     @Resource
     private NeedService needService;
 
-    @RequestMapping(value = "/goodsList" , params="supplyType=temporary")
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/goodsList" , params="supplyType=temporary")
     @ResponseBody
     public JsonEntity goodsList(Long supplierId,String keyword,Integer isMarketable,HttpServletRequest request,HttpServletResponse response , Pageable pageable){
         Set<Map<String,Object>> products = new HashSet<Map<String,Object>>();
@@ -95,7 +93,8 @@ public class ProductController extends BaseController {
 		}
     }
     
-    @RequestMapping(value = "/productDetails")
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/productDetails")
     @ResponseBody
     public JsonEntity productDetails(String supplierId,Goods goods,HttpServletRequest request,HttpServletResponse response){
     	
@@ -118,7 +117,8 @@ public class ProductController extends BaseController {
 		}
     }
     
-    @RequestMapping(value = "/productSpecifications")
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/productSpecifications")
     @ResponseBody
     public JsonEntity productSpecifications(Long id, SupplyType supplyType ,  Long supplierId , HttpServletRequest request, HttpServletResponse response){
     	List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
@@ -174,7 +174,8 @@ public class ProductController extends BaseController {
      * @param pageable
      * @return
      */
-    @RequestMapping(value = "/goodsList" , params="supplyType=formal")
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/goodsList" , params="supplyType=formal")
     @ResponseBody
     public JsonEntity goodsListFormal(Long supplierId,String keyword,Integer isMarketable,SupplyType supplyType ,Long relationId, HttpServletRequest request,HttpServletResponse response , Pageable pageable){
         try {
@@ -195,7 +196,7 @@ public class ProductController extends BaseController {
 
 
 
-    private Set<Map<String , Object>> dealResult(List<Goods> result){
+    public Set<Map<String , Object>> dealResult(List<Goods> result){
 
 		Set<Map<String,Object>> goods = new HashSet<Map<String,Object>>();
 

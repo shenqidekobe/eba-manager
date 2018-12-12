@@ -5,21 +5,6 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.entity.Need;
-import com.microBusiness.manage.entity.Sms;
-import com.microBusiness.manage.entity.Supplier;
-import com.microBusiness.manage.entity.ass.AssChildMember;
-import com.microBusiness.manage.service.AreaService;
-import com.microBusiness.manage.service.ChildMemberService;
-import com.microBusiness.manage.service.MemberService;
-import com.microBusiness.manage.service.NeedService;
-import com.microBusiness.manage.service.SmsService;
-import com.microBusiness.manage.service.SupplierService;
-import com.microBusiness.manage.util.Code;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Need;
+import com.microBusiness.manage.entity.Sms;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.service.NeedService;
+import com.microBusiness.manage.service.SmsService;
+import com.microBusiness.manage.service.SupplierService;
+import com.microBusiness.manage.util.Code;
 
 /**
  * 个体客户
@@ -51,7 +50,7 @@ public class AssNeedCustomerController extends BaseController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public JsonEntity save(String unionId, ModelMap model, Long supplierId, Need need, Long areaId, String code, String tel, RedirectAttributes redirectAttributes) {
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		Supplier supplier = supplierService.find(supplierId);
 
 		if (need == null || areaId == null || supplier == null) {
@@ -103,7 +102,7 @@ public class AssNeedCustomerController extends BaseController {
 	}
 
 	public JsonEntity checkSms(String unionId, String tel, String code) {
-		AssChildMember assChildMember = this.getAssChildMember(unionId);
+		//AssChildMember assChildMember = this.getAssChildMember(unionId);
 		Member member = memberService.findByMobile(tel);
 
 		if (null == member) {

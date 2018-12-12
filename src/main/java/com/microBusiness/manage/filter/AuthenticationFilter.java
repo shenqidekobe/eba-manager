@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.filter;
 
 import java.util.Collection;
@@ -15,17 +10,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.AuthenticationToken;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.RSAService;
-
-import com.microBusiness.manage.service.RSAService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+
+import com.microBusiness.manage.AuthenticationToken;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.RSAService;
 
 public class AuthenticationFilter extends FormAuthenticationFilter {
 

@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.filter;
 
 import java.io.IOException;
@@ -12,14 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.util.SystemUtils;
-
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.util.SystemUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.util.SystemUtils;
 
 @Component("siteStatusFilter")
 public class SiteStatusFilter extends OncePerRequestFilter {

@@ -54,7 +54,7 @@ public class ProductCategoryController extends BaseController {
 		Need need = needService.findNeedByMemberSupplier(sup, member);
 
 
-        Supplier supplier = supplierDao.find(supplierId);
+        //Supplier supplier = supplierDao.find(supplierId);
 
         List<ProductCategory> productCategories = productCategoryService.findByFormal(need , null);
 
@@ -72,7 +72,7 @@ public class ProductCategoryController extends BaseController {
       	Need need = needService.findNeedByMemberSupplier(sup, member);
 
 
-        Supplier supplier = supplierDao.find(supplierId);
+        //Supplier supplier = supplierDao.find(supplierId);
 
         List<ProductCategory> productCategories = productCategoryService.findByTemporary(need , null);
 

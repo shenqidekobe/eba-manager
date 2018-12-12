@@ -1,11 +1,7 @@
 package com.microBusiness.manage.job;
 
 /**
- * Created by mingbai on 2017/3/31.
- * 功能描述：
- * 修改记录：
  */
-
 import com.microBusiness.manage.entity.SupplierSupplier;
 import com.microBusiness.manage.service.SupplierSupplierService;
 import org.springframework.context.annotation.Lazy;

@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.interceptor;
 
 import java.net.URLEncoder;
@@ -11,15 +6,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.Principal;
-import com.microBusiness.manage.entity.Member;
-import com.microBusiness.manage.service.MemberService;
-
-import com.microBusiness.manage.entity.Member;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.microBusiness.manage.Principal;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.service.MemberService;
 
 public class MemberInterceptor extends HandlerInterceptorAdapter {
 

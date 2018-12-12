@@ -1,33 +1,24 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.listener;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
-import com.microBusiness.manage.service.ConfigService;
-import com.microBusiness.manage.service.SearchService;
-import com.microBusiness.manage.service.StaticService;
-
-import com.microBusiness.manage.service.ConfigService;
-import com.microBusiness.manage.service.SearchService;
-import com.microBusiness.manage.service.StaticService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
+import com.microBusiness.manage.service.ConfigService;
+import com.microBusiness.manage.service.SearchService;
+import com.microBusiness.manage.service.StaticService;
+
 @Component("initListener")
 public class InitListener implements ServletContextAware, ApplicationListener<ContextRefreshedEvent> {
 
-	private static final String INSTALL_INIT_CONFIG_FILE_PATH = "/install_init.conf";
+	public static final String INSTALL_INIT_CONFIG_FILE_PATH = "/install_init.conf";
 
 	private static final Logger LOGGER = Logger.getLogger(InitListener.class.getName());
 

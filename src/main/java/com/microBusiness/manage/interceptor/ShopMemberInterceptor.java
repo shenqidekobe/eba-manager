@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.microBusiness.manage.Principal;
 import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.service.AdminService;
 
 public class ShopMemberInterceptor extends HandlerInterceptorAdapter {

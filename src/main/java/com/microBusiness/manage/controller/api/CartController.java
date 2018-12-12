@@ -58,6 +58,7 @@ public class CartController extends BaseController {
 	 * 获取购物车列表
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody JsonEntity list(HttpServletRequest request, HttpServletResponse response , Long supplierId , SupplyType supplyType,Long relationId) {
 		//response.setHeader("Access-Control-Allow-Origin", "*");

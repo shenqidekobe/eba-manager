@@ -2,7 +2,6 @@ package com.microBusiness.manage.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 订单报表
