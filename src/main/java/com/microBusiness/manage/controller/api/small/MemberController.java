@@ -106,13 +106,12 @@ public class MemberController extends BaseController {
     	member.setYesterdayIncome(yesterdayIncome);
 		Map<String, Object> rootMap = new HashMap<String, Object>();
 		rootMap.put("isChecked", childMember.getIsChecked());
+		rootMap.put("isShoper", member.getIsShoper());
 		rootMap.put("point", member.getPoint());
 		rootMap.put("id", member.getId());
 		rootMap.put("balance", member.getBalance());
 		rootMap.put("income", member.getIncome());
 		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
-		rootMap.put("yesterdayIncome", member.getYesterdayIncome());
-		rootMap.put("id", member.getId());
 		rootMap.put("nickName", childMember.getNickName());
 		rootMap.put("headPic", childMember.getHeadImgUrl());
 		return JsonEntity.successMessage(rootMap);
