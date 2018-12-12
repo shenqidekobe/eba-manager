@@ -27,24 +27,20 @@ import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.LogType;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Need;
-import com.microBusiness.manage.entity.NoticeType;
-import com.microBusiness.manage.entity.NoticeUser;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.OrderItem;
 import com.microBusiness.manage.entity.OrderItemInfo;
 import com.microBusiness.manage.entity.OrderItemLog;
 import com.microBusiness.manage.entity.OrderLog;
 import com.microBusiness.manage.entity.OrderRemarks;
+import com.microBusiness.manage.entity.OrderRemarks.MsgType;
 import com.microBusiness.manage.entity.OrderSetting;
-import com.microBusiness.manage.entity.PaymentMethod;
 import com.microBusiness.manage.entity.Product;
 import com.microBusiness.manage.entity.Receiver;
 import com.microBusiness.manage.entity.Shipping;
 import com.microBusiness.manage.entity.ShippingItem;
-import com.microBusiness.manage.entity.ShippingMethod;
 import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.SupplyType;
-import com.microBusiness.manage.entity.OrderRemarks.MsgType;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
 import com.microBusiness.manage.service.AreaService;
 import com.microBusiness.manage.service.CartService;
@@ -63,7 +59,6 @@ import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.DateUtils;
-import com.microBusiness.manage.util.DateformatEnum;
 
 @Controller("shopOrderController")
 @RequestMapping("/api/order")
@@ -219,9 +214,9 @@ public class OrderController extends BaseController {
 	public @ResponseBody
 	JsonEntity create(Need need, String reDate,
 			HttpServletRequest request, HttpServletResponse response , Long supplierId , SupplyType supplyType , String memo,Long relationId) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		//Map<String, Object> data = new HashMap<String, Object>();
 		Member member = this.getUserInfo(request);
-		ChildMember childMember = super.getCurrChildMem(request) ;
+		//ChildMember childMember = super.getCurrChildMem(request) ;
 		Cart cart = null;
 		try {
 			cart = member.getCart();
@@ -257,9 +252,9 @@ public class OrderController extends BaseController {
 		}else{
 			receiverService.update(receiver);
 		}
-		ShippingMethod shippingMethod = shippingMethodService.find(1l);
-		PaymentMethod paymentMethod = paymentMethodService.find(3l);
-		Date date = DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
+		//ShippingMethod shippingMethod = shippingMethodService.find(1l);
+		//PaymentMethod paymentMethod = paymentMethodService.find(3l);
+		//Date date = DateUtils.formatStringToDate(reDate, DateformatEnum.yyyyMMdd2);
 		// FIXME: 2017/3/21 创建订单的时候需要知道是那个公众号下的单
 		//ChildMember childMember = super.getCurrChildMem(request);
 

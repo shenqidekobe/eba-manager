@@ -3,19 +3,18 @@ package com.microBusiness.manage.controller.shop.member;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.controller.admin.BaseController;
-import com.microBusiness.manage.entity.Admin;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Supplier;
-import com.microBusiness.manage.service.AdminService;
-import com.microBusiness.manage.service.SupplierService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.microBusiness.manage.controller.admin.BaseController;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.SupplierService;
 
 @Controller
 @RequestMapping("/shop/member/bindqq")

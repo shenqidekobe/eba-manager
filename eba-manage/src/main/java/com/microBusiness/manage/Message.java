@@ -1,11 +1,5 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage;
 
-import com.microBusiness.manage.util.SpringUtils;
 import com.microBusiness.manage.util.SpringUtils;
 
 public class Message {

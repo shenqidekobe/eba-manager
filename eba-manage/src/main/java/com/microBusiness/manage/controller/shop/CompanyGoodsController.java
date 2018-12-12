@@ -3,7 +3,11 @@ package com.microBusiness.manage.controller.shop;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.microBusiness.manage.Message;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.admin.BaseController;
 import com.microBusiness.manage.entity.Category;
@@ -15,17 +19,9 @@ import com.microBusiness.manage.service.CompanyGoodsService;
 import com.microBusiness.manage.service.FavorCompanyGoodsService;
 import com.microBusiness.manage.service.FavorCompanyService;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
  * 
  * 商流供应商Controller
- * 
- * @author 吴战波
  *
  */
 @Controller("CompanyGoodsController")

@@ -1,19 +1,13 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.util.WebUtils;
-
-import com.microBusiness.manage.util.WebUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.microBusiness.manage.util.WebUtils;
 
 public class ListInterceptor extends HandlerInterceptorAdapter {
 

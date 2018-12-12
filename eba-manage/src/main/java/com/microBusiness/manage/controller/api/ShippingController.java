@@ -1,27 +1,6 @@
 package com.microBusiness.manage.controller.api;
 
-import com.google.zxing.WriterException;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.Shipping;
-import com.microBusiness.manage.entity.ShippingItem;
-import com.microBusiness.manage.service.ShippingService;
-import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.Constant;
-import com.microBusiness.manage.util.QRCodeUtil;
-import com.microBusiness.manage.util.SystemUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static com.microBusiness.manage.util.Code.code019998;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -31,7 +10,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.microBusiness.manage.util.Code.code019998;
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.zxing.WriterException;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Shipping;
+import com.microBusiness.manage.entity.ShippingItem;
+import com.microBusiness.manage.service.ShippingService;
+import com.microBusiness.manage.util.Code;
+import com.microBusiness.manage.util.QRCodeUtil;
 
 /**
  * Created by mingbai on 2017/3/22.
@@ -172,7 +170,7 @@ public class ShippingController extends BaseController {
         response.setDateHeader("Expires", 0);
         response.setContentType("image/jpeg");
         try {
-            Setting setting = SystemUtils.getSetting();
+            //Setting setting = SystemUtils.getSetting();
             //生成图像
             int width = 300; // 图像宽度
             int height = 300; // 图像高度

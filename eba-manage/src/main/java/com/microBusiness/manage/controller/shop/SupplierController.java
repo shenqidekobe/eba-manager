@@ -8,6 +8,12 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Message;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
@@ -24,18 +30,10 @@ import com.microBusiness.manage.service.FavorCompanyService;
 import com.microBusiness.manage.service.RoleService;
 import com.microBusiness.manage.service.SupplierService;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
  * 
  * 商流供应商Controller
  * 
- * @author 吴战波
- *
  */
 @Controller("ShopSupplierController")
 @RequestMapping("/shop/supplie")
@@ -107,7 +105,7 @@ public class SupplierController extends BaseController {
     	Supplier supplier=supplierService.find(id);
     	Set<Admin> admins=supplier.getAdmins();
     	Admin admin=new Admin();
-    	Iterator iter = admins.iterator();
+    	Iterator<Admin> iter = admins.iterator();
     	while (iter.hasNext()) {
     		admin = (Admin) iter.next();
     	}

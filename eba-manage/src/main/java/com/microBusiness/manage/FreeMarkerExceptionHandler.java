@@ -1,16 +1,10 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage;
 
 import java.io.Writer;
 
-import com.microBusiness.manage.exception.IllegalLicenseException;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import com.microBusiness.manage.exception.IllegalLicenseException;
-import org.apache.commons.lang.exception.ExceptionUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateException;

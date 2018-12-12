@@ -2,30 +2,20 @@ package com.microBusiness.manage.controller.api;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.entity.Error;
-import com.microBusiness.manage.entity.Need.NeedStatus;
-import com.microBusiness.manage.service.*;
-import com.microBusiness.manage.util.Code;
-import com.microBusiness.manage.util.CommonUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,16 +26,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Order;
+import com.microBusiness.manage.entity.OrderItem;
+import com.microBusiness.manage.entity.Sms;
+import com.microBusiness.manage.service.CartService;
+import com.microBusiness.manage.service.ChildMemberService;
+import com.microBusiness.manage.service.MemberRankService;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.service.NeedService;
+import com.microBusiness.manage.service.OrderService;
+import com.microBusiness.manage.service.SmsService;
+import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.util.Code;
+import com.microBusiness.manage.util.CommonUtils;
 import com.microBusiness.manage.util.Constant;
 import com.microBusiness.manage.util.CookieUtil;
-import com.microBusiness.manage.util.DateformatEnum;
 
 /**
- * Created by afei.
- * User: afei
- * Date: 2016/5/26 10:06
- * Describe:
- * Update:
  */
 @Controller
 @RequestMapping("/api/member")
@@ -626,7 +626,7 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/check", method = RequestMethod.GET)
     public void check(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         try {
-            Long start = System.currentTimeMillis();
+            //Long start = System.currentTimeMillis();
             String code = null;
             String shareUrl = request.getParameter("url");
             String queryString = request.getQueryString();
@@ -635,7 +635,7 @@ public class MemberController extends BaseController {
             //对url进行URLEncode转换
             String strUrl = URLEncoder.encode(url, "utf-8");
             //得到请求的参数Map，注意map的value是String数组类型
-            Map map = request.getParameterMap();
+            //Map map = request.getParameterMap();
             code = request.getParameter(Constant.MAP_KEY);
 
             if (null == code || code.equals("")) {
@@ -681,11 +681,6 @@ public class MemberController extends BaseController {
                 //新增名为token的cookie值
                 CookieUtil.addCookie(response, Constant.COOKIE_OPEN_ID_NAME, openId, "/", 60 * 60 * 24 * 30);
             }
-            //获取用户信息异常
-            if (null == userInfo) {
-                response.sendRedirect("/b2b/error.html");
-                return;
-            }
             //token 保存到cookie
             Cookie cookie = CookieUtil.getCookieByName(request, Constant.COOKIE_OPEN_ID_NAME);
             //判断cookie是否为空且token值是否为空
@@ -708,7 +703,7 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/checkupdate", method = RequestMethod.GET)
     public void checkupdate(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         try {
-            Long start = System.currentTimeMillis();
+            //Long start = System.currentTimeMillis();
             String code = null;
             String shareUrl = request.getParameter("url");
             String queryString = request.getQueryString();
@@ -717,7 +712,7 @@ public class MemberController extends BaseController {
             //对url进行URLEncode转换
             String strUrl = URLEncoder.encode(url, "utf-8");
             //得到请求的参数Map，注意map的value是String数组类型
-            Map map = request.getParameterMap();
+           // Map map = request.getParameterMap();
             code = request.getParameter(Constant.MAP_KEY);
 
             if (null == code || code.equals("")) {
@@ -753,11 +748,6 @@ public class MemberController extends BaseController {
                 }
 
             }
-            //获取用户信息异常
-            if (null == userInfo) {
-                response.sendRedirect("/b2b/error.html");
-                return;
-            }
             //token 保存到cookie
             Cookie cookie = CookieUtil.getCookieByName(request, Constant.COOKIE_OPEN_ID_NAME);
             if(cookie != null && userInfo.getId() != null){
@@ -770,17 +760,7 @@ public class MemberController extends BaseController {
             }
             
             
-            //判断cookie是否为空且token值是否为空
-            if (null != cookie) {
-                //刷新token的值
-                //CookieUtil.editCookie(response, request, Constant.COOKIE_OPEN_ID_NAME, openId, "/", 60 * 60 * 24 * 30);
-            } else {//cookie为空或者token值为空，则新增cookie，并将微信用户信息插入缓存
-                //CookieUtil.addCookie(response, Constant.COOKIE_OPEN_ID_NAME, openId, "/", 60 * 60 * 24 * 30);
-            }
-            //response.sendRedirect("/b2b/getCheck.html?openId=" + openId);
-            //response.sendRedirect("/b2b/getCheck.html?openId=" + cookie.getValue()  + "&openId2=" + openId);
-            
-          //判断unionId是否存在
+            //判断unionId是否存在
             String unionId = userInfo.getUnionId() ;
             if(StringUtils.isEmpty(unionId)){
                 logger.error("unionId is null");

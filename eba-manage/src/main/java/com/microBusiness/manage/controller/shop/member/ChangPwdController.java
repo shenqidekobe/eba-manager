@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.microBusiness.manage.Message;
 import com.microBusiness.manage.controller.admin.BaseController;
@@ -18,9 +17,6 @@ import com.microBusiness.manage.entity.Admin;
 import com.microBusiness.manage.service.AdminService;
 
 /**
- * Created by yuezhiwei on 2017/8/2.
- * 功能描述：修改密码
- * 修改记录：
  */
 @Controller("shopChangPwd")
 @RequestMapping("/shop/member/changPwd")

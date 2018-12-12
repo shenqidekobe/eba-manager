@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +24,6 @@ import com.microBusiness.manage.service.ass.AssCustomerRelationService;
 import com.microBusiness.manage.util.Code;
 
 /**
- * Created by afei.
- * User: mingbai
- * Date: 2017/11/2 下午6:19
- * Describe:
- * Update:
  */
 @Controller
 @RequestMapping("/api/small/common")
@@ -80,7 +73,7 @@ public class SmallCommonController extends BaseController {
             return JsonEntity.error(Code.code019998) ;
         }
 
-        Map<String, Map<String, Object>> result = new HashMap();
+        Map<String, Map<String, Object>> result = new HashMap<String, Map<String, Object>>();
 
         this.getAreas(selectArea , selectArea.getParent() , result) ;
 
@@ -91,7 +84,8 @@ public class SmallCommonController extends BaseController {
 
 
 
-    private void getAreas(Area currentArea , Area parent  , Map<String, Map<String, Object>> result ){
+    @SuppressWarnings("serial")
+	private void getAreas(Area currentArea , Area parent  , Map<String, Map<String, Object>> result ){
 
         List<Area> childs;
 
@@ -142,7 +136,8 @@ public class SmallCommonController extends BaseController {
 
     }
 
-    private void getAreas(Long parentId , int level , Map<String, Map<String, Object>> result){
+    @SuppressWarnings("serial")
+	private void getAreas(Long parentId , int level , Map<String, Map<String, Object>> result){
         List<Area> childs ;
 
         if(null == parentId){

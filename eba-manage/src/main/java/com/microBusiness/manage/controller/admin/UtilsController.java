@@ -1,11 +1,13 @@
 package com.microBusiness.manage.controller.admin;
 
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.Page;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-import com.microBusiness.manage.util.Code;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
+import com.microBusiness.manage.entity.Admin;
+import com.microBusiness.manage.entity.CustomerRelation;
+import com.microBusiness.manage.entity.JsonEntity;
+import com.microBusiness.manage.entity.Need;
+import com.microBusiness.manage.entity.OrderSetting;
+import com.microBusiness.manage.entity.Supplier;
+import com.microBusiness.manage.service.AdminService;
+import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.CustomerRelationService;
+import com.microBusiness.manage.service.NeedService;
+import com.microBusiness.manage.service.OrderSettingService;
+import com.microBusiness.manage.service.ProductCategoryService;
+import com.microBusiness.manage.service.ProductService;
+import com.microBusiness.manage.service.SupplierService;
+import com.microBusiness.manage.util.Code;
 
 /**
  * Created by mingbai on 2017/4/13.
@@ -54,7 +67,7 @@ public class UtilsController extends BaseController {
     @Resource
     private OrderSettingService orderSettingService ;
 
-    private static final String NEED_NAME = "流水收货点" ;
+    public static final String NEED_NAME = "流水收货点" ;
 
 
     @Resource
@@ -109,12 +122,13 @@ public class UtilsController extends BaseController {
      * @param supplierId
      * @return
      */
-    @RequestMapping(value = "/relSuppliers", method = RequestMethod.GET)
+    @SuppressWarnings("serial")
+	@RequestMapping(value = "/relSuppliers", method = RequestMethod.GET)
     public Map<Long , Map<String , Object>> getRelSuppliers(Long supplierId , ModelMap modelMap){
 
         List<Supplier> suppliers = supplierService.getSupplierFromBy(supplierId) ;
 
-        Map<Long , Map<String , Object>> ret = new HashMap();
+        Map<Long , Map<String , Object>> ret = new HashMap<Long , Map<String , Object>>();
 
         for(final Supplier supplier : suppliers){
             ret.put(supplier.getId() , new HashMap<String , Object>(){{
@@ -173,9 +187,9 @@ public class UtilsController extends BaseController {
     @RequestMapping(value = "/saveNeed" , method = RequestMethod.POST)
     @ResponseBody
     public JsonEntity saveNeed(Need need , HttpServletRequest request , Long areaId){
-        Map<String , Object> ret = new HashMap();
+        Map<String , Object> ret = new HashMap<String , Object>();
         try{
-            need.setName(this.NEED_NAME);
+            need.setName(NEED_NAME);
             need.setType(Need.Type.turnover);
             need.setArea(areaService.find(areaId));
             need.setSupplier(super.getCurrentSupplier());

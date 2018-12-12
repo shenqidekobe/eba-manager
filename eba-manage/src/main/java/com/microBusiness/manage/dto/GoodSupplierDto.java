@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.microBusiness.manage.entity.Goods;
-import com.microBusiness.manage.entity.Need;
 import com.microBusiness.manage.entity.Supplier;
 
 public class GoodSupplierDto implements Serializable {

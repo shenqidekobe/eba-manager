@@ -22,6 +22,7 @@ public class AssFormController extends BaseController {
 	@Resource
 	private AssFormService assFormService;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public @ResponseBody JsonEntity add(String unionId, AssForm assForm, HttpServletRequest request, HttpServletResponse response) {
 		AssChildMember assChildMember = this.getAssChildMember(unionId);

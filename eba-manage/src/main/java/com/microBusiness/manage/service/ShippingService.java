@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service;
 
 import java.util.List;
@@ -12,8 +7,6 @@ import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Order;
-import com.microBusiness.manage.entity.OrderRemarks;
-import com.microBusiness.manage.entity.Shipping;
 import com.microBusiness.manage.entity.Shipping;
 
 public interface ShippingService extends BaseService<Shipping, Long> {

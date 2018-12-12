@@ -2,8 +2,6 @@ package com.microBusiness.manage.dto;
 
 import java.io.Serializable;
 
-import com.microBusiness.manage.entity.Order;
-
 /**
  * 小程序采购清单统计
  * 

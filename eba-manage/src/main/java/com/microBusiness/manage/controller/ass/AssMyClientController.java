@@ -7,7 +7,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.microBusiness.manage.Message;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.CustomerRelation;
@@ -22,16 +26,11 @@ import com.microBusiness.manage.service.ass.AssChildMemberService;
 import com.microBusiness.manage.service.ass.AssUpdateTipsService;
 import com.microBusiness.manage.util.Code;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 我的客户
  * @author yuezhiwei
  *
  */
-
 @Controller
 @RequestMapping("/ass/myClient")
 public class AssMyClientController extends BaseController {
@@ -52,6 +51,7 @@ public class AssMyClientController extends BaseController {
 	 * @param pageable
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/businessCustomersList" , method = RequestMethod.GET)
 	public JsonEntity businessCustomersList(String unionId , Pageable pageable) {
@@ -150,9 +150,9 @@ public class AssMyClientController extends BaseController {
 		if(null == id) {
 			return new JsonEntity(Code.code019998, Code.code019998.getDesc());
 		}
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		CustomerRelation relation = customerRelationService.find(id);
-		if(null != relation || null != relation.getId()) {
+		if(null != relation) {
 			relation.setClientNum(clientNum);
 			relation.setArea(areaService.find(areaId));
 			relation.setAddress(address);
@@ -204,6 +204,7 @@ public class AssMyClientController extends BaseController {
 	 * @param pageable
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@ResponseBody
 	@RequestMapping(value = "/individualCustomersList" , method = RequestMethod.GET)
 	public JsonEntity individualCustomersList(String unionId , Pageable pageable) {
@@ -285,7 +286,7 @@ public class AssMyClientController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/individualCustomersUpdate" , method = RequestMethod.POST)
 	public JsonEntity individualCustomersUpdate(String unionId, Need need, Long areaId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		need.setArea(areaService.find(areaId));
 		needService.updateIndividualCustomers(need);
 		return JsonEntity.successMessage();

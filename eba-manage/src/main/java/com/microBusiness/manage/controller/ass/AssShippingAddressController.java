@@ -30,6 +30,7 @@ public class AssShippingAddressController extends BaseController {
 	@Resource
 	private AreaService areaService;
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/getAddress", method = RequestMethod.GET)
 	@ResponseBody
     public JsonEntity getAddress(String unionId, HttpServletRequest request, HttpServletResponse response) {
@@ -60,7 +61,8 @@ public class AssShippingAddressController extends BaseController {
        return new JsonEntity(Code.code0,"",request.getRequestURL().toString(), reList);
     }
 	
-	 @RequestMapping(value = "/save", method = RequestMethod.POST)
+	 @SuppressWarnings("static-access")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	 @ResponseBody
 	 public JsonEntity save(String unionId, AssShippingAddress assShippingAddress ,Long areaId, HttpServletRequest request, HttpServletResponse response) {
 		AssChildMember assChildMember = this.getAssChildMember(unionId);
@@ -85,7 +87,8 @@ public class AssShippingAddressController extends BaseController {
 
 	 }
 	 
-	 @RequestMapping(value = "/update", method = RequestMethod.POST)
+	 @SuppressWarnings("static-access")
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	 @ResponseBody
 	 public JsonEntity update(String unionId, AssShippingAddress assShippingAddress ,Long areaId, HttpServletRequest request, HttpServletResponse response) {
 		 if(areaId == null) {
@@ -102,7 +105,8 @@ public class AssShippingAddressController extends BaseController {
 	     
 	}
 
-    @RequestMapping(value = "/delete" , method = RequestMethod.POST)
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/delete" , method = RequestMethod.POST)
     @ResponseBody
 	public JsonEntity delete(String unionId, Long id) {
     	AssChildMember assChildMember = this.getAssChildMember(unionId);
@@ -131,11 +135,11 @@ public class AssShippingAddressController extends BaseController {
 		}
 	}
 
-    @RequestMapping(value = "/getAddressById" , method = RequestMethod.GET)
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/getAddressById" , method = RequestMethod.GET)
     @ResponseBody
 	public JsonEntity getAddressById(String unionId, Long id, HttpServletRequest request, HttpServletResponse response) {
-    	AssChildMember assChildMember = this.getAssChildMember(unionId);
-    	
+    	//AssChildMember assChildMember = this.getAssChildMember(unionId);
     	try {
     		AssShippingAddress address = assShippingAddressService.find(id);
     		
@@ -235,7 +239,7 @@ public class AssShippingAddressController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/chooseAddress" , method = RequestMethod.GET)
     public JsonEntity chooseAddress(String unionId , Long id) {
-    	AssChildMember assChildMember = this.getAssChildMember(unionId);
+    	//AssChildMember assChildMember = this.getAssChildMember(unionId);
     	if(null == id) {
     		return new JsonEntity(Code.code_asslist_11118, Code.code_asslist_11118.getDesc());
     	}

@@ -3110,7 +3110,7 @@ public class WeChatServiceImpl implements WeChatService {
         templateInfo.setTemplateId(templateId);
 
         // 增加参数，跳转小程序
-        Map miniprogram = new HashMap<String, String>();
+        /*Map miniprogram = new HashMap<String, String>();
         miniprogram.put("appid", Constant.SMALL_APPID);
         miniprogram.put("pagepath", String.format(Constant.PAGE_PATH, order.getId()));
         
@@ -3118,12 +3118,21 @@ public class WeChatServiceImpl implements WeChatService {
         
         Setting setting = SystemUtils.getSetting() ;
         String url = setting.getSiteUrl() + Constant.LOGIN_URL_PRE + String.format(orderDetailUrl, order.getId());
-        templateInfo.setUrl(url);
+        templateInfo.setUrl(url);*/
 
         this.getCommonTemplateInfo(order , orderStatus , templateInfo);
 
         Map<String, Map<String, String>> data = templateInfo.getData() ;
-
+        
+        String keyword2="订单状态变更";
+        if(orderStatus == Order.OrderStatus.shipped) {
+        	keyword2="已发货";
+		}else if(orderStatus == Order.OrderStatus.canceled) {
+			keyword2="已取消";
+		}else if(orderStatus == Order.OrderStatus.completed) {
+			keyword2="已完成";
+		}
+        final String keyword2Finale=keyword2;
         final StringBuffer remarks = new StringBuffer() ;
         remarks.append("客服电话：").append(sell.getCustomerServiceTel()).append(newLines);
         remarks.append("供应商：").append(sell.getName()).append(newLines);
@@ -3132,7 +3141,19 @@ public class WeChatServiceImpl implements WeChatService {
             remarks.append(newLines).append(remark) ;
         }
 
-        data.put("remark" , new HashMap<String, String>(){{
+        data.put("keyword1" , new HashMap<String, String>(){{
+            this.put("value" , order.getSn());
+        }});
+        data.put("keyword2" , new HashMap<String, String>(){{
+            this.put("value" ,keyword2Finale);
+        }});
+        data.put("keyword3" , new HashMap<String, String>(){{
+            this.put("value" ,  DateUtils.convertToString(order.getCreateDate(), DateUtils.DATE_FORMAT_CHINA_FONT));
+        }});
+        data.put("keyword4" , new HashMap<String, String>(){{
+            this.put("value" , DateUtils.convertToString(new Date(), DateUtils.DATE_FORMAT_CHINA_FONT));
+        }});
+        data.put("keyword5" , new HashMap<String, String>(){{
             this.put("value" , remarks.toString());
         }});
 

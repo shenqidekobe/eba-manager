@@ -11,6 +11,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.entity.Admin;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.OrderFile;
@@ -27,18 +35,7 @@ import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.service.OrderService;
 import com.microBusiness.manage.util.Code;
 
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
- * Created by afei.
- * User: mingbai
- * Date: 2018/1/30 下午2:18
  * Describe:
  * Update:
  */
@@ -46,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/openapi/order")
 public class OrderController extends BaseController {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+	public final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 	
 	@Resource(name = "orderServiceImpl")
 	private OrderService orderService;
@@ -74,8 +71,8 @@ public class OrderController extends BaseController {
  		List<Order> order = orderService.find(supplier, staDate, enDate);
  		List<Map<String, Object>> lis = new ArrayList<Map<String,Object>>();
  		for (Order en : order) {
- 			Map map = new HashMap<>();
- 			Map orderMap = new HashMap<String, String>();
+ 			Map<String, Object> map = new HashMap<>();
+ 			Map<String, Object> orderMap = new HashMap<String, Object>();
  			orderMap.put("sn", en.getSn());
  			orderMap.put("amount", en.getAmount());
  			orderMap.put("customerName", en.getNeed().getName());
@@ -93,7 +90,7 @@ public class OrderController extends BaseController {
  			
  			List<Map<String, Object>> shippingList = new ArrayList<Map<String,Object>>();
  			for (Shipping shipping: en.getShippings()) {
- 				Map shippingMap = new HashMap<String, String>();
+ 				Map<String,Object> shippingMap = new HashMap<String, Object>();
  				shippingMap.put("consignee", shipping.getConsignee());
  				shippingMap.put("phone", shipping.getPhone());
  				shippingMap.put("deliveryDate", shipping.getCreateDate());
@@ -107,12 +104,12 @@ public class OrderController extends BaseController {
  			// 备注
  			List<Map<String, Object>> remarkList = new ArrayList<Map<String,Object>>();
  			for (OrderRemarks orderRemarks : en.getOrderRemarks()) {
- 				Map remarkMap = new HashMap<String, String>();
+ 				Map<String,Object> remarkMap = new HashMap<String, Object>();
  				remarkMap.put("description", orderRemarks.getDescription());
  				
  				List<Map<String, Object>> remarkFileList = new ArrayList<Map<String,Object>>();
  				for (RemarksFile remarksFile : orderRemarks.getAnnex()) {
- 					Map remarkFileMap = new HashMap<String, String>();
+ 					Map<String,Object> remarkFileMap = new HashMap<String, Object>();
  					remarkFileMap.put("url", remarksFile.getUrl());
  					remarkFileMap.put("name", remarksFile.getFileName());
  					
@@ -128,7 +125,7 @@ public class OrderController extends BaseController {
  			List<OrderItem> orderitems = en.getOrderItems();
  			List<Map<String, Object>> goodsList = new ArrayList<Map<String,Object>>();
  			for (OrderItem orderItem : orderitems) {
- 				Map mapG = new HashMap<String, String>();
+ 				Map<String,Object> mapG = new HashMap<String, Object>();
  				mapG.put("sn", orderItem.getSn());
  				mapG.put("name", orderItem.getName());
  				mapG.put("unit", "");

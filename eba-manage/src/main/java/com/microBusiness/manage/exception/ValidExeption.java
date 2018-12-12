@@ -3,16 +3,14 @@ package com.microBusiness.manage.exception;
 import com.microBusiness.manage.util.Code;
 
 /**
- * Created by mingbai on 2017/3/22.
- * 功能描述：
- * 修改记录：
  */
 public class ValidExeption extends RuntimeException {
 
-    private Code code ;
+	private static final long serialVersionUID = -8303591734909584575L;
 
-    private String message ;
-
+	private Code code ;
+    @SuppressWarnings("unused")
+	private String message ;
 
     public Code getCode() {
         return code;

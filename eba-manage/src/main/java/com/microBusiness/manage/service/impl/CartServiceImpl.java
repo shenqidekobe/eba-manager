@@ -1,13 +1,6 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
-
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 

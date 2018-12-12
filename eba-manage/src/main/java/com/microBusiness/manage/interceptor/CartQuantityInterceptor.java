@@ -1,19 +1,12 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.microBusiness.manage.entity.Cart;
-import com.microBusiness.manage.util.WebUtils;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.microBusiness.manage.entity.Cart;
 import com.microBusiness.manage.util.WebUtils;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class CartQuantityInterceptor extends HandlerInterceptorAdapter {
 

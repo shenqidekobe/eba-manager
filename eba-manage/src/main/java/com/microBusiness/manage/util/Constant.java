@@ -134,7 +134,7 @@ public class Constant {
     //public static final String SMALL_SECRET = "9ca2a9ad34738bfaf7b7e19699a57c55";
     
     // 消息通知，订单详情
-    public static final String PAGE_PATH = "pages/orderinfo/orderinfo?orderId=%d";
+    public static final String PAGE_PATH = "/pages/index/my/order-show/index?orderId=%d";
     
     //微信公众号获取code的返回类型，固定
     public static final String RESPONSE_TYPE = "code";

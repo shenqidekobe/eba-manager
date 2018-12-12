@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/ass/assChildMember")
 public class AssChildMemberController extends BaseController{
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	public Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Resource
 	private WeChatService weChatService;
@@ -155,6 +155,7 @@ public class AssChildMemberController extends BaseController{
 	 * @param response
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
 	public JsonEntity update(AssChildMember assChildMember, HttpServletRequest request, HttpServletResponse response) {

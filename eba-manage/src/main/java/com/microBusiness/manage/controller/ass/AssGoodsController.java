@@ -14,12 +14,15 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.entity.BaseEntity;
-import com.microBusiness.manage.entity.CartItem;
 import com.microBusiness.manage.entity.JsonEntity;
-import com.microBusiness.manage.entity.ass.AssCart;
 import com.microBusiness.manage.entity.ass.AssCartItem;
 import com.microBusiness.manage.entity.ass.AssChildMember;
 import com.microBusiness.manage.entity.ass.AssCustomerRelation;
@@ -32,12 +35,6 @@ import com.microBusiness.manage.service.ass.AssGoodsService;
 import com.microBusiness.manage.service.ass.AssGoodsSyncLogService;
 import com.microBusiness.manage.service.ass.AssProductService;
 import com.microBusiness.manage.util.Code;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("assGoodsController")
 @RequestMapping("/ass/goods")
@@ -68,7 +65,7 @@ public class AssGoodsController extends BaseController {
 		if(null == assGoods.getName()) {
 			return JsonEntity.error(Code.code13002, Code.code13002.getDesc()); 
 		}
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		//获取供应商信息
 		AssCustomerRelation assCustomerRelation = assCustomerRelationService.findByCustomerRelation(assCustomerRelationId);
 		if(assCustomerRelation == null || assCustomerRelation.getId() == null) {
@@ -102,9 +99,10 @@ public class AssGoodsController extends BaseController {
 	 * @param goodId 商品id
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@RequestMapping(value = "/findAssGoods" , method = RequestMethod.GET)
 	public @ResponseBody JsonEntity editAssGoods(Long goodId , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == goodId) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
@@ -172,7 +170,7 @@ public class AssGoodsController extends BaseController {
 			return JsonEntity.error(Code.code13002, Code.code13002.getDesc());
 		}
 		//获取账号信息
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		List<AssProduct> assProducts = assProductListFrom.getpAssProducts();
 		if(assProducts == null) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
@@ -200,7 +198,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/deleteAssGoods" , method = RequestMethod.POST)
 	public @ResponseBody JsonEntity deleteAssGoods(Long id , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == id) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		}
@@ -235,7 +233,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/getSpecifications" , method = RequestMethod.GET)
 	public @ResponseBody JsonEntity getSpecifications(Long id , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		List<Map<String, Object>> resultMap = new ArrayList<Map<String,Object>>();
 		if(null == id) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
@@ -261,7 +259,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/supplierGoodsList" , method = RequestMethod.GET)
 	public @ResponseBody JsonEntity supplierGoodsList(Long assCustomerRelationId , String name , Pageable pageable , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == assCustomerRelationId) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		}
@@ -325,7 +323,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/goodsByList" , method = RequestMethod.GET)
 	public @ResponseBody JsonEntity goodsByList(Long assCustomerRelationId , String name , Pageable pageable , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == assCustomerRelationId) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		}
@@ -396,7 +394,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/copyGoods" , method = RequestMethod.POST)
 	public @ResponseBody JsonEntity copyGoods(Long assCustomerRelationId , Long goodsId , String unionId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == assCustomerRelationId) {
 			return JsonEntity.error(Code.code13003, Code.code13003.getDesc());
 		}
@@ -431,7 +429,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/viewAssGoodDetails" , method = RequestMethod.GET)
 	public @ResponseBody JsonEntity viewAssGoodDetails(String unionId , Long goodsId) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == goodsId) {
 			return JsonEntity.error(Code.code13011, Code.code13011.getDesc());
 		}
@@ -454,7 +452,7 @@ public class AssGoodsController extends BaseController {
 	 */
 	@RequestMapping(value = "/updateAssGoodDetails" , method = RequestMethod.POST)
 	public @ResponseBody JsonEntity updateAssGoodDetails(String unionId , Long goodsId , String detailsDescription , DetailsImageFrom detailsImageFrom) {
-		AssChildMember assChildMember = super.getAssChildMember(unionId);
+		//AssChildMember assChildMember = super.getAssChildMember(unionId);
 		if(null == goodsId) {
 			return JsonEntity.error(Code.code13011, Code.code13011.getDesc());
 		}
@@ -540,6 +538,7 @@ public class AssGoodsController extends BaseController {
 	 * @param response
 	 * @return
 	 */
+	@SuppressWarnings("serial")
 	@RequestMapping(value = "/getShare" , method = RequestMethod.GET)
 	@ResponseBody
 	public JsonEntity getShare(String unionId,String sn, HttpServletRequest request, HttpServletResponse response){
