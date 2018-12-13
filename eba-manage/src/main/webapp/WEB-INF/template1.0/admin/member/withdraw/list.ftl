@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>${message("admin.order.list")} - Powered By microBusiness</title>
+		<title>提现列表</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="stylesheet" type="text/css" href="${base}/resources/admin1.0/H-ui/static/h-ui/css/H-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="${base}/resources/admin1.0/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
@@ -89,10 +89,7 @@
 					</div>		
 				</div>
 				
-				
-				
-				
-				
+
 				<button type="submit" class="search_button">查询</button>
 				<div class="ch_operate">
 					<!--<button type="button" class="op_button del_B disabled" id="deleteButton">${message("admin.common.delete")}<button>-->
@@ -114,7 +111,7 @@
 					<thead>
 						<tr class="text-l">
 							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
-							<th width="15%">编号</th>
+							<th width="12%">编号</th>
 							<th width="10%">提现金额</th>
 							<th width="10%">提现方式</th>
 							<th width="10%">提现账户</th>
@@ -122,7 +119,7 @@
 							<th width="10%">状态</th>
 							<th width="14%">申请时间</th>
 							<th width="14%">处理时间</th>
-							<th width="6%">${message("admin.common.action")}</th>
+							<th width="8%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
 				</table>
@@ -135,7 +132,7 @@
 										<input class="selectAll" type="checkbox" id="selectAll">
 									</div>
 								</th>
-								<th width="15%"><div class="th_div">编号</div></th>
+								<th width="12%"><div class="th_div">编号</div></th>
 								<th width="10%"><div class="th_div">提现金额</div></th>
 								<th width="10%"><div class="th_div">提现方式</div></th>
 								<th width="10%"><div class="th_div">提现账户</div></th>
@@ -143,7 +140,7 @@
 								<th width="10%"><div class="th_div">状态</div></th>
 								<th width="14%"><div class="th_div">申请时间</div></th>
 								<th width="14%"><div class="th_div">处理时间</div></th>
-								<th width="6%"><div class="th_div">${message("admin.common.action")}</div></th>
+								<th width="8%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -167,7 +164,11 @@
 									${order.status.label}
 								</td>
 								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
-                                <td><span title="${order.processTime?string("yyyy-MM-dd HH:mm:ss")}">${order.processTime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
+                                <td>
+                                   [#if order.processTime??]
+                                   <span title="${order.processTime?string("yyyy-MM-dd HH:mm:ss")}">${order.processTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+                                   [/#if]
+                                </td>
 								<td class="td-manage">
 									<a title="${message("admin.common.view")}" href="edit.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
 								</td>

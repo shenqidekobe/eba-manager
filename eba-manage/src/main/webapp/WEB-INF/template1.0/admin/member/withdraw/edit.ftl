@@ -25,7 +25,7 @@
 		.opera_butt{position:absolute;top:0;right:0; margin-top:5px;}
 		.col-sm-7{width:80%;}
 	</style>
-<title>${message("admin.admin.edit")} - Powered By DreamForYou</title>
+<title>编辑提现</title>
 </head>
 <body>
 	<div class="child_page"><!--内容外面的大框-->	
