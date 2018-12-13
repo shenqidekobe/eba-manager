@@ -74,6 +74,7 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
 			childMember.setMember(member);
 		}
 		if(childMember.getId() == null){
+			childMember.setIsShoper(false);
 			childMember = super.save(childMember);
 		}else{
 			childMember = super.update(childMember);
