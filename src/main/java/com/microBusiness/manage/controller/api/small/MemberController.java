@@ -121,8 +121,9 @@ public class MemberController extends BaseController {
 	//申请提现
     @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
 	@ResponseBody
-	public JsonEntity withdraw(String smOpenId,String account,String accountName,String phone,
-			BigDecimal amount,String type) {
+	public JsonEntity withdraw(String smOpenId,String account,
+			String accountName,String phone,String way,
+			BigDecimal amount,String types) {
     	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
     	Member member = childMember.getMember();
     	if(amount==null||StringUtils.isEmpty(account)) {
@@ -135,14 +136,15 @@ public class MemberController extends BaseController {
     		return JsonEntity.error(Code.code132,"提现金额最低不能低于1元！");
     	}
     	if(member.getBalance().compareTo(amount)==-1) {
-    		return JsonEntity.error(Code.code132,"提现金额超过了您的余额！");
+    		return JsonEntity.error(Code.code123,"提现金额超过了您的余额！");
     	}
-    	if("all".equals(type)){
+    	if(types!=null&&"all".equals(types)){
     		amount=member.getBalance();//全部提现
     	}
     	Withdraw withdraw=new Withdraw();
     	withdraw.setMember(childMember);
     	withdraw.setAccount(account);
+    	withdraw.setWay(way);
     	withdraw.setAccountName(accountName);
     	withdraw.setAmount(amount);
     	withdrawService.createWithdraw(withdraw);
@@ -183,7 +185,7 @@ public class MemberController extends BaseController {
 	 */
 	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
 	public @ResponseBody
-	JsonEntity incomeList(String unionId, String smOpenId, Long proxyUserId, 
+	JsonEntity incomeList(String unionId, String smOpenId, 
 			Pageable pageable,  Date startDate, Date endDate, String searchName, String ts) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<MemberIncome> incomeList = new ArrayList<MemberIncome>();

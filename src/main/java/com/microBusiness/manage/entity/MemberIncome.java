@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 会员收益记录
@@ -31,6 +34,7 @@ public class MemberIncome extends BaseEntity<Long> {
 	private String remark;
 	
 	private Long orderId;//收益来源的订单
+	private Long correId;//关联ID
 	
 	
 	public String getTitle() {
@@ -52,6 +56,8 @@ public class MemberIncome extends BaseEntity<Long> {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false, updatable = false)
 	public ChildMember getMember() {
@@ -77,6 +83,21 @@ public class MemberIncome extends BaseEntity<Long> {
 	}
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+	public Long getCorreId() {
+		return correId;
+	}
+	public void setCorreId(Long correId) {
+		this.correId = correId;
+	}
+	
+	
+	@Transient
+	public String getLobm() {
+		if(types==null)return "+";
+		if(TYPE_INCOME.equals(types))return "+";
+		if(TYPE_WITHDRAW.equals(types))return "-";
+		return "+";
 	}
 	
 }

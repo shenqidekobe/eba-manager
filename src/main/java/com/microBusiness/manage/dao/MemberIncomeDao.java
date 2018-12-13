@@ -9,6 +9,8 @@ import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.MemberIncome;
 
 public interface MemberIncomeDao extends BaseDao<MemberIncome, Long> {
+	
+	MemberIncome getByCorreId(Long correId,String types);
 
 	public List<MemberIncome> query(ChildMember member);
 	
