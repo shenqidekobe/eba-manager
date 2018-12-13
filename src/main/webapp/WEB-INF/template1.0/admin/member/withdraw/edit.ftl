@@ -60,7 +60,14 @@
 									<span class="input_no_span">${obj.phone}</span>
 								</div>
 							</div>
-
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">
+                                                                                                                       提现方式
+                                </label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                   <span class="input_no_span">${obj.wayName}</span>
+                                </div>
+                            </div>
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">
                                                                                                                        提现账户

@@ -468,6 +468,31 @@
 		                       	
 		                       	-->
 		                    </div>
+		                    <div name="firstDiv"> 
+		                      	<div class="check-box">
+		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">内容</span>
+		                        </div>
+                                <div style="padding-left:70px;" name="secondDiv">
+                                    <div class="check-box">
+                                        <input type="checkbox" name="two" /><span>广告管理</span>
+                                    </div>
+                                    <div style="padding-left:100px;" name="thirdDiv">
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:ad" [#if role.authorities?seq_contains("admin:ad")] checked="checked"[/#if]/><span>广告</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-left:70px;" name="secondDiv">
+                                    <div class="check-box">
+                                        <input type="checkbox" name="two" /><span>广告位管理</span>
+                                    </div>
+                                    <div style="padding-left:100px;" name="thirdDiv">
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:adPosition" [#if role.authorities?seq_contains("admin:adPosition")] checked="checked"[/#if]/><span>广告位</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 		                     <div name="firstDiv"> 
 		                      	<div class="check-box">
 		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">会员</span>
