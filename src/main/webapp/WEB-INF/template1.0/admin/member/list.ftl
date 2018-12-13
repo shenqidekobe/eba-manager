@@ -42,6 +42,14 @@
 			</div>
 		<form id="listForm" action="list.jhtml" method="get">
 			<div class="ch_condition">
+				<div class="require_search" id="filterMenu">
+					<span class="search">店主筛选</span>
+					<ul class="check">
+						<li name="isShoper" val="">店主筛选</li>
+                        <li name="isShoper"[#if isShoper?? && isShoper] class="checked"[/#if] val="true">店主</li>
+						<li name="isShoper"[#if isShoper?? && !isShoper] class="checked"[/#if] val="false">普通用户</li>
+					</ul>
+				</div>
 				<div class="ch_search">
 					<img class="search_img" src="${base}/resources/admin1.0/images/sousuo_icon.svg" alt="" />
 					<div class="search_input">
@@ -78,11 +86,12 @@
 				<table class="table table-border table-hover table_width">
 					<thead>
 						<tr class="text-l">
-							<th width="15%">昵称</th>
-							<th width="20%">openID</th>
+							<th width="10%">昵称</th>
+							<th width="18%">openID</th>
 							<th width="10%">余额</th>
 							<th width="10%">累计收益</th>
-							<th width="20%">注册时间</th>
+							<th width="10%">是否店主</th>
+							<th width="15%">注册时间</th>
 							<th width="10%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
@@ -91,11 +100,12 @@
 					<table class="table table-border table-hover table_width">
 						<thead>
 							<tr class="text-l">
-								<th width="15%"><div class="th_div">昵称</div></th>
-								<th width="20%"><div class="th_div">openID</div></th>
+								<th width="10%"><div class="th_div">昵称</div></th>
+								<th width="18%"><div class="th_div">openID</div></th>
 								<th width="10%"><div class="th_div">余额</div></th>
-								<th width="10%"><div class="th_div">手机号</div></th>
-								<th width="20%"><div class="th_div">${message("admin.common.createDate")}</div></th>
+								<th width="10%"><div class="th_div">累计收益</div></th>
+								<th width="10%"><div class="th_div">是否店主</div></th>
+								<th width="15%"><div class="th_div">${message("admin.common.createDate")}</div></th>
 								<th width="10%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
@@ -106,6 +116,7 @@
 								<td>${member.smOpenId}</td>
 								<td>${member.member.balance}</td>
 								<td>${member.member.income}</td>
+								<td>${member.member.isShoper}</td>
 								<td>
 									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</td>
