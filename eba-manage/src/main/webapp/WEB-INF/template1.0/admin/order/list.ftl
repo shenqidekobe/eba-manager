@@ -159,7 +159,7 @@
 				<table class="table table-border table-hover table_width">
 					<thead>
 						<tr class="text-l">
-							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
+							<th width="4%">ID</th>
 							<th width="15%">${message("Order.sn")}</th>
 							<th width="11%">${message("Order.amount")}</th>
 							<th width="13%">用户昵称</th>
@@ -176,7 +176,7 @@
 							<tr class="text-l">
 								<th width="4%" style="">
 									<div class="th_div" style="">
-										<input class="selectAll" type="checkbox" id="selectAll">
+										ID
 									</div>
 								</th>
 								<th width="15%"><div class="th_div">${message("Order.sn")}</div></th>
@@ -191,7 +191,7 @@
 						<tbody>
 						[#list page.content as order]
 							<tr class="text-l">
-								<td><input type="checkbox" name="ids" value="${order.id}"></td>
+								<td>${order.id}</td>
 								<td>
 									${order.sn}
 									<!--[#if order.type != "general" && order.type != "formal"]
