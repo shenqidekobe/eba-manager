@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.util.ArrayList;
@@ -20,11 +15,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.microBusiness.manage.BaseAttributeConverter;
-
-import com.microBusiness.manage.BaseAttributeConverter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.microBusiness.manage.BaseAttributeConverter;
 
 @Entity
 @Table(name = "xx_attribute")

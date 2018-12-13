@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.math.BigDecimal;
@@ -21,18 +16,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.util.SystemUtils;
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.util.SystemUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -42,6 +31,12 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.time.DateUtils;
 
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.util.SystemUtils;
+
+/**
+ * 购物车
+ * */
 @Entity
 @Table(name = "xx_cart")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_cart")
