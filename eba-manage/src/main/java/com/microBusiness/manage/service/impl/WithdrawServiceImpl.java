@@ -14,6 +14,7 @@ import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.MemberDao;
 import com.microBusiness.manage.dao.MemberIncomeDao;
 import com.microBusiness.manage.dao.OrderNewsPushDao;
+import com.microBusiness.manage.dao.SupplierDao;
 import com.microBusiness.manage.dao.WithdrawDao;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Member;
@@ -36,6 +37,9 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 	private MemberIncomeDao memberIncomeDao;
 	@Resource
 	private OrderNewsPushDao orderNewsPushDao;
+	@Resource
+	private SupplierDao supplierDao;
+	
 	
 	
 	@Override
@@ -52,9 +56,18 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 		obj.setStatus(Withdraw.Withdraw_Status.await);
 		withdrawDao.persist(obj);
 		
+		//插入提现记录
+		MemberIncome income = new MemberIncome();
+		income.setAmount(obj.getAmount());
+		income.setTypes(MemberIncome.TYPE_WITHDRAW);
+		income.setMember(obj.getMember());
+		income.setTitle("提现");
+		income.setCreateDate(new Date());
+		income.setCorreId(obj.getId());
+		memberIncomeDao.persist(income);
+		
 		//后台消息推送
-		Supplier supplier=new Supplier();
-		supplier.setId(1l);
+		Supplier supplier=supplierDao.find(1l);
 		OrderNewsPush newsPush = new OrderNewsPush();
 		newsPush.setLinkId(obj.getId());
 		newsPush.setSn(obj.getSn());
@@ -81,14 +94,23 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 			memberDao.persist(member1);
 		}
 		if(Withdraw_Status.complete.equals(obj.getStatus())){
-			//提现成功保存到收益记录一条支出
-			MemberIncome income = new MemberIncome();
-			income.setAmount(obj.getAmount());
-			income.setTypes(MemberIncome.TYPE_WITHDRAW);
-			income.setMember(obj.getMember());
-			income.setTitle("提现成功");
-			income.setCreateDate(new Date());
-			memberIncomeDao.persist(income);
+			MemberIncome income=this.memberIncomeDao.getByCorreId(obj.getId(), MemberIncome.TYPE_WITHDRAW);
+			if(income!=null) {
+				income.setRemark("提现成功");
+				memberIncomeDao.persist(income);
+			}
+		}if(Withdraw_Status.fail.equals(obj.getStatus())){
+			MemberIncome income=this.memberIncomeDao.getByCorreId(obj.getId(), MemberIncome.TYPE_WITHDRAW);
+			if(income!=null) {
+				income.setRemark("提现失败");
+				memberIncomeDao.persist(income);
+			}
+		}if(Withdraw_Status.repeal.equals(obj.getStatus())){
+			MemberIncome income=this.memberIncomeDao.getByCorreId(obj.getId(), MemberIncome.TYPE_WITHDRAW);
+			if(income!=null) {
+				income.setRemark("取消提现");
+				memberIncomeDao.persist(income);
+			}
 		}
 		obj.setProcessTime(new Date());
 		withdrawDao.persist(obj);

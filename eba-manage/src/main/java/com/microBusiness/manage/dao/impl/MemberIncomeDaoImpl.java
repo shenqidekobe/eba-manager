@@ -3,6 +3,7 @@ package com.microBusiness.manage.dao.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -18,6 +19,22 @@ import com.microBusiness.manage.entity.MemberIncome;
 
 @Repository("memberIncomeDaoImpl")
 public class MemberIncomeDaoImpl extends BaseDaoImpl<MemberIncome, Long> implements MemberIncomeDao {
+	
+	@Override
+	public MemberIncome getByCorreId(Long correId,String types) {
+		if (correId==null) {
+			return null;
+		}
+		try {
+			String jpql = "select a from MemberIncome a where a.correId = :correId and a.types=:types";
+			List<MemberIncome> list=entityManager.createQuery(jpql, MemberIncome.class).
+					setParameter("correId", correId).
+					setParameter(types, types).getResultList();
+			return list.isEmpty()?null:list.get(0);
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 	@Override
 	public List<MemberIncome> query(ChildMember member) {
@@ -41,7 +58,7 @@ public class MemberIncomeDaoImpl extends BaseDaoImpl<MemberIncome, Long> impleme
 		criteriaQuery.select(root);
 		Predicate restrictions = criteriaBuilder.conjunction();
 		if (type != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("types"), type));
 		}
 		if (member != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));

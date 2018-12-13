@@ -323,6 +323,81 @@ public class IndexController extends BaseController {
     }
 	
 	
+	/**
+	 * 精选TOP商品
+	 * */
+	@SuppressWarnings("serial")
+	@RequestMapping(value = "/top/list", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonEntity topList(String unionId, String smOpenId, Long supplierId ,Long relationId, 
+    		HttpServletRequest request , HttpServletResponse response){
+		if(supplierId == null){
+			supplierId = 1l;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+        
+		//会员商品
+		List<Filter> filters = new ArrayList<Filter>();
+		Filter filter = new Filter();
+		
+		Order orderDir = new Order();
+		orderDir.setDirection(Direction.asc);
+		orderDir.setProperty("order");
+		List<Order> orders = new ArrayList<Order>();
+		orderDir = new Order();
+		orderDir.setDirection(Direction.desc);
+		orderDir.setProperty("hits");
+		orders.add(orderDir);
+		filters = new ArrayList<Filter>();
+		filter = new Filter();
+		filter.setIgnoreCase(true);
+		filter.setOperator(Operator.eq);
+		filter.setProperty("deleted");
+		filter.setValue(false);
+		filters.add(filter);
+		filter = new Filter();
+		filter.setIgnoreCase(true);
+		filter.setOperator(Operator.eq);
+		filter.setProperty("isMarketable");
+		filter.setValue(true);
+		filters.add(filter);
+		List<Goods> goodsList = goodsService.findList(0, 20, filters, orders);
+		 List<Map<String, Object>> goodsMapList = new ArrayList<Map<String,Object>>();
+		 for(final Goods goods : goodsList) {
+			 goodsMapList.add(new HashMap<String, Object>(){{
+				 this.put("goodsId", goods.getId());
+				 this.put("name", goods.getName());
+				 this.put("image", goods.getImage());
+				 if(StringUtils.isNotBlank(goods.getImage())){
+						String storePath = goods.getImage();
+						String destMediumPath = getMImagePath(storePath);
+						this.put("image", destMediumPath);
+					}
+				 this.put("specification", goods.getSpecificationItems());
+				 this.put("price", goods.getDefaultProduct().getPrice());
+				 this.put("sales", goods.getSales());
+				 this.put("hasSpecifications", goods.hasSpecification());
+				 List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
+				 for (Product product : goods.getProducts()) {
+					 Map<String, Object> pmap = new HashMap<String, Object>();
+					 pmap.put("productId", product.getId());
+					 pmap.put("price", product.getPrice());
+					 pmap.put("sales", product.getSales());
+					 pmap.put("minOrderQuantity", product.getMinOrderQuantity());
+					 pmap.put("addValue", product.getAddValue());
+					 pmap.put("specifications", product.getSpecifications());
+					 productList.add(pmap);
+					 this.put("products", productList);
+				}
+			 }});
+		 }
+		 map.put("goodsList", goodsMapList);
+		
+        return JsonEntity.successMessage(map);
+    }
+	
+	
 	
 	public String getMImagePath(String storePath){
 		logger.debug(storePath);

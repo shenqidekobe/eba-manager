@@ -14,6 +14,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.search.annotations.Indexed;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 提现数据
  * */
@@ -24,6 +26,11 @@ import org.hibernate.search.annotations.Indexed;
 public class Withdraw extends BaseEntity<Long>{
 	
 	private static final long serialVersionUID = 1709980369605052257L;
+	
+	
+	public static final String WAY_WECHAT="wechat";
+	public static final String WAY_ALIPAY="alipay";
+	public static final String WAY_UNIONPAY="unionpay";
 
 	public enum Withdraw_Status{
 		await("待审核"),
@@ -44,6 +51,7 @@ public class Withdraw extends BaseEntity<Long>{
 	private Withdraw_Status status;//状态
 	private BigDecimal amount;//提现金额
 	private BigDecimal fee;//提现手续费
+	private String way;//提现方式
 	private String phone;//联系电话
 	private String account;//提现账户
 	private String accountName;//账户姓名
@@ -100,6 +108,12 @@ public class Withdraw extends BaseEntity<Long>{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	public String getWay() {
+		return way;
+	}
+	public void setWay(String way) {
+		this.way = way;
+	}
 	@Column(nullable = false)
 	public Withdraw_Status getStatus() {
 		return status;
@@ -108,6 +122,7 @@ public class Withdraw extends BaseEntity<Long>{
 	public void setStatus(Withdraw_Status status) {
 		this.status = status;
 	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false, updatable = false)
 	public ChildMember getMember() {
@@ -137,5 +152,13 @@ public class Withdraw extends BaseEntity<Long>{
 			break;
 		}
 		return val;
+	}
+	@Transient
+	public String getWayName() {
+		if(way==null)return "微信";
+		if(WAY_WECHAT.equals(way))return "微信";
+		if(WAY_ALIPAY.equals(way))return "支付宝";
+		if(WAY_UNIONPAY.equals(way))return "银行卡";
+		return "微信";
 	}
 }
