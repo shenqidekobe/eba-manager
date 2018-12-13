@@ -215,7 +215,7 @@ public class MemberController extends BaseController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Pageable pageable,Date startDate,Date endDate,String nickName,
-			String smOpenId,ChildMember.SourceType type,
+			String smOpenId,ChildMember.SourceType type,Boolean isShoper,
 			Long parentId,String searchName,ModelMap model) {
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findAll());
@@ -234,7 +234,7 @@ public class MemberController extends BaseController {
         if(parentId!=null) {
         	parent=this.childMemberService.find(parentId);
         }
-		model.addAttribute("page", childMemberService.findPage(nickName, smOpenId, type, parent, startDate, endDate, pageable));
+		model.addAttribute("page", childMemberService.findPage(nickName, smOpenId, type,isShoper, parent, startDate, endDate, pageable));
 		return "/admin/member/list";
 	}
 

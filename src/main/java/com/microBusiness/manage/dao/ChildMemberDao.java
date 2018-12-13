@@ -20,6 +20,6 @@ public interface ChildMemberDao extends BaseDao<ChildMember , Long> {
     
     ChildMember findBySmOpenId(String smOpenId);
     
-    Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+    Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
 			ChildMember parent,Date startDate,Date endDate,Pageable pageable);
 }

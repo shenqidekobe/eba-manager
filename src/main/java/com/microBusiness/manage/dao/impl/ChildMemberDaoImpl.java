@@ -51,7 +51,7 @@ public class ChildMemberDaoImpl extends BaseDaoImpl<ChildMember , Long> implemen
     }
     
     @Override
-    public  Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+    public  Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
  			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
     	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<ChildMember> criteriaQuery = criteriaBuilder.createQuery(ChildMember.class);
@@ -69,6 +69,9 @@ public class ChildMemberDaoImpl extends BaseDaoImpl<ChildMember , Long> implemen
 		}
 		if (type != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("sourceType"), type));
+		}
+		if (isShoper != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isShoper"), isShoper));
 		}
 		if (startDate != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("createDate"), startDate));

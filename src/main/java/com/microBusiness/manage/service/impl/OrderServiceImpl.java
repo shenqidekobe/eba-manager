@@ -1266,7 +1266,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Assert.isTrue(!order.isNew());
 		Assert.state(!order.hasExpired()/* && Order.Status.received.equals(order.getStatus())*/);
 
-		Member member = order.getMember();
+		Member member = order.getBuyMember();
+		ChildMember child=order.getChildMember();
 		Boolean isShoper=false;
 		//产品销量增加
 		for (OrderItem orderItem : order.getOrderItems()) {
@@ -1277,6 +1278,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			}
 		}
 		member.setIsShoper(isShoper);
+		child.setIsShoper(isShoper);
+		this.childMemberDao.persist(child);
+		
 		//奖励积分
 		if (order.getRewardPoint() > 0) {
 			memberService.addPoint(member, order.getRewardPoint(), PointLog.Type.reward, operator, null);

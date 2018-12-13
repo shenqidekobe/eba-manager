@@ -48,6 +48,7 @@ public class ChildMember extends BaseEntity<Long> {
      * 是否认证
      */
     private Boolean isChecked;
+    private Boolean isShoper;
     
     
     public Boolean getIsChecked() {
@@ -129,6 +130,12 @@ public class ChildMember extends BaseEntity<Long> {
 
 	public String getSmOpenId() {
 		return smOpenId;
+	}
+	public Boolean getIsShoper() {
+		return isShoper;
+	}
+	public void setIsShoper(Boolean isShoper) {
+		this.isShoper = isShoper;
 	}
 
 	@OneToMany(mappedBy = "childMember", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
