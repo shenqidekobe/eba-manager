@@ -87,6 +87,7 @@
 				<table class="table table-border table-hover table_width">
 					<thead>
 						<tr class="text-l">
+						    <th width="5%">ID</th>
 							<th width="10%">昵称</th>
 							<th width="18%">openID</th>
 							<th width="10%">余额</th>
@@ -101,6 +102,7 @@
 					<table class="table table-border table-hover table_width">
 						<thead>
 							<tr class="text-l">
+							    <th width="5%"><div class="th_div">ID</div></th>
 								<th width="10%"><div class="th_div">昵称</div></th>
 								<th width="18%"><div class="th_div">openID</div></th>
 								<th width="10%"><div class="th_div">余额</div></th>
@@ -113,11 +115,14 @@
 						<tbody>
 						[#list page.content as member]
 							<tr class="text-l">
+							    <td>${member.id}</td>
 								<td>${member.nickName}</td>
 								<td>${member.smOpenId}</td>
 								<td>${member.member.balance}</td>
 								<td>${member.member.income}</td>
-								<td>${member.member.isShoper}</td>
+								<td>
+								[#if member.isShoper]是[#else]否[/#if]
+								</td>
 								<td>
 									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</td>

@@ -41,26 +41,8 @@
 				<input type="hidden" name="id" value="${obj.id}" />
 				<div id="tab-system" class="HuiTab">
 					<div >
-						
 						<div class="pag_div">
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
-									提现人
-								</label>
-								<div class="formControls col-xs-8 col-sm-7">
-									<span class="input_no_span">${obj.member.nickName}</span>
-								</div>
-							</div>
-							
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
-									联系电话
-								</label>
-								<div class="formControls col-xs-8 col-sm-7">
-									<span class="input_no_span">${obj.phone}</span>
-								</div>
-							</div>
-                            <div class="row cl">
+						    <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">
                                                                                                                        提现方式
                                 </label>
@@ -68,52 +50,62 @@
                                    <span class="input_no_span">${obj.wayName}</span>
                                 </div>
                             </div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									提现人
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${obj.member.nickName}</span>
+								</div>
+							
+								<label class="form-label col-xs-2 col-sm-2">
+									联系电话
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${obj.phone}</span>
+								</div>
+							</div>
                             <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">
+                                <label class="form-label col-xs-2 col-sm-2">
                                                                                                                        提现账户
                                 </label>
-                                <div class="formControls col-xs-8 col-sm-7">
+                                <div class="formControls col-xs-4 col-sm-4">
                                    <span class="input_no_span">${obj.account}</span>
                                 </div>
-                            </div>
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									账户名称
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 								    <span class="input_no_span">${obj.accountName}</span>
 								    
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									提现金额
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 									<span class="input_no_span">${obj.amount}</span>
 								</div>
-							</div>
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
-									申请时间
-								</label>
-								<div class="formControls col-xs-8 col-sm-7">
-									<span class="input_no_span">${obj.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
-								</div>
-							</div>
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								
+								<label class="form-label col-xs-2 col-sm-2">
 									手续费
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 									<input type="text" class="input-text radius" name="fee" value="${obj.fee}" placeholder="手续费" maxlength="200"/>
 								</div>
 							</div>
-                            <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">
-								状态
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									申请时间
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${obj.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+								</div>
+                                <label class="form-label col-xs-2 col-sm-2">
+								             提现状态
                                 </label>
-                                <div class="formControls col-xs-8 col-sm-7">
+                                <div class="formControls col-xs-4 col-sm-4">
                                     <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
                                     <input type="text" class="downList_val" name="status" value="${obj.status}"/>
                                     <ul class="downList_con">

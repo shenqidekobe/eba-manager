@@ -79,6 +79,7 @@
 							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
 							<th width="15%">收益金额</th>
 							<th width="11%">说明</th>
+							<th width="20%">收益来源</th>
 							<th width="14%">收益时间</th>
 						</tr>
 					</thead>
@@ -94,6 +95,7 @@
 								</th>
 								<th width="15%"><div class="th_div">收益金额</div></th>
 								<th width="11%"><div class="th_div">说明</div></th>
+								<th width="20%"><div class="th_div">收益来源</div></th>
 								<th width="14%"><div class="th_div">收益时间</div></th>
 							</tr>
 						</thead>
@@ -107,6 +109,9 @@
 								</td>
 								<td>
 									${order.title}
+								</td>
+								<td>
+									[#if order.types=='income']订单【${order.orderId}】的${order.level}级返佣收益[#else]提现记录【${order.correId}】[/#if]
 								</td>
 								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
 							</tr>

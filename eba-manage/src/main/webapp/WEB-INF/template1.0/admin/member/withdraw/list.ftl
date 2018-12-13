@@ -110,7 +110,7 @@
 				<table class="table table-border table-hover table_width">
 					<thead>
 						<tr class="text-l">
-							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
+							<th width="5%">ID</th>
 							<th width="12%">编号</th>
 							<th width="10%">提现金额</th>
 							<th width="10%">提现方式</th>
@@ -127,11 +127,7 @@
 					<table class="table table-border table-hover table_width">
 						<thead>
 							<tr class="text-l">
-								<th width="4%" style="">
-									<div class="th_div" style="">
-										<input class="selectAll" type="checkbox" id="selectAll">
-									</div>
-								</th>
+								<th width="5%"><div class="th_div">ID</div></th>
 								<th width="12%"><div class="th_div">编号</div></th>
 								<th width="10%"><div class="th_div">提现金额</div></th>
 								<th width="10%"><div class="th_div">提现方式</div></th>
@@ -146,7 +142,7 @@
 						<tbody>
 						[#list page.content as order]
 							<tr class="text-l">
-								<td><input type="checkbox" name="ids" value="${order.id}"></td>
+								<td>${order.id}</td>
 								<td>
 									${order.sn}
 								</td>
