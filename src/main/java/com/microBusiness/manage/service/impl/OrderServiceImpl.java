@@ -6919,11 +6919,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 			}
 		}
+		if(c1.getIsShoper()==null||!c1.getIsShoper())return;//上级不是店主不产生收益。。。2、3级是计算收益？
+		
 		String sn=order.getSn();
 		BigDecimal amount=order.getPrice();//订单总金额
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
 		//计算分销商利润
 		if(level == 1){
+			
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
