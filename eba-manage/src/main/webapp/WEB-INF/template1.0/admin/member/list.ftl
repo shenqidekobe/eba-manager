@@ -41,6 +41,7 @@
 				</ul>
 			</div>
 		<form id="listForm" action="list.jhtml" method="get">
+		    <input type="hidden" id="isShoper" name="isShoper" value="${(isShoper?string("true", "false"))!}" />
 			<div class="ch_condition">
 				<div class="require_search" id="filterMenu">
 					<span class="search">店主筛选</span>
