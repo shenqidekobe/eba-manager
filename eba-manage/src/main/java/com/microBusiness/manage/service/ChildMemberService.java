@@ -37,6 +37,6 @@ public interface ChildMemberService extends BaseService<ChildMember , Long> {
     ChildMember saveChildMember(ChildMember childMember);
     
 	
-	Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+	Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
 			ChildMember parent,Date startDate,Date endDate,Pageable pageable);
 }

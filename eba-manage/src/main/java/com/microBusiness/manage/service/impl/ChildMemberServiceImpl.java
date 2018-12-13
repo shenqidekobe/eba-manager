@@ -82,8 +82,8 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
 	}
     
     @Override
-	public Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,
+	public Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
 			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
-    	return childMemberDao.findPage(nickName, smOpenId, type, parent, startDate, endDate, pageable);
+    	return childMemberDao.findPage(nickName, smOpenId, type,isShoper, parent, startDate, endDate, pageable);
     }
 }
