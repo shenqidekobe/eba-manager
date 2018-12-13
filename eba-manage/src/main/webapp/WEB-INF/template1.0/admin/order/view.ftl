@@ -197,6 +197,7 @@
 						<span>${message("admin.order.productInfo")}</span>
 						<span>${message("admin.order.shippingInfo")}</span>
 						<span>${message("admin.order.orderLog")}</span>
+						<span>返佣记录</span>
 					</div>
 					<div class="tabCon">
 						<div class="opera_butt">
@@ -646,6 +647,62 @@
 	                        </div>
                         </div>
                     </div>
+                    
+                    <div class="tabCon">
+						<div class="table_box" style="margin-top:20px;">
+						    [#if order.rakeBack]
+							<table class="table table-border table-hover table_width boo">
+								<thead>
+									<tr class="text-l">
+										<th width="30%">返佣人</th>
+										<th width="20%">级别</th>
+										<th width="50%">返佣金额</th>
+									</tr>
+								</thead>
+							</table>
+							<div class="list_t_tbody">
+								<table class="table table-border table-hover table_width">
+									<thead>
+										<tr class="text-l">
+											<th width="30%"><div class="th_div">返佣人</div></th>
+											<th width="20%"><div class="th_div">级别</div></th>
+											<th width="50%"><div class="th_div">返佣金额</div></th>
+										</tr>
+									</thead>
+									<tbody>
+	                                    <tr class="text-l">
+	                                        <td>${order.done.nickName}</td>
+	                                        <td>一级 </td>
+	                                        <td>${order.done_score}</td>
+	                                    </tr>
+	                                    [#if order.dtwo??]
+	                                    <tr class="text-l">
+	                                        <td>${order.dtwo.nickName}</td>
+	                                        <td>二级 </td>
+	                                        <td>${order.dtwo_score}</td>
+	                                    </tr>
+	                                    [/#if]
+	                                    [#if order.dthree??]
+	                                    <tr class="text-l">
+	                                        <td>${order.dthree.nickName}</td>
+	                                        <td>三级 </td>
+	                                        <td>${order.dthree_score}</td>
+	                                    </tr>
+	                                    [/#if]
+									</tbody>
+								</table>
+								[#else]
+								   <table class="table table-border table-hover table_width boo">
+										<thead>
+											<tr class="text-l">
+												<th width="100%">暂无任何返佣记录</th>
+											</tr>
+										</thead>
+									</table>
+						        [/#if]
+							</div>
+						</div>
+					</div>
 				</div>
 
 
