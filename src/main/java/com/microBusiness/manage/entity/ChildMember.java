@@ -1,13 +1,20 @@
 package com.microBusiness.manage.entity;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
- * Created by mingbai on 2017/2/11.
+ * Created by on 2017/2/11.
  * 功能描述：用户子账号实体
  * 修改记录：
  */
@@ -16,7 +23,12 @@ import javax.persistence.*;
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_child_member")
 public class ChildMember extends BaseEntity<Long> {
 
-    private String openId ;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1448553091140929172L;
+
+	private String openId ;
 
     private Member member ;
 

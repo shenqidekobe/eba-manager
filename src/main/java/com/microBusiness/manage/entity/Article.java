@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.util.ArrayList;
@@ -28,12 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.TemplateConfig;
-import com.microBusiness.manage.util.SystemUtils;
-
-import com.microBusiness.manage.TemplateConfig;
-import com.microBusiness.manage.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.search.annotations.Analyze;
@@ -47,6 +36,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+
+import com.microBusiness.manage.Setting;
+import com.microBusiness.manage.TemplateConfig;
+import com.microBusiness.manage.util.SystemUtils;
 
 @Indexed
 @Entity

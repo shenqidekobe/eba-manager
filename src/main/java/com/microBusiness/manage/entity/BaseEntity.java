@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.io.Serializable;
@@ -18,9 +13,6 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.groups.Default;
 
-import com.microBusiness.manage.listener.EntityListener;
-
-import com.microBusiness.manage.listener.EntityListener;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.DocumentId;
@@ -28,6 +20,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
+
+import com.microBusiness.manage.listener.EntityListener;
 
 @EntityListeners(EntityListener.class)
 @MappedSuperclass

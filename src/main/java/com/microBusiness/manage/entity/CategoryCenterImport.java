@@ -1,22 +1,34 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
-
-import java.util.*;
-
 @Entity
 @Table(name = "xx_category_center_import")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_category_center_import")
 public class CategoryCenterImport extends OrderEntity<Long> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2092636873424788284L;
 
 	public static final String TREE_PATH_SEPARATOR = ",";
 	

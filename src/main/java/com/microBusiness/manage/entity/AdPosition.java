@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import java.util.HashSet;
@@ -20,10 +15,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Filter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * 广告位
+ * */
 @Entity
 @Table(name = "xx_ad_position")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_ad_position")
