@@ -81,7 +81,7 @@
 								            <a class="opt_sel" id="input_trigger_demo3" href="#"></a>
 								        </div>
 									</div>
-									<div class="drop_down" id="dropDown2" style="margin-left:50px;width:160px;">
+									<!--<div class="drop_down" id="dropDown2" style="margin-left:50px;width:160px;">
 										<span class="proxyUserType">所有代理</span>
 										<ul class="check">
 											<li name="proxyUserId" val="0">所有代理</li>
@@ -89,7 +89,7 @@
 					                            <li name="proxyUserId" [#if proxyUser.id == proxyUserId] class="checked"[/#if] val="${proxyUser.id}">[#if proxyUser.grade != 0][#list 1..proxyUser.grade as i]&nbsp;&nbsp;[/#list][/#if]${proxyUser.name}</li>
 					                        [/#list]
 										</ul>
-									</div>
+									</div>-->
 									<button type="button" class="search_B">查询</button>
 									<!--<button type="button" class="op_button daochu_B" id="downButton">导出</button>-->
 								</div>
