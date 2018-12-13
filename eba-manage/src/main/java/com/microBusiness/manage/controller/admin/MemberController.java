@@ -223,6 +223,7 @@ public class MemberController extends BaseController {
 		model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("searchName", searchName);
+        model.addAttribute("isShoper", isShoper);
         
         if(startDate != null) {
         	startDate = DateUtils.specifyDateZero(startDate);
