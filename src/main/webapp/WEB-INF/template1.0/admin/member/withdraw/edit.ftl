@@ -120,7 +120,7 @@
                                 	备注说明
                                 </label>
                                 <div class="formControls col-xs-8 col-sm-7">
-                                    <textarea id="remark" name="remark" rows="5" class="text_area" cols="50" placeholder="如审核请输入审核原因">${obj.remark}</textarea>
+                                    <textarea id="remark" name="remark" rows="5" class="text_area" cols="90" placeholder="如审核请输入审核原因">${obj.remark}</textarea>
                                 </div>
                             </div>
 						</div>
@@ -129,7 +129,9 @@
 				</div>
 				
 				<div class="footer_submit">
-					<input class="btn radius confir_S" type="submit" value="${message("admin.common.submit")}"/>
+				    [#if obj.status!='complete']
+					   <input class="btn radius confir_S" type="submit" value="${message("admin.common.submit")}"/>
+					[/#if]
 					<input class="btn radius cancel_B" type="button" value="${message("admin.common.back")}" onclick="history.back(); return false;"/>
 				</div>
 			</form>
