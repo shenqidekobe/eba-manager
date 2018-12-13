@@ -115,9 +115,10 @@
 						<tr class="text-l">
 							<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" id="selectAll"></th>
 							<th width="15%">编号</th>
-							<th width="11%">提现金额</th>
-							<th width="13%">提现账户</th>
-							<th width="14%">账户姓名</th>
+							<th width="10%">提现金额</th>
+							<th width="10%">提现方式</th>
+							<th width="10%">提现账户</th>
+							<th width="10%">账户姓名</th>
 							<th width="10%">状态</th>
 							<th width="14%">申请时间</th>
 							<th width="14%">处理时间</th>
@@ -135,9 +136,10 @@
 									</div>
 								</th>
 								<th width="15%"><div class="th_div">编号</div></th>
-								<th width="11%"><div class="th_div">提现金额</div></th>
-								<th width="13%"><div class="th_div">提现账户</div></th>
-								<th width="14%"><div class="th_div">账户姓名</div></th>
+								<th width="10%"><div class="th_div">提现金额</div></th>
+								<th width="10%"><div class="th_div">提现方式</div></th>
+								<th width="10%"><div class="th_div">提现账户</div></th>
+								<th width="10%"><div class="th_div">账户姓名</div></th>
 								<th width="10%"><div class="th_div">状态</div></th>
 								<th width="14%"><div class="th_div">申请时间</div></th>
 								<th width="14%"><div class="th_div">处理时间</div></th>
@@ -153,6 +155,9 @@
 								</td>
 								<td>
 									${currency(order.amount, true)}
+								</td>
+								<td>
+									${order.wayName}
 								</td>
 								<td>
 									${order.account}
