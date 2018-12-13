@@ -6907,6 +6907,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//根据商品利率 判断级别，计算上级返利
 		int level = 0;
 		ChildMember c1 = childMember.getParent();
+		if(c1==null)return;
+		
 		ChildMember c2 = null;
 		ChildMember c3 = null;
 		if(c1 != null){
