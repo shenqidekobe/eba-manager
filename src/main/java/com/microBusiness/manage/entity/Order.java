@@ -314,6 +314,7 @@ public class Order extends BaseEntity<Long> {
 	
 	
 	//分销利润
+	private Boolean rakeBack;//是否返佣
 	private ChildMember done;
 	private BigDecimal done_score;
 	private ChildMember dtwo;
@@ -1035,7 +1036,13 @@ public class Order extends BaseEntity<Long> {
 	public void setReCode(String reCode) {
 		this.reCode = reCode;
 	}
-	
+	public Boolean getRakeBack() {
+		return rakeBack;
+	}
+
+	public void setRakeBack(Boolean rakeBack) {
+		this.rakeBack = rakeBack;
+	}
 
 	/**
 	 * 把Integer订单状态转成Order.Status类型的订单状态

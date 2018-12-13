@@ -1915,6 +1915,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setSupplyType(supplyType);
 			//order.setShop(shop);
 			order.setSupplierType(supplierType);
+			order.setRakeBack(false);
 			
 			orderDao.persist(order);
 			
@@ -6935,6 +6936,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			//分销返利记录
 			order.setDone(c1);
 			order.setDone_score(ratePrice1);
+			order.setRakeBack(true);
 			orderDao.persist(order);
 			
 			MemberIncome income1=new MemberIncome();
@@ -6985,6 +6987,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			
 			order.setDtwo(c2);
 			order.setDtwo_score(ratePrice2);
+			order.setRakeBack(true);
 			orderDao.persist(order);
 			
 			MemberIncome income2=new MemberIncome();
@@ -7064,6 +7067,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			
 			order.setDthree(c3);
 			order.setDthree_score(ratePrice3);
+			order.setRakeBack(true);
 			orderDao.persist(order);
 			
 			MemberIncome income3=new MemberIncome();
