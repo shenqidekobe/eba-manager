@@ -39,6 +39,7 @@
 		<div class="form_box">
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
 				<input type="hidden" name="id" value="${obj.id}" />
+				<input type="hidden" name="way" value="${obj.way}" />
 				<div id="tab-system" class="HuiTab">
 					<div >
 						<div class="pag_div">

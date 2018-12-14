@@ -405,7 +405,7 @@
                             <span class="isMainSellLabel isInLabel">精选</span>
                         </div>
                     </div>
-                    
+                    <!--
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">活动</label>
                         <div class="formControls col-xs-8 col-sm-7">
@@ -415,6 +415,7 @@
                             
                         </div>
                     </div>
+                    -->
                     
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">是否是会员商品</label>
@@ -423,7 +424,7 @@
                         </div>
                     </div>
                     
-                    
+                    <!--
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">一级返利比率</label>
                         <div class="formControls col-xs-8 col-sm-7">
@@ -444,7 +445,7 @@
                             <input type="text" id="rate3" name="rate3" class="input-text radius" placeholder="">
                         </div>
                     </div>
-                    
+                    -->
                     
                    <!-- <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">${message("Product.stock")}</label>
