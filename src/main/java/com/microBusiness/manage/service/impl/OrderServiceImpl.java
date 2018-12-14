@@ -6981,6 +6981,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member1.setIncome(member1.getIncome().add(ratePrice1));
 			member1.setLastDay(lastDay);
 			memberDao.persist(member1);
+			
+			if(c2.getIsShoper()==null||!c2.getIsShoper())return;
+			
 			logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			Float rate2 = distributionRate2;
 			rate2 = rate2 == null ? 0 : rate2;
@@ -7034,33 +7037,35 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			memberDao.persist(member1);
 			logger.info("订单号："+sn+" 的三级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			
-			
-			Float rate2 = distributionRate2;
-			rate2 = rate2 == null ? 0 : rate2;
-			//logger.info("rate2:" + rate2);
-			BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			order.setDtwo(c2);
-			order.setDtwo_score(ratePrice2);
-			
-			
-			MemberIncome income2=new MemberIncome();
-			income2.setMember(c2);
-			income2.setAmount(ratePrice2);
-			income2.setOrderId(order.getId());
-			income2.setTypes(MemberIncome.TYPE_INCOME);
-			income2.setTitle("返佣收益");
-			income2.setLevel(2);
-			memberIncomeDao.persist(income2);
-			
-			Member member2 = c2.getMember();
-			member2.setBalance(member2.getBalance().add(ratePrice2));
-			member2.setIncome(member2.getIncome().add(ratePrice2));
-			member2.setLastDay(lastDay);
-			memberDao.persist(member2);
-			logger.info("订单号："+sn+" 的三级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-			
+			if(c2.getIsShoper()!=null&&c2.getIsShoper()) {
+				
+				Float rate2 = distributionRate2;
+				rate2 = rate2 == null ? 0 : rate2;
+				//logger.info("rate2:" + rate2);
+				BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				order.setDtwo(c2);
+				order.setDtwo_score(ratePrice2);
+				
+				
+				MemberIncome income2=new MemberIncome();
+				income2.setMember(c2);
+				income2.setAmount(ratePrice2);
+				income2.setOrderId(order.getId());
+				income2.setTypes(MemberIncome.TYPE_INCOME);
+				income2.setTitle("返佣收益");
+				income2.setLevel(2);
+				memberIncomeDao.persist(income2);
+				
+				Member member2 = c2.getMember();
+				member2.setBalance(member2.getBalance().add(ratePrice2));
+				member2.setIncome(member2.getIncome().add(ratePrice2));
+				member2.setLastDay(lastDay);
+				memberDao.persist(member2);
+				logger.info("订单号："+sn+" 的三级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
+			}
+			if(c3.getIsShoper()==null||!c3.getIsShoper())return;
 			Float rate3 = distributionRate3;
 			rate3 = rate3 == null ? 0 : rate3;
 			//logger.info("rate3:" + rate3);
@@ -7088,161 +7093,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			memberDao.persist(member3);
 			logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
 		}
-//		for (OrderItem orderItem : order.getOrderItems()) {
-//			if(level == 1){
-//				Float rate1 = distributionRate1;
-//				rate1 = rate1 == null ? 0 : rate1;
-//				BigDecimal price = orderItem.getProduct().getPrice();
-//				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				//分销返利记录
-//				orderItem.setDone(c1);
-//				orderItem.setDone_score(ratePrice1);
-//				orderItemDao.persist(orderItem);
-//				
-//				MemberIncome income1=new MemberIncome();
-//				income1.setMember(c1);
-//				income1.setAmount(ratePrice1);
-//				income1.setOrderId(order.getId());
-//				income1.setTypes(MemberIncome.TYPE_INCOME);
-//				income1.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income1);
-//				//总收益
-//				Member member1 = c1.getMember();
-//				member1.setBalance(member1.getBalance().add(ratePrice1));
-//				member1.setIncome(member1.getIncome().add(ratePrice1));
-//				member1.setLastDay(lastDay);
-//				memberDao.persist(member1);
-//				logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-//				
-//			}else if(level == 2){
-//				Float rate1 = distributionRate1;
-//				rate1 = rate1 == null ? 0 : rate1;
-//				BigDecimal price = orderItem.getProduct().getPrice();
-//				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				orderItem.setDone(c1);
-//				orderItem.setDone_score(ratePrice1);
-//				
-//				MemberIncome income1=new MemberIncome();
-//				income1.setMember(c1);
-//				income1.setAmount(ratePrice1);
-//				income1.setOrderId(order.getId());
-//				income1.setTypes(MemberIncome.TYPE_INCOME);
-//				income1.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income1);
-//				
-//				Member member1 = c1.getMember();
-//				member1.setBalance(member1.getBalance().add(ratePrice1));
-//				member1.setIncome(member1.getIncome().add(ratePrice1));
-//				member1.setLastDay(lastDay);
-//				memberDao.persist(member1);
-//				logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-//				Float rate2 = distributionRate2;
-//				rate2 = rate2 == null ? 0 : rate2;
-//				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				orderItem.setDtwo(c2);
-//				orderItem.setDtwo_score(ratePrice2);
-//				
-//				MemberIncome income2=new MemberIncome();
-//				income2.setMember(c2);
-//				income2.setAmount(ratePrice2);
-//				income2.setOrderId(order.getId());
-//				income2.setTypes(MemberIncome.TYPE_INCOME);
-//				income2.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income2);
-//				
-//				Member member2 = c2.getMember();
-//				member2.setBalance(member2.getBalance().add(ratePrice2));
-//				member2.setIncome(member2.getIncome().add(ratePrice2));
-//				member2.setLastDay(lastDay);
-//				memberDao.persist(member2);
-//				logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-//				orderItemDao.persist(orderItem);
-//			}else if(level == 3){
-//				Float rate1 = distributionRate1;
-//				rate1 = rate1 == null ? 0 : rate1;
-//				//logger.info("rate1:" + rate1);
-//				BigDecimal price = orderItem.getProduct().getPrice();
-//				BigDecimal ratePrice1 = price.multiply(new BigDecimal(rate1))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				orderItem.setDone(c1);
-//				orderItem.setDone_score(ratePrice1);
-//				
-//				MemberIncome income1=new MemberIncome();
-//				income1.setMember(c1);
-//				income1.setAmount(ratePrice1);
-//				income1.setOrderId(order.getId());
-//				income1.setTypes(MemberIncome.TYPE_INCOME);
-//				income1.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income1);
-//				
-//				
-//				Member member1 = c1.getMember();
-//				member1.setBalance(member1.getBalance().add(ratePrice1));
-//				member1.setIncome(member1.getIncome().add(ratePrice1));
-//				member1.setLastDay(lastDay);
-//				memberDao.persist(member1);
-//				logger.info("订单号："+sn+" 的三级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-//				
-//				
-//				Float rate2 = distributionRate2;
-//				rate2 = rate2 == null ? 0 : rate2;
-//				//logger.info("rate2:" + rate2);
-//				BigDecimal ratePrice2 = price.multiply(new BigDecimal(rate2))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				orderItem.setDtwo(c2);
-//				orderItem.setDtwo_score(ratePrice2);
-//				
-//				MemberIncome income2=new MemberIncome();
-//				income2.setMember(c2);
-//				income2.setAmount(ratePrice2);
-//				income2.setOrderId(order.getId());
-//				income2.setTypes(MemberIncome.TYPE_INCOME);
-//				income2.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income2);
-//				
-//				Member member2 = c2.getMember();
-//				member2.setBalance(member2.getBalance().add(ratePrice2));
-//				member2.setIncome(member2.getIncome().add(ratePrice2));
-//				member2.setLastDay(lastDay);
-//				memberDao.persist(member2);
-//				logger.info("订单号："+sn+" 的三级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-//				
-//				Float rate3 = distributionRate3;
-//				rate3 = rate3 == null ? 0 : rate3;
-//				//logger.info("rate3:" + rate3);
-//				BigDecimal ratePrice3 = price.multiply(new BigDecimal(rate3))
-//						.setScale(2, RoundingMode.HALF_UP);
-//				
-//				orderItem.setDthree(c3);
-//				orderItem.setDthree_score(ratePrice3);
-//				
-//				MemberIncome income3=new MemberIncome();
-//				income3.setMember(c3);
-//				income3.setAmount(ratePrice3);
-//				income3.setOrderId(order.getId());
-//				income3.setTypes(MemberIncome.TYPE_INCOME);
-//				income3.setTitle("下级收益提成");
-//				memberIncomeDao.persist(income3);
-//				
-//				Member member3 = c3.getMember();
-//				member3.setBalance(member3.getBalance().add(ratePrice3));
-//				member3.setIncome(member3.getIncome().add(ratePrice3));
-//				member3.setLastDay(lastDay);
-//				memberDao.persist(member3);
-//				logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
-//				
-//				orderItemDao.persist(orderItem);
-//				
-//			}
-//		}
 		if(level>0) {
 			//发送支付成功 告知上级
 			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
