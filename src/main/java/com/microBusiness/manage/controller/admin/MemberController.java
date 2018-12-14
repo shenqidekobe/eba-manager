@@ -350,7 +350,7 @@ public class MemberController extends BaseController {
 		}
 		withdraw.setProcessTime(new Date());
 		if(pWithdraw.getStatus().equals(withdraw.getStatus())){
-			withdrawService.update(withdraw, "sn","member","createDate","account","accountName","phone","amount");
+			withdrawService.update(withdraw, "sn","member","createDate","account","accountName","phone","amount","way");
 		}else{
 			pWithdraw.setStatus(withdraw.getStatus());
 			pWithdraw.setRemark(pWithdraw.getRemark()==null?withdraw.getRemark():pWithdraw.getRemark()+" | "+withdraw.getRemark());

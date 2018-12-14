@@ -1471,7 +1471,23 @@ public class WeChatServiceImpl implements WeChatService {
         Order.Type type = order.getType() ;
         //订单创建类型：正常下单，代下单
         Order.BuyType buyType = order.getBuyType() ;
+        
+        //发货
+        if(Order.OrderStatus.shipped.equals(orderStatus)){
+            //C 端用户接受消息
+            if(!buyType.equals(Order.BuyType.waterSubstitute)){
+                Set<ChildMember> childMembers = member.getChildMembers() ;
+                this.sendTemplateMessageToCustomer(order, orderStatus, accessToken, childMembers, sell, buy, need , smallAccessToken , templateId , smallTemplateId , remark);
+            }
 
+            //订货单消息接受员
+            List<NoticeUser> noticeUsers = noticeUserDao.findList(sell , need , NoticeType.Type.order_shipping) ;
+            this.sendTemplateMessageToOrderNoticeUser(order , accessToken , orderStatus , buy , sell , need , noticeUsers , smallAccessToken , templateId , smallTemplateId , remark) ;
+
+        }
+
+        if(!Order.OrderStatus.shipped.equals(orderStatus))return true;
+        
         if(Order.Type.general.equals(order.getType()) ){//直销单
             logger.debug("直销单发送消息通知开始：");
             //订单创建
@@ -1587,15 +1603,15 @@ public class WeChatServiceImpl implements WeChatService {
             //发货
             if(Order.OrderStatus.shipped.equals(orderStatus)){
 
-                //C 端用户接受消息
-                if(!buyType.equals(Order.BuyType.waterSubstitute)){
-                    Set<ChildMember> childMembers = member.getChildMembers() ;
-                    this.sendTemplateMessageToCustomer(order, orderStatus, accessToken, childMembers, sell, buy, need , smallAccessToken , templateId , smallTemplateId , remark);
-                }
-
-                //订货单消息接受员
-                List<NoticeUser> noticeUsers = noticeUserDao.findList(sell , need , NoticeType.Type.order_shipping) ;
-                this.sendTemplateMessageToOrderNoticeUser(order , accessToken , orderStatus , buy , sell , need , noticeUsers , smallAccessToken , templateId , smallTemplateId , remark) ;
+//                //C 端用户接受消息
+//                if(!buyType.equals(Order.BuyType.waterSubstitute)){
+//                    Set<ChildMember> childMembers = member.getChildMembers() ;
+//                    this.sendTemplateMessageToCustomer(order, orderStatus, accessToken, childMembers, sell, buy, need , smallAccessToken , templateId , smallTemplateId , remark);
+//                }
+//
+//                //订货单消息接受员
+//                List<NoticeUser> noticeUsers = noticeUserDao.findList(sell , need , NoticeType.Type.order_shipping) ;
+//                this.sendTemplateMessageToOrderNoticeUser(order , accessToken , orderStatus , buy , sell , need , noticeUsers , smallAccessToken , templateId , smallTemplateId , remark) ;
 
             }
 
