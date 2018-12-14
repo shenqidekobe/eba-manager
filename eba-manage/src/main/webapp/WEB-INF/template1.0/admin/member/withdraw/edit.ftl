@@ -116,6 +116,14 @@
                                 </div>
                             </div>
                             <div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									打款凭证号
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<input type="text" class="input-text radius" name="voucherNum" value="${obj.voucherNum}" placeholder="打款凭证流水号" maxlength="200"/>
+								</div>
+                            </div>
+                            <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">
                                 	备注说明
                                 </label>
