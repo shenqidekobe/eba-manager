@@ -106,7 +106,7 @@ public class MemberController extends BaseController {
     	member.setYesterdayIncome(yesterdayIncome);
 		Map<String, Object> rootMap = new HashMap<String, Object>();
 		rootMap.put("isChecked", childMember.getIsChecked());
-		rootMap.put("isShoper", member.getIsShoper());
+		rootMap.put("isShoper", childMember.getIsShoper());
 		rootMap.put("point", member.getPoint());
 		rootMap.put("id", member.getId());
 		rootMap.put("balance", member.getBalance());
@@ -150,7 +150,21 @@ public class MemberController extends BaseController {
     	withdrawService.createWithdraw(withdraw);
     	
 		Map<String, Object> rootMap = new HashMap<String, Object>();
-		rootMap.put("id", member.getId());
+		rootMap.put("id", withdraw.getId());
+		return JsonEntity.successMessage(rootMap);
+	}
+    
+    //提现详情
+    @RequestMapping(value = "/withdraw/detail", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonEntity withdrawDetail(String smOpenId,Long id) {
+    	Withdraw obj = withdrawService.find(id);
+    	if(obj==null||!obj.getMember().getSmOpenId().equals(smOpenId)) {
+    		return JsonEntity.error(Code.code132,"数据不存在！");
+    	}
+    	
+		Map<String, Object> rootMap = new HashMap<String, Object>();
+		rootMap.put("obj",obj);
 		return JsonEntity.successMessage(rootMap);
 	}
     

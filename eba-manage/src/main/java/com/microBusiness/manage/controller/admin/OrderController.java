@@ -514,7 +514,7 @@ public class OrderController extends BaseController {
 		orderService.complete(order, admin);
 
 		// TODO: 2017/2/14 发送模版消息
-		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.completed) ;
+		//weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.completed) ;
 
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:view.jhtml?id=" + id;

@@ -29,7 +29,7 @@ public class MemberIncomeDaoImpl extends BaseDaoImpl<MemberIncome, Long> impleme
 			String jpql = "select a from MemberIncome a where a.correId = :correId and a.types=:types";
 			List<MemberIncome> list=entityManager.createQuery(jpql, MemberIncome.class).
 					setParameter("correId", correId).
-					setParameter(types, types).getResultList();
+					setParameter("types", types).getResultList();
 			return list.isEmpty()?null:list.get(0);
 		} catch (NoResultException e) {
 			return null;

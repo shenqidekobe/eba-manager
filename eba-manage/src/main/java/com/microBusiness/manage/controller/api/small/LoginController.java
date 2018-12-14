@@ -126,7 +126,7 @@ public class LoginController extends BaseController{
            if(StringUtils.isNotEmpty(parentOpenId)){
          	  ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
          	  childMember.setParent(parent);
-         	  weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
+         	  //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
            }
            childMemberService.saveChildMember(childMember);
        }else{
@@ -149,7 +149,7 @@ public class LoginController extends BaseController{
        result.put("openId", childMember.getOpenId());
        result.put("unionId", childMember.getUnionId());
        result.put("flag", true);
-       result.put("isShoper", childMember.getMember().getIsShoper());
+       result.put("isShoper", childMember.getIsShoper());
        result.put("nickName", childMember.getNickName());
        result.put("proxyUserId", getProxyUserId(childMember.getSmOpenId()));
        

@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
 import com.microBusiness.manage.entity.Cart;
 import com.microBusiness.manage.entity.CartItem;
 import com.microBusiness.manage.entity.CartItem.CartType;
+import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Need;
@@ -27,6 +30,7 @@ import com.microBusiness.manage.entity.NeedShopProduct;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.OrderItem;
 import com.microBusiness.manage.entity.Product;
+import com.microBusiness.manage.entity.Supplier;
 import com.microBusiness.manage.entity.SupplierNeedProduct;
 import com.microBusiness.manage.entity.SupplierSupplier;
 import com.microBusiness.manage.entity.SupplierType;
@@ -41,8 +45,12 @@ import com.microBusiness.manage.service.OrderService;
 import com.microBusiness.manage.service.ProductService;
 import com.microBusiness.manage.service.ShopService;
 import com.microBusiness.manage.service.SupplierNeedProductService;
+import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.util.Code;
 
+/**
+ * 购物车接口
+ * */
 @Controller("smallCartController")
 @RequestMapping("/api/small/cart")
 public class CartController extends BaseController {
@@ -59,6 +67,8 @@ public class CartController extends BaseController {
 	private OrderService orderService;
 	@Resource
 	private ShopService shopService;
+	@Resource
+	private SupplierService supplierService;
 	@Resource
 	private NeedShopProductService needShopProductService;
 	@Resource
@@ -328,5 +338,65 @@ public class CartController extends BaseController {
 
     	return JsonEntity.successMessage(map);
     }
+    
+    
+	/**
+	 * 获取购物车数量
+	 * 订单项数量
+	 */
+	@RequestMapping(value = "/nums", method = RequestMethod.GET)
+	public @ResponseBody JsonEntity nums(String unionId , String smOpenId, 
+				Long supplierId,Long relationId,Long shopId,Types types,SupplierType supplierType) {
+		ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+		Member member = childMember.getMember();
+		Map<String, Object> resultList = new HashMap<>();
+		if(member == null){
+			return JsonEntity.successMessage(resultList);
+		}
+		Long suppierId = 1l;
+		Supplier supplier = supplierService.find(suppierId);
+		Pageable pageable=new Pageable(1, 888);
+		Page<Order> page = orderService.findPage(null, null, null, member, null,
+				null, null, null, null, null, 
+				null, pageable, supplier, null, null, null, null, childMember);
+		Integer shippedNum=0,completedNum=0,pendingShipmentNum=0;
+		for(Order o:page.getContent()) {
+			switch(o.getStatus()){
+			   case pendingShipment:
+				   pendingShipmentNum++;
+				   break;
+			   case shipped:
+				   shippedNum++;
+				   break;
+			   case completed:
+				   completedNum++;
+				   break;
+			   default:
+				   break;			   
+			}
+		}
+		resultList.put("cartNum", 0);
+		resultList.put("pendingShipmentNum", pendingShipmentNum);
+		resultList.put("shippedNum", shippedNum);
+		resultList.put("completedNum", completedNum);
+		Cart cart;
+		try {
+			cart = member.getCart();
+			if(cart == null){
+				return JsonEntity.successMessage(resultList);
+			}
+		} catch (Exception e) {
+			return JsonEntity.error(Code.code11101, Code.code11101.getDesc());
+		}
+		Set<CartItem> cartItemList;
+		try {
+			cartItemList = cartItemService.getCartItems(cart, null, supplierId, relationId, 
+					supplierType, types);
+		} catch (Exception e) {
+			return JsonEntity.error(Code.code11103, Code.code11103.getDesc());
+		}
+		resultList.put("cartNum", cartItemList.isEmpty()?0:cartItemList.size());
+		return JsonEntity.successMessage(resultList);
+	}
 
 }

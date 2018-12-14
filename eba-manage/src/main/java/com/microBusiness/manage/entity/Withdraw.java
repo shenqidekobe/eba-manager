@@ -58,6 +58,7 @@ public class Withdraw extends BaseEntity<Long>{
 	
 	private Date processTime;//处理时间
 	private String remark;//备注说明
+	private String voucherNum;//打款凭证号
 	
 	
 	public String getSn() {
@@ -132,6 +133,13 @@ public class Withdraw extends BaseEntity<Long>{
 	public void setMember(ChildMember member) {
 		this.member = member;
 	}
+	public String getVoucherNum() {
+		return voucherNum;
+	}
+	public void setVoucherNum(String voucherNum) {
+		this.voucherNum = voucherNum;
+	}
+	
 	
 	@Transient
 	public String getStatusName() {

@@ -1,10 +1,9 @@
 package com.microBusiness.manage.entity;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.Serializable;
 
 /**
  * Created by mingbai on 2017/3/30.
