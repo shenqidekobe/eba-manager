@@ -82,16 +82,14 @@
 				
 				<div class="ch_search">
 					<img class="search_img" src="${base}/resources/admin1.0/images/sousuo_icon.svg" alt="" />
-					<!--<div class="ch_sear_type">
-						<div class="setUp">	
-							<p class="bianhao">编号</p>
-							<span></span>
-							<p class="canzuo">操作员</p>
-						</div>
-					</div>-->
+						
 					<div class="search_input">
-						<input type="text" id="searchName" name="searchName" value="${searchName}" maxlength="200" placeholder="请输入编号/收货点" />
-
+						<input type="text" id="searchName" name="searchName" value="${searchName}" maxlength="200" placeholder="请输入订单编号" />
+					</div>
+				</div>
+				<div class="ch_search">
+				   <div class="search_input">
+					    <input type="text" id="smOpenId" name="smOpenId" style="width:200px" value="${smOpenId}" maxlength="200" placeholder="请输入会员微信ID" />
 					</div>
 				</div>
 				<div>

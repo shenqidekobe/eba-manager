@@ -40,64 +40,105 @@
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
 				<input type="hidden" name="id" value="${member.id}" />
 				<div id="tab-system" class="HuiTab">
+				    <h3 class="form_title" style="margin:20px 0 0 20px;">个人基础数据</h3>
 					<div >
-						
 						<div class="pag_div">
 							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									昵称
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 									<span class="input_no_span">${member.nickName}</span>
 								</div>
-							</div>
 							
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									openID
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 									<span class="input_no_span">${member.smOpenId}</span>
 								</div>
 							</div>
-
+                            <!--
                             <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">
-                                                                                      头像
+                                <label class="form-label col-xs-2 col-sm-2">
+                                                                                                                                  头像
                                 </label>
-                                <div class="formControls col-xs-8 col-sm-7">
-                                   <span class="input_no_span"><img src="${member.headImgUrl}"></span>
+                                <div class="formControls col-xs-8 col-sm-8">
+                                   <span class="input_no_span"><img src="${member.headImgUrl}" width="250px" height="150px"></span>
                                 </div>
-                            </div>
+                            </div>-->
+                            [#if member.isShoper]
+                            <div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									上级昵称
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.parent.nickName}</span>
+								</div>
+							
+								<label class="form-label col-xs-2 col-sm-2">
+									上级openID
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.parent.smOpenId}</span>
+								</div>
+							</div>
+                            [/#if]
 							<div class="row cl">
 								<label class="form-label col-xs-4 col-sm-3">
 									是否店主
 								</label>
 								<div class="formControls col-xs-8 col-sm-7">
-								    <span class="input_no_span">${member.member.isShoper}</span>
+								    <span class="input_no_span">[#if member.isShoper]是[#else]否[/#if]</span>
 								</div>
 							</div>
+							[#if member.isShoper]
 							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									账户余额
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 									<span class="input_no_span">${member.balance}</span>
 								</div>
-							</div>
-							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								
+								<label class="form-label col-xs-2 col-sm-2">
 									累计收益
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 								<span class="input_no_span">${member.income}</span>
 								</div>
 							</div>
+							[/#if]
 						</div>
 						
 					</div>
 				</div>
-				
+				<div class="form_spec">
+                <h3 class="form_title" style="margin:20px 0 0 20px;">地址数据列表</h3>
+                    <div  class="spec_form" style="margin-bottom:10px;">
+                	<div class="table_box">
+	                    <table id="productTable" class="table table-border table-hover table_width">
+	                        <thead>
+								<tr class="text-l">
+									<th width="16%"><div class="th_div">收货人</div></th>
+									<th width="16%"><div class="th_div">手机号</div></th>
+									<th width="16%"><div class="th_div">区域</div></th>
+									<th width="16%"><div class="th_div">地址</div></th>
+								</tr>
+							</thead>
+							<tbody>
+							    [#list addresss.content as ads]
+								<tr class="text-l">
+									<td>${ads.consignee}</td>
+									<td>${ads.phone}</td>
+									<td>${ads.areaName}</td>
+									<td>${ads.address}</td>
+								</tr>
+								[/#list]
+							</tbody>
+						</table>
+					</div>
+				</div>
 				<div class="footer_submit">
 					<input class="btn radius cancel_B" type="button" value="返回" onclick="history.back(); return false;"/>
 				</div>
