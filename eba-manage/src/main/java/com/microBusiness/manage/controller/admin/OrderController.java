@@ -57,6 +57,7 @@ import com.microBusiness.manage.entity.SupplyType;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
 import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.AreaService;
+import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.DeliveryCorpService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.NeedService;
@@ -100,6 +101,8 @@ public class OrderController extends BaseController {
 	@Resource(name = "productServiceImpl")
 	private ProductService productService;
 
+	@Resource
+	private ChildMemberService childMemberService;
 	@Resource
 	private WeChatService weChatService ;
 
@@ -583,7 +586,7 @@ public class OrderController extends BaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Order.Type type, Order.Status status,Order.Status[] statuses,
 			Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isAllocatedStock, 
-			Boolean hasExpired, Pageable pageable, ModelMap model ,
+			Boolean hasExpired, Pageable pageable, ModelMap model ,String smOpenId,
 			Date startDate , Date endDate , String searchName , String timeSearch, Long proxyUserId) {
 		
 		List<ProxyUser> list = proxyUserService.findTree(super.getCurrentSupplier(), null);
@@ -593,6 +596,9 @@ public class OrderController extends BaseController {
 		if(proxyUserId != null && proxyUserId.longValue() != 0){
 			ProxyUser proxyUser = proxyUserService.find(proxyUserId);
 			childMember = proxyUser.getChildMember();
+		}
+		if(StringUtils.isNotEmpty(smOpenId)){
+			childMember=this.childMemberService.findBySmOpenId(smOpenId);
 		}
 		
 		model.addAttribute("types", Order.Type.values());
