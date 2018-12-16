@@ -15,6 +15,9 @@ welcome发起跳转到api/member/login 再到b2b/activation2 再转发到/pages/
 模版消息通知：返利通知上级、
 
 
+权限点增加：日志、会员管理、提现管理
+
+
 small.template.common.templateId：AssListController的消息通知
 small.template.common.microBusiness.templateId：addShareNotes添加分享备注通知
 order.template.common.templateId：订单备注、收货消息通知
