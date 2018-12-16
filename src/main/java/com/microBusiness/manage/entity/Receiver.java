@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.entity;
 
 import javax.persistence.Column;
@@ -21,6 +16,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+//会员收货地址数据
 @Entity
 @Table(name = "xx_receiver")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_receiver")

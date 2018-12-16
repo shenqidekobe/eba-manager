@@ -38,6 +38,7 @@ import com.microBusiness.manage.service.MemberIncomeService;
 import com.microBusiness.manage.service.MemberRankService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.PluginService;
+import com.microBusiness.manage.service.ReceiverService;
 import com.microBusiness.manage.service.WithdrawService;
 import com.microBusiness.manage.util.DateUtils;
 import com.microBusiness.manage.util.SystemUtils;
@@ -60,6 +61,8 @@ public class MemberController extends BaseController {
 	private MemberIncomeService memberIncomeService;
 	@Resource(name = "withdrawServiceImpl")
 	private WithdrawService withdrawService;
+	@Resource
+	private ReceiverService receiverService;
 
 	@RequestMapping(value = "/check_username", method = RequestMethod.GET)
 	public @ResponseBody
@@ -85,6 +88,7 @@ public class MemberController extends BaseController {
 		model.addAttribute("genders", Member.Gender.values());
 		model.addAttribute("memberAttributes", memberAttributeService.findList(true, true));
 		model.addAttribute("member", member);
+		model.addAttribute("addresss", receiverService.findPage(member.getMember(), new Pageable(1, 10)));
 		return "/admin/member/view";
 	}
 
