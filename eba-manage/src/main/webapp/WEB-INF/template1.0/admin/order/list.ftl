@@ -89,15 +89,15 @@
 				</div>
 				<div class="ch_search">
 				   <div class="search_input">
-					    <input type="text" id="smOpenId" name="smOpenId" style="width:200px" value="${smOpenId}" maxlength="200" placeholder="请输入会员微信ID" />
+					    <input type="text" id="smOpenId" name="smOpenId" style="width:220px" value="${smOpenId}" maxlength="200" placeholder="请输入会员微信ID" />
 					</div>
 				</div>
 				<div>
 					<div class="drop_down" id="dropDown">
 						<span class="timeType">收货时间</span>
 						<ul class="check">
-							<li name="timeSearch"[#if "timeOfReceipt" == timeSearch] class="checked"[/#if] val="timeOfReceipt">收货时间</li>
-							<li name="timeSearch"[#if "createTime" == timeSearch] class="checked"[/#if] val="createTime">创建时间</li>
+							<!--<li name="timeSearch"[#if "timeOfReceipt" == timeSearch] class="checked"[/#if] val="timeOfReceipt">收货时间</li>-->
+							<li name="timeSearch"[#if "createTime" == timeSearch] class="checked"[/#if] val="createTime">下单时间</li>
 							<li name="timeSearch"[#if "completeTime" == timeSearch] class="checked"[/#if] val="completeTime">完成时间</li>
 						</ul>
 					</div>

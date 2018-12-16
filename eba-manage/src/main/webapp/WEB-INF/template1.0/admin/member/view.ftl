@@ -85,11 +85,17 @@
 							</div>
                             [/#if]
 							<div class="row cl">
-								<label class="form-label col-xs-4 col-sm-3">
+								<label class="form-label col-xs-2 col-sm-2">
 									是否店主
 								</label>
-								<div class="formControls col-xs-8 col-sm-7">
+								<div class="formControls col-xs-4 col-sm-4">
 								    <span class="input_no_span">[#if member.isShoper]是[#else]否[/#if]</span>
+								</div>
+								<label class="form-label col-xs-2 col-sm-2">
+								           他的订单
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <a class="input_no_span" href="/admin/order/list.jhtml?smOpenId=${member.smOpenId}&sr=member" target="_blank">点击查看</a>
 								</div>
 							</div>
 							[#if member.isShoper]
