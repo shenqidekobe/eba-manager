@@ -98,6 +98,12 @@ public class Goods extends BaseEntity<Long> {
 		priceDesc,
 
 		salesDesc,
+		
+		salesAsc,
+		
+		hitsDesc,
+				
+		hitsAsc,
 
 		scoreDesc,
 

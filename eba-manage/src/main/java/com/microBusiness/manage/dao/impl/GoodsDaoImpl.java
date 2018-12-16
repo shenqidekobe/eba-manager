@@ -545,6 +545,15 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods, Long> implements GoodsDao {
 				case salesDesc:
 					criteriaQuery.orderBy(criteriaBuilder.desc(root.get("sales")), criteriaBuilder.desc(root.get("createDate")));
 					break;
+				case salesAsc:
+					criteriaQuery.orderBy(criteriaBuilder.asc(root.get("sales")), criteriaBuilder.desc(root.get("createDate")));
+					break;
+				case hitsAsc:
+					criteriaQuery.orderBy(criteriaBuilder.asc(root.get("hits")), criteriaBuilder.desc(root.get("createDate")));
+					break;
+				case hitsDesc:
+					criteriaQuery.orderBy(criteriaBuilder.desc(root.get("hits")), criteriaBuilder.desc(root.get("createDate")));
+					break;
 				case scoreDesc:
 					criteriaQuery.orderBy(criteriaBuilder.desc(root.get("score")), criteriaBuilder.desc(root.get("createDate")));
 					break;
