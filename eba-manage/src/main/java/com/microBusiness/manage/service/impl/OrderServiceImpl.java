@@ -1277,9 +1277,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				goodsService.addSales(product.getGoods(), orderItem.getQuantity());
 			}
 		}
-		member.setIsShoper(isShoper);
-		child.setIsShoper(isShoper);
-		this.childMemberDao.persist(child);
+		//会员非店主且该购买产品属于会员商品，则更新会员为店主
+		if(child.getIsShoper()!=null&&!child.getIsShoper()&&isShoper){
+			member.setIsShoper(isShoper);
+			child.setIsShoper(isShoper);
+			if(isShoper)child.setShoperLevel(1);//初始一级店主
+			this.childMemberDao.persist(child);
+		}
 		
 		//奖励积分
 		if (order.getRewardPoint() > 0) {

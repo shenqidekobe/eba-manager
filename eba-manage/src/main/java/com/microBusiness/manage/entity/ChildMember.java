@@ -61,6 +61,7 @@ public class ChildMember extends BaseEntity<Long> {
      */
     private Boolean isChecked;
     private Boolean isShoper;
+    private Integer shoperLevel;//店主等级
     
     
     public Boolean getIsChecked() {
@@ -130,16 +131,12 @@ public class ChildMember extends BaseEntity<Long> {
     public void setUnionId(String unionId) {
         this.unionId = unionId;
     }
-
     public SourceType getSourceType() {
         return sourceType;
     }
-
     public void setSourceType(SourceType sourceType) {
         this.sourceType = sourceType;
     }
-
-
 	public String getSmOpenId() {
 		return smOpenId;
 	}
@@ -149,6 +146,14 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setIsShoper(Boolean isShoper) {
 		this.isShoper = isShoper;
 	}
+	public Integer getShoperLevel() {
+		return shoperLevel;
+	}
+	public void setShoperLevel(Integer shoperLevel) {
+		this.shoperLevel = shoperLevel;
+	}
+	
+	
 
 	@OneToMany(mappedBy = "childMember", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createDate desc")
