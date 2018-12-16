@@ -604,6 +604,7 @@ public class OrderController extends BaseController {
 		model.addAttribute("types", Order.Type.values());
 		model.addAttribute("statuses", Order.Status.values());
 		model.addAttribute("type", type);
+		model.addAttribute("smOpenId", smOpenId);
 		model.addAttribute("status", status);
 		model.addAttribute("isPendingReceive", isPendingReceive);
 		model.addAttribute("isPendingRefunds", isPendingRefunds);
