@@ -36,6 +36,7 @@
 			<input type="hidden" id="productCategoryId" name="productCategoryId" value="${productCategoryId}" />
 			<input type="hidden" id="brandId" name="brandId" value="${brandId}" />
 			<input type="hidden" id="tagId" name="tagId" value="${tagId}" />
+			<input type="hidden" id="orderType" name="orderType" value="${orderType}" />
 			<input type="hidden" id="promotionId" name="promotionId" value="${promotionId}" />
 			<input type="hidden" id="isMarketable" name="isMarketable" value="${(isMarketable?string("true", "false"))!}" />
 			<input type="hidden" id="isList" name="isList" value="${(isList?string("true", "false"))!}" />
@@ -43,6 +44,19 @@
 			<input type="hidden" id="isOutOfStock" name="isOutOfStock" value="${(isOutOfStock?string("true", "false"))!}" />
 			<input type="hidden" id="isStockAlert" name="isStockAlert" value="${(isStockAlert?string("true", "false"))!}" />
 			<div class="ch_condition">
+			   <div class="require_search" id="filterMenu">
+					<span class="search">排序方式</span>
+					<ul class="check">
+						<li name="orderType" val="">默认排序</li>
+                        <li name="orderType"[#if "priceAsc" == orderType] class="checked"[/#if] val="priceAsc">价格最低</li>
+                        <li name="orderType"[#if "priceDesc" == orderType] class="checked"[/#if] val="priceDesc">价格最高</li>
+                        <li name="orderType"[#if "salesDesc" == orderType] class="checked"[/#if] val="salesDesc">销量最高</li>
+                        <li name="orderType"[#if "salesAsc" == orderType] class="checked"[/#if] val="salesAsc">销量最低</li>
+                        <li name="orderType"[#if "hitsDesc" == orderType] class="checked"[/#if] val="hitsDesc">点击最高</li>
+                        <li name="orderType"[#if "hitsAsc" == orderType] class="checked"[/#if] val="hitsAsc">点击最低</li>
+						
+					</ul>
+				</div>
 				<div class="require_search" id="filterMenu">
 					<span class="search">${message("admin.goods.filter")}</span>
 					<ul class="check">
