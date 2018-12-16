@@ -63,7 +63,7 @@
 											${InDelivery}
 										[/#if]
 									</div>
-									<h3 class="order_p">发货中</h3>
+									<h3 class="order_p">已发货</h3>
 								</div>
 								<div class="data_li">
 									<div class="order_num">
@@ -165,7 +165,7 @@
 										${InDeliverys}
 									[/#if]
 									</div>
-									<h3 class="order_p">发货中</h3>
+									<h3 class="order_p">已发货</h3>
 								</div>
 								<div class="data_li">
 									<div class="order_num">
