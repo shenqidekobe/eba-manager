@@ -38,7 +38,8 @@ public class HomePageController extends BaseController {
 		//等待发货
 		Integer waitForDelivery = orderService.searchByStatus(Order.Status.pendingShipment, supplier);
 		//发货中
-		Integer InDelivery = orderService.searchByStatus(Order.Status.inShipment, supplier);
+		//Integer InDelivery = orderService.searchByStatus(Order.Status.inShipment, supplier);
+		Integer InDelivery = orderService.searchByStatus(Order.Status.shipped, supplier);//已发货
 		//已取消
 		Integer cancel = orderService.searchByStatus(Order.Status.canceled, supplier);
 		model.addAttribute("moderated", moderated);
@@ -58,30 +59,25 @@ public class HomePageController extends BaseController {
 		OrderStatisticsDto orderRelated = orderService.orderRelated(supplier);
 		model.addAttribute("orderRelated", orderRelated);
 		/**
-		 * 获取采购单信息
-		 */
+		 //获取采购单信息
 		//等待审核
 		Integer moderateds = orderService.purchaseOrderByStaticQuery(Order.Status.pendingReview, supplier);
 		//等待发货
 		Integer waitForDeliverys = orderService.purchaseOrderByStaticQuery(Order.Status.pendingShipment, supplier);
 		//发货中
-		Integer InDeliverys = orderService.purchaseOrderByStaticQuery(Order.Status.inShipment, supplier);
+		Integer InDeliverys = orderService.purchaseOrderByStaticQuery(Order.Status.shipped, supplier);
 		//已取消
 		Integer cancels = orderService.purchaseOrderByStaticQuery(Order.Status.canceled, supplier);
 		model.addAttribute("moderateds", moderateds);
 		model.addAttribute("waitForDeliverys", waitForDeliverys);
 		model.addAttribute("InDeliverys", InDeliverys);
 		model.addAttribute("cancels", cancels);
-		/*
-		 * 获取今天采购单数和采购单金额
-		 */
+		// 获取今天采购单数和采购单金额
 		OrderStatisticsDto todayPurchaseOrder = orderService.todayPurchaseOrder(supplier, startToday, endToday);
 		model.addAttribute("todayPurchaseOrder", todayPurchaseOrder);
-		/*
-		 * 查询采购单相关内容
-		 */
+		 //查询采购单相关内容
 		OrderStatisticsDto purchaseOrderRelated = orderService.purchaseOrderRelated(supplier);
-		model.addAttribute("purchaseOrderRelated", purchaseOrderRelated);
+		model.addAttribute("purchaseOrderRelated", purchaseOrderRelated); */
 		return "/admin/homePage/index";
 	}
 	
