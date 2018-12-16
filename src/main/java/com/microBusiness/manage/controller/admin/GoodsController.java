@@ -413,7 +413,7 @@ public class GoodsController extends BaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Goods.Type type, Long productCategoryId, Long brandId,
 			Long promotionId, Long tagId, Boolean isMarketable, Boolean isList,
-			Boolean isTop, Boolean isOutOfStock, Boolean isStockAlert,
+			Boolean isTop, Boolean isOutOfStock, Boolean isStockAlert,Goods.OrderType orderType,
 			Pageable pageable, ModelMap model) {
 		
 		ProductCategory productCategory = productCategoryService
@@ -442,9 +442,10 @@ public class GoodsController extends BaseController {
 		model.addAttribute("isTop", isTop);
 		model.addAttribute("isOutOfStock", isOutOfStock);
 		model.addAttribute("isStockAlert", isStockAlert);
+		model.addAttribute("orderType", orderType);
 		model.addAttribute("page", goodsService.findPage(type, productCategory,
 				brand, promotion, tag, null, null, null, isMarketable, isList,
-				isTop, isOutOfStock, isStockAlert, null, null, pageable,
+				isTop, isOutOfStock, isStockAlert, null, orderType, pageable,
 				adminService.getCurrentSupplier(), null, null));
 
 
