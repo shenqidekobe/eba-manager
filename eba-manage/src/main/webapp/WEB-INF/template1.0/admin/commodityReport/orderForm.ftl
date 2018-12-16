@@ -104,10 +104,10 @@
 									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="pendingShipment"/>
 									<span>等待发货</span>
 								</div>
-								<div class="check-box">
+								<!--<div class="check-box">
 									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="inShipment"/>
 									<span>发货中</span>
-								</div>
+								</div>-->
 								<div class="check-box">
 									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="shipped"/>
 									<span>已发货</span>
