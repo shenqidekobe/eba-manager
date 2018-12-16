@@ -83,7 +83,6 @@ public class LoginController extends BaseController{
 	public JsonEntity index(String iv, String encryptedData, String code, 
 			final HttpServletRequest request, final HttpServletResponse response, ModelMap model,
 			String parentOpenId, String openId) {
-
 	   logger.info("【进去小程序登录】。。。parentOpenId:" + parentOpenId + "...openId:" + openId);
 	   if (StringUtils.isEmpty(code)) {
 		  return new JsonEntity("010502" , "参数错误");
@@ -100,16 +99,8 @@ public class LoginController extends BaseController{
 	   if (smOpenId == null) {
 		   return new JsonEntity(Code.code_smOpenId_null_99899 , "获取smOpenId息失败");
 	   }
-
-	   // 获取用户基本信息,微信废弃
-	   //ChildMember childMember = ApiSmallUtils.getUserInfo(encryptedData, iv, sessionKey);
-       //childMember.setUnionId(unionId);
-       // 通过unionId 获取用户信息
-       //ChildMember userInfo = childMemberService.findByUnionId(childMember.getUnionId());
-	   
 	   Map<Object, Object> result = new HashMap<>();
-       //通过openId 获取用户信息
-	   ChildMember childMember = null;
+	   ChildMember childMember = null; //通过openId 获取用户信息
 	   if(StringUtils.isNotBlank(openId)){
 		   childMember = childMemberService.findByOpenId(openId);//必须获取到公众号openId
 	   }else{
@@ -123,7 +114,7 @@ public class LoginController extends BaseController{
            childMember.setIsChecked(false);
            childMember.setSourceType(ChildMember.SourceType.wx_small);
            //如果是分享，更新为下属
-           if(StringUtils.isNotEmpty(parentOpenId)){
+           if(StringUtils.isNotEmpty(parentOpenId)&&!parentOpenId.equals(smOpenId)){
          	  ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
          	  childMember.setParent(parent);
          	  //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
@@ -135,7 +126,7 @@ public class LoginController extends BaseController{
         	   logger.info("【smOpenId】：" + smOpenId);
                childMember.setSmOpenId(smOpenId);
                //如果是分享，更新为下属
-               if(StringUtils.isNotEmpty(parentOpenId)){
+               if(StringUtils.isNotEmpty(parentOpenId)&&!parentOpenId.equals(smOpenId)){
             	   ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
              	   childMember.setParent(parent);
              	   //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
