@@ -97,8 +97,8 @@
 											<span>已完成</span>
 										</div>
 										<div class="check-box">
-											<input type="checkbox" class="input-text radius" checked="checked" name="statuses" value="applyCancel"/>
-											<span>申请取消</span>
+											<input type="checkbox" class="input-text radius" checked="checked" name="statuses" value="canceled"/>
+											<span>已取消</span>
 										</div>
 									</div>
 								</div>
@@ -110,10 +110,10 @@
 									<div class="order_num divSum" ></div>
 									<h3 class="order_p">订货单数</h3>
 								</div>
-								<div class="data_li">
+								<!--<div class="data_li">
 									<div class="order_num" id="customersSum">0</div>
 									<h3 class="order_p">订货客户数</h3>
-								</div>
+								</div>-->
 								<div class="data_li">
 									<div class="order_num" id="amountSum">0</div>
 									<h3 class="order_p">订货单金额</h3>
@@ -134,7 +134,7 @@
 									<tr class="text-l">
 										<th width="25%">日期</th>
 										<th width="25%">订货单数</th>
-										<th width="25%">订货客户数</th>
+										<!--<th width="25%">订货客户数</th>-->
 										<th width="25%">订货单金额</th>
 									</tr>
 								</thead>
@@ -333,7 +333,8 @@
                         }else{
                 			htmls+="<td>"+o.orderNumber+"</td>";
 						}
-            			htmls+="<td>"+o.customersNumber+"</td><td>￥"+o.amount+"</td></tr>";
+						<!--<td>"+o.customersNumber+"</td>-->
+            			htmls+="<td>￥"+o.amount+"</td></tr>";
             			$("#tableData").append(htmls);
 					}
 					//添加点击事件

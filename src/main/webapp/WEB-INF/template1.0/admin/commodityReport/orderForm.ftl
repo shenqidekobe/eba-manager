@@ -117,8 +117,8 @@
 									<span>已完成</span>
 								</div>
 								<div class="check-box">
-									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="applyCancel"/>
-									<span>申请取消</span>
+									<input type="checkbox" checked="checked" class="input-text radius" name="status" value="canceled"/>
+									<span>已取消</span>
 								</div>
 							</div>
 						</div>
@@ -164,7 +164,7 @@
 										<th width="25%"><span id="goodName">商品名称</span><i id="goodDate"></i></th>
 										<th width="15%">订货单数</th>
 										<th width="15%">订货商品数</th>
-										<th width="10%">订货客户数</th>
+										<!--<th width="10%">订货客户数</th>-->
 										<th width="15%">订单金额</th>
 									</tr>
 								</thead>
@@ -357,7 +357,7 @@
 												'<td><label id="productName">'+datas[i].name+'</label>'+fenxiao+'</td>'+
 												'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 												'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-												'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+												<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 												'<td><label id="orderAmount">'+"￥"+datas[i].orderAmount+'</label></td>'+
 											'</tr>');
 									}else {
@@ -366,7 +366,7 @@
 											'<td><label id="productName">'+datas[i].name+datas[i].specification+'</label>'+fenxiao+'</td>'+
 											'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 											'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-											'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+											<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 											'<td><label id="orderAmount">'+"￥"+datas[i].orderAmount+'</label></td>'+
 										'</tr>');
 									}
@@ -455,7 +455,7 @@
 										'<td><label id="productName">'+datas[i].name+'</label>'+fenxiao+'</td>'+
 										'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 										'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-										'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+										<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 										'<td><label id="orderAmount">'+"￥"+datas[i].goodAmount+'</label></td>'+
 									'</tr>');
 							}
@@ -533,7 +533,7 @@
 											'<td><label id="productName">'+datas[i].name+'</label>'+fenxiao+'</td>'+
 											'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 											'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-											'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+											<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 											'<td><label id="orderAmount">'+"￥"+datas[i].orderAmount+'</label></td>'+
 										'</tr>');
 								}else {
@@ -542,7 +542,7 @@
 										'<td><label id="productName">'+datas[i].name+datas[i].specification+'</label>'+fenxiao+'</td>'+
 										'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 										'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-										'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+										<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 										'<td><label id="orderAmount">'+"￥"+datas[i].orderAmount+'</label></td>'+
 									'</tr>');
 								}
