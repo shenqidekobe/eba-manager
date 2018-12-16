@@ -1,14 +1,13 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service.impl;
+
+import java.util.Date;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.LogDao;
 import com.microBusiness.manage.entity.Log;
 import com.microBusiness.manage.service.LogService;
@@ -32,6 +31,13 @@ public class LogServiceImpl extends BaseServiceImpl<Log, Long> implements LogSer
 		log.setParameter(parameter);		
 		log.setIp(ip);
 		logDao.persist(log);
+	}
+	
+	
+	@Override
+	public Page<Log> findPage(String operator,String ip,Date startDate,
+			Date endDate,Pageable pageable){
+		return logDao.findPage(operator, ip, startDate, endDate, pageable);
 	}
 
 }

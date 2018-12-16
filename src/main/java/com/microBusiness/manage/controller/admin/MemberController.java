@@ -316,15 +316,16 @@ public class MemberController extends BaseController {
 	@RequestMapping(value = "/withdraw/list", method = RequestMethod.GET)
 	public String withdrawList(Pageable pageable,Withdraw_Status status,
 			Date startDate , Date endDate , String searchName , String timeSearch,
-			Long memberId, ModelMap model) {
+			String smOpenId, ModelMap model) {
 		ChildMember member=null;
-		if(memberId!=null) {
-			member=this.childMemberService.find(memberId);
+		if(StringUtils.isNotEmpty(smOpenId)) {
+			member=this.childMemberService.findBySmOpenId(smOpenId);
 		}
 		model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("searchName", searchName);
         model.addAttribute("timeSearch", timeSearch);
+        model.addAttribute("smOpenId", smOpenId);
         
         if(startDate != null) {
         	startDate = DateUtils.specifyDateZero(startDate);
@@ -366,8 +367,11 @@ public class MemberController extends BaseController {
 	}
 	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
 	public String incomeList(Pageable pageable,Date startDate , Date endDate ,
-			String searchName , String type,Long memberId, ModelMap model) {
-		ChildMember childMember=this.childMemberService.find(memberId);
+			String searchName , String type,String smOpenId, ModelMap model) {
+		ChildMember member=null;
+		if(StringUtils.isNotEmpty(smOpenId)) {
+			member=this.childMemberService.findBySmOpenId(smOpenId);
+		}
 		model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("searchName", searchName);
@@ -378,7 +382,7 @@ public class MemberController extends BaseController {
         if(endDate != null) {
         	endDate = DateUtils.specifyDatetWentyour(endDate);
         }
-		model.addAttribute("page", memberIncomeService.findPage(type, childMember, startDate, endDate, pageable));
+		model.addAttribute("page", memberIncomeService.findPage(type, member, startDate, endDate, pageable));
 		return "/admin/member/income/list";
 	}
 

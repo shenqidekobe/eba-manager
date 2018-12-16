@@ -35,6 +35,7 @@ public class MemberIncome extends BaseEntity<Long> {
 	
 	private Long orderId;//收益来源的订单
 	private Long correId;//关联ID
+	private Integer correSt;//关联状态
 	
 	
 	public String getTitle() {
@@ -89,6 +90,12 @@ public class MemberIncome extends BaseEntity<Long> {
 	}
 	public void setCorreId(Long correId) {
 		this.correId = correId;
+	}
+	public Integer getCorreSt() {
+		return correSt;
+	}
+	public void setCorreSt(Integer correSt) {
+		this.correSt = correSt;
 	}
 	
 	
