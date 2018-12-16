@@ -576,6 +576,16 @@
 				                        </div>	
 			                        </div>
 		                       	</div>
+		                       	<div style="padding-left:70px;" name="secondDiv">
+			                       	<div class="check-box">
+			                          <input type="checkbox" name="two" /><span>日志管理</span>
+			                        </div>
+			                        <div style="padding-left:100px;" name="thirdDiv">
+			                        	<div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:log" [#if role.authorities?seq_contains("admin:log")] checked="checked"[/#if] /><span>查看日志</span>
+				                        </div>	
+			                        </div>
+		                       	</div>
 		                       	<!--
 		                       	<div style="padding-left:70px;" name="secondDiv">
 			                       	<div class="check-box">

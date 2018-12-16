@@ -310,7 +310,7 @@
 											'<td><label id="productName">'+datas[i].name+'</label>'+fenxiao+'</td>'+
 											'<td><label id="orderNumber">'+datas[i].orderNumber+'</label></td>'+
 											'<td><label id="orderQuantity">'+datas[i].orderQuantity+'</label></td>'+
-											'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+
+											<!--'<td><label id="customersNum">'+datas[i].customersNum+'</label></td>'+-->
 											'<td><label id="orderAmount">'+"￥"+datas[i].goodAmount+'</label></td>'+
 										'</tr>');
 								}
