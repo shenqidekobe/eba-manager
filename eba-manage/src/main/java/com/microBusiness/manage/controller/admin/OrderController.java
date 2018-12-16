@@ -586,7 +586,7 @@ public class OrderController extends BaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Order.Type type, Order.Status status,Order.Status[] statuses,
 			Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isAllocatedStock, 
-			Boolean hasExpired, Pageable pageable, ModelMap model ,String smOpenId,
+			Boolean hasExpired, Pageable pageable, ModelMap model ,String smOpenId,String sr,
 			Date startDate , Date endDate , String searchName , String timeSearch, Long proxyUserId) {
 		
 		List<ProxyUser> list = proxyUserService.findTree(super.getCurrentSupplier(), null);
@@ -605,6 +605,7 @@ public class OrderController extends BaseController {
 		model.addAttribute("statuses", Order.Status.values());
 		model.addAttribute("type", type);
 		model.addAttribute("smOpenId", smOpenId);
+		model.addAttribute("sr", sr);//进入订单列表的来源
 		model.addAttribute("status", status);
 		model.addAttribute("isPendingReceive", isPendingReceive);
 		model.addAttribute("isPendingRefunds", isPendingRefunds);
