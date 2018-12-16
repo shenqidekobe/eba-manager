@@ -67,7 +67,7 @@
 					<img class="search_img" src="${base}/resources/admin1.0/images/sousuo_icon.svg" alt="" />
 		
 					<div class="search_input">
-						<input type="text" id="searchName" name="searchName" value="${searchName}" maxlength="200" placeholder="请输入" />
+						<input type="text" id="smOpenId" name="smOpenId" value="${smOpenId}" maxlength="200" placeholder="请输入会员微信ID" />
 					</div>
 				</div>
 				<div>
@@ -112,13 +112,12 @@
 						<tr class="text-l">
 							<th width="5%">ID</th>
 							<th width="12%">编号</th>
+							<th width="20%">用户微信ID</th>
+							<th width="8%">提现方式</th>
+							<th width="15%">提现账户</th>
 							<th width="10%">提现金额</th>
-							<th width="10%">提现方式</th>
-							<th width="10%">提现账户</th>
-							<th width="10%">账户姓名</th>
-							<th width="10%">状态</th>
+							<th width="8%">状态</th>
 							<th width="14%">申请时间</th>
-							<th width="14%">处理时间</th>
 							<th width="8%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
@@ -129,13 +128,12 @@
 							<tr class="text-l">
 								<th width="5%"><div class="th_div">ID</div></th>
 								<th width="12%"><div class="th_div">编号</div></th>
+								<th width="20%"><div class="th_div">用户微信ID</div></th>
+								<th width="8%"><div class="th_div">提现方式</div></th>
+								<th width="15%"><div class="th_div">提现账户</div></th>
 								<th width="10%"><div class="th_div">提现金额</div></th>
-								<th width="10%"><div class="th_div">提现方式</div></th>
-								<th width="10%"><div class="th_div">提现账户</div></th>
-								<th width="10%"><div class="th_div">账户姓名</div></th>
-								<th width="10%"><div class="th_div">状态</div></th>
+								<th width="8%"><div class="th_div">状态</div></th>
 								<th width="14%"><div class="th_div">申请时间</div></th>
-								<th width="14%"><div class="th_div">处理时间</div></th>
 								<th width="8%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
@@ -143,28 +141,23 @@
 						[#list page.content as order]
 							<tr class="text-l">
 								<td>${order.id}</td>
-								<td>
-									${order.sn}
-								</td>
+								<td>${order.sn}</td>
+								<td>${order.member.smOpenId}</td>
+								<td>${order.wayName}</td>
+								<td>${order.account}</td>
 								<td>
 									${currency(order.amount, true)}
 								</td>
-								<td>
-									${order.wayName}
-								</td>
-								<td>
-									${order.account}
-								</td>
-								<td>${order.accountName}</td>
+								<!--<td>${order.accountName}</td>-->
 								<td>
 									${order.status.label}
 								</td>
 								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
-                                <td>
+                               <!-- <td>
                                    [#if order.processTime??]
                                    <span title="${order.processTime?string("yyyy-MM-dd HH:mm:ss")}">${order.processTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                                    [/#if]
-                                </td>
+                                </td>-->
 								<td class="td-manage">
 									<a title="${message("admin.common.view")}" href="edit.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
 								</td>

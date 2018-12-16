@@ -25,130 +25,74 @@
 		.opera_butt{position:absolute;top:0;right:0; margin-top:5px;}
 		.col-sm-7{width:80%;}
 	</style>
-<title>编辑提现</title>
+<title>${message("admin.admin.edit")} - Powered By DreamForYou</title>
 </head>
 <body>
 	<div class="child_page"><!--内容外面的大框-->	
 		<div class="cus_nav">
 			<ul>
 				<li><a id="goHome"	href="../homePage/index.jhtml">${message("admin.breadcrumb.home")}</a></li>
-        		<li><a href="list.jhtml">提现列表</a></li>
-				<li>编辑提现</li>
+        		<li><a href="list.jhtml">日志列表</a></li>
+				<li>日志详情</li>
 			</ul>
 		</div>
 		<div class="form_box">
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
-				<input type="hidden" name="id" value="${obj.id}" />
-				<input type="hidden" name="way" value="${obj.way}" />
+				<input type="hidden" name="id" value="${member.id}" />
 				<div id="tab-system" class="HuiTab">
 					<div >
 						<div class="pag_div">
-						    <div class="row cl">
-						        <label class="form-label col-xs-2 col-sm-2">
-									提现人昵称
-								</label>
-								<div class="formControls col-xs-4 col-sm-4">
-									<span class="input_no_span">${obj.member.nickName}</span>
-								</div>
-								
-								<label class="form-label col-xs-2 col-sm-2">
-									提现人ID
-								</label>
-								<div class="formControls col-xs-4 col-sm-4">
-									<span class="input_no_span">${obj.member.smOpenId}</span>
-								</div>
-                            </div>
 							<div class="row cl">
-							    <label class="form-label col-xs-2 col-sm-2">
-                                                                                                                       提现方式
-                                </label>
-                                <div class="formControls col-xs-4 col-sm-4">
-                                   <span class="input_no_span">${obj.wayName}</span>
-                                </div>
-                                
 								<label class="form-label col-xs-2 col-sm-2">
-									联系电话
+									操作人
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-									<span class="input_no_span">${obj.phone}</span>
+									<span class="input_no_span">${log.operator}</span>
 								</div>
-							</div>
-                            <div class="row cl">
-                                <label class="form-label col-xs-2 col-sm-2">
-                                                                                                                       提现账户
-                                </label>
-                                <div class="formControls col-xs-4 col-sm-4">
-                                   <span class="input_no_span">${obj.account}</span>
-                                </div>
+							
 								<label class="form-label col-xs-2 col-sm-2">
-									账户名称
+									操作类型
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-								    <span class="input_no_span">${obj.accountName}</span>
-								    
+									<span class="input_no_span">${log.operation}</span>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									提现金额
+									操作IP
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-									<span class="input_no_span">${obj.amount}</span>
+								    <span class="input_no_span">${log.ip}</span>
 								</div>
-								
 								<label class="form-label col-xs-2 col-sm-2">
-									手续费
+									操作时间
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-									<input type="text" class="input-text radius" name="fee" value="${obj.fee}" placeholder="手续费" maxlength="200"/>
+								    <span class="input_no_span">${log.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									申请时间
+									操作内容
 								</label>
-								<div class="formControls col-xs-4 col-sm-4">
-									<span class="input_no_span">${obj.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+								<div class="formControls col-xs-10 col-sm-10">
+								    <span class="input_no_span" style="width:780px;">${log.content}</span>
 								</div>
-                                <label class="form-label col-xs-2 col-sm-2">
-								             提现状态
-                                </label>
-                                <div class="formControls col-xs-4 col-sm-4">
-                                    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
-                                    <input type="text" class="downList_val" name="status" value="${obj.status}"/>
-                                    <ul class="downList_con">
-										[#list statusList as st]
-                                            <li val="${st}" [#if st == obj.status] class="li_bag"[/#if]>${st.label}</li>
-										[/#list]
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="row cl">
+							</div>
+							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									打款凭证号
+									请求参数
 								</label>
-								<div class="formControls col-xs-4 col-sm-4">
-									<input type="text" class="input-text radius" name="voucherNum" value="${obj.voucherNum}" placeholder="打款凭证流水号" maxlength="200"/>
+								<div class="formControls col-xs-10 col-sm-10">
+								    <span class="input_no_span" style="width:780px;">${log.parameter}</span>
 								</div>
-                            </div>
-                            <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">
-                                	备注说明
-                                </label>
-                                <div class="formControls col-xs-8 col-sm-7">
-                                    <textarea id="remark" name="remark" rows="5" class="text_area" cols="90" placeholder="如审核请输入审核原因">${obj.remark}</textarea>
-                                </div>
-                            </div>
+							</div>
 						</div>
 						
 					</div>
 				</div>
-				
 				<div class="footer_submit">
-				    [#if obj.status!='complete']
-					   <input class="btn radius confir_S" type="submit" value="${message("admin.common.submit")}"/>
-					[/#if]
-					<input class="btn radius cancel_B" type="button" value="${message("admin.common.back")}" onclick="history.back(); return false;"/>
+					<input class="btn radius cancel_B" type="button" value="返回" onclick="history.back(); return false;"/>
 				</div>
 			</form>
 		</div>
