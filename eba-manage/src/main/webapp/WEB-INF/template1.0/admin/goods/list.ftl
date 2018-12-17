@@ -45,7 +45,7 @@
 			<input type="hidden" id="isStockAlert" name="isStockAlert" value="${(isStockAlert?string("true", "false"))!}" />
 			<div class="ch_condition">
 			   <div class="require_search" id="filterMenu">
-					<span class="search">排序方式</span>
+					<span class="search" id="search1">排序方式</span>
 					<ul class="check">
 						<li name="orderType" val="">默认排序</li>
                         <li name="orderType"[#if "priceAsc" == orderType] class="checked"[/#if] val="priceAsc">价格最低</li>
@@ -57,10 +57,10 @@
 						
 					</ul>
 				</div>
-				<div class="require_search" id="filterMenu">
-					<span class="search">${message("admin.goods.filter")}</span>
+				<div class="require_search" id="filterMenu2">
+					<span class="search" id="search2">商品筛选</span>
 					<ul class="check">
-						<li name="isMarketable" val="">${message("admin.goods.filter")}</li>
+						<li name="isMarketable" val="">商品筛选</li>
                         <li name="isMarketable"[#if isMarketable?? && isMarketable] class="checked"[/#if] val="true">${message("admin.goods.isMarketable")}</li>
 						<li name="isMarketable"[#if isMarketable?? && !isMarketable] class="checked"[/#if] val="false">${message("admin.goods.notMarketable")}</li>
 					</ul>
@@ -249,6 +249,19 @@
 					}
 					$listForm.submit();
 				});
+				
+				var $filterMenuItem2 = $("#filterMenu2 li");
+				// 筛选
+				$filterMenuItem2.click(function() {
+					var $this = $(this);
+					var $dest = $("#" + $this.attr("name"));
+					if ($this.hasClass("checked")) {
+						$dest.val("");
+					} else {
+						$dest.val($this.attr("val"));
+					}
+					$listForm.submit();
+				});
 
 				[@flash_message /]
 
@@ -262,7 +275,19 @@
 				}else{
                     firstText = checkedDom.html();
                 }
-                $(".search").html(firstText);
+                $("#search1").html(firstText);
+                
+                var checkedDom2 =  $("#filterMenu2 li.checked");
+                var firstDom2;
+                var firstText2;
+				if(checkedDom2.length == 0){
+                    firstDom2 = $("#filterMenu2").find("li:eq(0)");
+                    firstText2 = firstDom2.html();
+                    firstDom2.addClass("checked");
+				}else{
+                    firstText2 = checkedDom2.html();
+                }
+                $("#search2").html(firstText2);
 
 
 				/*搜索条件*/
