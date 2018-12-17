@@ -78,7 +78,7 @@
 							[/#if]
 							<li class="remember">
 								<input id="isRememberUsername" class='check_1' type="checkbox" value="true" /><span>记住用户名</span>
-								<a href="retrievePassword/index.jhtml" style="float:right;">忘记密码？</a>
+								<!--<a href="retrievePassword/index.jhtml" style="float:right;">忘记密码？</a>-->
 							</li>
 							<li class="button"><button type="submit">登录</button></li>
 						</ul>	
