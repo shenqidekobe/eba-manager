@@ -367,14 +367,15 @@ public class MemberController extends BaseController {
 	}
 	@RequestMapping(value = "/income/list", method = RequestMethod.GET)
 	public String incomeList(Pageable pageable,Date startDate , Date endDate ,
-			String searchName , String type,String smOpenId, ModelMap model) {
+			String searchName , String type,Long memberId, ModelMap model) {
 		ChildMember member=null;
-		if(StringUtils.isNotEmpty(smOpenId)) {
-			member=this.childMemberService.findBySmOpenId(smOpenId);
+		if(memberId!=null) {
+			member=this.childMemberService.find(memberId);
 		}
 		model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("searchName", searchName);
+        model.addAttribute("member", member);
         
         if(startDate != null) {
         	startDate = DateUtils.specifyDateZero(startDate);
