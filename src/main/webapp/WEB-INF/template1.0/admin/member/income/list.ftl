@@ -40,7 +40,7 @@
 				<ul>
 					<li><a id="goHome"	href="../homePage/index.jhtml">${message("admin.breadcrumb.home")}</a></li>
 					<li><a href="../list.jhtml">会员列表</a></li>
-					<li>收益列表<span>(${message("admin.page.total", page.total)})</span></li>
+					<li>${member.nickName}的收益列表<span>(${message("admin.page.total", page.total)})</span></li>
 				</ul>
 			</div>
 		<form id="listForm" action="list.jhtml" method="get">
