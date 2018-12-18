@@ -1178,7 +1178,8 @@ public class Goods extends BaseEntity<Long> {
 	public void setFavoriteMembers(Set<Member> favoriteMembers) {
 		this.favoriteMembers = favoriteMembers;
 	}
-
+	
+	@OrderBy("id ASC")
 	@OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	public Set<Product> getProducts() {
 		return products;
