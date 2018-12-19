@@ -216,7 +216,8 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long> implements Cart
 		CartItem cartItem = cartItemDao.getCartItem(cart,shop,types,null,null,supplier,product);
 		if (cartItem != null){
 			//数量为0就删除
-			if (quantity <= 0){
+			Integer qua=cartItem.getQuantity()+quantity;
+			if (qua <= 0){
 				cartItemDao.remove(cartItem);
 			}else {
 				cartItem.setQuantity(cartItem.getQuantity()+quantity);
