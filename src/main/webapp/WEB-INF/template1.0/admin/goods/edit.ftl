@@ -1287,12 +1287,12 @@
             <th class="">
                     ${message("Product.stock")}
             <\/th>
-            <th>
+            <!--<th>
                    最小起订量
             <\/th>
             <th>
                    购买递增数
-            <\/th>
+            <\/th>-->
             <th>
             ${message("Product.isDefault")}
             <\/th>
@@ -1356,12 +1356,12 @@
                 <td class="">
                         <input type="text" name="productList[' + i + '].stock" class="text stock" value="' + stock + '" maxlength="9" style="width: 50px;" \/>
                 <\/td>
-                <td class="">
+               <!-- <td class="">
                         <input type="text" name="productList[' + i + '].minOrderQuantity" class="text minOrderQuantity" value="' + minOrderQuantity + '" maxlength="9" style="width: 50px;" \/>
                 <\/td>
                 <td class="">
                         <input type="text" name="productList[' + i + '].addValue" class="text addValue" value="' + addValue + '" maxlength="9" style="width: 50px;" \/>
-                <\/td>
+                <\/td>-->
                 <td>
                 <input type="checkbox" name="productList[' + i + '].isDefault" class="isDefault" value="true"' + (isDefault ? ' checked="checked"' : '') + ' \/>
                     <input type="hidden" name="_productList[' + i + '].isDefault" value="false" \/>
