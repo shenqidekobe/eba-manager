@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Filter;
+import com.microBusiness.manage.Order;
 import com.microBusiness.manage.Filter.Operator;
+import com.microBusiness.manage.Order.Direction;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
@@ -452,6 +454,13 @@ public class GoodsController extends BaseController {
 		filter.setValue(true);
 		filters.add(filter);
 		pageable.setFilters(filters);
+		
+		List<Order> orders = new ArrayList<Order>();
+		Order orderDir = new Order();
+		orderDir.setDirection(Direction.desc);
+		orderDir.setProperty("hits");
+		orders.add(orderDir);
+		pageable.setOrders(orders);
 		 
 		 Page<Goods> page = goodsService.findPage(supplier, productCategory, pageable , searchName);
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
