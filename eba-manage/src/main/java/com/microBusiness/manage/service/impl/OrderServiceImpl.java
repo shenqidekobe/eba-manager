@@ -209,13 +209,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private SupplyNeedService supplyNeedService;
 	@Resource
 	private SupplierService supplierService;
-
 	@Resource
 	private WeChatService weChatService ;
-
 	@Resource
 	private OrderFileService orderFileService ;
-
 	@Resource
 	private SupplierDao supplierDao ;
 	@Resource
@@ -276,9 +273,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private MemberDao memberDao;
 	@Resource
 	private OrderItemDao orderItemDao;
+	@Value("${order.template.common.templateId}")
+	private String commonTemplateId;
+	@Value("${childMember.template.common.templateId}")
+	private String memberTemplateId;
 
-	/*@Resource
-	private BatchOrderLogDao batchOrderLogDao ;*/
+	private HSSFWorkbook workbook;
 
 	@Transactional(readOnly = true)
 	public Order findBySn(String sn) {
@@ -581,403 +581,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		return order;
 	}
 
-	/**public Order create(Order.Type type, Cart cart, Receiver receiver, 
-			PaymentMethod paymentMethod, ShippingMethod shippingMethod, 
-			CouponCode couponCode, Invoice invoice, BigDecimal balance, String memo, Date reDate) {
-		Assert.notNull(type);
-		Assert.notNull(cart);
-		Assert.notNull(cart.getMember());
-		Assert.state(!cart.isEmpty());
-		
-		Member member = cart.getMember();
-		Need need = member.getNeed();
-
-		Map<String, BigDecimal> supplierMap = new HashMap<String, BigDecimal>();
-		for (CartItem cartItem : cart.getCartItems()) {
-			Product product = cartItem.getProduct();
-			//if (product == null || !product.getIsMarketable() || cartItem.getQuantity() > product.getAvailableStock()) {
-			//	throw new IllegalArgumentException();
-			//}
-			if(product != null){
-				Supplier supplier = product.getGoods().getSupplier();
-				SupplyNeed supplyNeedParams = new SupplyNeed();
-				supplyNeedParams.setNeed(need);
-				supplyNeedParams.setSupplier(supplier);
-				SupplyNeed supplyNeed = supplyNeedService.findSupplyNeed(supplyNeedParams);
-				if(supplyNeed == null){
-					continue;
-				}
-				NeedProduct needProductParams = new NeedProduct();
-				needProductParams.setSupplyNeed(supplyNeed);
-				needProductParams.setProducts(product);
-				NeedProduct needProduct = needProductService.findNeedProduct(needProductParams);
-				if(needProduct == null){
-					continue;
-				}
-				cartItem.setNewPrice(needProduct.getSupplyPrice());
-				if(supplierMap.get(String.valueOf(supplier.getId())) == null){
-					supplierMap.put(String.valueOf(supplier.getId()), needProduct.getSupplyPrice());
-				}else{
-					BigDecimal supplyPrice = (BigDecimal)supplierMap.get(String.valueOf(supplier.getId()));
-					if(supplyPrice != null){
-						supplierMap.put(String.valueOf(supplier.getId()), needProduct.getSupplyPrice().add(supplyPrice));
-					}
-				}
-			}
-		}
-
-		for (Entry<String, BigDecimal> entry : supplierMap.entrySet()) {
-			BigDecimal supplyPrice = entry.getValue();
-			Supplier supplier = supplierService.find(Long.valueOf(entry.getKey()));
-			createSingleSupplyOrder(member, supplier, supplyPrice, type, cart, receiver,
-					paymentMethod, shippingMethod, couponCode, invoice, balance, memo, reDate);
-		}
-		if (!cart.isNew()) {
-			cartDao.remove(cart);
-		}
-		return new Order();
-	}
-**/
-
-	public Order createSingleSupplyOrder(Member member, Supplier supplier, BigDecimal supplyPrice, Order.Type type, Cart cart, Receiver receiver,
-			PaymentMethod paymentMethod, ShippingMethod shippingMethod, 
-			CouponCode couponCode, Invoice invoice, BigDecimal balance, String memo, Date reDate){
-		Setting setting = SystemUtils.getSetting();
-		Order order = new Order();
-		do {
-			order.setSn(snDao.generate(Sn.Type.order));
-		} while (orderDao.findBySn(order.getSn()) != null);
-		order.setType(type);
-		order.setPrice(supplyPrice);
-		order.setSupplier(supplier);
-		order.setReDate(reDate);
-		order.setReCode(RandomStringUtils.randomNumeric(6));
-		order.setFee(BigDecimal.ZERO);
-		order.setFreight(cart.getIsDelivery() && !cart.isFreeShipping() ?
-				shippingMethodService.calculateFreight(shippingMethod, receiver, cart.getWeight()) : BigDecimal.ZERO);
-		order.setPromotionDiscount(cart.getDiscount());
-		order.setOffsetAmount(BigDecimal.ZERO);
-		order.setAmountPaid(BigDecimal.ZERO);
-		order.setRefundAmount(BigDecimal.ZERO);
-		order.setRewardPoint(cart.getEffectiveRewardPoint());
-		order.setExchangePoint(cart.getExchangePoint());
-		order.setWeight(cart.getWeight());
-		order.setQuantity(cart.getQuantity());
-		order.setShippedQuantity(0);
-		order.setReturnedQuantity(0);
-		if (cart.getIsDelivery()) {
-			order.setConsignee(receiver.getConsignee());
-			order.setAreaName(receiver.getAreaName());
-			order.setAddress(receiver.getAddress());
-			order.setZipCode(receiver.getZipCode());
-			order.setPhone(receiver.getPhone());
-			order.setArea(receiver.getArea());
-		}
-		order.setMemo(memo);
-		order.setIsUseCouponCode(false);
-		order.setIsExchangePoint(false);
-		order.setIsAllocatedStock(false);
-		order.setInvoice(setting.getIsInvoiceEnabled() ? invoice : null);
-		order.setShippingMethod(shippingMethod);
-		order.setMember(member);
-		order.setPromotionNames(cart.getPromotionNames());
-		order.setCoupons(new ArrayList<Coupon>(cart.getCoupons()));
-
-		if (couponCode != null) {
-			if (!cart.isCouponAllowed() || !cart.isValid(couponCode)) {
-				throw new IllegalArgumentException();
-			}
-			BigDecimal couponDiscount = cart.getEffectivePrice().subtract(couponCode.getCoupon().calculatePrice(cart.getEffectivePrice(), cart.getProductQuantity()));
-			order.setCouponDiscount(couponDiscount.compareTo(BigDecimal.ZERO) >= 0 ? couponDiscount : BigDecimal.ZERO);
-			order.setCouponCode(couponCode);
-			useCouponCode(order);
-		} else {
-			order.setCouponDiscount(BigDecimal.ZERO);
-		}
-
-		order.setTax(calculateTax(order));
-		order.setAmount(calculateAmount(order));
-
-		if (balance != null && (balance.compareTo(BigDecimal.ZERO) < 0 || balance.compareTo(member.getBalance()) > 0 || balance.compareTo(order.getAmount()) > 0)) {
-			throw new IllegalArgumentException();
-		}
-		BigDecimal amountPayable = balance != null ? order.getAmount().subtract(balance) : order.getAmount();
-		if (amountPayable.compareTo(BigDecimal.ZERO) > 0) {
-			if (paymentMethod == null) {
-				throw new IllegalArgumentException();
-			}
-			order.setStatus(PaymentMethod.Type.deliveryAgainstPayment.equals(paymentMethod.getType()) ? Order.Status.pendingPayment : Order.Status.pendingReview);
-			order.setPaymentMethod(paymentMethod);
-			if (paymentMethod.getTimeout() != null && Order.Status.pendingPayment.equals(order.getStatus())) {
-				order.setExpire(DateUtils.addMinutes(new Date(), paymentMethod.getTimeout()));
-			}
-			if (PaymentMethod.Method.online.equals(paymentMethod.getMethod())) {
-				lock(order, member);
-			}
-		} else {
-			order.setStatus(Order.Status.pendingReview);
-			order.setPaymentMethod(null);
-		}
-
-		List<OrderItem> orderItems = order.getOrderItems();
-		for (CartItem cartItem : cart.getCartItems()) {
-			Product product = cartItem.getProduct();
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(product.getSn());
-			orderItem.setName(product.getName());
-			orderItem.setType(product.getType());
-			orderItem.setPrice(cartItem.getNewPrice());
-			orderItem.setWeight(product.getWeight());
-			orderItem.setIsDelivery(product.getIsDelivery());
-			orderItem.setThumbnail(product.getThumbnail());
-			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(cartItem.getProduct());
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(product.getSpecifications());
-			orderItems.add(orderItem);
-		}
-
-		for (Product gift : cart.getGifts()) {
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(gift.getSn());
-			orderItem.setName(gift.getName());
-			orderItem.setType(gift.getType());
-			orderItem.setPrice(BigDecimal.ZERO);
-			orderItem.setWeight(gift.getWeight());
-			orderItem.setIsDelivery(gift.getIsDelivery());
-			orderItem.setThumbnail(gift.getThumbnail());
-			orderItem.setQuantity(1);
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(gift);
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(gift.getSpecifications());
-			orderItems.add(orderItem);
-		}
-
-		//生成送货码
-		String deliveryCode="";
-		for (int i = 0; i < 6; i++) {
-			deliveryCode+=(int)(Math.random()*10);
-		}
-		order.setDeliveryCode(deliveryCode);
-		
-		orderDao.persist(order);
-
-		OrderLog orderLog = new OrderLog();
-		orderLog.setType(OrderLog.Type.create);
-		orderLog.setOrder(order);
-		orderLog.setLogType(LogType.member);
-		orderLogDao.persist(orderLog);
-
-		exchangePoint(order);
-		if (Setting.StockAllocationTime.order.equals(setting.getStockAllocationTime())
-				|| (Setting.StockAllocationTime.payment.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
-			allocateStock(order);
-		}
-
-		if (balance != null && balance.compareTo(BigDecimal.ZERO) > 0) {
-			Payment payment = new Payment();
-			payment.setMethod(Payment.Method.deposit);
-			payment.setFee(BigDecimal.ZERO);
-			payment.setAmount(balance);
-			payment.setOrder(order);
-			payment(order, payment, null);
-		}
-		//mailService.sendCreateOrderMail(order);
-		smsService.sendCreateOrderSms(order);
-		// TODO: 2017/2/14 发送模版消息
-		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.create) ;
-		//订单创建成功,向供应商增加手机短信提醒
-		smsService.sendContent(supplier.getTel() , orderNotice);
-		return order;
-	}
-
-	@Value("${order.template.common.templateId}")
-	private String commonTemplateId;
-	
-	
-	@Value("${childMember.template.common.templateId}")
-	private String memberTemplateId;
-	
-	
-	
-
-	/**
-	 * public Order create(Order.Type type, Cart cart, Receiver receiver, 
-			PaymentMethod paymentMethod, ShippingMethod shippingMethod, 
-			CouponCode couponCode, Invoice invoice, BigDecimal balance, String memo) {
-		Assert.notNull(type);
-		Assert.notNull(cart);
-		Assert.notNull(cart.getMember());
-		Assert.state(!cart.isEmpty());
-		if (cart.getIsDelivery()) {
-			Assert.notNull(receiver);
-			Assert.notNull(shippingMethod);
-			Assert.state(shippingMethod.isSupported(paymentMethod));
-		} else {
-			Assert.isNull(receiver);
-			Assert.isNull(shippingMethod);
-		}
-
-		for (CartItem cartItem : cart.getCartItems()) {
-			Product product = cartItem.getProduct();
-			if (product == null || !product.getIsMarketable() || cartItem.getQuantity() > product.getAvailableStock()) {
-				throw new IllegalArgumentException();
-			}
-		}
-
-		for (Product gift : cart.getGifts()) {
-			if (!gift.getIsMarketable() || gift.getIsOutOfStock()) {
-				throw new IllegalArgumentException();
-			}
-		}
-
-		Setting setting = SystemUtils.getSetting();
-		Member member = cart.getMember();
-
-		Order order = new Order();
-		order.setSn(snDao.generate(Sn.Type.order));
-		order.setType(type);
-		order.setPrice(cart.getPrice());
-		order.setFee(BigDecimal.ZERO);
-		order.setFreight(cart.getIsDelivery() && !cart.isFreeShipping() ? shippingMethodService.calculateFreight(shippingMethod, receiver, cart.getWeight()) : BigDecimal.ZERO);
-		order.setPromotionDiscount(cart.getDiscount());
-		order.setOffsetAmount(BigDecimal.ZERO);
-		order.setAmountPaid(BigDecimal.ZERO);
-		order.setRefundAmount(BigDecimal.ZERO);
-		order.setRewardPoint(cart.getEffectiveRewardPoint());
-		order.setExchangePoint(cart.getExchangePoint());
-		order.setWeight(cart.getWeight());
-		order.setQuantity(cart.getQuantity());
-		order.setShippedQuantity(0);
-		order.setReturnedQuantity(0);
-		if (cart.getIsDelivery()) {
-			order.setConsignee(receiver.getConsignee());
-			order.setAreaName(receiver.getAreaName());
-			order.setAddress(receiver.getAddress());
-			order.setZipCode(receiver.getZipCode());
-			order.setPhone(receiver.getPhone());
-			order.setArea(receiver.getArea());
-		}
-		order.setMemo(memo);
-		order.setIsUseCouponCode(false);
-		order.setIsExchangePoint(false);
-		order.setIsAllocatedStock(false);
-		order.setInvoice(setting.getIsInvoiceEnabled() ? invoice : null);
-		order.setShippingMethod(shippingMethod);
-		order.setMember(member);
-		order.setPromotionNames(cart.getPromotionNames());
-		order.setCoupons(new ArrayList<Coupon>(cart.getCoupons()));
-
-		if (couponCode != null) {
-			if (!cart.isCouponAllowed() || !cart.isValid(couponCode)) {
-				throw new IllegalArgumentException();
-			}
-			BigDecimal couponDiscount = cart.getEffectivePrice().subtract(couponCode.getCoupon().calculatePrice(cart.getEffectivePrice(), cart.getProductQuantity()));
-			order.setCouponDiscount(couponDiscount.compareTo(BigDecimal.ZERO) >= 0 ? couponDiscount : BigDecimal.ZERO);
-			order.setCouponCode(couponCode);
-			useCouponCode(order);
-		} else {
-			order.setCouponDiscount(BigDecimal.ZERO);
-		}
-
-		order.setTax(calculateTax(order));
-		order.setAmount(calculateAmount(order));
-
-		if (balance != null && (balance.compareTo(BigDecimal.ZERO) < 0 || balance.compareTo(member.getBalance()) > 0 || balance.compareTo(order.getAmount()) > 0)) {
-			throw new IllegalArgumentException();
-		}
-		BigDecimal amountPayable = balance != null ? order.getAmount().subtract(balance) : order.getAmount();
-		if (amountPayable.compareTo(BigDecimal.ZERO) > 0) {
-			if (paymentMethod == null) {
-				throw new IllegalArgumentException();
-			}
-			order.setStatus(PaymentMethod.Type.deliveryAgainstPayment.equals(paymentMethod.getType()) ? Order.Status.pendingPayment : Order.Status.pendingReview);
-			order.setPaymentMethod(paymentMethod);
-			if (paymentMethod.getTimeout() != null && Order.Status.pendingPayment.equals(order.getStatus())) {
-				order.setExpire(DateUtils.addMinutes(new Date(), paymentMethod.getTimeout()));
-			}
-			if (PaymentMethod.Method.online.equals(paymentMethod.getMethod())) {
-				lock(order, member);
-			}
-		} else {
-			order.setStatus(Order.Status.pendingReview);
-			order.setPaymentMethod(null);
-		}
-
-		List<OrderItem> orderItems = order.getOrderItems();
-		for (CartItem cartItem : cart.getCartItems()) {
-			Product product = cartItem.getProduct();
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(product.getSn());
-			orderItem.setName(product.getName());
-			orderItem.setType(product.getType());
-			orderItem.setPrice(cartItem.getPrice());
-			orderItem.setWeight(product.getWeight());
-			orderItem.setIsDelivery(product.getIsDelivery());
-			orderItem.setThumbnail(product.getThumbnail());
-			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(cartItem.getProduct());
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(product.getSpecifications());
-			orderItems.add(orderItem);
-		}
-
-		for (Product gift : cart.getGifts()) {
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(gift.getSn());
-			orderItem.setName(gift.getName());
-			orderItem.setType(gift.getType());
-			orderItem.setPrice(BigDecimal.ZERO);
-			orderItem.setWeight(gift.getWeight());
-			orderItem.setIsDelivery(gift.getIsDelivery());
-			orderItem.setThumbnail(gift.getThumbnail());
-			orderItem.setQuantity(1);
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(gift);
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(gift.getSpecifications());
-			orderItems.add(orderItem);
-		}
-
-		orderDao.persist(order);
-
-		OrderLog orderLog = new OrderLog();
-		orderLog.setType(OrderLog.Type.create);
-		orderLog.setOrder(order);
-		orderLogDao.persist(orderLog);
-
-		exchangePoint(order);
-		if (Setting.StockAllocationTime.order.equals(setting.getStockAllocationTime())
-				|| (Setting.StockAllocationTime.payment.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
-			allocateStock(order);
-		}
-
-		if (balance != null && balance.compareTo(BigDecimal.ZERO) > 0) {
-			Payment payment = new Payment();
-			payment.setMethod(Payment.Method.deposit);
-			payment.setFee(BigDecimal.ZERO);
-			payment.setAmount(balance);
-			payment.setOrder(order);
-			payment(order, payment, null);
-		}
-
-		mailService.sendCreateOrderMail(order);
-		smsService.sendCreateOrderSms(order);
-
-		if (!cart.isNew()) {
-			cartDao.remove(cart);
-		}
-		return order;
-	}
-	 */
-
 	public void update(Order order, Admin operator) {
 		Assert.notNull(order);
 		Assert.isTrue(!order.isNew());
@@ -1187,10 +790,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 			}
 		}
-
-		// TODO: 2017/2/16 处理图片
-
-
 		order.setShippedQuantity(order.getShippedQuantity() + shipping.getQuantity());
 		if (order.getShippedQuantity() >= order.getQuantity()) {
 			order.setStatus(Order.Status.shipped);
@@ -1591,7 +1190,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		if (passed) {
 			//处理订单相关数量已经金额等数据
 			Map<Long , OrderItem> checkedOrderItem = new HashMap<>(orderItems.size());
-			BigDecimal amount = new BigDecimal(0) ;
+			//BigDecimal amount = new BigDecimal(0) ;
 
 			for(OrderItem orderItem : orderItems){
 				checkedOrderItem.put(orderItem.getId() , orderItem) ;
@@ -1647,7 +1246,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		smsService.sendReviewOrderSms(order);
 
 		if (!passed) {
-
 			// TODO: 2017/2/14 发送模版消息
 			weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.denied) ;
 		}else{
@@ -1671,7 +1269,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		return allPrice ;
 	}
 
-	private Integer getAllQuantity(List<OrderItem> orderItems){
+	public Integer getAllQuantity(List<OrderItem> orderItems){
 		Integer allQuantity = 0 ;
 		for(OrderItem orderItem : orderItems){
 			allQuantity +=orderItem.getQuantity() ;
@@ -1698,9 +1296,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 
         Supplier supplier = supplierDao.find(supplierId) ;//品牌商企业
 //        Supplier bySupplier = need.getSupplier() ;
-        Date now = new Date();
-        SupplyNeed supplyNeed = null;
-        SupplierSupplier supplierSupplier=null;
+        //Date now = new Date();
+       // SupplyNeed supplyNeed = null;
+        //SupplierSupplier supplierSupplier=null;
         // FIXME: 2017/3/21 这里的写法有问题，需要进行优化
         List<CartItem> cartItemList=new ArrayList<>();
 		Integer sumQuantity=0;
@@ -1761,7 +1359,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		return order;
 
 	}
-	
 	
 	private Order createSingleBaseOrder(Member buyMember, Supplier supplier, List<CartItem> cartItemList, 
 			BigDecimal price, BigDecimal priceB, Cart cart,
@@ -2004,60 +1601,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				payment.setOrder(order);
 				payment(order, payment, null);
 			}
-			
-			/*//mailService.sendCreateOrderMail(order);
-			smsService.sendCreateOrderSms(order);
-			*/
-			// TODO: 2017/2/14 发送模版消息
-//			weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() ,
-//			 Order.OrderStatus.create) ;
-			//订单创建成功,向供应商增加手机短信提醒
-			/*smsService.sendContent(supplier.getTel() , orderNotice);
-			//向供应商的接收员发送模版消息
-			weChatService.sendTemplateMessageToNoticeUser(supplier , order , Order.OrderStatus.create , commonTemplateId , weChatService.getGlobalToken() ) ;
-			
-			//向采购方企业接受员发送模版消息
-			weChatService.sendTemplateMessageToNoticeUserPurchase(supplier , bySupplier , need , order , Order.OrderStatus.create , commonTemplateId , weChatService.getGlobalToken() , NoticeTypePurchase.Type.order_create , "");*/
-			
-			//发送小程序通知给微信用户
-//			OrderForm orderForm = order.getChildMember().getOrderFormOne();
-//			if(orderForm != null){
-//				weChatService.sendSmallTemplateMessageToInitiator(order, order.getChildMember(), weChatService.getGlobalToken(),
-//						Constant.SMALL_TEMPLATE_ID, "", orderForm.getFormId());
-//			}
-			
-			
-			
-			
-//			if (order.getType() != Type.local){
-//				//发送模版消息
-//				weChatService.sendTemplateMessageByOrderStatus(order , Order.OrderStatus.create ,  
-//						weChatService.getGlobalToken() , null , commonTemplateId , null , null);
-//				
-//				//订单创建成功,向供应商增加手机短信提醒
-//				smsService.sendContent(supplier.getTel() , orderNotice);
-//				
-//				//订单备注时，增加消息提醒
-//				if(StringUtils.isNotEmpty(memo)){
-//				
-//					weChatService.sendOrderRemarkNotice(order , buyMember , this.commonTemplateId , weChatService.getGlobalToken() , memo);
-//				
-//					List<NoticeUser> noticeUsers = noticeUserDao.findList(supplier , bySupplier , NoticeType.Type.user_order_remark);
-//					weChatService.sendOrderRemarkNotice(order , buyMember , this.commonTemplateId , weChatService.getGlobalToken() , noticeUsers , memo);
-//					//采购单消息接受员
-//					//weChatService.sendOrderRemarkNoticeToNoticeUserPurchase(order , buyMember , commonTemplateId , weChatService.getGlobalToken() , memo , true);
-//				
-//				}
-//			}
-			
-			//本地订单  发起人
-//			OrderRelation orderRelation = new OrderRelation();
-//			orderRelation.setType(OrderRelation.Type.sponsor);
-//			orderRelation.setChildMember(childMember);
-//			orderRelation.setOrder(order);
-//			orderRelation.setMember(childMember.getMember());
-//			orderRelationDao.persist(orderRelation);
-			
 			return order;
 	}
 	//立即购买
@@ -2086,9 +1629,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setReCode(RandomStringUtils.randomNumeric(6));
 			order.setFee(BigDecimal.ZERO);
 			if(product.getWeight() != null && shippingMethod != null && receiver.getArea() != null){
-				order.setFreight(product.getIsDelivery() ?
-					    shippingMethodService.calculateFreight(shippingMethod, receiver.getArea(), 
-					    		product.getWeight()) : BigDecimal.ZERO);
+				order.setFreight(product.getIsDelivery() ?shippingMethodService.calculateFreight(shippingMethod, receiver.getArea(), product.getWeight()) : BigDecimal.ZERO);
 			}else{
 				order.setFreight(BigDecimal.ZERO);
 			}
@@ -2123,8 +1664,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setShippingMethod(shippingMethod);
 			order.setMember(buyMember);
 			order.setBuyMember(buyMember);
-			order.setPromotionNames(new ArrayList());
-			order.setCoupons(new ArrayList());
+			order.setPromotionNames(new ArrayList<String>());
+			order.setCoupons(new ArrayList<Coupon>());
 			if (Types.local.equals(types)){
 				order.setType(Type.local);
 				order.setSharingStatus(Order.SharingStatus.noshare);
@@ -2278,43 +1819,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				payment.setOrder(order);
 				payment(order, payment, null);
 			}
-			
-			/*//mailService.sendCreateOrderMail(order);
-			smsService.sendCreateOrderSms(order);*/
-			// TODO: 2017/2/14 发送模版消息
-//			weChatService.sendTemplateMessage(order , commonTemplateId ,
-//			 weChatService.getGlobalToken() , Order.OrderStatus.create) ;
-			//订单创建成功,向供应商增加手机短信提醒
-		/*	smsService.sendContent(supplier.getTel() , orderNotice);
-			//向供应商的接收员发送模版消息
-			weChatService.sendTemplateMessageToNoticeUser(supplier , order , Order.OrderStatus.create , commonTemplateId , weChatService.getGlobalToken() ) ;
-			
-			//向采购方企业接受员发送模版消息
-			weChatService.sendTemplateMessageToNoticeUserPurchase(supplier , bySupplier , need , order , Order.OrderStatus.create , commonTemplateId , weChatService.getGlobalToken() , NoticeTypePurchase.Type.order_create , "");*/
-			
-			//发送小程序通知给微信用户
-//			OrderForm orderForm = order.getChildMember().getOrderFormOne();
-//			if(orderForm != null){
-//				weChatService.sendSmallTemplateMessageToInitiator(order, order.getChildMember(), weChatService.getGlobalToken(),
-//						Constant.SMALL_TEMPLATE_ID, "", orderForm.getFormId());
-//			}
-			
-			
-			
-			//本地订单  发起人
-//			OrderRelation orderRelation = new OrderRelation();
-//			orderRelation.setType(OrderRelation.Type.sponsor);
-//			orderRelation.setChildMember(childMember);
-//			orderRelation.setOrder(order);
-//			orderRelation.setMember(childMember.getMember());
-//			orderRelationDao.persist(orderRelation);
-			
 			return order;
 	}
 
-
-
-    private Order createSingleSupplyOrder(Member buyMember, Supplier supplier, List<CartItem> cartItemList, 
+	//未使用的
+    public Order createSingleSupplyOrder(Member buyMember, Supplier supplier, List<CartItem> cartItemList, 
     					BigDecimal supplyPrice,BigDecimal supplyPriceB, Cart cart,
     					PaymentMethod paymentMethod, ShippingMethod shippingMethod,
                         CouponCode couponCode, Invoice invoice, 
@@ -2957,17 +2466,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//非流水点带下单处理
 		if(!isMore){
 			if(CollectionUtils.isEmpty(member.getChildMembers())){
-
-				String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
-
-				String notice = String.format(byOrderCreateNotice, url) ;
-
-//				smsService.sendContent(need.getTel() , notice);
-
+				//String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
+				//String notice = String.format(byOrderCreateNotice, url) ;
+  			    //smsService.sendContent(need.getTel() , notice);
 			}else{
 				//weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.create) ;
 			}
-
 
 		}
 
@@ -3192,26 +2696,18 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//非流水点带下单处理
 		if(!isMore){
 			if(CollectionUtils.isEmpty(member.getChildMembers())){
-
-				String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
-
-				String notice = String.format(byOrderCreateNotice, url) ;
-
+				//String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
+				//String notice = String.format(byOrderCreateNotice, url) ;
 //				smsService.sendContent(need.getTel() , notice);
-
 			}else{
 				weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.create) ;
 			}
-
 			if(StringUtils.isNotEmpty(memo)){
-
 //				weChatService.sendOrderRemarkNotice(order , member , this.commonTemplateId , weChatService.getGlobalToken() , memo);
 //
 //				List<NoticeUser> noticeUsers = noticeUserDao.findList(supplier ,bySupplier , NoticeType.Type.user_order_remark);
 //				weChatService.sendOrderRemarkNotice(order , member , this.commonTemplateId , weChatService.getGlobalToken() , noticeUsers , memo);
-
 			}
-
 		}
 
 		//订单创建成功,向供应商增加手机短信提醒
@@ -3242,20 +2738,17 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//List<Order> orders = new ArrayList<>();
 		for(OrderNeedsForm.OrderNeedsItem orderNeedsItem : orderNeedsItems){
 			Long needId = orderNeedsItem.getNeedId() ;
-			String memo = orderNeedsItem.getMemo() ;
+			//String memo = orderNeedsItem.getMemo() ;
 			Date reDate = orderNeedsItem.getReDate() ;
-			Long areaId = orderNeedsItem.getAreaId();
-			String adderss = orderNeedsItem.getAddress();
+			//Long areaId = orderNeedsItem.getAreaId();
+			//String adderss = orderNeedsItem.getAddress();
 
 			if(null == needId || null == reDate){
 				continue;
 			}
-
-			Order order = this.createByOwnMore(assignedModel,supplier ,  needId , memo , reDate , orderProductForm , operator , true, admin,areaId,adderss);
-
+			//Order order = this.createByOwnMore(assignedModel,supplier ,  needId , memo , reDate , orderProductForm , operator , true, admin,areaId,adderss);
 			//orders.add(order);
 		}
-
 		//处理多地址带下单消息通知处理
 
 		//将批量下单的信息进行入库，为了微信端的查看
@@ -3524,11 +3017,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//非流水点带下单处理
 		if(!isMore){
 			if(CollectionUtils.isEmpty(member.getChildMembers())){
-
-				String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
-
-				String notice = String.format(byOrderCreateNotice, url) ;
-
+				//String url = setting.getSiteUrl() + String.format(orderDetailBrowser, order.getId());
+				//String notice = String.format(byOrderCreateNotice, url) ;
 //				smsService.sendContent(need.getTel() , notice);
 
 			}else{
@@ -3574,20 +3064,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//List<Order> orders = new ArrayList<>();
 		for(OrderNeedsForm.OrderNeedsItem orderNeedsItem : orderNeedsItems){
 			Long needId = orderNeedsItem.getNeedId() ;
-			String memo = orderNeedsItem.getMemo() ;
+			//String memo = orderNeedsItem.getMemo() ;
 			Date reDate = orderNeedsItem.getReDate() ;
-			Long areaId = orderNeedsItem.getAreaId();
-			String address = orderNeedsItem.getAddress();
-
+			//Long areaId = orderNeedsItem.getAreaId();
+			//String address = orderNeedsItem.getAddress();
 			if(null == needId || null == reDate){
 				continue;
 			}
-
-			Order order = this.createByOwnFormal(supplierId ,  needId , memo , reDate , orderProductForm , operator , true, admin,areaId,address,null,null,SupplierType.TWO);
-
+			//Order order = this.createByOwnFormal(supplierId ,  needId , memo , reDate , orderProductForm , operator , true, admin,areaId,address,null,null,SupplierType.TWO);
 			//orders.add(order);
 		}
-
 		//处理多地址带下单消息通知处理
 
 		//将批量下单的信息进行入库，为了微信端的查看
@@ -3860,8 +3346,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 
 				//处理内容
+				@SuppressWarnings("unchecked")
 				List<Order> datas = (List<Order>)this.getData() ;
-
 				if(CollectionUtils.isNotEmpty(datas)){
 					for(Order order : datas){
 						//获取商品数量
@@ -3962,7 +3448,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Assert.state(!order.hasExpired() && Order.Status.pendingReview.equals(order.getStatus()));
 		
 		Need need = order.getNeed();
-		OrderNewsPush orderNewsPush = new OrderNewsPush();
+		//OrderNewsPush orderNewsPush = new OrderNewsPush();
 		if (passed) {
 			order.setStatus(Order.Status.pendingShipment);
 
@@ -4306,8 +3792,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	 */
 	@Override
 	public void cancelShipped(Order order, Shipping shipping, Admin admin) {
-		List<ShippingItem> shippingItems = shipping.getShippingItems() ;
-
+		//List<ShippingItem> shippingItems = shipping.getShippingItems() ;
 		for (ShippingItem shippingItem : shipping.getShippingItems()) {
 			OrderItem orderItem = order.getOrderItem(shippingItem.getSn());
 			if (orderItem == null) {
@@ -4590,9 +4075,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		return orderDao.getOrderInSupply(startRow , offset , compareDate);
 	}
 
+	@SuppressWarnings("serial")
 	@Override
 	public void sendNoOrderNotice(String noticeTemplateId) {
-	//查出供应关系中用户下的单
+	    //查出供应关系中用户下的单
 		int startPage = 0;
 		int startRow = 0;
 		int offset = 100 ;
@@ -4613,13 +4099,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				for (Order order : orders) {
 					Member member = order.getMember();
 					Set<ChildMember> childMembers = member.getChildMembers();
-
 					if (CollectionUtils.isEmpty(childMembers)) {
 						continue;
 					}
-
 					final int noOrderDays = Days.daysBetween(LocalDate.fromDateFields(order.getCreateDate()), LocalDate.fromDateFields(compareDate)).getDays();
-
 					templateInfo.setData(new HashMap<String, Map<String, String>>() {{
 
 						this.put("first", new HashMap<String, String>() {{
@@ -4639,8 +4122,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 						}});
 
 					}});
-
-
 					for (ChildMember childMember : childMembers) {
 						templateInfo.setToUser(childMember.getOpenId());
 						weChatService.sendTemplateMessage(templateInfo, weChatService.getGlobalToken());
@@ -4738,8 +4219,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 
 				//处理内容
+				@SuppressWarnings("unchecked")
 				List<Order> datas = (List<Order>)this.getData() ;
-
 				if(CollectionUtils.isNotEmpty(datas)){
 					for(Order order : datas){
 						//获取商品数量
@@ -4912,8 +4393,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				}
 
 				//处理内容
+				@SuppressWarnings("unchecked")
 				List<Order> datas = (List<Order>)this.getData() ;
-
 				if(CollectionUtils.isNotEmpty(datas)){
 					for(Order order : datas){
 						//获取商品数量
@@ -5037,8 +4518,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	}
 	
 	public void exportExcel(String[] productInfo , String[] buyers , String[] sales , List<Product> products , List<Supplier> suppliers , List<GoodNeedDto> goodNeedDtos , String filename , HttpServletRequest request , HttpServletResponse response) {
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		
+		workbook = new HSSFWorkbook();
 		int rowNumber1 = 0;
 		int rowNumber2 = 0;
 		int rowNumber3 = 0;
@@ -5245,7 +4725,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	}
 	
 	public void exportExcels(String[] title1 , String[] title2 , String[] title3 , List<Supplier> suppliers , List<GoodSupplierDto> goodSupplierDtos , List<Product> products , String filename , HttpServletRequest request , HttpServletResponse response) {
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		workbook = new HSSFWorkbook();
 		int rowNumber1 = 0;
 		int rowNumber2 = 0;
 		int rowNumber3 = 0;
@@ -6345,7 +5825,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Need need = order.getNeed();
 		// 下单企业
 		Supplier bySupplier = toSupplier;
-		ChildMember childMember=order.getChildMember();
+		//ChildMember childMember=order.getChildMember();
 		
 		//下单人
 		String operatorName=oldOrder.getCreateOrderLog().getOperator();
@@ -6408,10 +5888,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderNewsPushDao.addOrderNewPush(bySupplier, order, OrderNewsPush.OrderStatus.placeAnOrder, need, bySupplier.getName(), need.getName(),OrderNewsPush.NoticeObject.purchase);
 			orderNewsPushDao.addOrderNewPush(bySupplier, order, OrderNewsPush.OrderStatus.placeAnOrder, need, bySupplier.getName(), need.getName(),OrderNewsPush.NoticeObject.order);
 		}
-		
-
-
 		exchangePoint(order);
+		
 		if (Setting.StockAllocationTime.order.equals(setting
 				.getStockAllocationTime())
 				|| (Setting.StockAllocationTime.payment.equals(setting
@@ -6421,27 +5899,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 						.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
 			allocateStock(order);
 		}
-
-
-		/*// mailService.sendCreateOrderMail(order);
-		smsService.sendCreateOrderSms(order);
-		// TODO: 2017/2/14 发送模版消息
-		weChatService.sendTemplateMessage(order, commonTemplateId,
-				weChatService.getGlobalToken(), Order.OrderStatus.create);
-		// 订单创建成功,向供应商增加手机短信提醒
-		smsService.sendContent(supplier.getTel(), orderNotice);
-		// 向供应商的接收员发送模版消息
-		weChatService.sendTemplateMessageToNoticeUser(supplier, order,
-				Order.OrderStatus.create, commonTemplateId,
-				weChatService.getGlobalToken());
-
-		// 向采购方企业接受员发送模版消息
-		weChatService.sendTemplateMessageToNoticeUserPurchase(supplier,
-				bySupplier, need, order, Order.OrderStatus.create,
-				commonTemplateId, weChatService.getGlobalToken(),
-				NoticeTypePurchase.Type.order_create, "");
-
-*/
 		return order;
 	}
 
