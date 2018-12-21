@@ -327,6 +327,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + id;
 	}
 
+	//支付通知
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String payment(Payment payment, Long orderId, Long paymentMethodId, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(orderId);
@@ -353,6 +354,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + orderId;
 	}
 
+	//退款
 	@RequestMapping(value = "/refunds", method = RequestMethod.POST)
 	public String refunds(Refunds refunds, Long orderId, Long paymentMethodId, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(orderId);
@@ -391,6 +393,7 @@ public class OrderController extends BaseController {
 		}
 	}
 
+	//发货
 	@RequestMapping(value = "/shipping", method = RequestMethod.POST)
 	public String shipping(Shipping shipping, Long orderId, Long shippingMethodId, Long deliveryCorpId, Long areaId, RedirectAttributes redirectAttributes , OrderFilesForm orderFilesForm ) {
 		Order order = orderService.find(orderId);
@@ -464,6 +467,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + orderId;
 	}
 
+	//
 	@RequestMapping(value = "/returns", method = RequestMethod.POST)
 	public String returns(Returns returns, Long orderId, Long shippingMethodId, Long deliveryCorpId, Long areaId, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(orderId);
@@ -501,6 +505,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + orderId;
 	}
 
+	//后台确认收货
 	@RequestMapping(value = "/receive", method = RequestMethod.POST)
 	public String receive(Long id , RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(id);
@@ -523,6 +528,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + id;
 	}
 
+	//订单完成
 	@RequestMapping(value = "/complete", method = RequestMethod.POST)
 	public String complete(Long id, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(id);
@@ -540,6 +546,7 @@ public class OrderController extends BaseController {
 	}
 
 
+	//取消订单
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
 	public String cancel(Long id, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(id);
@@ -555,6 +562,7 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + id;
 	}
 
+	//订单已失败
 	@RequestMapping(value = "/fail", method = RequestMethod.POST)
 	public String fail(Long id, RedirectAttributes redirectAttributes) {
 		Order order = orderService.find(id);
@@ -571,17 +579,7 @@ public class OrderController extends BaseController {
 	}
 
 	/**
-	 * 2017-02-09 14:50:25 修改订单列表通过当前登陆的供应商进行选择
-	 * @param type
-	 * @param status
-	 * @param memberUsername
-	 * @param isPendingReceive
-	 * @param isPendingRefunds
-	 * @param isAllocatedStock
-	 * @param hasExpired
-	 * @param pageable
-	 * @param model
-	 * @return
+	 * 订单列表查询
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Order.Type type, Order.Status status,Order.Status[] statuses,
@@ -641,21 +639,6 @@ public class OrderController extends BaseController {
 	}
 	/**
 	 * 异步请求订单列表
-	 * @param type
-	 * @param status
-	 * @param statuses
-	 * @param memberUsername
-	 * @param isPendingReceive
-	 * @param isPendingRefunds
-	 * @param isAllocatedStock
-	 * @param hasExpired
-	 * @param pageable
-	 * @param model
-	 * @param startDate
-	 * @param endDate
-	 * @param searchName
-	 * @param timeSearch
-	 * @return
 	 */
 	@RequestMapping(value = "/asyncList", method = RequestMethod.GET)
 	@ResponseBody
@@ -699,6 +682,7 @@ public class OrderController extends BaseController {
 		return JsonEntity.successMessage(resultMap);
 	}
 
+	//删除订单
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody
 	Message delete(Long[] ids) {
@@ -716,6 +700,7 @@ public class OrderController extends BaseController {
 	}
 
 
+	//申请取消订单
 	@RequestMapping(value = "/applyCancel", method = RequestMethod.POST)
 	public String applyCancel(Long id, Boolean passed , RedirectAttributes redirectAttributes) {
 
@@ -775,11 +760,6 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 发货作废
-	 * @param orderId
-	 * @param shippingId
-	 * @param redirectAttributes
-	 * @param modelMap
-	 * @return
 	 */
 	@RequestMapping(value = "/cancelShipped", method = RequestMethod.POST)
 	public String cancelShipped(Long orderId, Long shippingId , RedirectAttributes redirectAttributes , ModelMap modelMap) {
@@ -838,11 +818,6 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 批量审核
-	 * @param orderIds 订单id
-	 * @param passed
-	 * @param redirectAttributes
-	 * @param deniedReason
-	 * @return
 	 */
 	@RequestMapping(value = "/batchReview" , method = RequestMethod.POST)
 	public String batchReview(Long[] orderIds , Boolean passed, RedirectAttributes redirectAttributes , String deniedReason) {
@@ -904,21 +879,6 @@ public class OrderController extends BaseController {
     }
 	
 	/**
-	 * 导出食药监报告
-	 * @param type
-	 * @param status
-	 * @param memberUsername
-	 * @param isPendingReceive
-	 * @param isPendingRefunds
-	 * @param isAllocatedStock
-	 * @param hasExpired
-	 * @param pageable
-	 * @param model
-	 * @param startDate
-	 * @param endDate
-	 * @param searchName
-	 * @param timeSearch
-	 * @return
 	 */
 	@RequestMapping(value = "/getOutReportDownload", method = RequestMethod.GET)
 	public void reportDownload(Order.Type type, Order.Status status, String memberUsername, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isAllocatedStock, Boolean hasExpired, Pageable pageable, ModelMap model , Date startDate , Date endDate , String searchName , String timeSearch , HttpServletRequest request , HttpServletResponse response) {
@@ -933,12 +893,6 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 导出选中食药监报告
-	 * @param ids
-	 * @param pageable
-	 * @param model
-	 * @param request
-	 * @param response
 	 */
 	@RequestMapping(value = "/getOutSelectedReport", method = RequestMethod.GET)
 	public void selectedReport(Long[] ids ,Pageable pageable, ModelMap model , HttpServletRequest request , HttpServletResponse response) {
@@ -947,22 +901,6 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 批量拆分导出
-	 * @param type
-	 * @param status
-	 * @param memberUsername
-	 * @param isPendingReceive
-	 * @param isPendingRefunds
-	 * @param isAllocatedStock
-	 * @param hasExpired
-	 * @param pageable
-	 * @param model
-	 * @param startDate
-	 * @param endDate
-	 * @param searchName
-	 * @param timeSearch
-	 * @param request
-	 * @param response
 	 */
 	@RequestMapping(value = "/getOutSplitOut", method = RequestMethod.GET)
 	public void splitOut(Order.Type type, Order.Status status, String memberUsername, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isAllocatedStock, Boolean hasExpired, Pageable pageable, ModelMap model , Date startDate , Date endDate , String searchName , String timeSearch , HttpServletRequest request , HttpServletResponse response) {
@@ -1102,9 +1040,6 @@ public class OrderController extends BaseController {
 	}
 
 	/**
-	 * 备注
-	 * @param model
-	 * @return
 	 */
 	@RequestMapping(value = "/remarksMobile", method = RequestMethod.GET)
 	public String remarksMobile(ModelMap model , Long id) {

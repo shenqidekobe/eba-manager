@@ -1240,7 +1240,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLog.setOrder(order);
 		orderLogDao.persist(orderLog);
 
-		mailService.sendReturnsOrderMail(order);
+		//mailService.sendReturnsOrderMail(order);
 		smsService.sendReturnsOrderSms(order);
 	}
 
@@ -1257,7 +1257,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLog.setOrder(order);
 		orderLogDao.persist(orderLog);
 
-		mailService.sendReceiveOrderMail(order);
+		//mailService.sendReceiveOrderMail(order);
 		smsService.sendReceiveOrderSms(order);
 	}
 
@@ -1342,7 +1342,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderNewsPushDao.addOrderNewPush(supplier, order, OrderNewsPush.OrderStatus.complete, order.getNeed(), supplier.getName(), "",OrderNewsPush.NoticeObject.order);
 		}
 
-		mailService.sendCompleteOrderMail(order);
+		//mailService.sendCompleteOrderMail(order);
 		smsService.sendCompleteOrderSms(order);
 
 		//订货单消息接受员接受消息
@@ -1643,14 +1643,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 		orderLogDao.persist(orderLog);
 
-		mailService.sendReviewOrderMail(order);
+		//mailService.sendReviewOrderMail(order);
 		smsService.sendReviewOrderSms(order);
 
 		if (!passed) {
 
 			// TODO: 2017/2/14 发送模版消息
 			weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.denied) ;
-
 		}else{
 
 			String remark = "您的订单已通过审核！" ;
@@ -1658,7 +1657,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				remark = "您的订单数据有变更，请查看订单详情！" ;
 			}
 			weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.passed , remark) ;
-
 		}
 
 
@@ -1852,61 +1850,61 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			}
 			BigDecimal amountPayable = balance != null ? order.getAmount().subtract(balance) : order.getAmount();
 			if (amountPayable.compareTo(BigDecimal.ZERO) > 0) {
-			if (paymentMethod == null) {
-				throw new IllegalArgumentException();
-			}
-			order.setStatus(PaymentMethod.Type.deliveryAgainstPayment.equals(paymentMethod.getType()) ? Order.Status.pendingPayment : Order.Status.pendingReview);
-			order.setPaymentMethod(paymentMethod);
-			if (paymentMethod.getTimeout() != null && Order.Status.pendingPayment.equals(order.getStatus())) {
-			    order.setExpire(DateUtils.addMinutes(new Date(), paymentMethod.getTimeout()));
-			}
-			if (PaymentMethod.Method.online.equals(paymentMethod.getMethod())) {
-			    lock(order, buyMember);
-			}
+				if (paymentMethod == null) {
+					throw new IllegalArgumentException();
+				}
+				order.setStatus(PaymentMethod.Type.deliveryAgainstPayment.equals(paymentMethod.getType()) ? Order.Status.pendingPayment : Order.Status.pendingReview);
+				order.setPaymentMethod(paymentMethod);
+				if (paymentMethod.getTimeout() != null && Order.Status.pendingPayment.equals(order.getStatus())) {
+				    order.setExpire(DateUtils.addMinutes(new Date(), paymentMethod.getTimeout()));
+				}
+				if (PaymentMethod.Method.online.equals(paymentMethod.getMethod())) {
+				    lock(order, buyMember);
+				}
 			} else {
-			order.setStatus(Order.Status.pendingReview);
-			order.setPaymentMethod(null);
+				order.setStatus(Order.Status.pendingReview);
+				order.setPaymentMethod(null);
 			}
 			
 			List<OrderItem> orderItems = order.getOrderItems();
 			for (CartItem cartItem : cartItemList) {
-			Product product = cartItem.getProduct();
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(product.getSn());
-			orderItem.setName(product.getName());
-			orderItem.setType(product.getType());
-			orderItem.setPrice(cartItem.getNewPrice());
-			orderItem.setPriceUnit(cartItem.getNewPriceUnit());
-			orderItem.setPriceB(cartItem.getNewBToBPrice());
-			orderItem.setPriceUnitB(cartItem.getNewBToBPriceUnit());
-			orderItem.setWeight(product.getWeight());
-			orderItem.setIsDelivery(product.getIsDelivery());
-			orderItem.setThumbnail(product.getThumbnail());
-			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(cartItem.getProduct());
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(product.getSpecifications());
-			orderItems.add(orderItem);
+				Product product = cartItem.getProduct();
+				OrderItem orderItem = new OrderItem();
+				orderItem.setSn(product.getSn());
+				orderItem.setName(product.getName());
+				orderItem.setType(product.getType());
+				orderItem.setPrice(cartItem.getNewPrice());
+				orderItem.setPriceUnit(cartItem.getNewPriceUnit());
+				orderItem.setPriceB(cartItem.getNewBToBPrice());
+				orderItem.setPriceUnitB(cartItem.getNewBToBPriceUnit());
+				orderItem.setWeight(product.getWeight());
+				orderItem.setIsDelivery(product.getIsDelivery());
+				orderItem.setThumbnail(product.getThumbnail());
+				orderItem.setQuantity(cartItem.getQuantity());
+				orderItem.setShippedQuantity(0);
+				orderItem.setReturnedQuantity(0);
+				orderItem.setProduct(cartItem.getProduct());
+				orderItem.setOrder(order);
+				orderItem.setSpecifications(product.getSpecifications());
+				orderItems.add(orderItem);
 			}
 			
 			for (Product gift : cart.getGifts()) {
-			OrderItem orderItem = new OrderItem();
-			orderItem.setSn(gift.getSn());
-			orderItem.setName(gift.getName());
-			orderItem.setType(gift.getType());
-			orderItem.setPrice(BigDecimal.ZERO);
-			orderItem.setWeight(gift.getWeight());
-			orderItem.setIsDelivery(gift.getIsDelivery());
-			orderItem.setThumbnail(gift.getThumbnail());
-			orderItem.setQuantity(1);
-			orderItem.setShippedQuantity(0);
-			orderItem.setReturnedQuantity(0);
-			orderItem.setProduct(gift);
-			orderItem.setOrder(order);
-			orderItem.setSpecifications(gift.getSpecifications());
-			orderItems.add(orderItem);
+				OrderItem orderItem = new OrderItem();
+				orderItem.setSn(gift.getSn());
+				orderItem.setName(gift.getName());
+				orderItem.setType(gift.getType());
+				orderItem.setPrice(BigDecimal.ZERO);
+				orderItem.setWeight(gift.getWeight());
+				orderItem.setIsDelivery(gift.getIsDelivery());
+				orderItem.setThumbnail(gift.getThumbnail());
+				orderItem.setQuantity(1);
+				orderItem.setShippedQuantity(0);
+				orderItem.setReturnedQuantity(0);
+				orderItem.setProduct(gift);
+				orderItem.setOrder(order);
+				orderItem.setSpecifications(gift.getSpecifications());
+				orderItems.add(orderItem);
 			}
 			
 			/*//生成送货码
@@ -1928,16 +1926,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			
 			List<OrderItemInfo> orderItemInfos = new ArrayList<>(orderItemsAfter.size());
 			for(OrderItem orderItem : orderItemsAfter){
-			OrderItemInfo orderItemInfo = new OrderItemInfo() ;
-			orderItemInfo.setBeforeQuantity(orderItem.getQuantity());
-			orderItemInfo.setAfterQuantity(orderItem.getQuantity());
-			orderItemInfo.setBeforePrice((orderItem.getPrice()));
-			orderItemInfo.setAfterPrice((orderItem.getPrice()));
-			orderItemInfo.setBeforePriceB((orderItem.getPriceB()));
-			orderItemInfo.setAfterPriceB((orderItem.getPriceB()));
-			orderItemInfo.setProduct(orderItem.getProduct());
-			orderItemInfo.setOrderItemLog(orderItemLog);
-			orderItemInfos.add(orderItemInfo);
+				OrderItemInfo orderItemInfo = new OrderItemInfo() ;
+				orderItemInfo.setBeforeQuantity(orderItem.getQuantity());
+				orderItemInfo.setAfterQuantity(orderItem.getQuantity());
+				orderItemInfo.setBeforePrice((orderItem.getPrice()));
+				orderItemInfo.setAfterPrice((orderItem.getPrice()));
+				orderItemInfo.setBeforePriceB((orderItem.getPriceB()));
+				orderItemInfo.setAfterPriceB((orderItem.getPriceB()));
+				orderItemInfo.setProduct(orderItem.getProduct());
+				orderItemInfo.setOrderItemLog(orderItemLog);
+				orderItemInfos.add(orderItemInfo);
 			}
 			
 			//下单企业
@@ -1953,7 +1951,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderItemLog.setType(OrderItemLog.Type.custom);
 			orderItemLog.setOrderItemInfos(orderItemInfos);
 			if (supplierType != SupplierType.FOUR){
-			orderItemLog.setSupplierName(bySupplier.getName());
+			    orderItemLog.setSupplierName(bySupplier.getName());
 			}
 			orderItemLog.setLogType(LogType.member);
 			
@@ -1978,28 +1976,26 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			
 			//如果备注信信息不为空，则向备注息表中添加一条备注信息
 			if(StringUtils.isNotEmpty(memo) && order.getType() != Type.local) {
-			OrderRemarks orderRemarks = new OrderRemarks();
-			orderRemarks.setDescription(memo);
-			orderRemarks.setOrder(order);
-			orderRemarks.setName(logName);
-			orderRemarks.setSuppliper(bySupplier.getName());
-			orderRemarks.setMsgType(MsgType.btoc);
-			orderRemarks.setLogType(LogType.member);
-			orderRemarksDao.persist(orderRemarks);
-			
-			//后台消息推送
-			orderNewsPushDao.addOrderNewPush(order.getSupplier(), order, 
-					OrderNewsPush.OrderStatus.leaveAMessage, order.getNeed(), order.getSupplier().getName(), 
-					receiver.getConsignee(), OrderNewsPush.NoticeObject.order);
+				OrderRemarks orderRemarks = new OrderRemarks();
+				orderRemarks.setDescription(memo);
+				orderRemarks.setOrder(order);
+				orderRemarks.setName(logName);
+				orderRemarks.setSuppliper(bySupplier.getName());
+				orderRemarks.setMsgType(MsgType.btoc);
+				orderRemarks.setLogType(LogType.member);
+				orderRemarksDao.persist(orderRemarks);
+				
+				//后台消息推送
+				orderNewsPushDao.addOrderNewPush(order.getSupplier(), order, 
+						OrderNewsPush.OrderStatus.leaveAMessage, order.getNeed(), order.getSupplier().getName(), 
+						receiver.getConsignee(), OrderNewsPush.NoticeObject.order);
 			
 			}
-			
-				exchangePoint(order);
+			exchangePoint(order);
 			if (Setting.StockAllocationTime.order.equals(setting.getStockAllocationTime())
 			    || (Setting.StockAllocationTime.payment.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
 				allocateStock(order);
 			}
-			
 			if (balance != null && balance.compareTo(BigDecimal.ZERO) > 0) {
 				Payment payment = new Payment();
 				payment.setMethod(Payment.Method.deposit);
@@ -2072,6 +2068,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
             BigDecimal balance, String memo, Date reDate , 
             SupplyType supplyType , ChildMember childMember, 
             Receiver receiver, SupplierType supplierType, Types types, Integer sumQuantity){
+		
 			String logName="";//操作人名称  如果为员工则为员工姓名   
 			Setting setting = SystemUtils.getSetting();
 			Order order = new Order();
