@@ -30,7 +30,7 @@
 				<entry key="/admin/homePage/**" value="perms[admin:homePage]" />
 				
 				<!-- 商品 -->
-				<!--<entry key="/admin/goods/list.jhtml" value="perms[admin:goods:list]" />-->
+				<entry key="/admin/goods/list.jhtml" value="perms[admin:goods:list]" />
 				<entry key="/admin/goods/add.jhtml" value="perms[admin:goods:add]" />
 				<entry key="/admin/goods/edit.jhtml" value="perms[admin:goods:edit]" />
 				<entry key="/admin/goods/delete.jhtml" value="perms[admin:goods:delete]" />
@@ -42,61 +42,19 @@
 				<entry key="/admin/goodsCenter/importMore.jhtml" value="perms[admin:goods:importMore]" />
 				
 				<!-- 规格 -->
-				<!--<entry key="/admin/specification/**" value="perms[admin:specification]" />-->
+				<entry key="/admin/specification/list.jhtml" value="perms[admin:specification:list]" />
 				<entry key="/admin/specification/add.jhtml" value="perms[admin:specification:add]" />
 				<entry key="/admin/specification/edit.jhtml" value="perms[admin:specification:edit]" />
 				<entry key="/admin/specification/delete.jhtml" value="perms[admin:specification:delete]" />
 				
 				<!-- 分类 -->
-				<!--<entry key="/admin/product_category/**" value="perms[admin:productCategory]" />-->
+				<entry key="/admin/product_category/list.jhtml" value="perms[admin:productCategory:list]" />
 				<entry key="/admin/product_category/add.jhtml" value="perms[admin:productCategory:add]" />
 				<entry key="/admin/product_category/edit.jhtml" value="perms[admin:productCategory:edit]" />
 				<entry key="/admin/product_category/delete.jhtml" value="perms[admin:productCategory:delete]" />
 				
-				<!-- 个体客户 -->
-				<!--<entry key="/admin/need/**" value="perms[admin:need]" />	-->
-				<entry key="/admin/need/add.jhtml" value="perms[admin:need:add]" />
-				<entry key="/admin/need/edit.jhtml" value="perms[admin:need:edit]" />
-				<entry key="/admin/need/delete.jhtml" value="perms[admin:need:delete]" />
-				<!-- 暂停/启用个体客户 -->
-				<entry key="/admin/need/updateneedStatus.jhtml" value="perms[admin:need:updateneedStatus]" />
-				<!-- 个体客户导入 -->
-				<entry key="/admin/need/importMore.jhtml" value="perms[admin:need:importMore]" />
-				
-				<!-- 正式供应 -->
-				<!--<entry key="/admin/formalSupply/**" value="perms[admin:formalSupply]" />-->
-				<entry key="/admin/formalSupply/add.jhtml" value="perms[admin:formalSupply:add]" />
-				<!-- 查看 -->
-				<entry key="/admin/formalSupply/view.jhtml" value="perms[admin:formalSupply:view]" />
-				<entry key="/admin/formalSupply/edit.jhtml" value="perms[admin:formalSupply:edit]" />
-				<entry key="/admin/formalSupply/delete.jhtml" value="perms[admin:formalSupply:delete]" />
-				<!-- 暂停/启用供应 -->
-				<entry key="/admin/formalSupply/updateStatus.jhtml" value="perms[admin:formalSupply:updateStatus]" />
-				
-				<!-- 个体供应 -->
-				<entry key="/admin/needSupply/add.jhtml" value="perms[admin:needSupply:add]" />
-				<!-- 查看 -->
-				<entry key="/admin/needSupply/view.jhtml" value="perms[admin:needSupply:view]" />
-				<entry key="/admin/needSupply/edit.jhtml" value="perms[admin:needSupply:edit]" />
-				<entry key="/admin/needSupply/delete.jhtml" value="perms[admin:needSupply:delete]" />
-				<entry key="/admin/needSupply/batchAddIndex.jhtml" value="perms[admin:needSupply:batchAddIndex]" />
-				
-				<!-- 流水供应 -->
-				<entry key="/admin/turnoverSupply/**" value="perms[admin:turnoverSupply]" />
-				
-				<!-- 供应分配 -->
-				<!-- <entry key="/admin/supplyDistribution/**" value="perms[admin:supplyDistribution]" /> -->
-				<!-- 查看 -->
-				<entry key="/admin/supplyDistribution/view.jhtml" value="perms[admin:supplyDistribution:view]" />
-				<!-- 收货点分配商品 -->
-				<entry key="/admin/supplyDistribution/distributionList.jhtml" value="perms[admin:supplyDistribution:distributionList]" />
-				
-				<!-- 供应商管理-->
-				<!--<entry key="/admin/supplierRelation/**" value="perms[admin:supplierRelation]" /> -->
-				<entry key="/admin/supplierRelation/edit.jhtml" value="perms[admin:supplierRelation:edit]" />
-				
 				<!-- 订货单 -->
-				<!--<entry key="/admin/order/**" value="perms[admin:order]" />-->
+				<entry key="/admin/order/list.jhtml" value="perms[admin:order:list]" />
 				<!-- 批量打印订货单 -->
 				<entry key="/admin/print/orderBatchPrint.jhtml" value="perms[admin:print:orderBatchPrint]" />
 				<!-- 批量审核 -->
@@ -139,45 +97,6 @@
 				<!-- 订单取消 -->
 				<entry key="/admin/distributionOrder/cancel.jhtml" value="perms[admin:order:cancel]" />
 				
-				<!-- 采购单 -->
-				<!--<entry key="/admin/ownOrder/**" value="perms[admin:ownOrder]" />-->
-				<!-- 批量打印采购单 -->
-				<entry key="/admin/print/verificationDeliveryInfo.jhtml" value="perms[admin:print:verificationDeliveryInfo]" />
-				<!-- 收货点代下单 -->
-				<entry key="/admin/ownOrder/add.jhtml" value="perms[admin:ownOrder:add]" />
-				<!-- 多地址代下单 -->
-				<entry key="/admin/ownOrder/addMore.jhtml" value="perms[admin:ownOrder:addMore]" />
-				<!-- 导出 -->
-				<entry key="/admin/ownOrder/getOut*.jhtml" value="perms[admin:ownOrder:getOut]" />
-				<!-- 采购单打印 -->
-				<entry key="/admin/print/purchaseorder.jhtml" value="perms[admin:print:purchaseorder]" />
-				<!-- 修改 -->
-				<entry key="/admin/ownOrder/updateItems.jhtml" value="perms[admin:ownOrder:updateItems]" />
-				<!-- 取消申请 -->
-				<entry key="/admin/ownOrder/applicationCancel.jhtml" value="perms[admin:ownOrder:applicationCancel]" />
-				<!-- 订单备注 -->
-				<entry key="/admin/ownOrder/addRemarks.jhtml" value="perms[admin:ownOrder:addRemarks]" />
-				<!-- 发货单打印 -->
-				<entry key="/admin/print/deliveryInfor.jhtml" value="perms[admin:print:deliveryInfor]" />
-				
-				<!-- 代下单 -->
-				<!-- 个体客户代下单 -->
-				<entry key="/admin/proxyOrder/individualAdd.jhtml" value="perms[admin:proxyOrder:individualAdd]" />
-				<!-- 流水客户代下单 -->
-				<entry key="/admin/proxyOrder/multipleAdd.jhtml" value="perms[admin:proxyOrder:multipleAdd]" />
-				
-				
-				<!-- 客户管理 -->
-				<!--<entry key="/admin/customerRelation/**" value="perms[admin:customerRelation]" />-->
-				<entry key="/admin/customerRelation/add.jhtml" value="perms[admin:customerRelation:add]" />
-				<entry key="/admin/customerRelation/edit.jhtml" value="perms[admin:customerRelation:edit]" />
-				<entry key="/admin/customerRelation/delete.jhtml" value="perms[admin:customerRelation:delete]" />
-				
-				<!-- 助手供应商 -->
-				<entry key="/admin/assCustomerRelation/add.jhtml" value="perms[admin:assCustomerRelation:add]" />
-				<entry key="/admin/assCustomerRelation/edit.jhtml" value="perms[admin:assCustomerRelation:edit]" />
-				<entry key="/admin/assCustomerRelation/delete.jhtml" value="perms[admin:assCustomerRelation:delete]" />
-
 				<!-- 订单报表 -->
 				<entry key="/admin/orderReport/index.jhtml" value="perms[admin:orderReport:orderList]" />
 				<entry key="/admin/orderReport/purchaseFormIndex.jhtml" value="perms[admin:orderReport:purchaseList]" />
@@ -196,7 +115,7 @@
 				<entry key="/admin/commodityReport/purchaseOrder.jhtml" value="perms[admin:commodityReport:purchaseOrder]" />
 				
 				<!-- 员工管理 -->
-				<!--<entry key="/admin/admin/**" value="perms[admin:admin]" /> -->
+				<entry key="/admin/admin/list.jhtml" value="perms[admin:admin:list]" />
 				<entry key="/admin/admin/add.jhtml" value="perms[admin:admin:add]" />
 				<entry key="/admin/admin/edit.jhtml" value="perms[admin:admin:edit]" />
 				<entry key="/admin/admin/delete.jhtml" value="perms[admin:admin:delete]" />
@@ -211,12 +130,13 @@
 				<entry key="/admin/notice/purchaseNotice.jhtml" value="perms[admin:notice:purchaseNotice]" />
 
 				<!-- 部门相关 -->
+				<entry key="/admin/department/list.jhtml" value="perms[admin:department:list]" />
 				<entry key="/admin/department/add.jhtml" value="perms[admin:department:add]" />
 				<entry key="/admin/department/edit.jhtml" value="perms[admin:department:edit]" />
 				<entry key="/admin/department/delete.jhtml" value="perms[admin:department:delete]" />
 
 				<!-- 角色 -->
-				<!--<entry key="/admin/role/**" value="perms[admin:role]" />-->
+				<entry key="/admin/role/list.jhtml" value="perms[admin:role:list]" />
 				<entry key="/admin/role/add.jhtml" value="perms[admin:role:add]" />
 				<entry key="/admin/role/edit.jhtml" value="perms[admin:role:edit]" />
 				<entry key="/admin/role/delete.jhtml" value="perms[admin:role:delete]" />
@@ -236,10 +156,12 @@
 				<entry key="/admin/delivery_center/**" value="perms[admin:deliveryCenter]" />
 				<entry key="/admin/delivery_template/**" value="perms[admin:deliveryTemplate]" />
 
-				<!--<entry key="/admin/member/**" value="perms[admin:member]" />-->
+                <!-- 会员权限 -->
+				<entry key="/admin/member/list.jhtml" value="perms[admin:member:list]" />
 				<entry key="/admin/member/add.jhtml" value="perms[admin:member:add]" />
 				<entry key="/admin/member/edit.jhtml" value="perms[admin:member:edit]" />
 				<entry key="/admin/member/delete.jhtml" value="perms[admin:member:delete]" />
+				<entry key="/admin/member/withdraw/list.jhtml" value="perms[admin:withdraw:list]" />
 				<entry key="/admin/member/withdraw/edit.jhtml" value="perms[admin:withdraw:edit]" />
 				
 				<entry key="/admin/member_rank/**" value="perms[admin:memberRank]" />
