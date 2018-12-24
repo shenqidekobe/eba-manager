@@ -72,6 +72,9 @@
 			                          <input type="checkbox" name="two"  /><span>分类管理</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
+			                            <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:productCategory:list" [#if role.authorities?seq_contains("admin:productCategory:list")] checked="checked"[/#if] /><span>分类列表</span>
+				                        </div>	
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:productCategory:add" [#if role.authorities?seq_contains("admin:productCategory:add")] checked="checked"[/#if] /><span>添加分类</span>
 				                        </div>	
@@ -88,6 +91,9 @@
 			                          <input type="checkbox" name="two" /><span>规格管理</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
+			                            <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:specification:list" [#if role.authorities?seq_contains("admin:specification:list")] checked="checked"[/#if] /><span>规格列表</span>
+				                        </div>	
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:specification:add" [#if role.authorities?seq_contains("admin:specification:add")] checked="checked"[/#if] /><span>添加规格</span>
 				                        </div>	
@@ -104,6 +110,9 @@
 			                          <input type="checkbox" name="two" /><span>商品管理</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
+			                            <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:goods:list" [#if role.authorities?seq_contains("admin:goods:list")] checked="checked"[/#if] /><span>商品列表</span>
+				                        </div>	
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:goods:add" [#if role.authorities?seq_contains("admin:goods:add")] checked="checked"[/#if] /><span>添加商品</span>
 				                        </div>	
@@ -123,124 +132,6 @@
 			                        </div>
 		                       	</div>
 		                    </div>
-		                   <!-- 
-		                   <div name="firstDiv">
-		                      	<div class="check-box">
-		                          <input type="checkbox" name="one"/><span style="font-weight:bolder;">代理</span>
-		                        </div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"  /><span>代理管理</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:proxyUser:add" [#if role.authorities?seq_contains("admin:proxyUser:add")] checked="checked"[/#if] /><span>添加代理</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:proxyUser:edit" [#if role.authorities?seq_contains("admin:proxyUser:edit")] checked="checked"[/#if] /><span>编辑代理</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:proxyUser:delete" [#if role.authorities?seq_contains("admin:proxyUser:delete")] checked="checked"[/#if] /><span>删除代理</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>代理申请管理</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:proxyCheck:check" [#if role.authorities?seq_contains("admin:proxyCheck:check")] checked="checked"[/#if] /><span>代理审核</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	
-		                    </div> 
-		                    -->
-		                    
-		                    <!--
-		                    <div name="firstDiv">
-		                      	<div class="check-box">
-		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">供应</span>
-		                        </div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>供应管理</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:formalSupply:add" [#if role.authorities?seq_contains("admin:formalSupply:add")] checked="checked"[/#if] /><span>添加供应</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:formalSupply:view" [#if role.authorities?seq_contains("admin:formalSupply:view")] checked="checked"[/#if] /><span>查看供应</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:formalSupply:edit" [#if role.authorities?seq_contains("admin:formalSupply:edit")] checked="checked"[/#if] /><span>编辑供应</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:formalSupply:updateStatus" [#if role.authorities?seq_contains("admin:formalSupply:updateStatus")] checked="checked"[/#if] /><span>暂停/启用供应</span>
-				                        </div>
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:formalSupply:delete" [#if role.authorities?seq_contains("admin:formalSupply:delete")] checked="checked"[/#if] /><span>删除供应</span>
-				                        </div>
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>个体供应</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:needSupply:add" [#if role.authorities?seq_contains("admin:needSupply:add")] checked="checked"[/#if]/><span>添加供应</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:needSupply:batchAddIndex" [#if role.authorities?seq_contains("admin:needSupply:batchAddIndex")] checked="checked"[/#if] /><span>批量添加供应</span>
-				                        </div>
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:needSupply:view" [#if role.authorities?seq_contains("admin:needSupply:view")] checked="checked"[/#if]/><span>查看供应</span>
-				                        </div>
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:needSupply:edit" [#if role.authorities?seq_contains("admin:needSupply:edit")] checked="checked"[/#if]/><span>编辑供应</span>
-				                        </div>
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:needSupply:delete" [#if role.authorities?seq_contains("admin:needSupply:delete")] checked="checked"[/#if]/><span>删除供应</span>
-				                        </div>
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-                                    <input type="checkbox" name="two" class="hide"/>
-                                    <div name="thirdDiv">
-										<div class="check-box">
-										  <input type="checkbox" name="authorities" value="admin:turnoverSupply" [#if role.authorities?seq_contains("admin:turnoverSupply")] checked="checked"[/#if] /><span>流水供应</span>
-										</div>
-									</div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>供应分配</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:supplyDistribution:view" [#if role.authorities?seq_contains("admin:supplyDistribution:view")] checked="checked"[/#if] /><span>查看分配</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:supplyDistribution:distributionList" [#if role.authorities?seq_contains("admin:supplyDistribution:distributionList")] checked="checked"[/#if] /><span>收货点分配商品</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>供应商管理</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:supplierRelation:edit" [#if role.authorities?seq_contains("admin:supplierRelation:edit")] checked="checked"[/#if] /><span>编辑供应商</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                    </div>
-		                    
-		                    -->
 		                    <div name="firstDiv">
 		                      	<div class="check-box">
 		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">订单</span>
@@ -250,20 +141,22 @@
 			                          <input type="checkbox" name="two" /><span>订货单</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        <!--
+			                            <!--
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:print:orderBatchPrint" [#if role.authorities?seq_contains("admin:print:orderBatchPrint")] checked="checked"[/#if] /><span>批量打印</span>
-				                        </div>	-->
+				                        </div>
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:checkBatchReview" [#if role.authorities?seq_contains("admin:order:checkBatchReview")] checked="checked"[/#if] /><span>批量审核</span>
 				                        </div>	
-				                        <!--
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:getOut" [#if role.authorities?seq_contains("admin:order:getOut")] checked="checked"[/#if] /><span>订单导出</span>
 				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:print:order" [#if role.authorities?seq_contains("admin:print:order")] checked="checked"[/#if] /><span>订单打印</span>
 				                        </div>	-->
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:order:list" [#if role.authorities?seq_contains("admin:order:list")] checked="checked"[/#if] /><span>订单列表</span>
+				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:review" [#if role.authorities?seq_contains("admin:order:review")] checked="checked"[/#if] /><span>订单审核</span>
 				                        </div>	
@@ -277,15 +170,15 @@
 				                          	<input type="checkbox" name="authorities" value="admin:order:addRemarks" [#if role.authorities?seq_contains("admin:order:addRemarks")] checked="checked"[/#if] /><span>订单备注</span>
 				                        </div>	
 				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:order:applyCancel" [#if role.authorities?seq_contains("admin:order:applyCancel")] checked="checked"[/#if] /><span>订单用户申请</span>
-				                        </div>	
-				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:cancel" [#if role.authorities?seq_contains("admin:order:cancel")] checked="checked"[/#if] /><span>订单取消</span>
 				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:complete" [#if role.authorities?seq_contains("admin:order:complete")] checked="checked"[/#if] /><span>订单完成</span>
 				                        </div>	
 				                        <!--
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:order:applyCancel" [#if role.authorities?seq_contains("admin:order:applyCancel")] checked="checked"[/#if] /><span>订单用户申请</span>
+				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:print:orderShippingInfo" [#if role.authorities?seq_contains("admin:print:orderShippingInfo")] checked="checked"[/#if] /><span>发货单打印</span>
 				                        </div>	
@@ -294,134 +187,8 @@
 				                        </div>	-->
 			                        </div>
 		                       	</div>
-		                       	<!--
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>采购单</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:print:verificationDeliveryInfo" [#if role.authorities?seq_contains("admin:print:verificationDeliveryInfo")] checked="checked"[/#if] /><span>批量打印</span>
-				                        </div>	
-				                        <!--
-				                       <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:getOut" [#if role.authorities?seq_contains("admin:ownOrder:getOut")] checked="checked"[/#if] /><span>订单导出</span>
-				                        </div>	-->
-				                       <!--  <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:add" [#if role.authorities?seq_contains("admin:ownOrder:add")] checked="checked"[/#if] /><span>收货点代下单</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:addMore" [#if role.authorities?seq_contains("admin:ownOrder:addMore")] checked="checked"[/#if] /><span>多地址代下单</span>
-				                        </div>	 -->
-				                        <!--
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:print:purchaseorder" [#if role.authorities?seq_contains("admin:print:purchaseorder")] checked="checked"[/#if] /><span>订单打印</span>
-				                        </div>	-->
-				                        <!-- <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:updateItems" [#if role.authorities?seq_contains("admin:ownOrder:updateItems")] checked="checked"[/#if] /><span>订单修改</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:applicationCancel" [#if role.authorities?seq_contains("admin:ownOrder:applicationCancel")] checked="checked"[/#if] /><span>订单申请取消</span>
-				                        </div>	 -->
-				                        <!--
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ownOrder:addRemarks" [#if role.authorities?seq_contains("admin:ownOrder:addRemarks")] checked="checked"[/#if] /><span>订单备注</span>
-				                        </div>	-->
-				                        <!--
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:print:deliveryInfor" [#if role.authorities?seq_contains("admin:print:deliveryInfor")] checked="checked"[/#if] /><span>发货单打印</span>
-				                        </div>
-			                        </div>	
-		                       	</div>-->
 		                       	
-		                       	[#if currSupplier.systemSetting.isDistributionModel]
-       	                       	<div style="padding-left:70px;" name="secondDiv">
-       		                       	<div class="check-box">
-       		                          <input type="checkbox" name="two" /><span>分销单审核</span>
-       		                        </div>
-       		                        <div style="padding-left:100px;" name="thirdDiv">
-	       		                        <div class="check-box">
-	       		                          	<input type="checkbox" name="authorities" value="admin:distributionOrder:checkBatchReview" [#if role.authorities?seq_contains("admin:distributionOrder:checkBatchReview")] checked="checked"[/#if] /><span>批量审核</span>
-	       		                        </div>	
-       			                       <div class="check-box">
-       			                          	<input type="checkbox" name="authorities" value="admin:distributionOrder:getOut" [#if role.authorities?seq_contains("admin:distributionOrder:getOut")]checked="checked" [/#if]/><span>订单导出</span>
-       			                        </div>	
-       			                        <div class="check-box">
-       			                          	<input type="checkbox" name="authorities" value="admin:print:distributionOrder" [#if role.authorities?seq_contains("admin:print:distributionOrder")]checked="checked"[/#if]/><span>订单打印</span>
-       			                        </div>	
-       			                        <div class="check-box">
-       			                          	<input type="checkbox" name="authorities" value="admin:distributionOrder:review" [#if role.authorities?seq_contains("admin:distributionOrder:review")]checked="checked"[/#if]/><span>订单审核</span>
-       			                        </div>	
-       			                        <div class="check-box">
-       			                          	<input type="checkbox" name="authorities" value="admin:distributionOrder:applyCancel" [#if role.authorities?seq_contains("admin:distributionOrder:applyCancel")]checked="checked"[/#if]/><span>订单申请取消</span>
-       			                        </div>	
-       			                        <div class="check-box">
-       			                          	<input type="checkbox" name="authorities" value="admin:distributionOrder:cancel" [#if role.authorities?seq_contains("admin:distributionOrder:cancel")]checked="checked"[/#if]/><span>订单取消</span>
-       			                        </div>	
-       		                        </div>
-       	                       	</div>
-       	                       	[/#if]
-       	                       	
-	                           <!--	<div style="padding-left:70px;" name="secondDiv">
-	    	                       	<div class="check-box">
-	    	                          <input type="checkbox" name="two" /><span>代下单</span>
-	    	                        </div>
-	    	                        <div style="padding-left:100px;" name="thirdDiv">
-	    	                        	<div class="check-box">
-	    		                          	<input type="checkbox" name="authorities" value="admin:proxyOrder:individualAdd" [#if role.authorities?seq_contains("admin:proxyOrder:individualAdd")]checked="checked"[/#if] /><span>个体客户代下单</span>
-	    		                        </div>	
-	    		                       <div class="check-box">
-	    		                          	<input type="checkbox" name="authorities" value="admin:proxyOrder:multipleAdd" [#if role.authorities?seq_contains("admin:proxyOrder:multipleAdd")]checked="checked"[/#if] /><span>流水客户代下单</span>
-	    		                        </div>	
-	    	                        </div>
-	                           	</div>
-	                           	
-	                           	-->
 		                    </div>
-		                    
-		                    <!--
-		                    <div name="firstDiv">
-		                      	<div class="check-box">
-		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">客户</span>
-		                        </div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"/><span>企业客户</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:customerRelation:add" [#if role.authorities?seq_contains("admin:customerRelation:add")] checked="checked"[/#if] /><span>添加客户</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:customerRelation:edit" [#if role.authorities?seq_contains("admin:customerRelation:edit")] checked="checked"[/#if] /><span>编辑客户</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:customerRelation:delete" [#if role.authorities?seq_contains("admin:customerRelation:delete")] checked="checked"[/#if] /><span>删除客户</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"/><span>个体管理</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:need:add" [#if role.authorities?seq_contains("admin:need:add")] checked="checked"[/#if]/><span>添加个体</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:need:edit" [#if role.authorities?seq_contains("admin:need:edit")] checked="checked"[/#if]/><span>编辑个体</span>
-				                        </div>	
-				                        <!-- <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:need:updateneedStatus" [#if role.authorities?seq_contains("admin:need:updateneedStatus")] checked="checked"[/#if]/><span>暂停、启用个体</span>
-				                        </div> -->
-				                        <!--<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:need:importMore" [#if role.authorities?seq_contains("admin:need:importMore")] checked="checked"[/#if]/><span>个体导入</span>
-				                        </div>
-			                        </div>
-		                       	</div>
-		                   </div>
-		                   -->
-		                   
 		                   <div name="firstDiv">
 		                      	<div class="check-box">
 		                          <input type="checkbox" name="one"/><span style="font-weight:bolder;">报表</span>
@@ -434,10 +201,6 @@
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:orderReport:orderList" [#if role.authorities?seq_contains("admin:orderReport:orderList")] checked="checked"[/#if] /><span>查看订货单报表</span>
 				                        </div>	
-				                        <!--
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:orderReport:purchaseList" [#if role.authorities?seq_contains("admin:orderReport:purchaseList")] checked="checked"[/#if] /><span>查看采购单报表</span>
-				                        </div>	-->
 			                        </div>
 		                       	</div>
 		                       	<div style="padding-left:70px;" name="secondDiv">
@@ -448,10 +211,6 @@
 			                        	<div class="check-box" style="width:160px">
 				                          	<input type="checkbox" name="authorities" value="admin:commodityReport:orderForm" [#if role.authorities?seq_contains("admin:commodityReport:orderForm")] checked="checked"[/#if] /><span>查看订货商品报表</span>
 				                        </div>	
-				                        <!--
-				                        <div class="check-box" style="width:160px">
-				                          	<input type="checkbox" name="authorities" value="admin:commodityReport:purchaseOrder" [#if role.authorities?seq_contains("admin:commodityReport:purchaseOrder")] checked="checked"[/#if] /><span>查看采购商品报表</span>
-				                        </div>	-->
 			                        </div>
 		                       	</div>
 		                       	<!--
@@ -465,7 +224,6 @@
 				                        </div>	
 			                        </div>
 		                       	</div>
-		                       	
 		                       	-->
 		                    </div>
 		                    <div name="firstDiv"> 
@@ -503,7 +261,7 @@
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:add" [#if role.authorities?seq_contains("admin:member:add")] checked="checked"[/#if]/><span>添加会员</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:list" [#if role.authorities?seq_contains("admin:member:list")] checked="checked"[/#if]/><span>会员列表</span>
                                         </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:edit" [#if role.authorities?seq_contains("admin:member:edit")] checked="checked"[/#if]/><span>编辑会员</span>
@@ -519,6 +277,9 @@
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:withdraw:list" [#if role.authorities?seq_contains("admin:withdraw:list")] checked="checked"[/#if]/><span>提现列表</span>
+                                        </div>
+                                        <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:withdraw:edit" [#if role.authorities?seq_contains("admin:withdraw:edit")] checked="checked"[/#if]/><span>编辑提现</span>
                                         </div>
                                     </div>
@@ -533,6 +294,9 @@
                                         <input type="checkbox" name="two" /><span>角色管理</span>
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:role:list" [#if role.authorities?seq_contains("admin:role:list")] checked="checked"[/#if]/><span>角色列表</span>
+                                        </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:role:add" [#if role.authorities?seq_contains("admin:role:add")] checked="checked"[/#if]/><span>添加角色</span>
                                         </div>
@@ -550,6 +314,9 @@
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:department:list" [#if role.authorities?seq_contains("admin:department:list")] checked="checked"[/#if]/><span>部门列表</span>
+                                        </div>
+                                        <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:department:add" [#if role.authorities?seq_contains("admin:department:add")] checked="checked"[/#if]/><span>添加部门</span>
                                         </div>
                                         <div class="check-box">
@@ -565,6 +332,9 @@
 			                          <input type="checkbox" name="two" /><span>员工管理</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
+			                            <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:admin:list" [#if role.authorities?seq_contains("admin:admin:list")] checked="checked"[/#if] /><span>员工列表</span>
+				                        </div>	
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:admin:add" [#if role.authorities?seq_contains("admin:admin:add")] checked="checked"[/#if] /><span>添加员工</span>
 				                        </div>	
@@ -582,106 +352,13 @@
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
 			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:log" [#if role.authorities?seq_contains("admin:log")] checked="checked"[/#if] /><span>查看日志</span>
+				                          	<input type="checkbox" name="authorities" value="admin:log" [#if role.authorities?seq_contains("admin:log")] checked="checked"[/#if] /><span>日志列表</span>
 				                        </div>	
 			                        </div>
 		                       	</div>
-		                       	<!--
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two" /><span>消息通知</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:notice:add" [#if role.authorities?seq_contains("admin:notice:add")] checked="checked"[/#if] /><span>添加接收员</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:notice:delete" [#if role.authorities?seq_contains("admin:notice:delete")] checked="checked"[/#if] /><span>编辑订货单通知</span>
-				                        </div>	
-				                         <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:notice:orderNotice" [#if role.authorities?seq_contains("admin:notice:orderNotice")] checked="checked"[/#if] /><span>编辑采购单通知</span>
-				                        </div>
-				                         <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:notice:purchaseNotice" [#if role.authorities?seq_contains("admin:notice:purchaseNotice")] checked="checked"[/#if] /><span>删除接收员</span>
-				                        </div>
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-                                    <input type="checkbox" name="two" class="hide"/>
-                                    <div name="thirdDiv">
-										<div class="check-box">
-										  <input type="checkbox" name="authorities" value="admin:orderSetting" [#if role.authorities?seq_contains("admin:orderSetting")] checked="checked"[/#if] /><span>订单设置</span>
-										</div>
-									</div>
-		                       	</div>
-
-								[#if currSupplier.systemSetting.isDistributionModel]
-                                <div style="padding-left:70px;" name="secondDiv">
-                                    <input type="checkbox" name="two" class="hide"/>
-                                    <div name="thirdDiv">
-                                        <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:systemSetting" [#if role.authorities?seq_contains("admin:systemSetting")] checked="checked"[/#if] /><span>分销设置</span>
-                                        </div>
-                                    </div>
-                                </div>
-								[/#if]
-
-		                       	<div style="padding-left:70px;" name="secondDiv">
-                                    <input type="checkbox" name="two" class="hide"/>
-                                    <div name="thirdDiv">
-										<div class="check-box">
-										  <input type="checkbox" name="authorities" value="admin:enterpriseInfo" [#if role.authorities?seq_contains("admin:enterpriseInfo")] checked="checked"[/#if] /><span>企业信息</span>
-										</div>
-									</div>
-		                       	</div>
-		                       	-->
 		                       	
 		                    </div>
 		                    
-		                  <!--
-		                    <div name="firstDiv">
-		                      	<div class="check-box">
-		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">订货助理</span>
-		                        </div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"/><span>商品目录</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:goodDirectory:add" [#if role.authorities?seq_contains("admin:goodDirectory:add")] checked="checked"[/#if] /><span>添加主题</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:goodDirectory:edit" [#if role.authorities?seq_contains("admin:goodDirectory:edit")] checked="checked"[/#if] /><span>编辑主题</span>
-				                        </div>	
-				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:goodDirectory:delete" [#if role.authorities?seq_contains("admin:goodDirectory:delete")] checked="checked"[/#if] /><span>删除主题</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"/><span>分享统计</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:shareStatistics" [#if role.authorities?seq_contains("admin:shareStatistics")] checked="checked"[/#if] /><span>查看分享统计</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                       	<div style="padding-left:70px;" name="secondDiv">
-			                       	<div class="check-box">
-			                          <input type="checkbox" name="two"/><span>清单统计</span>
-			                        </div>
-			                        <div style="padding-left:100px;" name="thirdDiv">
-			                        	<div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:listStatistics" [#if role.authorities?seq_contains("admin:listStatistics")] checked="checked"[/#if] /><span>查看清单统计</span>
-				                        </div>	
-			                        </div>
-		                       	</div>
-		                   </div>
-	                    </div>-->
-	                    
 	                </div>
 					<div class="footer_submit">
 						<input class="btn radius confir_S" type="submit" value="${message("admin.common.submit")}" />

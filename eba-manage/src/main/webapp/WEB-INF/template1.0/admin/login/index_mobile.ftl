@@ -21,7 +21,8 @@
     <script src="${base}/resources/mobile/js/common.js"></script>
 </head>
 <body>
-
+    <div class="login-box">请使用PC-Chrome浏览器登录</div>
+    <!--
     <div class="login-box">
         <h3 class="title">登录</h3>
         <form id="loginForm" method="post" action="login.jhtml">
@@ -53,7 +54,7 @@
         </form>
         <div class="logo-b"></div>
     </div>
-
+    -->
 </body>
 <script>
     $(function () {
