@@ -172,47 +172,16 @@ public class MemberController extends BaseController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(Member member, Long memberRankId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		member.setMemberRank(memberRankService.find(memberRankId));
+	public String update(ChildMember member, Long memberRankId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		if (!isValid(member)) {
 			return ERROR_VIEW;
 		}
-		Setting setting = SystemUtils.getSetting();
-		if (member.getPassword() != null && (member.getPassword().length() < setting.getPasswordMinLength() || member.getPassword().length() > setting.getPasswordMaxLength())) {
-			return ERROR_VIEW;
-		}
-		Member pMember = memberService.find(member.getId());
+		ChildMember pMember = childMemberService.find(member.getId());
 		if (pMember == null) {
 			return ERROR_VIEW;
 		}
-		if (!setting.getIsDuplicateEmail() && !memberService.emailUnique(pMember.getEmail(), member.getEmail())) {
-			return ERROR_VIEW;
-		}
-		member.removeAttributeValue();
-		for (MemberAttribute memberAttribute : memberAttributeService.findList(true, true)) {
-			String[] values = request.getParameterValues("memberAttribute_" + memberAttribute.getId());
-			if (!memberAttributeService.isValid(memberAttribute, values)) {
-				return ERROR_VIEW;
-			}
-			Object memberAttributeValue = memberAttributeService.toMemberAttributeValue(memberAttribute, values);
-			member.setAttributeValue(memberAttribute, memberAttributeValue);
-		}
-		if (StringUtils.isEmpty(member.getPassword())) {
-			member.setPassword(pMember.getPassword());
-		} else {
-			member.setPassword(DigestUtils.md5Hex(member.getPassword()));
-		}
-		if (pMember.getIsLocked() && !member.getIsLocked()) {
-			member.setLoginFailureCount(0);
-			member.setLockedDate(null);
-		} else {
-			member.setIsLocked(pMember.getIsLocked());
-			member.setLoginFailureCount(pMember.getLoginFailureCount());
-			member.setLockedDate(pMember.getLockedDate());
-		}
-
-		memberService.update(member, "username", "point", "balance", "amount", "registerIp", "loginIp", "loginDate", "loginPluginId", "openId", "lockKey", "safeKey", "cart", "orders", "paymentLogs", "depositLogs", "couponCodes", "receivers", "reviews", "consultations", "favoriteGoods",
-				"productNotifies", "inMessages", "outMessages", "pointLogs");
+		childMemberService.update(member, "openId","nickName","member","parent",
+				"smOpenId","headImgUrl","unionId","isChecked","orderForms","sourceType");
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}

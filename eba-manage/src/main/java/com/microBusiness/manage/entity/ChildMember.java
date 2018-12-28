@@ -29,16 +29,12 @@ public class ChildMember extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1448553091140929172L;
 
 	private String openId ;
-
     private Member member ;
-
     private String nickName ;
-
     private String headImgUrl ;
-
     private String unionId ;
-    
     private String smOpenId;
+    private String phone;
 
     /**
      * 来源类型
@@ -62,6 +58,7 @@ public class ChildMember extends BaseEntity<Long> {
     private Boolean isChecked;
     private Boolean isShoper;
     private Integer shoperLevel;//店主等级
+    private String remark;
     
     
     public Boolean getIsChecked() {
@@ -113,7 +110,15 @@ public class ChildMember extends BaseEntity<Long> {
         this.headImgUrl = headImgUrl;
     }
 
-    @Override
+    public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	@Override
     public String toString() {
         return "ChildMember{" +
                 "openId='" + openId + '\'' +
@@ -139,6 +144,12 @@ public class ChildMember extends BaseEntity<Long> {
     }
 	public String getSmOpenId() {
 		return smOpenId;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public Boolean getIsShoper() {
 		return isShoper;
