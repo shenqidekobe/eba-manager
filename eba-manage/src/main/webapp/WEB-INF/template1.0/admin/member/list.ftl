@@ -127,7 +127,8 @@
 									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 								</td>
 								<td class="td-manage">
-								   <a title="${message("admin.common.view")}" href="view.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none">详情</a>
+								   <a title="${message("admin.common.view")}" href="view.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
+								   <a title="${message("admin.common.edit")}" href="edit.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_bianji"></i></a>
 								   <a title="收益记录" href="income/list.jhtml?memberId=${member.id}" class="ml-5" style="text-decoration:none">收益记录</a>
 								</td>
 							</tr>

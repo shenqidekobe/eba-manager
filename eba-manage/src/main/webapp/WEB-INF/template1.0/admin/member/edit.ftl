@@ -39,6 +39,7 @@
 		<div class="form_box">
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
 				<input type="hidden" name="id" value="${member.id}" />
+				<input type="hidden" name="phone" value="${member.phone}" />
 				<div id="tab-system" class="HuiTab">
 				    <h3 class="form_title" style="margin:20px 0 0 20px;">个人基础数据</h3>
 					<div >
@@ -115,9 +116,17 @@
 									累计收益
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-								<span class="input_no_span">${member.income}</span>
+								   <span class="input_no_span">${member.income}</span>
 								</div>
 							</div>
+							<div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">
+                                	备注说明
+                                </label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <textarea id="remark" name="remark" rows="5" class="text_area" cols="90" placeholder="会员个人信息备注">${obj.remark}</textarea>
+                                </div>
+                            </div>
 						</div>
 						
 					</div>
