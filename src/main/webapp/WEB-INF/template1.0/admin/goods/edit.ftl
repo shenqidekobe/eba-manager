@@ -404,8 +404,8 @@
                             <input type="text" id="price" name="product.price" class="input-text" maxlength="100"  value="${goods.defaultProduct.price}" />
                         </div>
                     </div>
-                    
-                     <div class="row cl">
+                    <!--
+                    <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">是否是代理商品</label>
                         <div class="formControls col-xs-8 col-sm-7">
                              <span class="isProxyLabel isInLabel">代理商品</span>
@@ -418,7 +418,7 @@
                             <input type="text" id="proxyPrice" name="product.proxyPrice" class="input-text" maxlength="100"  value="${goods.defaultProduct.proxyPrice}" />
                         </div>
                     </div>
-
+                    -->
                     <div class="row cl">
                         [#list labels as label]
                         <input type="hidden" class="labelInput" value="${label}" />

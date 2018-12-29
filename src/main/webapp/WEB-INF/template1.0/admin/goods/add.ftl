@@ -369,22 +369,20 @@
                         </div>
                     </div>
                     
+                    <!--
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">是否是代理商品</label>
                         <div class="formControls col-xs-8 col-sm-7">
                              <span class="isProxyLabel isInLabel">代理商品</span>
                         </div>
                     </div>
-                    
-                    
-                    
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">代理价格</label>
                         <div class="formControls col-xs-8 col-sm-7">
                             <input type="text" id="proxyPrice" name="product.proxyPrice" class="input-text" maxlength="100"  value="0"/>
                         </div>
                     </div>
-
+                    -->
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">标签</label>
                         <div class="formControls col-xs-8 col-sm-7">
