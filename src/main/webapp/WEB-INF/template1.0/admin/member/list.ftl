@@ -1,3 +1,4 @@
+[#assign shiro = JspTaglibs["/WEB-INF/tld/shiro.tld"] /]
 [#escape x as x?html]
 <!DOCTYPE html>
 <html>
