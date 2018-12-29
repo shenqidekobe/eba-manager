@@ -1,13 +1,14 @@
 package com.microBusiness.manage.job;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.annotation.Resource;
 
-import com.microBusiness.manage.entity.*;
-import com.microBusiness.manage.service.*;
-
-import com.microBusiness.manage.service.OrderService;
-import com.microBusiness.manage.util.DateUtils;
-import com.microBusiness.manage.util.DateformatEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.joda.time.DateTime;
@@ -17,7 +18,15 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.Order;
+import com.microBusiness.manage.entity.TemplateInfo;
+import com.microBusiness.manage.service.MemberService;
+import com.microBusiness.manage.service.OrderService;
+import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.util.DateUtils;
+import com.microBusiness.manage.util.DateformatEnum;
 
 /**
  * 订单相关定时任务处理
@@ -40,9 +49,14 @@ public class OrderJob {
 	public void jiesuan() {
 		List<Order> list=orderService.findNoRakeBackList();
 		for(Order order:list) {
-			if(order.getDone()!=null)continue;
-			
-			orderService.distributionSettlement(order);
+			if(order.getDone()!=null||order.getCompleteDate()==null)continue;
+			Date completeTime = order.getCompleteDate();
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(completeTime);
+			cal.add(Calendar.DATE,15);//加15天
+			if (new Date().after(cal.getTime())) {
+				orderService.distributionSettlement(order);//完成时间15天后再进行结算
+			}
 		}
 	}
 
