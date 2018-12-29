@@ -19,22 +19,27 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * 订单相关定时任务处理
+ * */
 @Lazy(false)
 @Component("orderJob")
 public class OrderJob {
 
 	@Resource(name = "orderServiceImpl")
 	private OrderService orderService;
-
-
 	@Resource
 	private MemberService memberService ;
-
 	@Resource
 	private WeChatService weChatService ;
-
 	@Value("${order.template.longNotice.templateId}")
 	private String noticeTemplateId;
+	
+	//结算返佣
+	@Scheduled(cron = "0 0/60 * * * ?")
+	public void jiesuan() {
+		
+	}
 
 
 	//@Scheduled(cron = "${job.order_expired_processing.cron}")
