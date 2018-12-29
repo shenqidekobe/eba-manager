@@ -162,12 +162,13 @@ public class MemberController extends BaseController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
-		Member member = memberService.find(id);
+		//Member member = memberService.find(id);
+		ChildMember member = childMemberService.find(id);
 		model.addAttribute("genders", Member.Gender.values());
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findList(true, true));
 		model.addAttribute("member", member);
-		model.addAttribute("loginPlugin", pluginService.getLoginPlugin(member.getLoginPluginId()));
+		//model.addAttribute("loginPlugin", pluginService.getLoginPlugin(member.getLoginPluginId()));
 		return "/admin/member/edit";
 	}
 
