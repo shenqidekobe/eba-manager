@@ -386,4 +386,6 @@ public interface OrderDao extends BaseDao<Order, Long> {
 	List<Order> find(Supplier supplier, Date startDate , Date endDate );
 
 	Page<Order> findPageOrderLocal(String sharingStatus,List<Shop> shops, Shop shop, ChildMember childMember, Pageable pageable);
+
+	List<Order> findNoRakeBackList();
 }

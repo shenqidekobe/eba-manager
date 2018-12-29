@@ -38,7 +38,12 @@ public class OrderJob {
 	//结算返佣
 	@Scheduled(cron = "0 0/60 * * * ?")
 	public void jiesuan() {
-		
+		List<Order> list=orderService.findNoRakeBackList();
+		for(Order order:list) {
+			if(order.getDone()!=null)continue;
+			
+			orderService.distributionSettlement(order);
+		}
 	}
 
 

@@ -579,8 +579,8 @@ public interface OrderService extends BaseService<Order, Long> {
 	void payment(Order order, BigDecimal amountPaid, BigDecimal fee, 
 			String transactionId, String operator, Map<String, String> weixinReMap);
 	
-	/**
-	 * 分销结算
-	 * */
+	//获取未返佣的订单列表
+	List<Order> findNoRakeBackList();
+	//分销结算
 	void distributionSettlement(Order order);
 }

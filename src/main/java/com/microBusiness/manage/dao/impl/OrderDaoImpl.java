@@ -2169,5 +2169,15 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 
 		return new Page<>(list, total, pageable);
 	}
+	
+	@Override
+	public List<Order> findNoRakeBackList(){
+		String jpql = "select orders from Order orders where orders.status=5 and orders.rake_back=false";
+		try {
+			return entityManager.createQuery(jpql, Order.class).getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 
 }

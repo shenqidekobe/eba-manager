@@ -6246,6 +6246,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 	}
 	
+	@Override
+	public List<Order> findNoRakeBackList(){
+		return orderDao.findNoRakeBackList();
+	}
+	
 	//分销结算
 	public void distributionSettlement(Order order) {
 		ChildMember childMember = order.getChildMember();
@@ -6355,7 +6360,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member2.setLastDay(lastDay);
 			memberDao.persist(member2);
 			logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-		}else if(level == 3){
+		}
+		/*else if(level == 3){
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			//logger.info("rate1:" + rate1);
@@ -6437,7 +6443,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member3.setLastDay(lastDay);
 			memberDao.persist(member3);
 			logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
-		}
+		}*/
 		if(level>0) {
 			//发送支付成功 告知上级
 			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
