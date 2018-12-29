@@ -159,7 +159,9 @@
                                    [/#if]
                                 </td>-->
 								<td class="td-manage">
-									<a title="${message("admin.common.view")}" href="edit.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
+								   [@shiro.hasPermission name = "admin:withdraw:edit"]
+									   <a title="${message("admin.common.view")}" href="edit.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
+								   [/@shiro.hasPermission]
 								</td>
 							</tr>
 						[/#list]
