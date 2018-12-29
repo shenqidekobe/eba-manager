@@ -245,10 +245,13 @@
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:add" /><span>会员列表</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:list" /><span>会员列表</span>
                                         </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:edit" /><span>编辑会员</span>
+                                        </div>
+                                        <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:member:view" /><span>查看会员</span>
                                         </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:income" /><span>收益记录</span>

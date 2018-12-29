@@ -267,6 +267,9 @@
                                             <input type="checkbox" name="authorities" value="admin:member:edit" [#if role.authorities?seq_contains("admin:member:edit")] checked="checked"[/#if]/><span>编辑会员</span>
                                         </div>
                                         <div class="check-box">
+                                            <input type="checkbox" name="authorities" value="admin:member:view" [#if role.authorities?seq_contains("admin:member:view")] checked="checked"[/#if]/><span>查看会员</span>
+                                        </div>
+                                        <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:income" [#if role.authorities?seq_contains("admin:member:income")] checked="checked"[/#if]/><span>收益记录</span>
                                         </div>
                                     </div>
