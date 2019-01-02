@@ -85,8 +85,7 @@
 				</div>
 				
 				<div class="footer_submit">
-					<input class="btn radius confir_S" type="submit" value="${message("admin.common.submit")}"/>
-					<input class="btn radius cancel_B" type="button" value="返回" onclick="history.back(); return false;"/>
+					<input class="btn radius confir_S" type="submit" value="更新保存"/>
 				</div>
 			</form>
 		</div>
