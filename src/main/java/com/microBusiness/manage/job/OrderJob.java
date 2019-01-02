@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -18,15 +19,19 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.microBusiness.manage.dto.DictJson;
 import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.Dict;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.TemplateInfo;
+import com.microBusiness.manage.service.DictService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.OrderService;
 import com.microBusiness.manage.service.WeChatService;
 import com.microBusiness.manage.util.DateUtils;
 import com.microBusiness.manage.util.DateformatEnum;
+import com.microBusiness.manage.util.JsonUtils;
 
 /**
  * 订单相关定时任务处理
@@ -43,17 +48,25 @@ public class OrderJob {
 	private WeChatService weChatService ;
 	@Value("${order.template.longNotice.templateId}")
 	private String noticeTemplateId;
+	@Resource(name = "dictServiceImpl")
+	private DictService dictService;
 	
 	//结算返佣
 	@Scheduled(cron = "0 0/60 * * * ?")
 	public void jiesuan() {
+		Dict dict=dictService.find(Dict.DEFAULT_ID);
+		Integer intervalDayCommision=15;
+		if(dict!=null&&StringUtils.isNotEmpty(dict.getJson())) {
+			DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
+			intervalDayCommision=(json.getIntervalDayCommision());
+		}
 		List<Order> list=orderService.findNoRakeBackList();
 		for(Order order:list) {
 			if(order.getDone()!=null||order.getCompleteDate()==null)continue;
 			Date completeTime = order.getCompleteDate();
 			Calendar cal=Calendar.getInstance();
 			cal.setTime(completeTime);
-			cal.add(Calendar.DATE,15);//加15天
+			cal.add(Calendar.DATE,intervalDayCommision);//加15天
 			if (new Date().after(cal.getTime())) {
 				orderService.distributionSettlement(order);//完成时间15天后再进行结算
 			}
