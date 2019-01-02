@@ -160,9 +160,12 @@
 				<entry key="/admin/member/list.jhtml" value="perms[admin:member:list]" />
 				<entry key="/admin/member/add.jhtml" value="perms[admin:member:add]" />
 				<entry key="/admin/member/edit.jhtml" value="perms[admin:member:edit]" />
+				<entry key="/admin/member/view.jhtml" value="perms[admin:member:view]" />
 				<entry key="/admin/member/delete.jhtml" value="perms[admin:member:delete]" />
 				<entry key="/admin/member/withdraw/list.jhtml" value="perms[admin:withdraw:list]" />
 				<entry key="/admin/member/withdraw/edit.jhtml" value="perms[admin:withdraw:edit]" />
+				
+				<entry key="/admin/dict/edit" value="perms[admin:dict:edit]" />
 				
 				<entry key="/admin/member_rank/**" value="perms[admin:memberRank]" />
 				<entry key="/admin/member_attribute/**" value="perms[admin:memberAttribute]" />
