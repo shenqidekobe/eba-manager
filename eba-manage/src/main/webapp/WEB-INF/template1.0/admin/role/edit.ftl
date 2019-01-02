@@ -351,6 +351,16 @@
 		                       	</div>
 		                       	<div style="padding-left:70px;" name="secondDiv">
 			                       	<div class="check-box">
+			                          <input type="checkbox" name="two" /><span>数据配置</span>
+			                        </div>
+			                        <div style="padding-left:100px;" name="thirdDiv">
+			                        	<div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:dict:edit" [#if role.authorities?seq_contains("admin:dict:edit")] checked="checked"[/#if] /><span>配置数据</span>
+				                        </div>	
+			                        </div>
+		                       	</div>
+		                       	<div style="padding-left:70px;" name="secondDiv">
+			                       	<div class="check-box">
 			                          <input type="checkbox" name="two" /><span>日志管理</span>
 			                        </div>
 			                        <div style="padding-left:100px;" name="thirdDiv">
@@ -359,7 +369,6 @@
 				                        </div>	
 			                        </div>
 		                       	</div>
-		                       	
 		                    </div>
 		                    
 	                </div>
