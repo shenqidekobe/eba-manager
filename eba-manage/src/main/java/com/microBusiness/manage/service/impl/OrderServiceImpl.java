@@ -85,6 +85,7 @@ import com.microBusiness.manage.dao.SupplierDao;
 import com.microBusiness.manage.dao.SupplierProductDao;
 import com.microBusiness.manage.dao.SupplierSupplierDao;
 import com.microBusiness.manage.dto.AssListStatisticsDto;
+import com.microBusiness.manage.dto.DictJson;
 import com.microBusiness.manage.dto.GoodNeedDto;
 import com.microBusiness.manage.dto.GoodSupplierDto;
 import com.microBusiness.manage.dto.OrderStatisticsDto;
@@ -96,6 +97,7 @@ import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Coupon;
 import com.microBusiness.manage.entity.CouponCode;
 import com.microBusiness.manage.entity.DepositLog;
+import com.microBusiness.manage.entity.Dict;
 import com.microBusiness.manage.entity.Goods;
 import com.microBusiness.manage.entity.HostingShop;
 import com.microBusiness.manage.entity.Invoice;
@@ -148,6 +150,7 @@ import com.microBusiness.manage.entity.TemplateInfo;
 import com.microBusiness.manage.entity.Types;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
 import com.microBusiness.manage.service.CouponCodeService;
+import com.microBusiness.manage.service.DictService;
 import com.microBusiness.manage.service.GoodsService;
 import com.microBusiness.manage.service.LogService;
 import com.microBusiness.manage.service.MailService;
@@ -165,6 +168,7 @@ import com.microBusiness.manage.util.Constant.ORDER_LOG_CONTENT;
 import com.microBusiness.manage.util.Constant.PAYMENT_PLUGIN;
 import com.microBusiness.manage.util.DateformatEnum;
 import com.microBusiness.manage.util.IpUtil;
+import com.microBusiness.manage.util.JsonUtils;
 import com.microBusiness.manage.util.SpringUtils;
 import com.microBusiness.manage.util.SystemUtils;
 
@@ -261,6 +265,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	private Float distributionRate2;
 	@Value("${distribution.rate3}")
 	private Float distributionRate3;
+	
+	@Resource(name = "dictServiceImpl")
+	private DictService dictService;
 	
 	@Resource
 	private PlatformTransactionManager transactionManager;
@@ -6277,8 +6284,18 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		String sn=order.getSn();
 		BigDecimal amount=order.getPrice();//订单总金额
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
+		
+		Dict dict=dictService.find(Dict.DEFAULT_ID);
+		Integer levelDist=2;
+		if(dict!=null&&StringUtils.isNotEmpty(dict.getJson())) {
+			DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
+			distributionRate1=Float.valueOf(json.getRate1());
+			distributionRate2=Float.valueOf(json.getRate2());
+			distributionRate3=Float.valueOf(json.getRate3());
+			levelDist=json.getLevelDist();
+		}
 		//计算分销商利润
-		if(level == 1){
+		if(level == 1&&levelDist>=1){
 			
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
@@ -6307,7 +6324,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			memberDao.persist(member1);
 			logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			
-		}else if(level == 2){
+		}else if(level == 2&&levelDist>=2){
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
@@ -6360,8 +6377,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member2.setLastDay(lastDay);
 			memberDao.persist(member2);
 			logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-		}
-		/*else if(level == 3){
+		}else if(level == 3&&levelDist>=3){
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			//logger.info("rate1:" + rate1);
@@ -6443,7 +6459,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member3.setLastDay(lastDay);
 			memberDao.persist(member3);
 			logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
-		}*/
+		}
 		if(level>0) {
 			//发送支付成功 告知上级
 			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
