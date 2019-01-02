@@ -53,3 +53,6 @@ INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `
 INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (5, '2017-02-14 10:53:29', '2017-02-14 10:53:59', 1, 5, 'shunfeng', '顺丰', 'http://www.sf-express.com', b'0');
 INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (6, '2017-02-14 10:53:52', '2017-02-14 10:54:08', 1, 6, 'debangwuliu', '德邦', 'http://www.deppon.com', b'0');
 INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (7, '2017-03-27 13:52:48', '2017-03-27 13:52:48', 0, 7, 'ziyou', '自有物流', NULL, b'0');
+
+
+INSERT INTO `xx_dict` (`id`, `create_date`, `modify_date`, `version`, `json`, `deleted`) VALUES (100, '2018-03-27 13:52:48', '2018-03-27 13:52:48', 0, '{"rate1":"0.03","rate2":"0.02","rate3":"0.01","levelDist":2,"intervalDayCommision":15}', b'0');
