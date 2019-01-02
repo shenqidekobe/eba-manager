@@ -933,7 +933,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLogDao.persist(orderLog);
 		
 		//分销结算
-		distributionSettlement(order);
+		//distributionSettlement(order);
 		
 		//后台消息通知
 		Supplier supplier = order.getSupplier();
