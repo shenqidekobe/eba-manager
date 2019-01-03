@@ -52,7 +52,7 @@ public class WithdrawServiceImpl extends BaseServiceImpl<Withdraw, Long> impleme
 		memberDao.persist(member1);
 		
 		obj.setCreateDate(new Date());
-		obj.setSn(obj.getMember().getId()+RandomStringUtils.random(1)+DateUtils.convertToString(new Date(), "yyMMddHHmmss"));
+		obj.setSn(obj.getMember().getId()+RandomStringUtils.randomAlphabetic(1)+DateUtils.convertToString(new Date(), "yyMMddHHmmss"));
 		obj.setFee(BigDecimal.ZERO);
 		obj.setStatus(Withdraw.Withdraw_Status.await);
 		withdrawDao.persist(obj);
