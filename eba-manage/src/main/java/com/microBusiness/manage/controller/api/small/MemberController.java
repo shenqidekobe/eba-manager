@@ -84,7 +84,7 @@ public class MemberController extends BaseController {
 	public JsonEntity index(String smOpenId, String searchName) {
     	ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
     	Member member = childMember.getMember();
-    	if(member.getIsShoper()==null||!member.getIsShoper()) {
+    	if(childMember.getIsShoper()==null||!childMember.getIsShoper()) {
     		return JsonEntity.error(Code.code132,"您还不是店主！");
     	}
     	//计算昨日收益
