@@ -878,7 +878,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//产品销量增加
 		for (OrderItem orderItem : order.getOrderItems()) {
 			Product product = orderItem.getProduct();
-			isShoper=product.getGoods().getIs2Member();
+			if(!isShoper)isShoper=product.getGoods().getIs2Member();
 			if (product != null && product.getGoods() != null) {
 				goodsService.addSales(product.getGoods(), orderItem.getQuantity());
 			}
