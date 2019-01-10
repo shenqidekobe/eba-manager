@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Indexed
 @Entity
@@ -19,6 +20,17 @@ public class Verification extends BaseEntity<Long> {
     private String tag;//标识
 
     private String batchNo; //批次
+
+    private Date proofTime;
+
+
+    public void setProofTime(Date proofTime) {
+        this.proofTime = proofTime;
+    }
+
+    public Date getProofTime() {
+        return proofTime;
+    }
 
     public void setTag(String tag) {
         this.tag = tag;

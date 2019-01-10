@@ -2,7 +2,9 @@ package com.microBusiness.manage.util;
 
 
 public enum Code {
-	
+
+    code998(998,"验证失败"),
+
 	/**
 	 * 成功
 	 */

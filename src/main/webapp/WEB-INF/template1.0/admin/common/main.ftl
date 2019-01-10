@@ -731,6 +731,11 @@
 								<a href="../dict/edit.jhtml" target="iframe">配置数据</a>
 							</li>
 						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:dict:edit"]
+							<li>
+								<a href="../admin/ver.jhtml" target="iframe">验证二维码管理</a>
+							</li>
+						[/@shiro.hasPermission]
 						[@shiro.hasPermission name="admin:log"]
 							<li>
 								<a href="../log/list.jhtml" target="iframe">${message("admin.main.log")}</a>

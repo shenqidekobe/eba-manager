@@ -848,7 +848,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<skipTests>true</skipTests><!-- 跳过测试 -->
+					<!--<skipTests>true</skipTests>&lt;!&ndash; 跳过测试 &ndash;&gt;-->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -862,7 +862,8 @@
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
 						<manifestEntries>
-							<Implementation-Build>${buildNumber}</Implementation-Build>
+							<!--<Implementation-Build>${buildNumber}</Implementation-Build>-->
+							<Implementation-Build>1.1.0</Implementation-Build>
 						</manifestEntries>
 					</archive>
 				</configuration>
