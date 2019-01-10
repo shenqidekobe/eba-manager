@@ -160,6 +160,9 @@
 <form id="completeForm" action="complete.jhtml" method="post">
     <input type="hidden" name="id" value="${order.id}"/>
 </form>
+<form id="returnsForm" action="returns.jhtml" method="post">
+    <input type="hidden" name="id" value="${order.id}"/>
+</form>
 <form id="failForm" action="fail.jhtml" method="post">
     <input type="hidden" name="id" value="${order.id}"/>
 </form>
@@ -218,10 +221,13 @@
                                 	<input type="button" id="applyCancelButton" class="tab_button bgfff" value="用户申请"[#if order.hasExpired() || order.status != "applyCancel"] style="display: none" disabled="disabled"[/#if] />
                                 [/@shiro.hasPermission]
                                 [@shiro.hasPermission name = "admin:order:cancel"]
-                                	<input type="button" id="cancelButton" class="tab_button bgfff" value="取消"[#if order.status == "completed" || order.status == "canceled" || order.status == "denied"] style="display: none" disabled="disabled"[/#if] />
+                                	<input type="button" id="cancelButton" class="tab_button bgfff" value="取消"[#if order.status == "completed" || order.status == "canceled" || order.status == "denied" ||order.status == "applyReturns" ||order.status == "returns"] style="display: none" disabled="disabled"[/#if] />
     							[/@shiro.hasPermission]
+    							[@shiro.hasPermission name = "admin:order:returns"]
+                                	<input type="button" id="returnsButton" class="tab_button bgfff" value="确认退货"[#if order.status != "applyReturns"] style="display: none" disabled="disabled"[/#if] />
+                                [/@shiro.hasPermission]
     							[@shiro.hasPermission name = "admin:order:complete"]
-                                	<input type="button" id="completeButton" class="tab_button bgfff" value="${message("admin.order.complete")}"[#if order.status == "canceled" || order.status == "completed" || order.status == "denied"] style="display: none" disabled="disabled"[/#if] />
+                                	<input type="button" id="completeButton" class="tab_button bgfff" value="${message("admin.order.complete")}"[#if order.status == "canceled" || order.status == "completed" || order.status == "denied" ||order.status == "returns"] style="display: none" disabled="disabled"[/#if] />
     							[/@shiro.hasPermission]
                             [/#if]
 						</div>
@@ -270,18 +276,18 @@
                                 </span>
                                 </div>
                             </div>
+                             <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">${message("Order.phone")}</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${order.phone}</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="pag_div">
                             <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">收货地址</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="adress_no">${order.areaName} ${order.address}</span>
-                                </div>
-                            </div>
-                            <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-3">${message("Order.phone")}</label>
-                                <div class="formControls col-xs-8 col-sm-7">
-                                    <span class="input_no_span">${order.phone}</span>
                                 </div>
                             </div>
                             <!--
@@ -303,6 +309,34 @@
                                     <span class="input_no_span">${currency(order.amountPaid, true)}</span>
                                 </div>
                             </div>
+                            [#if order.status == "applyReturns" || order.status == "returns"]
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">退货单号</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${order.returnsNum}</span>
+                                </div>
+                            </div>
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">申请退货时间</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${order.applyReturnsDate?string("yyyy-MM-dd HH:mm")}</span>
+                                </div>
+                            </div>
+                            [#if order.status == "returns"]
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">退款金额</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${currency(order.refundAmount, true)}</span>
+                                </div>
+                            </div>
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">确认退货时间</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${order.confirmReturnsDate?string("yyyy-MM-dd HH:mm")}</span>
+                                </div>
+                            </div>
+                            [/#if]
+                            [/#if]
                             <!-- <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">收货点备注</label>
                                 <div class="formControls col-xs-8 col-sm-7">
@@ -413,11 +447,7 @@
                                 </div>
                             </div>
                         </div>
-                        
 					</div>
-					
-					
-					
 					
 					<div class="tabCon">
 						<div class="table_box" style="margin-top:20px;">
@@ -730,6 +760,7 @@ $(function(){
     var $passed = $("#passed");
     var $receiveForm = $("#receiveForm");
     var $completeForm = $("#completeForm");
+    var $returnsForm = $("#returnsForm");
     var $failForm = $("#failForm");
     var $reviewButton = $("#reviewButton");
     var $paymentButton = $("#paymentButton");
@@ -1291,6 +1322,21 @@ $(function(){
             content: "${message("admin.order.completeConfirm")}",
             onOk: function() {
                 $completeForm.submit();
+            },
+            onShow:function(){
+            	$(".xxDialog").css("top","150px");
+            }
+        });
+    });
+    
+    $returnsButton.click(function() {
+        var $this = $(this);
+        $.dialog({
+            type: "warn",
+            height:190,
+            content: "确定要给当前订单退货退款嘛？",
+            onOk: function() {
+                $returnsForm.submit();
             },
             onShow:function(){
             	$(".xxDialog").css("top","150px");

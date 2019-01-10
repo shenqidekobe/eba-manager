@@ -171,7 +171,10 @@
 				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:complete" /><span>订单完成</span>
-				                        </div>	
+				                        </div>
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:order:returns" /><span>确认退货</span>
+				                        </div>		
 			                        </div>
 		                       	</div>
 		                   </div>

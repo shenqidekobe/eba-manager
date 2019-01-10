@@ -70,12 +70,14 @@
 						<li name="status" val="">所有状态</li>
 						<li name="status"[#if "pendingReview" == status] class="checked"[/#if] val="pendingReview">等待付款</li>
                         <li name="status"[#if "pendingShipment" == status] class="checked"[/#if] val="pendingShipment">等待发货</li>
-                        <li name="status"[#if "inShipment" == status] class="checked"[/#if] val="inShipment">发货中</li>
+                    <!--<li name="status"[#if "inShipment" == status] class="checked"[/#if] val="inShipment">发货中</li>-->
                         <li name="status"[#if "shipped" == status] class="checked"[/#if] val="shipped">已发货</li>
+                        <li name="status"[#if "applyReturns" == status] class="checked"[/#if] val="applyReturns">申请退货</li>
                         <li name="status"[#if "completed" == status] class="checked"[/#if] val="completed">已完成</li>
 						<li name="status"[#if "canceled" == status] class="checked"[/#if] val="canceled">已取消</li>
-                        <li name="status"[#if "denied" == status] class="checked"[/#if] val="denied">已拒绝</li>
-                        <li name="status"[#if "applyCancel" == status] class="checked"[/#if] val="applyCancel">申请取消</li>
+						<li name="status"[#if "returns" == status] class="checked"[/#if] val="returns">已退货</li>
+                    <!--<li name="status"[#if "denied" == status] class="checked"[/#if] val="denied">已拒绝</li>
+                        <li name="status"[#if "applyCancel" == status] class="checked"[/#if] val="applyCancel">申请取消</li>-->
 						
 					</ul>
 				</div>
@@ -94,7 +96,7 @@
 				</div>
 				<div>
 					<div class="drop_down" id="dropDown">
-						<span class="timeType">收货时间</span>
+						<span class="timeType">下单时间</span>
 						<ul class="check">
 							<!--<li name="timeSearch"[#if "timeOfReceipt" == timeSearch] class="checked"[/#if] val="timeOfReceipt">收货时间</li>-->
 							<li name="timeSearch"[#if "createTime" == timeSearch] class="checked"[/#if] val="createTime">下单时间</li>
