@@ -81,6 +81,8 @@
 				<entry key="/admin/print/orderShippingInfo.jhtml" value="perms[admin:print:orderShippingInfo]" />
 				<!-- 发货单作废 -->
 				<entry key="/admin/order/cancelShipped.jhtml" value="perms[admin:order:cancelShipped]" />
+				<!-- 确认退货 -->
+				<entry key="/admin/order/returns.jhtml" value="perms[admin:order:returns]" />
 				
 				<!-- 分销单 -->
 				<!--<entry key="/admin/distributionOrder/**" value="perms[admin:distributionOrder]" />-->
