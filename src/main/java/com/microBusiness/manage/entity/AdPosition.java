@@ -27,6 +27,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class AdPosition extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = -3644309644057160101L;
+	
+	public static final Long INDEX_ID=1L;//首页轮播图
+	public static final Long INDEX_SALES_ID=2L;//首页人气商品
+	public static final Long INDEX_HITS_ID=3L;//首页精选商品
 
 	private String name;
 

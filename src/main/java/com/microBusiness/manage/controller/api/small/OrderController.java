@@ -71,6 +71,7 @@ import com.microBusiness.manage.service.PaymentMethodService;
 import com.microBusiness.manage.service.ProductService;
 import com.microBusiness.manage.service.ProxyUserService;
 import com.microBusiness.manage.service.ReceiverService;
+import com.microBusiness.manage.service.ReturnsService;
 import com.microBusiness.manage.service.ShareNotesService;
 import com.microBusiness.manage.service.ShippingMethodService;
 import com.microBusiness.manage.service.ShippingService;
@@ -131,9 +132,10 @@ public class OrderController extends BaseController {
 	private AdminService adminService;
 	@Resource
 	private ProxyUserService proxyUserService;
-	
 	@Resource
 	private ReceiverService receiverService;
+	@Resource
+	private ReturnsService returnsService;
 
 	/**
 	 * 平台订单
@@ -1460,4 +1462,26 @@ public class OrderController extends BaseController {
 		return JsonEntity.successMessage(resultMap);
 	}
 
+	//用户点击退货
+	@RequestMapping(value = "/returns", method = RequestMethod.GET)
+	public @ResponseBody JsonEntity returns(String unionId, String smOpenId,Long orderId ) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Order order = orderService.find(orderId);
+		if (order == null || order.hasExpired() || !Order.Status.shipped.equals(order.getStatus())) {
+			return JsonEntity.error(Code.code_order_011803);
+		}
+		/*ChildMember childMember = childMemberService.findBySmOpenId(smOpenId);
+		if (orderService.isLocked(order, childMember.getMember(), true)) {
+			return JsonEntity.error(Code.code_order_011803);
+		}*/
+		Admin admin=this.adminService.find(1L);
+		//orderService.returns(order, returns, operator);
+		
+		orderService.receive(order, admin);
+		//收货就标示完成
+		orderService.complete(order, admin);
+		// TODO: 2017/2/14 发送模版消息
+		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.completed) ;
+		return JsonEntity.successMessage(resultMap);
+	}
 }

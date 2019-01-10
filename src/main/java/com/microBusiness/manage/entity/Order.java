@@ -194,6 +194,7 @@ public class Order extends BaseEntity<Long> {
 
 	private Date lockExpire;
 
+	private Date shippedDate;
 	private Date completeDate;
 	//发票相关
 	private Invoice invoice;
@@ -1303,6 +1304,14 @@ public class Order extends BaseEntity<Long> {
 
 	public void setPrepay_id(String prepay_id) {
 		this.prepay_id = prepay_id;
+	}
+
+	public Date getShippedDate() {
+		return shippedDate;
+	}
+
+	public void setShippedDate(Date shippedDate) {
+		this.shippedDate = shippedDate;
 	}
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

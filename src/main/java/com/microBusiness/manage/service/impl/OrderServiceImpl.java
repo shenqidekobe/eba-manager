@@ -759,7 +759,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLog.setOrder(order);
 		orderLogDao.persist(orderLog);
 
-		mailService.sendRefundsOrderMail(order);
+		//mailService.sendRefundsOrderMail(order);
 		smsService.sendRefundsOrderSms(order);
 	}
 
@@ -798,6 +798,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			}
 		}
 		order.setShippedQuantity(order.getShippedQuantity() + shipping.getQuantity());
+		order.setShippedDate(new Date());
 		if (order.getShippedQuantity() >= order.getQuantity()) {
 			order.setStatus(Order.Status.shipped);
 			order.setIsAllocatedStock(false);
@@ -814,7 +815,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 		orderLogDao.persist(orderLog);
 
-		mailService.sendShippingOrderMail(order);
+		//mailService.sendShippingOrderMail(order);
 		smsService.sendShippingOrderSms(order);
 	}
 
