@@ -115,7 +115,11 @@ public class Order extends BaseEntity<Long> {
 		//拒绝取消
 		deniedCancel,
 		//发货中
-		inShipment
+		inShipment,
+		//申请退货 13
+		applyReturns,
+		//已退货 14
+		returns
 
 	}
 	
@@ -249,8 +253,12 @@ public class Order extends BaseEntity<Long> {
 	 * 收货时间
 	 */
 	private Date reDate;
-	
 	private String reCode;
+	
+	//退货时间
+	private String returnsNum;//退货单号
+	private Date applyReturnsDate;
+	private Date confirmReturnsDate;
 
 	/**
 	 * 拒绝原因
@@ -1082,6 +1090,12 @@ public class Order extends BaseEntity<Long> {
 			   case 8 :
 				   orderStatus = Order.Status.denied;
 				   break;
+			   case 13:
+				   orderStatus = Order.Status.applyReturns;
+				   break;
+			   case 14:
+				   orderStatus = Order.Status.returns;
+				   break;
 			   default:
 				   orderStatus = null;
 				   break;			   
@@ -1117,9 +1131,11 @@ public class Order extends BaseEntity<Long> {
 		//申请取消不通过
 		applyCancel_denied,
 		//后台用户进行订单修改
-		admin_updateItems;
-
-
+		admin_updateItems,
+		//申请退货
+		apply_returns,
+		//已退货
+		returns;
 	}
 
 	@Column(length = 4000)
@@ -1219,6 +1235,13 @@ public class Order extends BaseEntity<Long> {
 	public void setOrderRemarks(Set<OrderRemarks> orderRemarks) {
 		this.orderRemarks = orderRemarks;
 	}
+	public String getReturnsNum() {
+		return returnsNum;
+	}
+
+	public void setReturnsNum(String returnsNum) {
+		this.returnsNum = returnsNum;
+	}
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	public Set<OrderNewsPush> getOrderNewsPushs() {
@@ -1312,6 +1335,21 @@ public class Order extends BaseEntity<Long> {
 
 	public void setShippedDate(Date shippedDate) {
 		this.shippedDate = shippedDate;
+	}
+	public Date getApplyReturnsDate() {
+		return applyReturnsDate;
+	}
+
+	public void setApplyReturnsDate(Date applyReturnsDate) {
+		this.applyReturnsDate = applyReturnsDate;
+	}
+
+	public Date getConfirmReturnsDate() {
+		return confirmReturnsDate;
+	}
+
+	public void setConfirmReturnsDate(Date confirmReturnsDate) {
+		this.confirmReturnsDate = confirmReturnsDate;
 	}
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
