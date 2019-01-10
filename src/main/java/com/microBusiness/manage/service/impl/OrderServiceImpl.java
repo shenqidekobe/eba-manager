@@ -6327,6 +6327,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			levelDist=json.getLevelDist();
 		}
 		//计算分销商利润
+		String nickName=getNickName(childMember.getNickName());
+		
 		if(level == 1&&levelDist>=1){
 			
 			Float rate1 = distributionRate1;
@@ -6345,7 +6347,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			income1.setAmount(ratePrice1);
 			income1.setOrderId(order.getId());
 			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("返佣收益");
+			income1.setTitle("红包收益(来自"+nickName+")");
 			income1.setLevel(1);
 			memberIncomeDao.persist(income1);
 			//总收益
@@ -6371,7 +6373,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			income1.setAmount(ratePrice1);
 			income1.setOrderId(order.getId());
 			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("返佣收益");
+			income1.setTitle("红包收益(来自"+nickName+")");
 			income1.setLevel(1);
 			memberIncomeDao.persist(income1);
 			
@@ -6394,12 +6396,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setRakeBack(true);
 			orderDao.persist(order);
 			
+			nickName=getNickName(c1.getNickName());//上级的收益
+			
 			MemberIncome income2=new MemberIncome();
 			income2.setMember(c2);
 			income2.setAmount(ratePrice2);
 			income2.setOrderId(order.getId());
 			income2.setTypes(MemberIncome.TYPE_INCOME);
-			income2.setTitle("返佣收益");
+			income2.setTitle("红包收益(来自"+nickName+")");
 			income2.setLevel(2);
 			memberIncomeDao.persist(income2);
 			
@@ -6424,7 +6428,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			income1.setAmount(ratePrice1);
 			income1.setOrderId(order.getId());
 			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("返佣收益");
+			income1.setTitle("红包收益(来自"+nickName+")");
 			income1.setLevel(1);
 			memberIncomeDao.persist(income1);
 			
@@ -6447,13 +6451,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				order.setDtwo(c2);
 				order.setDtwo_score(ratePrice2);
 				
+				nickName=getNickName(c1.getNickName());//上级的收益
 				
 				MemberIncome income2=new MemberIncome();
 				income2.setMember(c2);
 				income2.setAmount(ratePrice2);
 				income2.setOrderId(order.getId());
 				income2.setTypes(MemberIncome.TYPE_INCOME);
-				income2.setTitle("返佣收益");
+				income2.setTitle("红包收益(来自"+nickName+")");
 				income2.setLevel(2);
 				memberIncomeDao.persist(income2);
 				
@@ -6476,12 +6481,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			order.setRakeBack(true);
 			orderDao.persist(order);
 			
+			nickName=getNickName(c2.getNickName());//上级的上级的收益
+			
 			MemberIncome income3=new MemberIncome();
 			income3.setMember(c3);
 			income3.setAmount(ratePrice3);
 			income3.setOrderId(order.getId());
 			income3.setTypes(MemberIncome.TYPE_INCOME);
-			income3.setTitle("返佣收益");
+			income3.setTitle("红包收益(来自"+nickName+")");
 			income3.setLevel(3);
 			memberIncomeDao.persist(income3);
 			
@@ -6496,6 +6503,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			//发送支付成功 告知上级
 			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		}
+	}
+	
+	private String getNickName(String name){
+		String dc="***好友";
+		String nickName=dc;
+		try {
+			nickName=name;
+			nickName=StringUtils.isEmpty(nickName)?dc:"***"+nickName.substring(nickName.length()-2,nickName.length());
+			return nickName;
+		} catch (Exception e) {return nickName;}
 	}
 	
 	
