@@ -20,11 +20,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.microBusiness.manage.dto.DictJson;
+import com.microBusiness.manage.entity.Admin;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Dict;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.Order;
 import com.microBusiness.manage.entity.TemplateInfo;
+import com.microBusiness.manage.service.AdminService;
 import com.microBusiness.manage.service.DictService;
 import com.microBusiness.manage.service.MemberService;
 import com.microBusiness.manage.service.OrderService;
@@ -50,6 +52,8 @@ public class OrderJob {
 	private String noticeTemplateId;
 	@Resource(name = "dictServiceImpl")
 	private DictService dictService;
+	@Resource(name = "adminServiceImpl")
+	private AdminService adminService;
 	
 	//结算返佣
 	@Scheduled(cron = "0 0/60 * * * ?")
@@ -73,6 +77,24 @@ public class OrderJob {
 		}
 	}
 
+	//已发货未确认的订单15日后自动完成
+	@Scheduled(cron = "0 0 1 * * ?")
+	public void complete() {
+		List<Order> list=orderService.findList(null, Order.Status.shipped, null, null, null, null, null, null, null, null, null, null, null);
+		Admin admin=this.adminService.find(1L);
+		for(Order order:list) {
+			if(order.getShippedDate()==null)continue;
+			Date shippedDate = order.getShippedDate();
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(shippedDate);
+			cal.add(Calendar.DATE,15);//加15天
+			if (new Date().after(cal.getTime())) {
+				orderService.receive(order, admin);
+				//收货就标示完成
+				orderService.complete(order, admin);
+			}
+		}
+	}
 
 	//@Scheduled(cron = "${job.order_expired_processing.cron}")
 	@Deprecated

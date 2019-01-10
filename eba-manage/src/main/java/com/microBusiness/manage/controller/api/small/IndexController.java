@@ -84,15 +84,19 @@ public class IndexController extends BaseController {
 		}
 		//ChildMember childMember = childMemberService.findByOpenId(openId);
 		Map<String, Object> map = new HashMap<String, Object>();
-		//轮播图广告位
-		AdPosition topadPosition = adPositionService.find(1l);
-		//轮播图
+		//首页轮播图广告位
+		//AdPosition topadPosition = adPositionService.find(AdPosition.INDEX_ID);
+		//人气轮播图广告位
+		//AdPosition salesPosition = adPositionService.find(AdPosition.INDEX_SALES_ID);
+		//精选轮播图广告位
+		//AdPosition hitsPosition = adPositionService.find(AdPosition.INDEX_HITS_ID);
+		//首页轮播图
 		List<Filter> filters = new ArrayList<Filter>();
 		Filter filter = new Filter();
 		filter.setIgnoreCase(true);
 		filter.setOperator(Operator.eq);
 		filter.setProperty("adPosition");
-		filter.setValue(topadPosition.getId());
+		filter.setValue(AdPosition.INDEX_ID);
 		filters.add(filter);
 		
 		List<Order> adorders = new ArrayList<Order>();
@@ -121,6 +125,66 @@ public class IndexController extends BaseController {
 			}
 		}
 		map.put("topadList", adMapList);
+		
+		//人气轮播图
+		List<Filter> filters1 = new ArrayList<Filter>();
+		Filter filter1 = new Filter();
+		filter1.setIgnoreCase(true);
+		filter1.setOperator(Operator.eq);
+		filter1.setProperty("adPosition");
+		filter1.setValue(AdPosition.INDEX_SALES_ID);
+		filters1.add(filter1);
+		
+		List<Map<String, Object>> adMapList1 = new ArrayList<Map<String, Object>>();
+		List<Ad> topadList1 = adService.findList(1, filters1, adorders);
+		if(topadList != null){
+			for (Ad ad : topadList1) {
+				Map<String, Object> admap = new HashMap<String, Object>();
+				admap.put("content", ad.getContent());
+				admap.put("path", ad.getPath());
+				if(StringUtils.isNotEmpty(ad.getPath())){
+					String storePath = ad.getPath();
+					String destMediumPath = getMImagePath(storePath);
+	            	//String destSmallPath=paths[0]+"-"+ImgType.small+"."+paths[1];
+	            	admap.put("path", destMediumPath);
+				}
+				admap.put("url", ad.getUrl());
+				admap.put("title", ad.getTitle());
+				admap.put("id", ad.getId());
+				adMapList1.add(admap);
+			}
+		}
+		map.put("salesadList", adMapList1);
+		
+		//精选轮播图
+		List<Filter> filters2 = new ArrayList<Filter>();
+		Filter filter2 = new Filter();
+		filter2.setIgnoreCase(true);
+		filter2.setOperator(Operator.eq);
+		filter2.setProperty("adPosition");
+		filter2.setValue(AdPosition.INDEX_HITS_ID);
+		filters2.add(filter2);
+		
+		List<Map<String, Object>> adMapList2 = new ArrayList<Map<String, Object>>();
+		List<Ad> topadList2 = adService.findList(1, filters2, adorders);
+		if(topadList != null){
+			for (Ad ad : topadList2) {
+				Map<String, Object> admap = new HashMap<String, Object>();
+				admap.put("content", ad.getContent());
+				admap.put("path", ad.getPath());
+				if(StringUtils.isNotEmpty(ad.getPath())){
+					String storePath = ad.getPath();
+					String destMediumPath = getMImagePath(storePath);
+	            	//String destSmallPath=paths[0]+"-"+ImgType.small+"."+paths[1];
+	            	admap.put("path", destMediumPath);
+				}
+				admap.put("url", ad.getUrl());
+				admap.put("title", ad.getTitle());
+				admap.put("id", ad.getId());
+				adMapList2.add(admap);
+			}
+		}
+		map.put("hitsadList", adMapList2);
         
 		//特价商品
 		filters = new ArrayList<Filter>();
