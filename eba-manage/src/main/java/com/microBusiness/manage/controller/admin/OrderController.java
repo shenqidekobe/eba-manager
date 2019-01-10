@@ -46,7 +46,6 @@ import com.microBusiness.manage.entity.ProductCategory;
 import com.microBusiness.manage.entity.ProxyUser;
 import com.microBusiness.manage.entity.Refunds;
 import com.microBusiness.manage.entity.Returns;
-import com.microBusiness.manage.entity.ReturnsItem;
 import com.microBusiness.manage.entity.Shipping;
 import com.microBusiness.manage.entity.ShippingItem;
 import com.microBusiness.manage.entity.ShippingMethod;
@@ -467,15 +466,15 @@ public class OrderController extends BaseController {
 		return "redirect:view.jhtml?id=" + orderId;
 	}
 
-	//
+	//确认退货-退款
 	@RequestMapping(value = "/returns", method = RequestMethod.POST)
-	public String returns(Returns returns, Long orderId, Long shippingMethodId,
+	public String returns(Returns returns, Long id, Long shippingMethodId,
 			Long deliveryCorpId, Long areaId, RedirectAttributes redirectAttributes) {
-		Order order = orderService.find(orderId);
-		if (order == null || order.getReturnableQuantity() <= 0) {
+		Order order = orderService.find(id);
+		if (order == null || order.getStatus()!=Order.Status.applyReturns) {
 			return ERROR_VIEW;
 		}
-		for (Iterator<ReturnsItem> iterator = returns.getReturnsItems().iterator(); iterator.hasNext();) {
+		/*for (Iterator<ReturnsItem> iterator = returns.getReturnsItems().iterator(); iterator.hasNext();) {
 			ReturnsItem returnsItem = iterator.next();
 			if (returnsItem == null || StringUtils.isEmpty(returnsItem.getSn()) || returnsItem.getQuantity() == null || returnsItem.getQuantity() <= 0) {
 				iterator.remove();
@@ -488,7 +487,9 @@ public class OrderController extends BaseController {
 			returnsItem.setName(orderItem.getName());
 			returnsItem.setReturns(returns);
 			returnsItem.setSpecifications(orderItem.getSpecifications());
-		}
+		}*/
+		returns=new Returns();
+		returns.setTrackingNo(order.getReturnsNum());
 		returns.setOrder(order);
 		returns.setShippingMethod(shippingMethodService.find(shippingMethodId));
 		returns.setDeliveryCorp(deliveryCorpService.find(deliveryCorpId));
@@ -503,7 +504,7 @@ public class OrderController extends BaseController {
 		returns.setOperator(admin);
 		orderService.returns(order, returns, admin);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
-		return "redirect:view.jhtml?id=" + orderId;
+		return "redirect:view.jhtml?id=" + id;
 	}
 
 	//后台确认收货

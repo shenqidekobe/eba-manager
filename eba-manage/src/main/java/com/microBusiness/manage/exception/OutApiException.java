@@ -4,9 +4,6 @@ import com.microBusiness.manage.entity.OutApiJsonEntity;
 
 /**
  * 对外接口异常
- * 
- * @author 吴战波
- *
  */
 public class OutApiException extends RuntimeException {
 

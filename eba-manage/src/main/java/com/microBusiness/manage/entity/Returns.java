@@ -14,14 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "xx_returns")
@@ -187,8 +185,6 @@ public class Returns extends BaseEntity<Long> {
 		this.order = order;
 	}
 
-	@Valid
-	@NotEmpty
 	@OneToMany(mappedBy = "returns", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<ReturnsItem> getReturnsItems() {
 		return returnsItems;

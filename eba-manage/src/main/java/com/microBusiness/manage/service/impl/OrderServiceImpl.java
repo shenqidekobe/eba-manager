@@ -125,6 +125,7 @@ import com.microBusiness.manage.entity.OrderRelation;
 import com.microBusiness.manage.entity.OrderRemarks;
 import com.microBusiness.manage.entity.OrderRemarks.MsgType;
 import com.microBusiness.manage.entity.OrderShareLog;
+import com.microBusiness.manage.entity.OutApiJsonEntity;
 import com.microBusiness.manage.entity.Payment;
 import com.microBusiness.manage.entity.PaymentLog;
 import com.microBusiness.manage.entity.PaymentMethod;
@@ -148,6 +149,7 @@ import com.microBusiness.manage.entity.SupplyNeed;
 import com.microBusiness.manage.entity.SupplyType;
 import com.microBusiness.manage.entity.TemplateInfo;
 import com.microBusiness.manage.entity.Types;
+import com.microBusiness.manage.exception.OutApiException;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
 import com.microBusiness.manage.service.CouponCodeService;
 import com.microBusiness.manage.service.DictService;
@@ -164,6 +166,7 @@ import com.microBusiness.manage.service.SmsService;
 import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.service.WeChatService;
+import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.Constant.ORDER_LOG_CONTENT;
 import com.microBusiness.manage.util.Constant.PAYMENT_PLUGIN;
 import com.microBusiness.manage.util.DateformatEnum;
@@ -171,6 +174,10 @@ import com.microBusiness.manage.util.IpUtil;
 import com.microBusiness.manage.util.JsonUtils;
 import com.microBusiness.manage.util.SpringUtils;
 import com.microBusiness.manage.util.SystemUtils;
+import com.microBusiness.manage.util.pay.WXPay;
+import com.microBusiness.manage.util.pay.WXPayConfig;
+import com.microBusiness.manage.util.pay.WXPayConfigImpl;
+import com.microBusiness.manage.util.pay.WXPayUtil;
 
 @Service("orderServiceImpl")
 public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements OrderService {
@@ -822,10 +829,32 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	public void returns(Order order, Returns returns, Admin operator) {
 		Assert.notNull(order);
 		Assert.isTrue(!order.isNew());
-		Assert.state(order.getReturnableQuantity() > 0);
+		//Assert.state(order.getReturnableQuantity() > 0);
 		Assert.notNull(returns);
-		Assert.isTrue(returns.isNew());
-		Assert.notEmpty(returns.getReturnsItems());
+		//Assert.isTrue(returns.isNew());
+		//Assert.notEmpty(returns.getReturnsItems());
+		
+		try {
+			Map<String, String> reqData = new HashMap<String, String>();
+			WXPayConfig config = WXPayConfigImpl.getInstance();
+			WXPay wxPay = new WXPay(config, true, false);
+
+			BigDecimal amount = order.getAmountPaid().multiply(new BigDecimal(100)).setScale(0);
+			reqData.put("sign_type", "MD5");
+			reqData.put("transaction_id", order.getPaySn());// 微信订单号和商户订单号二选一
+			reqData.put("out_refund_no", WXPayUtil.generateNonceStr());
+			reqData.put("total_fee", amount.toString());
+			reqData.put("refund_fee", amount.toString());
+			reqData.put("sign_type", "MD5");
+			Map<String, String> result = wxPay.refund(reqData);
+			logger.info("订单号："+order.getSn()+" 发起退款返回信息："+result.toString());
+			if (!result.get("return_code").equals("SUCCESS") || result.get("refund_id") == null) {
+				logger.info("退款失败。。。。");
+				throw new OutApiException(new OutApiJsonEntity(Code.code100005, "微信发起退款失败！"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		returns.setSn(snDao.generate(Sn.Type.returns));
 		returns.setOrder(order);
@@ -839,14 +868,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderItem.setReturnedQuantity(orderItem.getReturnedQuantity() + returnsItem.getQuantity());
 		}
 
-		order.setReturnedQuantity(order.getReturnedQuantity() + returns.getQuantity());
+		order.setStatus(Order.Status.returns);
+		order.setConfirmReturnsDate(new Date());
+		order.setReturnedQuantity(order.getReturnedQuantity());
 
 		OrderLog orderLog = new OrderLog();
 		orderLog.setType(OrderLog.Type.returns);
 		orderLog.setOperator(operator);
 		orderLog.setOrder(order);
 		orderLogDao.persist(orderLog);
-
+		
 		//mailService.sendReturnsOrderMail(order);
 		smsService.sendReturnsOrderSms(order);
 	}

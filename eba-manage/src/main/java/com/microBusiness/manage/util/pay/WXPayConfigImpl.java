@@ -31,16 +31,16 @@ public class WXPayConfigImpl extends WXPayConfig{
     }
 
     public String getAppID() {
-        return "wx66f99d5a2c7639c8";
+        return "wxe8dde426b3876eb0";
     }
 
     public String getMchID() {
-        return "1386860302";
+        return "1518201301";
     }
 
     //随机字符串：69671b21994b405d998a5d7464b07d8e
     public String getKey() {
-        return "69671b21994b405d998a5d7464b07d8e";
+        return "6d0812d4437337bccfe7e9b63b08bd77";
     }
 
     public InputStream getCertStream() {

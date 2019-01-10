@@ -1,11 +1,7 @@
 package com.microBusiness.manage.exception;
 
 /**
- * Created by afei.
- * User: afei
  * Date: 2016/4/22 18:45
- * Describe:
- * Update:
  */
 public class UserException extends RuntimeException {
 

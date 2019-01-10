@@ -1056,12 +1056,16 @@ public class OrderController extends BaseController {
 		orderMap.put("orderId", order.getId());
 		orderMap.put("sn", order.getSn());
 		orderMap.put("orderDate", order.getCreateDate());
+		orderMap.put("applyReturnsDate", order.getApplyReturnsDate());
+		orderMap.put("confirmReturnsDate", order.getConfirmReturnsDate());
 		orderMap.put("status", order.getStatus().ordinal());
 		orderMap.put("price", order.getPrice());
 		orderMap.put("freight", order.getFreight());
 		orderMap.put("promotionDiscount", order.getPromotionDiscount());
 		orderMap.put("couponDiscount", order.getCouponDiscount());
 		orderMap.put("amountPaid", order.getAmountPaid());
+		orderMap.put("refundAmount", order.getRefundAmount());
+		orderMap.put("returnsNum", order.getReturnsNum());
 		//orderMap.put("needName", order.getMember().getNeed().getName());
 //		Need need = order.getNeed();
 //		orderMap.put("needName", need.getName());
@@ -1462,9 +1466,9 @@ public class OrderController extends BaseController {
 		return JsonEntity.successMessage(resultMap);
 	}
 
-	//用户点击退货
+	//用户点击退货--已发货后才能退
 	@RequestMapping(value = "/returns", method = RequestMethod.GET)
-	public @ResponseBody JsonEntity returns(String unionId, String smOpenId,Long orderId ) {
+	public @ResponseBody JsonEntity returns(String unionId, String smOpenId,Long orderId,String returnsNum) {
 		Map<String, Object> resultMap = new HashMap<>();
 		Order order = orderService.find(orderId);
 		if (order == null || order.hasExpired() || !Order.Status.shipped.equals(order.getStatus())) {
@@ -1474,14 +1478,13 @@ public class OrderController extends BaseController {
 		if (orderService.isLocked(order, childMember.getMember(), true)) {
 			return JsonEntity.error(Code.code_order_011803);
 		}*/
-		Admin admin=this.adminService.find(1L);
-		//orderService.returns(order, returns, operator);
+		order.setStatus(Order.Status.applyReturns);
+		order.setApplyReturnsDate(new Date());
+		order.setReturnsNum(returnsNum);
+		orderService.update(order);
 		
-		orderService.receive(order, admin);
-		//收货就标示完成
-		orderService.complete(order, admin);
 		// TODO: 2017/2/14 发送模版消息
-		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.completed) ;
+		weChatService.sendTemplateMessage(order , commonTemplateId , weChatService.getGlobalToken() , Order.OrderStatus.apply_returns) ;
 		return JsonEntity.successMessage(resultMap);
 	}
 }
