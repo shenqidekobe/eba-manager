@@ -174,6 +174,9 @@
 				                        </div>	
 				                        <div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:order:complete" [#if role.authorities?seq_contains("admin:order:complete")] checked="checked"[/#if] /><span>订单完成</span>
+				                        </div>
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:order:returns" [#if role.authorities?seq_contains("admin:order:returns")] checked="checked"[/#if] /><span>确认退货</span>
 				                        </div>	
 				                        <!--
 				                        <div class="check-box">
