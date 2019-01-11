@@ -1,14 +1,11 @@
 package com.microBusiness.manage.controller.api;
 
-import com.microBusiness.manage.Message;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Verification;
 import com.microBusiness.manage.service.VerificationService;
 import com.microBusiness.manage.util.Code;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
