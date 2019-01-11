@@ -64,17 +64,17 @@
 									<input type="number" class="input-text radius" name="rate2" value="${obj.rate2}" maxlength="10"/>
 								</div>
 							</div>
-							<div class="row cl">
+							<!--<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									三级提成比例
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
 									<input type="number" class="input-text radius" name="rate3" value="${obj.rate3}" maxlength="10"/>
 								</div>
-							</div>
+							</div>-->
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									间隔几天发佣金
+									间隔几天发红包
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
 									<input type="number" class="input-text radius" name="intervalDayCommision" value="${obj.intervalDayCommision}" maxlength="10"/>
