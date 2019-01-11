@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.microBusiness.manage.Filter;
 import com.microBusiness.manage.Filter.Operator;
+import com.microBusiness.manage.Order.Direction;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.controller.api.BaseController;
@@ -184,6 +185,13 @@ public class MemberController extends BaseController {
    		if(null != endDate) {
    			endDate = DateUtils.specifyDatetWentyour(endDate);
    		}
+		List<com.microBusiness.manage.Order> orders = new ArrayList<com.microBusiness.manage.Order>();
+		com.microBusiness.manage.Order order = new com.microBusiness.manage.Order();
+		order.setDirection(Direction.desc);
+		order.setProperty("createDate");
+		orders.add(order);
+		pageable.setOrders(orders);
+		
    		Page<Withdraw> page = withdrawService.findPage(status, childMember, startDate, endDate, timeSearch, pageable);
    		list=page.getContent();
    		resultMap.put("withdraws", list);
@@ -210,6 +218,13 @@ public class MemberController extends BaseController {
 		if(null != endDate) {
 			endDate = DateUtils.specifyDatetWentyour(endDate);
 		}
+		List<com.microBusiness.manage.Order> orders = new ArrayList<com.microBusiness.manage.Order>();
+		com.microBusiness.manage.Order order = new com.microBusiness.manage.Order();
+		order.setDirection(Direction.desc);
+		order.setProperty("createDate");
+		orders.add(order);
+		pageable.setOrders(orders);
+		
 		Page<MemberIncome> page = memberIncomeService.findPage(null, childMember, startDate, endDate, pageable);
 		incomeList=page.getContent();
 		resultMap.put("incomes", incomeList);
