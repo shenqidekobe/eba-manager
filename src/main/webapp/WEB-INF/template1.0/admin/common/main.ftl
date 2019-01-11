@@ -733,7 +733,7 @@
 						[/@shiro.hasPermission]
 						[@shiro.hasPermission name="admin:dict:edit"]
 							<li>
-								<a href="../admin/ver.jhtml" target="iframe">验证二维码管理</a>
+								<a href="../ver/list.jhtml" target="iframe">验证二维码管理</a>
 							</li>
 						[/@shiro.hasPermission]
 						[@shiro.hasPermission name="admin:log"]

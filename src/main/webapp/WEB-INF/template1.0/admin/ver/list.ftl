@@ -38,46 +38,52 @@
 
                 <button type="button" class="op_button update_B" id="refreshButtons"
                         onclick="javascript:window.location.href='list.jhtml'">${message("admin.common.refresh")}</button>
+
+                <button type="button" class="op_button add_B" onclick="createTxt();">${创建txt}</button>
             </div>
         </div>
 
         <div class="table_con">
-        [#--<table class="table table-border table-hover table_width">--]
-        [#--<thead>--]
-        [#--<tr class="text-l">--]
-        [#--<th width="4%"><input class="selectAll" type="checkbox" id="selectAll" value=""></th>--]
-        [#--<th width="20%">ID</th>--]
-        [#--<th width="40%%">URL</th>--]
-        [#--<th width="20%">TAG</th>--]
-        [#--<th width="20%">更新时间</th>--]
-        [#--</tr>--]
-        [#--</thead>--]
-        [#--</table>--]
+            <table class="table table-border table-hover table_width">
+                <thead>
+                <tr class="text-l">
+                    <th width="10%">
+                        <div class="th_div">ID</div>
+                    </th>
+                    <th width="25%">
+                        <div class="th_div">批次</div>
+                    </th>
+                    <th width="25%">
+                        <div class="th_div">标识</div>
+                    </th>
+                    <th width="20%">
+                        <div class="th_div">验证时间</div>
+                    </th>
+                    <th width="20%">
+                        <div class="th_div">创建时间</div>
+                    </th>
+                </tr>
+                </thead>
+            </table>
             <div class="list_t_tbody" id="listTable">
                 <table class="table table-border table-hover table_width">
                     <thead>
                     <tr class="text-l">
-                    [#--<th width="4%" style="">--]
-                    [#--<div class="th_div" style="">--]
-                    [#--<input class="selectAll" type="checkbox" id="selectAll">--]
-                    [#--</div>--]
-                    [#--</th>--]
                         <th width="10%">
                             <div class="th_div">ID</div>
                         </th>
                         <th width="25%">
-                            <div class="th_div">TAG</div>
-                        </th>
-                        <th width="25%">
                             <div class="th_div">批次</div>
                         </th>
-                        <th width="20%">
-                            <div class="th_div">验证时间</div>
+                        <th width="25%">
+                            <div class="th_div">标识</div>
                         </th>
                         <th width="20%">
                             <div class="th_div">创建时间</div>
                         </th>
-
+                        <th width="20%">
+                            <div class="th_div">验证时间</div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -87,8 +93,8 @@
                         [#--<input type="checkbox" name="ids" value="${ver.id}"/>--]
                         [#--</td>--]
                             <td>${ver.id}</td>
-                            <td>${ad.tag}</td>
                             <td>${ver.batchNo}</td>
+                            <td>${ver.tag}</td>
                             <td>
                                 [#if ver.createDate??]
                                     <span title="${ver.createDate?string("yyyy-MM-dd HH:mm:ss")}">${ver.createDate}</span>
@@ -129,6 +135,10 @@
 
     function add() {
         window.location.href = "add.jhtml";
+    }
+
+    function createTxt() {
+        window.location.href = "impl.jhtml";
     }
 
     $().ready(function () {
