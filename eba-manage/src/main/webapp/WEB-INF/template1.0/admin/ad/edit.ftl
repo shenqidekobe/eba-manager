@@ -83,7 +83,7 @@
                         <div class="updateImg">
                             <div class="img_box">
                             	[#if ad.path??]
-                                <img src="${ad.path}" />
+                                <img src="${ad.path}" style="width:500px;"/>
                             	[/#if]
                             </div>
                             <input type="text" id="path" name="path" value="${ad.path}" style="display:none;"/>

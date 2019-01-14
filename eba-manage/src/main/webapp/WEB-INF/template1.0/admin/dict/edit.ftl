@@ -45,33 +45,93 @@
 									几级分销
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="levelDist" value="${obj.levelDist}" maxlength="10"/>
+									<input type="number" min="0" max="2" class="input-text radius" name="levelDist" value="${obj.levelDist}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									一级提成比例
+									满N金额成为铂金
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="rate1" value="${obj.rate1}" maxlength="10"/>
+									<input type="number" class="input-text radius" name="platinum_to" value="${obj.platinum_to}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									二级提成比例
+									铂金一级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="rate2" value="${obj.rate2}" maxlength="10"/>
+									<input type="number" class="input-text radius" name="platinum_rate1" value="${obj.platinum_rate1}" maxlength="10"/>
 								</div>
 							</div>
-							<!--<div class="row cl">
+							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									三级提成比例
+									铂金二级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="rate3" value="${obj.rate3}" maxlength="10"/>
+									<input type="number" class="input-text radius" name="platinum_rate2" value="${obj.platinum_rate2}" maxlength="10"/>
 								</div>
-							</div>-->
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									铂金自购满多少返
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="platinum_buy_amount" value="${obj.platinum_buy_amount}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									铂金自购提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="platinum_buy_rate" value="${obj.platinum_buy_rate}" maxlength="10"/>
+								</div>
+							</div>
+							
+							
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									满N金额成为黑金
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="blackplatinum_to" value="${obj.blackplatinum_to}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									黑金一级提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="blackplatinum_rate1" value="${obj.blackplatinum_rate1}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									黑金二级提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="blackplatinum_rate2" value="${obj.blackplatinum_rate2}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									黑金自购满多少返
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="blackplatinum_buy_amount" value="${obj.blackplatinum_buy_amount}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									黑金自购提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="number" class="input-text radius" name="blackplatinum_buy_rate" value="${obj.blackplatinum_buy_rate}" maxlength="10"/>
+								</div>
+							</div>
+							
+							
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									间隔几天发红包

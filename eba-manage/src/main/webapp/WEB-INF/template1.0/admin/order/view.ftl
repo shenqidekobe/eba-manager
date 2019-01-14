@@ -317,6 +317,12 @@
                                 </div>
                             </div>
                             <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-3">退货理由</label>
+                                <div class="formControls col-xs-8 col-sm-7">
+                                    <span class="input_no_span">${order.returnsReason}</span>
+                                </div>
+                            </div>
+                            <div class="row cl">
                                 <label class="form-label col-xs-4 col-sm-3">申请退货时间</label>
                                 <div class="formControls col-xs-8 col-sm-7">
                                     <span class="input_no_span">${order.applyReturnsDate?string("yyyy-MM-dd HH:mm")}</span>
@@ -1336,7 +1342,17 @@ $(function(){
             height:190,
             content: "确定要给当前订单退货退款嘛？",
             onOk: function() {
-                $returnsForm.submit();
+                $.dialog({
+		            type: "warn",
+		            height:190,
+		            content: "确定退货会直接退还给用户：${order.amountPaid}的货款哦，确定？",
+		            onOk: function() {
+		                $returnsForm.submit();
+		            },
+		            onShow:function(){
+		            	$(".xxDialog").css("top","150px");
+		            }
+		        });
             },
             onShow:function(){
             	$(".xxDialog").css("top","150px");

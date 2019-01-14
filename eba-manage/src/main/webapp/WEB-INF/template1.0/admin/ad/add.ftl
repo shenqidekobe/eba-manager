@@ -99,7 +99,7 @@
                         <div class="updateImg">
                             <div class="img_box">
                             	[#if ad.path??]
-                                <img src="${supplier.imagelogo}" />
+                                <img src="${supplier.imagelogo}" style="width:500px;"/>
                             	[/#if]
                             </div>
                             <input type="text" id="path" name="path" value="${ad.path}" style="display:none;"/>
@@ -197,7 +197,7 @@
                 var fr = new FileReader();
                 var file = file.file.source.source;
                 fr.onload = function () {
-                    $(".updateImg .img_box").html("<img src='' />");
+                    $(".updateImg .img_box").html("<img src='' style='width:500px;'/>");
                     $(".updateImg img").attr("src", fr.result);
                 };
                 fr.readAsDataURL(file);
