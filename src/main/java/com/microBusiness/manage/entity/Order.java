@@ -256,6 +256,7 @@ public class Order extends BaseEntity<Long> {
 	private String reCode;
 	
 	//退货时间
+	private String returnsReason;//退货理由
 	private String returnsNum;//退货单号
 	private Date applyReturnsDate;
 	private Date confirmReturnsDate;
@@ -1163,6 +1164,14 @@ public class Order extends BaseEntity<Long> {
 
 	public void setSupplyType(SupplyType supplyType) {
 		this.supplyType = supplyType;
+	}
+
+	public String getReturnsReason() {
+		return returnsReason;
+	}
+
+	public void setReturnsReason(String returnsReason) {
+		this.returnsReason = returnsReason;
 	}
 
 	public Status getBeforeStatus() {

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,28 +16,49 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * Created by on 2017/2/11.
- * 功能描述：用户子账号实体
- * 修改记录：
+ * 小程序会员用户记录
  */
 @Entity
 @Table(name = "t_child_member")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_child_member")
 public class ChildMember extends BaseEntity<Long> {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1448553091140929172L;
+	
+	//会员等级
+	public enum Member_Rank {
+		common("普通"),
+		platina("白金"),
+		platinum("铂金"),
+		blackplatinum("黑金");
+		public String label;
+		Member_Rank(String label){
+			this.label=label;
+		}
+		public String getLabel(){
+			return label;
+		}
+	}
 
-	private String openId ;
-    private Member member ;
-    private String nickName ;
-    private String headImgUrl ;
-    private String unionId ;
+	private String openId;
+    private Member member;
+    private String nickName;
+    private String headImgUrl;
+    private String unionId;
     private String smOpenId;
     private String phone;
 
+    /*** 扩展属性  ***/
+    private Boolean isChecked;//是否认证
+    private Boolean isShoper;//是否会员
+    private Integer shoperLevel;//店主等级
+    private Integer subBuyNum;//下级购买数量(下级-下下级)
+    private Integer totalSellNum;//累计销售数量(自购-下级购-下下级购)
+    @Enumerated(EnumType.STRING)
+    private Member_Rank rank;
+    private String remark;
+    
+    
     /**
      * 来源类型
      */
@@ -51,14 +74,6 @@ public class ChildMember extends BaseEntity<Long> {
     private List<OrderForm> orderForms;
     
     private ChildMember parent;
-    
-    /**
-     * 是否认证
-     */
-    private Boolean isChecked;
-    private Boolean isShoper;
-    private Integer shoperLevel;//店主等级
-    private String remark;
     
     
     public Boolean getIsChecked() {
@@ -117,22 +132,9 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
-	@Override
-    public String toString() {
-        return "ChildMember{" +
-                "openId='" + openId + '\'' +
-                ", member=" + member +
-                ", nickName='" + nickName + '\'' +
-                ", headImgUrl='" + headImgUrl + '\'' +
-                ", unionId='" + unionId + '\'' +
-                '}';
-    }
-
     public String getUnionId() {
         return unionId;
     }
-
     public void setUnionId(String unionId) {
         this.unionId = unionId;
     }
@@ -163,9 +165,28 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setShoperLevel(Integer shoperLevel) {
 		this.shoperLevel = shoperLevel;
 	}
-	
-	
+	public Integer getSubBuyNum() {
+		return subBuyNum;
+	}
+	public void setSubBuyNum(Integer subBuyNum) {
+		this.subBuyNum = subBuyNum;
+	}
+	public Member_Rank getRank() {
+		return rank;
+	}
+	public void setRank(Member_Rank rank) {
+		this.rank = rank;
+	}
+	public Integer getTotalSellNum() {
+		return totalSellNum;
+	}
 
+	public void setTotalSellNum(Integer totalSellNum) {
+		this.totalSellNum = totalSellNum;
+	}
+
+	
+	
 	@OneToMany(mappedBy = "childMember", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createDate desc")
 	public List<OrderForm> getOrderForms() {
@@ -192,4 +213,14 @@ public class ChildMember extends BaseEntity<Long> {
 		return null;
 	}
 
+	@Override
+    public String toString() {
+        return "ChildMember{" +
+                "openId='" + openId + '\'' +
+                ", member=" + member +
+                ", nickName='" + nickName + '\'' +
+                ", headImgUrl='" + headImgUrl + '\'' +
+                ", unionId='" + unionId + '\'' +
+                '}';
+    }
 }
