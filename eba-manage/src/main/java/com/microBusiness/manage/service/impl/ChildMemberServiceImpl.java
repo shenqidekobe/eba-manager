@@ -12,6 +12,7 @@ import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.ChildMemberDao;
 import com.microBusiness.manage.entity.ChildMember;
 import com.microBusiness.manage.entity.Member;
+import com.microBusiness.manage.entity.ChildMember.Member_Rank;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.MemberService;
 
@@ -74,7 +75,11 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
 			childMember.setMember(member);
 		}
 		if(childMember.getId() == null){
+			childMember.setShoperLevel(0);
 			childMember.setIsShoper(false);
+			childMember.setRank(Member_Rank.common);
+			childMember.setSubBuyNum(0);
+			childMember.setTotalSellNum(0);
 			childMember = super.save(childMember);
 		}else{
 			childMember = super.update(childMember);

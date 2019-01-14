@@ -1468,7 +1468,8 @@ public class OrderController extends BaseController {
 
 	//用户点击退货--已发货后才能退
 	@RequestMapping(value = "/returns", method = RequestMethod.GET)
-	public @ResponseBody JsonEntity returns(String unionId, String smOpenId,Long orderId,String returnsNum) {
+	public @ResponseBody JsonEntity returns(String unionId, String smOpenId,Long orderId,
+			String returnsNum,String returnsReason) {
 		Map<String, Object> resultMap = new HashMap<>();
 		Order order = orderService.find(orderId);
 		if (order == null || order.hasExpired() || !Order.Status.shipped.equals(order.getStatus())) {
@@ -1481,6 +1482,7 @@ public class OrderController extends BaseController {
 		order.setStatus(Order.Status.applyReturns);
 		order.setApplyReturnsDate(new Date());
 		order.setReturnsNum(returnsNum);
+		order.setReturnsReason(returnsReason);
 		orderService.update(order);
 		
 		// TODO: 2017/2/14 发送模版消息

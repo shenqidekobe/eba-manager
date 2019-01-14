@@ -94,6 +94,7 @@ import com.microBusiness.manage.entity.Area;
 import com.microBusiness.manage.entity.Cart;
 import com.microBusiness.manage.entity.CartItem;
 import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.ChildMember.Member_Rank;
 import com.microBusiness.manage.entity.Coupon;
 import com.microBusiness.manage.entity.CouponCode;
 import com.microBusiness.manage.entity.DepositLog;
@@ -6297,18 +6298,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		int level = 0;
 		ChildMember c1 = childMember.getParent();
 		if(c1==null)return;
-		
 		ChildMember c2 = null;
-		ChildMember c3 = null;
+		
 		if(c1 != null){
 			level++;
 			c2 = c1.getParent();
 			if(c2 != null){
 				level++;
-				c3 = c2.getParent();
-				if(c3 != null){
-					level++;
-				}
 			}
 		}
 		if(c1.getIsShoper()==null||!c1.getIsShoper())return;//上级不是店主不产生收益。。。2、3级是计算收益？
@@ -6318,19 +6314,20 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
 		
 		Dict dict=dictService.find(Dict.DEFAULT_ID);
-		Integer levelDist=2;
-		if(dict!=null&&StringUtils.isNotEmpty(dict.getJson())) {
-			DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
-			distributionRate1=Float.valueOf(json.getRate1());
-			distributionRate2=Float.valueOf(json.getRate2());
-			distributionRate3=Float.valueOf(json.getRate3());
-			levelDist=json.getLevelDist();
-		}
+		DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
+		Integer levelDist=json.getLevelDist();
+		
 		//计算分销商利润
 		String nickName=getNickName(childMember.getNickName());
 		
 		if(level == 1&&levelDist>=1){
-			
+			if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+				distributionRate1=Float.valueOf(json.getPlatinum_rate1());
+				distributionRate2=Float.valueOf(json.getPlatinum_rate2());
+			}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
+				distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+				distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
+			}
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
@@ -6359,6 +6356,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			
 		}else if(level == 2&&levelDist>=2){
+			if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+				distributionRate1=Float.valueOf(json.getPlatinum_rate1());
+			}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
+				distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+			}
 			Float rate1 = distributionRate1;
 			rate1 = rate1 == null ? 0 : rate1;
 			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
@@ -6384,6 +6386,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			memberDao.persist(member1);
 			
 			if(c2.getIsShoper()==null||!c2.getIsShoper())return;
+			
+			if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
+				distributionRate2=Float.valueOf(json.getPlatinum_rate2());
+			}else if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.blackplatinum)) {
+				distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
+			}
 			
 			logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
 			Float rate2 = distributionRate2;
@@ -6413,91 +6421,6 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			member2.setLastDay(lastDay);
 			memberDao.persist(member2);
 			logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-		}else if(level == 3&&levelDist>=3){
-			Float rate1 = distributionRate1;
-			rate1 = rate1 == null ? 0 : rate1;
-			//logger.info("rate1:" + rate1);
-			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			order.setDone(c1);
-			order.setDone_score(ratePrice1);
-			
-			MemberIncome income1=new MemberIncome();
-			income1.setMember(c1);
-			income1.setAmount(ratePrice1);
-			income1.setOrderId(order.getId());
-			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("红包收益(来自"+nickName+")");
-			income1.setLevel(1);
-			memberIncomeDao.persist(income1);
-			
-			
-			Member member1 = c1.getMember();
-			member1.setBalance(member1.getBalance().add(ratePrice1));
-			member1.setIncome(member1.getIncome().add(ratePrice1));
-			member1.setLastDay(lastDay);
-			memberDao.persist(member1);
-			logger.info("订单号："+sn+" 的三级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-			
-			if(c2.getIsShoper()!=null&&c2.getIsShoper()) {
-				
-				Float rate2 = distributionRate2;
-				rate2 = rate2 == null ? 0 : rate2;
-				//logger.info("rate2:" + rate2);
-				BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
-						.setScale(2, RoundingMode.HALF_UP);
-				
-				order.setDtwo(c2);
-				order.setDtwo_score(ratePrice2);
-				
-				nickName=getNickName(c1.getNickName());//上级的收益
-				
-				MemberIncome income2=new MemberIncome();
-				income2.setMember(c2);
-				income2.setAmount(ratePrice2);
-				income2.setOrderId(order.getId());
-				income2.setTypes(MemberIncome.TYPE_INCOME);
-				income2.setTitle("红包收益(来自"+nickName+")");
-				income2.setLevel(2);
-				memberIncomeDao.persist(income2);
-				
-				Member member2 = c2.getMember();
-				member2.setBalance(member2.getBalance().add(ratePrice2));
-				member2.setIncome(member2.getIncome().add(ratePrice2));
-				member2.setLastDay(lastDay);
-				memberDao.persist(member2);
-				logger.info("订单号："+sn+" 的三级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
-			}
-			if(c3.getIsShoper()==null||!c3.getIsShoper())return;
-			Float rate3 = distributionRate3;
-			rate3 = rate3 == null ? 0 : rate3;
-			//logger.info("rate3:" + rate3);
-			BigDecimal ratePrice3 = amount.multiply(new BigDecimal(rate3))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			order.setDthree(c3);
-			order.setDthree_score(ratePrice3);
-			order.setRakeBack(true);
-			orderDao.persist(order);
-			
-			nickName=getNickName(c2.getNickName());//上级的上级的收益
-			
-			MemberIncome income3=new MemberIncome();
-			income3.setMember(c3);
-			income3.setAmount(ratePrice3);
-			income3.setOrderId(order.getId());
-			income3.setTypes(MemberIncome.TYPE_INCOME);
-			income3.setTitle("红包收益(来自"+nickName+")");
-			income3.setLevel(3);
-			memberIncomeDao.persist(income3);
-			
-			Member member3 = c3.getMember();
-			member3.setBalance(member3.getBalance().add(ratePrice3));
-			member3.setIncome(member3.getIncome().add(ratePrice3));
-			member3.setLastDay(lastDay);
-			memberDao.persist(member3);
-			logger.info("订单号："+sn+" 的三级分销-三级【"+c3.getSmOpenId()+"】提成："+ratePrice3);
 		}
 		if(level>0) {
 			//发送支付成功 告知上级
