@@ -55,9 +55,9 @@ INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `
 INSERT INTO `xx_delivery_corp` (`id`, `create_date`, `modify_date`, `version`, `orders`, `code`, `name`, `url`, `deleted`) VALUES (7, '2017-03-27 13:52:48', '2017-03-27 13:52:48', 0, 7, 'ziyou', '自有物流', NULL, b'0');
 
 
-INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (1, '2018-11-19 11:57:54', b'0', '2018-11-19 11:57:54', 0, '分为有链接和无链接', 183, '首页轮播图', '首页轮播图', 375);
-INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (2, '2019-01-10 11:04:14', b'0', '0000-00-00 00:00:00', 0, '分为有链接和无链接', 183, '首页人气图片', '首页人气图片', 375);
-INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (3, '2019-01-10 11:04:40', b'0', '0000-00-00 00:00:00', 0, '分为有链接和无链接', 183, '首页精选图片', '首页精选图片', 375);
+INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (1, '2018-11-19 11:57:54', b'0', '2018-11-19 11:57:54', 0, '分为有链接和无链接', 300, '首页轮播图', '首页轮播图', 710);
+INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (2, '2019-01-10 11:04:14', b'0', '0000-00-00 00:00:00', 0, '分为有链接和无链接', 140, '首页人气图片', '首页人气图片', 710);
+INSERT INTO `xx_ad_position` (`id`, `create_date`, `deleted`, `modify_date`, `version`, `description`, `height`, `name`, `template`, `width`) VALUES (3, '2019-01-10 11:04:40', b'0', '0000-00-00 00:00:00', 0, '分为有链接和无链接', 140, '首页精选图片', '首页精选图片', 710);
 
 
 INSERT INTO `xx_dict` (`id`, `create_date`, `modify_date`, `version`, `json`, `deleted`) VALUES (100, '2018-03-27 13:52:48', '2018-03-27 13:52:48', 0, '{"rate1":"0.03","rate2":"0.02","rate3":"0.01","levelDist":2,"intervalDayCommision":15}', b'0');
