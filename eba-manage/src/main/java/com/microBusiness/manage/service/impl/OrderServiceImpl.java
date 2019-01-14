@@ -178,7 +178,6 @@ import com.microBusiness.manage.util.SystemUtils;
 import com.microBusiness.manage.util.pay.WXPay;
 import com.microBusiness.manage.util.pay.WXPayConfig;
 import com.microBusiness.manage.util.pay.WXPayConfigImpl;
-import com.microBusiness.manage.util.pay.WXPayUtil;
 
 @Service("orderServiceImpl")
 public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements OrderService {
@@ -834,7 +833,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		Assert.notNull(returns);
 		//Assert.isTrue(returns.isNew());
 		//Assert.notEmpty(returns.getReturnsItems());
-		
+		String refundId="";
 		try {
 			Map<String, String> reqData = new HashMap<String, String>();
 			WXPayConfig config = WXPayConfigImpl.getInstance();
@@ -842,8 +841,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 
 			BigDecimal amount = order.getAmountPaid().multiply(new BigDecimal(100)).setScale(0);
 			reqData.put("sign_type", "MD5");
-			reqData.put("transaction_id", order.getPaySn());// 微信订单号和商户订单号二选一
-			reqData.put("out_refund_no", WXPayUtil.generateNonceStr());
+			reqData.put("transaction_id", order.getTransactionId());// 微信订单号和商户订单号二选一
+			reqData.put("out_refund_no", order.getPaySn());
 			reqData.put("total_fee", amount.toString());
 			reqData.put("refund_fee", amount.toString());
 			reqData.put("sign_type", "MD5");
@@ -853,6 +852,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				logger.info("退款失败。。。。");
 				throw new OutApiException(new OutApiJsonEntity(Code.code100005, "微信发起退款失败！"));
 			}
+			refundId=result.get("refund_id");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -869,6 +869,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderItem.setReturnedQuantity(orderItem.getReturnedQuantity() + returnsItem.getQuantity());
 		}
 
+		order.setRefundId(refundId);
 		order.setStatus(Order.Status.returns);
 		order.setConfirmReturnsDate(new Date());
 		order.setReturnedQuantity(order.getReturnedQuantity());
@@ -6205,6 +6206,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			//step2.增加分配商品数量[现改为订单生成的时候就分配]
 
 			//step3.修改订单状态
+			order.setTransactionId(transactionId);
 			order.setAmountPaid(order.getAmountPaid().add(payment.getEffectiveAmount()));
 			order.setFee(order.getFee().add(payment.getFee()));
 			if (!order.hasExpired() && Order.Status.pendingPayment.equals(order.getStatus()) 

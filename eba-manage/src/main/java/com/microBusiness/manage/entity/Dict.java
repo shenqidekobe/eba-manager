@@ -1,7 +1,7 @@
 package com.microBusiness.manage.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,7 +15,7 @@ public class Dict extends BaseEntity<Long> {
 	public static final Long DEFAULT_ID=100l;
 	
 	private String type;
-	@Column(length=1000)
+	@Lob
 	private String json;
 	
 	
