@@ -79,4 +79,13 @@ public class WXPayConfigImpl extends WXPayConfig{
     public int getReportBatchSize() {
         return 2;
     }
+    
+    public static void main(String[] args) {
+    	try {
+			WXPayConfig config = WXPayConfigImpl.getInstance();
+			System.out.println(config.getAppID());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

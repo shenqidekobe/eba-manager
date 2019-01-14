@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -170,6 +171,9 @@ public class WxPaymentController extends BaseController {
 				inputString.append(line);
 			}
 			request.getReader().close();
+			if(StringUtils.isEmpty(inputString.toString())) {
+				response.getWriter().write(XmlUtils.setXML("FAIL", "报文为空"));
+			}
 			Map<String, String> map = XmlUtils.doXMLParse(inputString.toString());
 			logger.info("[notifyFun()]: receive inputString=" + inputString.toString());
 

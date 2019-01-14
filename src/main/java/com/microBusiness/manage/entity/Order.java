@@ -260,6 +260,8 @@ public class Order extends BaseEntity<Long> {
 	private String returnsNum;//退货单号
 	private Date applyReturnsDate;
 	private Date confirmReturnsDate;
+	private String refundId;
+	private String transactionId;
 
 	/**
 	 * 拒绝原因
@@ -1196,7 +1198,13 @@ public class Order extends BaseEntity<Long> {
 		}
 		return all ;
 	}
+	public String getTransactionId() {
+		return transactionId;
+	}
 
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = true, updatable = false ,foreignKey = @ForeignKey(name = "null"))
@@ -1206,6 +1214,14 @@ public class Order extends BaseEntity<Long> {
 
 	public void setChildMember(ChildMember childMember) {
 		this.childMember = childMember;
+	}
+
+	public String getRefundId() {
+		return refundId;
+	}
+
+	public void setRefundId(String refundId) {
+		this.refundId = refundId;
 	}
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
