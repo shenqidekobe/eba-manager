@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${base}/resources/admin1.0/css/admin.css" />
 	<style>
 		body{background:#f9f9f9;}
-		.pag_div{width:96%;float:left;}
+		.pag_div{width:45%;float:left;}
 		.tabBar{background:#f9f9f9;border:0;}
 		.tabBar span{padding:5px 24px;background:#f9f9f9;color:#c3cfe5;}
 		.tabBar span.current{background:#fff;color:#333;}
@@ -23,6 +23,7 @@
 		#tab-system{position:relative;}
 		.opera_butt{position:absolute;top:0;right:0; margin-top:5px;}
 		.col-sm-7{width:80%;}
+		.tabCon,#tab-system{overflow: auto;}
 	</style>
 <title>编辑数据配置</title>
 </head>
@@ -38,22 +39,23 @@
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
 				<input type="hidden" name="id" value="${id}" />
 				<div id="tab-system" class="HuiTab">
-					<div >
+					<div class="">
 						<div class="pag_div">
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									几级分销
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" min="0" max="2" class="input-text radius" name="levelDist" value="${obj.levelDist}" maxlength="10"/>
+									<input type="number" min="0" max="2" class="input-text radius" placeholder="2" name="levelDist" value="${obj.levelDist}" maxlength="10"/>级
 								</div>
 							</div>
+							<hr/><br/>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									满N金额成为铂金
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="platinum_to" value="${obj.platinum_to}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="platinum_to" value="${obj.platinum_to}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -61,7 +63,7 @@
 									铂金一级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="platinum_rate1" value="${obj.platinum_rate1}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="platinum_rate1" value="${obj.platinum_rate1}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -69,15 +71,15 @@
 									铂金二级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="platinum_rate2" value="${obj.platinum_rate2}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="platinum_rate2" value="${obj.platinum_rate2}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									铂金自购满多少返
+									铂金自购满N提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="platinum_buy_amount" value="${obj.platinum_buy_amount}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="platinum_buy_amount" value="${obj.platinum_buy_amount}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -85,17 +87,27 @@
 									铂金自购提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="platinum_buy_rate" value="${obj.platinum_buy_rate}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="platinum_buy_rate" value="${obj.platinum_buy_rate}" maxlength="10"/>
 								</div>
 							</div>
+							</div>
 							
-							
+							<div class="pag_div">
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									间隔几天发红包
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<input type="number" class="input-text radius" name="intervalDayCommision" placeholder="15" value="${obj.intervalDayCommision}" maxlength="10"/>天
+								</div>
+							</div>
+							<hr/><br/>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									满N金额成为黑金
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="blackplatinum_to" value="${obj.blackplatinum_to}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="blackplatinum_to" value="${obj.blackplatinum_to}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -103,7 +115,7 @@
 									黑金一级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="blackplatinum_rate1" value="${obj.blackplatinum_rate1}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="blackplatinum_rate1" value="${obj.blackplatinum_rate1}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -111,15 +123,15 @@
 									黑金二级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="blackplatinum_rate2" value="${obj.blackplatinum_rate2}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="blackplatinum_rate2" value="${obj.blackplatinum_rate2}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									黑金自购满多少返
+									黑金自购满N提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="blackplatinum_buy_amount" value="${obj.blackplatinum_buy_amount}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="blackplatinum_buy_amount" value="${obj.blackplatinum_buy_amount}" maxlength="10"/>
 								</div>
 							</div>
 							<div class="row cl">
@@ -127,19 +139,11 @@
 									黑金自购提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="blackplatinum_buy_rate" value="${obj.blackplatinum_buy_rate}" maxlength="10"/>
+									<input type="text" class="input-text radius" name="blackplatinum_buy_rate" value="${obj.blackplatinum_buy_rate}" maxlength="10"/>
 								</div>
 							</div>
-							
-							
-							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
-									间隔几天发红包
-								</label>
-								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" class="input-text radius" name="intervalDayCommision" value="${obj.intervalDayCommision}" maxlength="10"/>
-								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -168,6 +172,7 @@
 		/*通过js获取页面高度，来定义表单的高度*/
 		var formHeight=$(document.body).height()-100;
 		$(".form_box").css("height",formHeight);
+		$(".tabCon").css("height",formHeight - 40);
 		
 		/**/
 		var heightObj = $(document.body).height() - 185;
