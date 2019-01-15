@@ -327,6 +327,7 @@ public class Order extends BaseEntity<Long> {
 	
 	//分销利润
 	private Boolean rakeBack;//是否返佣
+	private BigDecimal buy_score;//自购返佣金额
 	private ChildMember done;
 	private BigDecimal done_score;
 	private ChildMember dtwo;
@@ -864,6 +865,14 @@ public class Order extends BaseEntity<Long> {
 
 	public void setDone_score(BigDecimal done_score) {
 		this.done_score = done_score;
+	}
+
+	public BigDecimal getBuy_score() {
+		return buy_score;
+	}
+
+	public void setBuy_score(BigDecimal buy_score) {
+		this.buy_score = buy_score;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

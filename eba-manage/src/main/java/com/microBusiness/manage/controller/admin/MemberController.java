@@ -27,6 +27,7 @@ import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.Setting;
 import com.microBusiness.manage.entity.BaseEntity;
 import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.ChildMember.Member_Rank;
 import com.microBusiness.manage.entity.JsonEntity;
 import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.MemberAttribute;
@@ -85,6 +86,7 @@ public class MemberController extends BaseController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(Long id, ModelMap model) {
 		ChildMember member = childMemberService.find(id);
+		model.addAttribute("ranks", Member_Rank.values());
 		model.addAttribute("genders", Member.Gender.values());
 		model.addAttribute("memberAttributes", memberAttributeService.findList(true, true));
 		model.addAttribute("member", member);
@@ -165,6 +167,7 @@ public class MemberController extends BaseController {
 		//Member member = memberService.find(id);
 		ChildMember member = childMemberService.find(id);
 		model.addAttribute("genders", Member.Gender.values());
+		model.addAttribute("ranks", Member_Rank.values());
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findList(true, true));
 		model.addAttribute("member", member);
@@ -182,14 +185,15 @@ public class MemberController extends BaseController {
 			return ERROR_VIEW;
 		}
 		childMemberService.update(member, "openId","nickName","member","parent",
-				"smOpenId","headImgUrl","unionId","isChecked","orderForms","sourceType");
+				"smOpenId","headImgUrl","unionId","isChecked","orderForms","sourceType",
+				"platinaTime","platinumTime","blackplatinumTime");
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Pageable pageable,Date startDate,Date endDate,String nickName,
-			String smOpenId,ChildMember.SourceType type,Boolean isShoper,
+			String smOpenId,ChildMember.SourceType type,Boolean isShoper,Member_Rank rank,
 			Long parentId,String searchName,ModelMap model) {
 		model.addAttribute("memberRanks", memberRankService.findAll());
 		model.addAttribute("memberAttributes", memberAttributeService.findAll());
@@ -198,6 +202,7 @@ public class MemberController extends BaseController {
         model.addAttribute("endDate", endDate);
         model.addAttribute("searchName", searchName);
         model.addAttribute("isShoper", isShoper);
+        model.addAttribute("rank", rank);
         
         if(startDate != null) {
         	startDate = DateUtils.specifyDateZero(startDate);
@@ -209,7 +214,8 @@ public class MemberController extends BaseController {
         if(parentId!=null) {
         	parent=this.childMemberService.find(parentId);
         }
-		model.addAttribute("page", childMemberService.findPage(nickName, smOpenId, type,isShoper, parent, startDate, endDate, pageable));
+		model.addAttribute("page", childMemberService.findPage(nickName, smOpenId, type,
+				isShoper, parent, rank,startDate, endDate, pageable));
 		return "/admin/member/list";
 	}
 

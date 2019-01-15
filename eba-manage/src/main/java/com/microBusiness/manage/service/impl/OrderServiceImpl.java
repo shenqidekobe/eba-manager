@@ -834,27 +834,32 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//Assert.isTrue(returns.isNew());
 		//Assert.notEmpty(returns.getReturnsItems());
 		String refundId="";
-		try {
-			Map<String, String> reqData = new HashMap<String, String>();
-			WXPayConfig config = WXPayConfigImpl.getInstance();
-			WXPay wxPay = new WXPay(config, true, false);
+		BigDecimal refundAmount=returns.getRefundAmount()==null?order.getAmountPaid():returns.getRefundAmount();
+		logger.info("订单号："+order.getSn()+" 确认退货："+refundAmount);
+		//退款金额大于0才发起微信退款，否则只更新本地数据
+		if(refundAmount.compareTo(BigDecimal.ZERO)==1) {
+			try {
+				Map<String, String> reqData = new HashMap<String, String>();
+				WXPayConfig config = WXPayConfigImpl.getInstance();
+				WXPay wxPay = new WXPay(config, true, false);
 
-			BigDecimal amount = order.getAmountPaid().multiply(new BigDecimal(100)).setScale(0);
-			reqData.put("sign_type", "MD5");
-			reqData.put("transaction_id", order.getTransactionId());// 微信订单号和商户订单号二选一
-			reqData.put("out_refund_no", order.getPaySn());
-			reqData.put("total_fee", amount.toString());
-			reqData.put("refund_fee", amount.toString());
-			reqData.put("sign_type", "MD5");
-			Map<String, String> result = wxPay.refund(reqData);
-			logger.info("订单号："+order.getSn()+" 发起退款返回信息："+result.toString());
-			if (!result.get("return_code").equals("SUCCESS") || result.get("refund_id") == null) {
-				logger.info("退款失败。。。。");
-				throw new OutApiException(new OutApiJsonEntity(Code.code100005, "微信发起退款失败！"));
+				BigDecimal amount = refundAmount.multiply(new BigDecimal(100)).setScale(0);
+				reqData.put("sign_type", "MD5");
+				reqData.put("transaction_id", order.getTransactionId());// 微信订单号和商户订单号二选一
+				reqData.put("out_refund_no", order.getPaySn());
+				reqData.put("total_fee", amount.toString());
+				reqData.put("refund_fee", amount.toString());
+				reqData.put("sign_type", "MD5");
+				Map<String, String> result = wxPay.refund(reqData);
+				logger.info("订单号："+order.getSn()+" 发起退款返回信息："+result.toString());
+				if (!result.get("return_code").equals("SUCCESS") || result.get("refund_id") == null) {
+					logger.info("退款失败。。。。");
+					throw new OutApiException(new OutApiJsonEntity(Code.code100005, "微信发起退款失败！"));
+				}
+				refundId=result.get("refund_id");
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			refundId=result.get("refund_id");
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		returns.setSn(snDao.generate(Sn.Type.returns));
@@ -870,6 +875,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 
 		order.setRefundId(refundId);
+		order.setRefundAmount(refundAmount);
 		order.setStatus(Order.Status.returns);
 		order.setConfirmReturnsDate(new Date());
 		order.setReturnedQuantity(order.getReturnedQuantity());
@@ -881,7 +887,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLogDao.persist(orderLog);
 		
 		//mailService.sendReturnsOrderMail(order);
-		smsService.sendReturnsOrderSms(order);
+		//smsService.sendReturnsOrderSms(order);
 	}
 
 	public void receive(Order order, Admin operator) {
@@ -919,10 +925,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 		//会员非店主且该购买产品属于会员商品，则更新会员为店主
 		if(child.getIsShoper()!=null&&!child.getIsShoper()&&isShoper){
-			member.setIsShoper(isShoper);
 			child.setIsShoper(isShoper);
-			if(isShoper)child.setShoperLevel(1);//初始一级店主
-			this.childMemberDao.persist(child);
 		}
 		
 		//奖励积分
@@ -965,6 +968,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 		
 		orderLogDao.persist(orderLog);
+		
+		//会员销量 等级计算
+		buyCalculate(order, child);
 		
 		//分销结算
 		//distributionSettlement(order);
@@ -6295,11 +6301,72 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	
 	//分销结算
 	public void distributionSettlement(Order order) {
+		//重新查询，防止懒加载造成的detached entity passed to persist  以及no session
+		order=this.orderDao.find(order.getId());
+		String sn=order.getSn();
+		BigDecimal amount=order.getPrice();//订单总金额
+		logger.info("订单："+sn+" 分销结算程序开始执行..."+amount);
+		
 		ChildMember childMember = order.getChildMember();
+		
+		Dict dict=dictService.find(Dict.DEFAULT_ID);
+		DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
+		
+		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
+
+		Integer levelDist=json.getLevelDist();
+		BigDecimal platinumTo=new BigDecimal(json.getPlatinum_to());//铂金自购门槛
+		BigDecimal blackplatinumTo=new BigDecimal(json.getBlackplatinum_to());//黑金自购门槛
+		//处理自购返佣、普通和白金且订单金额小于铂金标准=没有自购返佣
+		if(!childMember.getRank().equals(Member_Rank.platina)
+				&&!childMember.getRank().equals(Member_Rank.common)
+				&&amount.compareTo(platinumTo)!=-1) {
+			Float buyRate=null;
+			//订单总金额大于等于铂金自购返佣且小于黑金自购返佣 则按铂金级别
+			if(amount.compareTo(platinumTo)!=-1
+					&&amount.compareTo(blackplatinumTo)==-1) {
+				buyRate=Float.valueOf(json.getPlatinum_buy_rate());
+			}
+			//订单总金额大于等于黑金自购返佣 则按黑金级别
+			if(amount.compareTo(blackplatinumTo)!=-1) {
+				buyRate=Float.valueOf(json.getBlackplatinum_buy_rate());
+			}
+			
+			buyRate = buyRate == null ? 0 : buyRate;
+			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(buyRate))
+					.setScale(2, RoundingMode.HALF_UP);
+			
+			//分销返利记录
+			order.setBuy_score(ratePrice1);
+			orderDao.persist(order);
+			
+			MemberIncome income=new MemberIncome();
+			income.setMember(childMember);
+			income.setAmount(ratePrice1);
+			income.setOrderId(order.getId());
+			income.setTypes(MemberIncome.TYPE_INCOME);
+			income.setTitle("红包收益(自购返佣)");
+			income.setLevel(1);
+			memberIncomeDao.persist(income);
+			//总收益
+			Member member = childMember.getMember();
+			member.setBalance(member.getBalance().add(ratePrice1));
+			member.setIncome(member.getIncome().add(ratePrice1));
+			member.setLastDay(lastDay);
+			memberDao.persist(member);
+			
+			logger.info("订单号："+sn+" 的自购【"+childMember.getSmOpenId()+"】提成比例："+buyRate+",金额："+ratePrice1);
+		}
+		
 		//根据商品利率 判断级别，计算上级返利
 		int level = 0;
 		ChildMember c1 = childMember.getParent();
-		if(c1==null)return;
+		//没有上级则直接分销结束
+		if(c1==null) {
+			order.setRakeBack(true);
+			orderDao.persist(order);
+			return;
+		}
 		ChildMember c2 = null;
 		
 		if(c1 != null){
@@ -6309,125 +6376,201 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				level++;
 			}
 		}
-		if(c1.getIsShoper()==null||!c1.getIsShoper())return;//上级不是店主不产生收益。。。2、3级是计算收益？
-		
-		String sn=order.getSn();
-		BigDecimal amount=order.getPrice();//订单总金额
-		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
-		
-		Dict dict=dictService.find(Dict.DEFAULT_ID);
-		DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
-		Integer levelDist=json.getLevelDist();
 		
 		//计算分销商利润
 		String nickName=getNickName(childMember.getNickName());
-		
+		boolean rakeBack=false;
 		if(level == 1&&levelDist>=1){
-			if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
-				distributionRate1=Float.valueOf(json.getPlatinum_rate1());
-				distributionRate2=Float.valueOf(json.getPlatinum_rate2());
-			}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
-				distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
-				distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
+			//普通和白金没有提成
+			if(!c1.getRank().equals(Member_Rank.platina)
+					&&!c1.getRank().equals(Member_Rank.common)
+					&&c1.getIsShoper()) {
+				//区分上级是铂金还是黑金，得到不同的提成比例、
+				if(c1.getRank().equals(Member_Rank.platinum)) {
+					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
+				}else if(c1.getRank().equals(Member_Rank.blackplatinum)) {
+					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+				}
+				Float rate1 = distributionRate1;
+				rate1 = rate1 == null ? 0 : rate1;
+				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				//分销返利记录
+				order.setDone(c1);
+				order.setDone_score(ratePrice1);
+				order.setRakeBack(true);
+				orderDao.persist(order);
+				
+				MemberIncome income1=new MemberIncome();
+				income1.setMember(c1);
+				income1.setAmount(ratePrice1);
+				income1.setOrderId(order.getId());
+				income1.setTypes(MemberIncome.TYPE_INCOME);
+				income1.setTitle("红包收益(来自"+nickName+")");
+				income1.setLevel(1);
+				memberIncomeDao.persist(income1);
+				//总收益
+				Member member1 = c1.getMember();
+				member1.setBalance(member1.getBalance().add(ratePrice1));
+				member1.setIncome(member1.getIncome().add(ratePrice1));
+				member1.setLastDay(lastDay);
+				memberDao.persist(member1);
+				logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成比例："+distributionRate1+",金额："+ratePrice1);
+			
+				rakeBack=true;
 			}
-			Float rate1 = distributionRate1;
-			rate1 = rate1 == null ? 0 : rate1;
-			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			//分销返利记录
-			order.setDone(c1);
-			order.setDone_score(ratePrice1);
-			order.setRakeBack(true);
-			orderDao.persist(order);
-			
-			MemberIncome income1=new MemberIncome();
-			income1.setMember(c1);
-			income1.setAmount(ratePrice1);
-			income1.setOrderId(order.getId());
-			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("红包收益(来自"+nickName+")");
-			income1.setLevel(1);
-			memberIncomeDao.persist(income1);
-			//总收益
-			Member member1 = c1.getMember();
-			member1.setBalance(member1.getBalance().add(ratePrice1));
-			member1.setIncome(member1.getIncome().add(ratePrice1));
-			member1.setLastDay(lastDay);
-			memberDao.persist(member1);
-			logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-			
 		}else if(level == 2&&levelDist>=2){
-			if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
-				distributionRate1=Float.valueOf(json.getPlatinum_rate1());
-			}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
-				distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+			//普通和白金没有提成
+			if(!c1.getRank().equals(Member_Rank.platina)
+					&&!c1.getRank().equals(Member_Rank.common)
+					&&c1.getIsShoper()) {
+				if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
+				}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
+					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+				}
+				Float rate1 = distributionRate1;
+				rate1 = rate1 == null ? 0 : rate1;
+				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				order.setDone(c1);
+				order.setDone_score(ratePrice1);
+				order.setRakeBack(true);
+				orderDao.persist(order);
+				
+				MemberIncome income1=new MemberIncome();
+				income1.setMember(c1);
+				income1.setAmount(ratePrice1);
+				income1.setOrderId(order.getId());
+				income1.setTypes(MemberIncome.TYPE_INCOME);
+				income1.setTitle("红包收益(来自"+nickName+")");
+				income1.setLevel(1);
+				memberIncomeDao.persist(income1);
+				
+				Member member1 = c1.getMember();
+				member1.setBalance(member1.getBalance().add(ratePrice1));
+				member1.setIncome(member1.getIncome().add(ratePrice1));
+				member1.setLastDay(lastDay);
+				memberDao.persist(member1);
+				
+				logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成比例："+distributionRate1+",金额："+ratePrice1);
+				rakeBack=true;
 			}
-			Float rate1 = distributionRate1;
-			rate1 = rate1 == null ? 0 : rate1;
-			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			order.setDone(c1);
-			order.setDone_score(ratePrice1);
-			//orderDao.persist(order);
-			
-			MemberIncome income1=new MemberIncome();
-			income1.setMember(c1);
-			income1.setAmount(ratePrice1);
-			income1.setOrderId(order.getId());
-			income1.setTypes(MemberIncome.TYPE_INCOME);
-			income1.setTitle("红包收益(来自"+nickName+")");
-			income1.setLevel(1);
-			memberIncomeDao.persist(income1);
-			
-			Member member1 = c1.getMember();
-			member1.setBalance(member1.getBalance().add(ratePrice1));
-			member1.setIncome(member1.getIncome().add(ratePrice1));
-			member1.setLastDay(lastDay);
-			memberDao.persist(member1);
-			
-			if(c2.getIsShoper()==null||!c2.getIsShoper())return;
-			
-			if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
-				distributionRate2=Float.valueOf(json.getPlatinum_rate2());
-			}else if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.blackplatinum)) {
-				distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
+			if(!c2.getRank().equals(Member_Rank.platina)
+					&&!c2.getRank().equals(Member_Rank.common)
+					&c2.getIsShoper()) {
+				
+				if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
+					distributionRate2=Float.valueOf(json.getPlatinum_rate2());
+				}else if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.blackplatinum)) {
+					distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
+				}
+				
+				Float rate2 = distributionRate2;
+				rate2 = rate2 == null ? 0 : rate2;
+				BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				order.setDtwo(c2);
+				order.setDtwo_score(ratePrice2);
+				order.setRakeBack(true);
+				orderDao.persist(order);
+				
+				nickName=getNickName(c1.getNickName());//上级的收益
+				
+				MemberIncome income2=new MemberIncome();
+				income2.setMember(c2);
+				income2.setAmount(ratePrice2);
+				income2.setOrderId(order.getId());
+				income2.setTypes(MemberIncome.TYPE_INCOME);
+				income2.setTitle("红包收益(来自"+nickName+")");
+				income2.setLevel(2);
+				memberIncomeDao.persist(income2);
+				
+				Member member2 = c2.getMember();
+				member2.setBalance(member2.getBalance().add(ratePrice2));
+				member2.setIncome(member2.getIncome().add(ratePrice2));
+				member2.setLastDay(lastDay);
+				memberDao.persist(member2);
+				logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成比例："+distributionRate2+",金额："+ratePrice2);
+				
+				rakeBack=true;
 			}
-			
-			logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成："+ratePrice1);
-			Float rate2 = distributionRate2;
-			rate2 = rate2 == null ? 0 : rate2;
-			BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			order.setDtwo(c2);
-			order.setDtwo_score(ratePrice2);
+		}
+		if(!rakeBack) {
 			order.setRakeBack(true);
 			orderDao.persist(order);
-			
-			nickName=getNickName(c1.getNickName());//上级的收益
-			
-			MemberIncome income2=new MemberIncome();
-			income2.setMember(c2);
-			income2.setAmount(ratePrice2);
-			income2.setOrderId(order.getId());
-			income2.setTypes(MemberIncome.TYPE_INCOME);
-			income2.setTitle("红包收益(来自"+nickName+")");
-			income2.setLevel(2);
-			memberIncomeDao.persist(income2);
-			
-			Member member2 = c2.getMember();
-			member2.setBalance(member2.getBalance().add(ratePrice2));
-			member2.setIncome(member2.getIncome().add(ratePrice2));
-			member2.setLastDay(lastDay);
-			memberDao.persist(member2);
-			logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成："+ratePrice2);
 		}
-		if(level>0) {
+		if(level>0&&rakeBack&&levelDist>=1) {
 			//发送支付成功 告知上级
 			weChatService.sendTemplateMessage2ParentChildMember(order , memberTemplateId ,weChatService.getGlobalToken());
 		}
+	}
+	
+	@Override
+	public ChildMember buyCalculate(Order order,ChildMember childMember) {
+		Dict dict=dictService.find(Dict.DEFAULT_ID);
+		DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
+		BigDecimal platinumTo=new BigDecimal(json.getPlatinum_to());//成为铂金的门槛
+		BigDecimal blackplatinumTo=new BigDecimal(json.getBlackplatinum_to());//成为黑金的门槛
+		
+		ChildMember c1 = childMember.getParent();
+		ChildMember c2 = null;
+		if(c1!=null)c2=c1.getParent();
+		//更新自己的购买数量
+		logger.info("更新订单会员【"+childMember.getNickName()+"】自己的购买数量和购买金额以及会员等级机制......");
+		childMember.setBuyNum(childMember.getBuyNum()+1);
+		childMember.setBuyAmount(childMember.getBuyAmount().add(order.getPrice()));
+		childMember.setTotalBuyNum(childMember.getTotalBuyNum()+1);
+		childMember.setTotalBuyAmount(childMember.getTotalBuyAmount().add(order.getPrice()));
+		updateChildMemberRank(childMember, platinumTo, blackplatinumTo);
+		this.childMemberDao.persist(childMember);
+		//更新上级的购买数量
+		if(c1==null)return childMember;
+		logger.info("更新订单会员【"+childMember.getNickName()+"】的上级【"+c1.getNickName()+"】的购买数量和购买金额以及会员等级机制......");
+		c1.setSubBuyNum(c1.getSubBuyNum()+1);
+		c1.setSubBuyAmount(c1.getSubBuyAmount().add(order.getPrice()));
+		c1.setTotalBuyNum(c1.getTotalBuyNum()+1);
+		c1.setTotalBuyAmount(c1.getTotalBuyAmount().add(order.getPrice()));
+		updateChildMemberRank(c1, platinumTo, blackplatinumTo);
+		this.childMemberDao.persist(c1);
+		//更新上上级的购买数量
+		if(c2==null)return childMember;
+		logger.info("更新订单会员【"+childMember.getNickName()+"】上级的上级【"+c2.getNickName()+"】的购买数量和购买金额以及会员等级机制......");
+		c2.setSubSubBuyNum(c2.getSubSubBuyNum()+1);
+		c2.setSubSubBuyAmount(c2.getSubSubBuyAmount().add(order.getPrice()));
+		c2.setTotalBuyNum(c2.getTotalBuyNum()+1);
+		c2.setTotalBuyAmount(c2.getTotalBuyAmount().add(order.getPrice()));
+		updateChildMemberRank(c2, platinumTo, blackplatinumTo);
+		this.childMemberDao.persist(c2);
+		
+		return childMember;
+	}
+	
+	private void updateChildMemberRank(ChildMember childMember,BigDecimal platinumTo,BigDecimal blackplatinumTo) {
+		//购买总金额大于黑金门槛且不是黑金会员则更新为：黑金
+		if(childMember.getTotalBuyAmount().compareTo(blackplatinumTo)!=-1
+				&&!childMember.getRank().equals(Member_Rank.blackplatinum)) {
+			childMember.setRank(Member_Rank.blackplatinum);
+			childMember.setBlackplatinumTime(new Date());
+		}
+		//购买总金额大于铂金门槛且小于黑金门槛且不是铂金黑金会员则更新为：铂金
+		if(childMember.getTotalBuyAmount().compareTo(platinumTo)!=-1
+				&&childMember.getTotalBuyAmount().compareTo(blackplatinumTo)==-1
+				&&!childMember.getRank().equals(Member_Rank.blackplatinum)
+				&&!childMember.getRank().equals(Member_Rank.platinum)) {
+			childMember.setRank(Member_Rank.platinum);
+			childMember.setPlatinumTime(new Date());
+		}
+		//购买总金额小于铂金门槛且是普通会员则更新为：白金
+		if(childMember.getTotalBuyAmount().compareTo(platinumTo)==-1
+				&&childMember.getRank().equals(Member_Rank.common)) {
+			childMember.setRank(Member_Rank.platina);
+			childMember.setPlatinaTime(new Date());
+		}
+		logger.info("更新订单会员【"+childMember.getNickName()+"】的等级为【"+childMember.getRank().label+"会员】");
 	}
 	
 	private String getNickName(String name){

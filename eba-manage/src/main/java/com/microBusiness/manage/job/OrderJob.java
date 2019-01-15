@@ -55,8 +55,9 @@ public class OrderJob {
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
 	
-	//结算返佣
-	@Scheduled(cron = "0 0/60 * * * ?")
+	//每隔60分钟执行：0 0/60 * * * ?
+	//结算返佣、已完成未返佣的订单、在已完成时间加15再返
+	@Scheduled(cron = "0 0/5 * * * ?")
 	public void jiesuan() {
 		Dict dict=dictService.find(Dict.DEFAULT_ID);
 		Integer intervalDayCommision=15;
@@ -64,15 +65,15 @@ public class OrderJob {
 			DictJson json=JsonUtils.toObject(dict.getJson(),DictJson.class);
 			intervalDayCommision=(json.getIntervalDayCommision());
 		}
-		List<Order> list=orderService.findNoRakeBackList();
+		List<Order> list=orderService.findNoRakeBackList();//已完成未返佣的订单
 		for(Order order:list) {
-			if(order.getDone()!=null||order.getCompleteDate()==null)continue;
+			if(order.getCompleteDate()==null)continue;
 			Date completeTime = order.getCompleteDate();
 			Calendar cal=Calendar.getInstance();
 			cal.setTime(completeTime);
-			cal.add(Calendar.DATE,intervalDayCommision);//加15天
+			cal.add(Calendar.DATE,intervalDayCommision);//加N天
 			if (new Date().after(cal.getTime())) {
-				orderService.distributionSettlement(order);//完成时间15天后再进行结算
+				orderService.distributionSettlement(order);//完成时间N天后再进行结算
 			}
 		}
 	}

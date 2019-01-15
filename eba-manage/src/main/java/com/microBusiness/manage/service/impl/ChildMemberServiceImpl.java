@@ -1,5 +1,6 @@
 package com.microBusiness.manage.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -11,8 +12,8 @@ import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.dao.ChildMemberDao;
 import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.entity.ChildMember.Member_Rank;
+import com.microBusiness.manage.entity.Member;
 import com.microBusiness.manage.service.ChildMemberService;
 import com.microBusiness.manage.service.MemberService;
 
@@ -75,11 +76,16 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
 			childMember.setMember(member);
 		}
 		if(childMember.getId() == null){
-			childMember.setShoperLevel(0);
 			childMember.setIsShoper(false);
 			childMember.setRank(Member_Rank.common);
+			childMember.setBuyNum(0);
 			childMember.setSubBuyNum(0);
-			childMember.setTotalSellNum(0);
+			childMember.setSubSubBuyNum(0);
+			childMember.setTotalBuyNum(0);
+			childMember.setBuyAmount(BigDecimal.ZERO);
+			childMember.setSubBuyAmount(BigDecimal.ZERO);
+			childMember.setSubSubBuyAmount(BigDecimal.ZERO);
+			childMember.setTotalBuyAmount(BigDecimal.ZERO);
 			childMember = super.save(childMember);
 		}else{
 			childMember = super.update(childMember);
@@ -89,7 +95,7 @@ public class ChildMemberServiceImpl extends BaseServiceImpl<ChildMember , Long> 
     
     @Override
 	public Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
-			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
-    	return childMemberDao.findPage(nickName, smOpenId, type,isShoper, parent, startDate, endDate, pageable);
+			ChildMember parent,Member_Rank rank,Date startDate,Date endDate,Pageable pageable){
+    	return childMemberDao.findPage(nickName, smOpenId, type,isShoper, parent,rank, startDate, endDate, pageable);
     }
 }
