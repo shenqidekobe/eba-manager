@@ -3857,6 +3857,7 @@ public class WeChatServiceImpl implements WeChatService {
                 }});
     			templateInfo.setData(templateMap);
         		templateInfo.setToUser(c1.getOpenId());
+        		templateInfo.setPage("/pages/index/index");
     			OrderForm orderForm = orderFormDao.getDoOrderForm(c1);
     			if (orderForm != null) {
     				templateInfo.setFormId(orderForm.getFormId());
@@ -3881,6 +3882,7 @@ public class WeChatServiceImpl implements WeChatService {
 	    	        
 	    			logger.info("【上级2级ID】：" + c2.getId());
 	    			templateInfo.setToUser(c2.getOpenId());
+	    			templateInfo.setPage("/pages/index/index");
 	    			OrderForm orderForm = orderFormDao.getDoOrderForm(c2);
 	    			if (orderForm != null) {
 	    				templateInfo.setFormId(orderForm.getFormId());
