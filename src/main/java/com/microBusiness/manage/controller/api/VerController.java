@@ -6,6 +6,7 @@ import com.microBusiness.manage.service.VerificationService;
 import com.microBusiness.manage.util.Code;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -23,7 +24,7 @@ public class VerController {
     private VerificationService verService;
 
 
-    @RequestMapping(value = "/verification")
+    @RequestMapping(value = "/verification",method = RequestMethod.GET)
     @ResponseBody
     public JsonEntity ver(String tag, HttpServletRequest request, HttpServletResponse response) {
         Verification ver = verService.findByTag(tag);
