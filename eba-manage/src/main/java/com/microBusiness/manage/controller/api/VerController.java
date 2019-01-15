@@ -23,7 +23,6 @@ public class VerController {
     @Resource(name = "verificationServiceImpl")
     private VerificationService verService;
 
-
     @RequestMapping(value = "/verification",method = RequestMethod.GET)
     @ResponseBody
     public JsonEntity ver(String tag, HttpServletRequest request, HttpServletResponse response) {
