@@ -34,12 +34,14 @@
         </div>--]
 
             <div class="ch_operate">
+                [@shiro.hasPermission name = "admin:ver:add"]
                 <button type="button" class="op_button add_B" onclick="add();">${message("admin.common.add")}</button>
-
+                [/@shiro.hasPermission]
                 <button type="button" class="op_button update_B" id="refreshButtons"
                         onclick="javascript:window.location.href='list.jhtml'">${message("admin.common.refresh")}</button>
-
-                <button type="button" class="op_button add_B" onclick="createTxt();">${创建txt}</button>
+                [@shiro.hasPermission name = "admin:ver:impl"]
+                <button type="button" class="op_button daochu_B" onclick="createTxt();">下载</button>
+               [/@shiro.hasPermission]
             </div>
         </div>
 

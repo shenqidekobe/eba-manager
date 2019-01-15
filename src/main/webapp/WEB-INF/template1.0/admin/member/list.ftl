@@ -38,18 +38,29 @@
 		<div class="child_page"><!--内容外面的大框-->	
 			<div class="cus_nav">
 				<ul>
-					<li>会员列表<span>(${message("admin.page.total", page.total)})</span></li>
+					<li>用户列表<span>(${message("admin.page.total", page.total)})</span></li>
 				</ul>
 			</div>
 		<form id="listForm" action="list.jhtml" method="get">
 		    <input type="hidden" id="isShoper" name="isShoper" value="${(isShoper?string("true", "false"))!}" />
+		    <input type="hidden" id="rank" name="rank" value="${rank}" />
 			<div class="ch_condition">
 				<div class="require_search" id="filterMenu">
-					<span class="search">店主筛选</span>
+					<span class="search">用户筛选</span>
 					<ul class="check">
-						<li name="isShoper" val="">店主筛选</li>
-                        <li name="isShoper"[#if isShoper?? && isShoper] class="checked"[/#if] val="true">店主</li>
+						<li name="isShoper" val="">用户筛选</li>
+                        <li name="isShoper"[#if isShoper?? && isShoper] class="checked"[/#if] val="true">会员</li>
 						<li name="isShoper"[#if isShoper?? && !isShoper] class="checked"[/#if] val="false">普通用户</li>
+					</ul>
+				</div>
+				<div class="require_search" id="filterMenu2">
+					<span class="search" id="search2">会员等级</span>
+					<ul class="check">
+						<li name="rank" val="">全部等级</li>
+                        <li name="rank"[#if "platina" == rank] class="checked"[/#if] val="platina">白金</li>
+                        <li name="rank"[#if "platinum" == rank] class="checked"[/#if] val="platinum">铂金</li>
+                        <li name="rank"[#if "blackplatinum" == rank] class="checked"[/#if] val="blackplatinum">黑金</li>
+						
 					</ul>
 				</div>
 				<div class="ch_search">
@@ -93,7 +104,8 @@
 							<th width="18%">openID</th>
 							<th width="10%">余额</th>
 							<th width="10%">累计收益</th>
-							<th width="10%">是否店主</th>
+							<th width="10%">是否会员</th>
+							<th width="10%">会员等级</th>
 							<th width="15%">注册时间</th>
 							<th width="10%">${message("admin.common.action")}</th>
 						</tr>
@@ -108,7 +120,8 @@
 								<th width="18%"><div class="th_div">openID</div></th>
 								<th width="10%"><div class="th_div">余额</div></th>
 								<th width="10%"><div class="th_div">累计收益</div></th>
-								<th width="10%"><div class="th_div">是否店主</div></th>
+								<th width="10%"><div class="th_div">是否会员</div></th>
+								<th width="10%"><div class="th_div">会员等级</div></th>
 								<th width="15%"><div class="th_div">${message("admin.common.createDate")}</div></th>
 								<th width="10%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
@@ -124,8 +137,9 @@
 								<td>
 								[#if member.isShoper]是[#else]否[/#if]
 								</td>
+								<td>${member.rank.label}</td>
 								<td>
-									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+									<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm")}</span>
 								</td>
 								<td class="td-manage">
 								   <a title="${message("admin.common.view")}" href="view.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
@@ -133,7 +147,7 @@
 								      <a title="${message("admin.common.edit")}" href="edit.jhtml?id=${member.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_bianji"></i></a>
 								   [/@shiro.hasPermission]
 								   [#if member.isShoper]
-								      <a title="收益记录" href="income/list.jhtml?memberId=${member.id}" class="ml-5" style="text-decoration:none">收益</a>
+								      <a title="收益记录" href="income/list.jhtml?memberId=${member.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_fenpei"></i></a>
 								   [/#if]
 								</td>
 							</tr>
@@ -175,6 +189,19 @@
 	        		$listForm.submit();
 	        	});
 	        	
+	        	var $filterMenuItem2 = $("#filterMenu2 li");
+				// 筛选
+				$filterMenuItem2.click(function() {
+					var $this = $(this);
+					var $dest = $("#" + $this.attr("name"));
+					if ($this.hasClass("checked")) {
+						$dest.val("");
+					} else {
+						$dest.val($this.attr("val"));
+					}
+					$listForm.submit();
+				});
+	        	
 	        	var dateRange = new pickerDateRange('date_demo3', {
                 aRecent7Days: 'aRecent7DaysDemo3', //最近7天
                 isTodayValid: true,
@@ -205,6 +232,18 @@
                     firstText = checkedDom.html();
                 }
                 $(".search").html(firstText);
+                
+                var checkedDom2 =  $("#filterMenu2 li.checked");
+                var firstDom2;
+                var firstText2;
+				if(checkedDom2.length == 0){
+                    firstDom2 = $("#filterMenu2").find("li:eq(0)");
+                    firstText2 = firstDom2.html();
+                    firstDom2.addClass("checked");
+				}else{
+                    firstText2 = checkedDom2.html();
+                }
+                $("#search2").html(firstText2);
 
 	        	[@flash_message /]
 	        	

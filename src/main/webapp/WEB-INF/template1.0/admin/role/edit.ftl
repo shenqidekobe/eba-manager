@@ -256,21 +256,21 @@
                             </div>
 		                     <div name="firstDiv"> 
 		                      	<div class="check-box">
-		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">会员</span>
+		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">用户</span>
 		                        </div>
                                 <div style="padding-left:70px;" name="secondDiv">
                                     <div class="check-box">
-                                        <input type="checkbox" name="two" /><span>会员管理</span>
+                                        <input type="checkbox" name="two" /><span>用户管理</span>
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:list" [#if role.authorities?seq_contains("admin:member:list")] checked="checked"[/#if]/><span>会员列表</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:list" [#if role.authorities?seq_contains("admin:member:list")] checked="checked"[/#if]/><span>用户列表</span>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:edit" [#if role.authorities?seq_contains("admin:member:edit")] checked="checked"[/#if]/><span>编辑会员</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:edit" [#if role.authorities?seq_contains("admin:member:edit")] checked="checked"[/#if]/><span>编辑用户</span>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:view" [#if role.authorities?seq_contains("admin:member:view")] checked="checked"[/#if]/><span>查看会员</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:view" [#if role.authorities?seq_contains("admin:member:view")] checked="checked"[/#if]/><span>查看用户</span>
                                         </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:income" [#if role.authorities?seq_contains("admin:member:income")] checked="checked"[/#if]/><span>收益记录</span>
@@ -360,6 +360,22 @@
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:dict:edit" [#if role.authorities?seq_contains("admin:dict:edit")] checked="checked"[/#if] /><span>配置数据</span>
 				                        </div>	
+			                        </div>
+		                       	</div>
+		                       	<div style="padding-left:70px;" name="secondDiv">
+			                       	<div class="check-box">
+			                          <input type="checkbox" name="two" /><span>产品鉴真管理</span>
+			                        </div>
+			                        <div style="padding-left:100px;" name="thirdDiv">
+			                        	<div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:list" [#if role.authorities?seq_contains("admin:ver:list")] checked="checked"[/#if]/><span>鉴真列表</span>
+				                        </div>	
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:add" [#if role.authorities?seq_contains("admin:ver:add")] checked="checked"[/#if]/><span>添加鉴真</span>
+				                        </div>	
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:impl" [#if role.authorities?seq_contains("admin:ver:impl")] checked="checked"[/#if]/><span>文件下载</span>
+				                        </div>
 			                        </div>
 		                       	</div>
 		                       	<div style="padding-left:70px;" name="secondDiv">

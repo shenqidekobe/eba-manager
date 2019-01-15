@@ -325,7 +325,7 @@
 					<ul class="nav_two">
 					    [@shiro.orPermission name="admin:member:add or admin:member:edit or admin:member:delete"]
 							<li>
-								<a href="../member/list.jhtml" target="iframe">${message("admin.main.member")}</a>
+								<a href="../member/list.jhtml" target="iframe">用户列表</a>
 							</li>
 						[/@shiro.orPermission]
 						[@shiro.orPermission name="admin:withdraw:edit"]
@@ -733,7 +733,7 @@
 						[/@shiro.hasPermission]
 						[@shiro.hasPermission name="admin:dict:edit"]
 							<li>
-								<a href="../ver/list.jhtml" target="iframe">验证二维码管理</a>
+								<a href="../ver/list.jhtml" target="iframe">鉴真管理</a>
 							</li>
 						[/@shiro.hasPermission]
 						[@shiro.hasPermission name="admin:log"]
