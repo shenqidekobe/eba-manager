@@ -5,8 +5,7 @@ import java.util.Date;
 import com.microBusiness.manage.Page;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.Withdraw;
-import com.microBusiness.manage.entity.Withdraw.Withdraw_Status;
+import com.microBusiness.manage.entity.ChildMember.Member_Rank;
 
 /**
  * 功能描述：
@@ -38,5 +37,5 @@ public interface ChildMemberService extends BaseService<ChildMember , Long> {
     
 	
 	Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
-			ChildMember parent,Date startDate,Date endDate,Pageable pageable);
+			ChildMember parent,Member_Rank rank,Date startDate,Date endDate,Pageable pageable);
 }

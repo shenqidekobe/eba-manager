@@ -3843,70 +3843,51 @@ public class WeChatServiceImpl implements WeChatService {
     		logger.info("【本人ID】：" + childMember.getId());
     		logger.info("【上级1级ID】：" + childMember.getParent().getId());
     		ChildMember c1 = childMember.getParent();
-    		
-    		final String remark = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
-            		newPoint1.setScale(2, RoundingMode.HALF_UP), 
-            		c1.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
-    		final String keyword2= newPoint1.setScale(2, RoundingMode.HALF_UP).toString();
-    		templateMap.put("keyword2" , new HashMap<String, String>(){{
-                this.put("value" ,keyword2);
-            }});
-        	templateMap.put("keyword3" , new HashMap<String, String>(){{
-                this.put("value" , remark);
-            }});
-			templateInfo.setData(templateMap);
-    		templateInfo.setToUser(c1.getOpenId());
-			OrderForm orderForm = orderFormDao.getDoOrderForm(c1);
-			if (orderForm != null) {
-				templateInfo.setFormId(orderForm.getFormId());
-				this.sendTemplateMessage(templateInfo , accessToken) ;
-	            logger.info("【发送模板消息成功】：" + c1.getOpenId());
-			}
-    		ChildMember c2 = c1.getParent();
-    	    ChildMember c3 = null;
-    		if(c2 != null){
-    			final String remark2 = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
-    	        		newPoint2, c2.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
-    			final String keyword22= newPoint2.setScale(2, RoundingMode.HALF_UP).toString();
+    		//大于0
+    		if(newPoint1.compareTo(BigDecimal.ZERO)==1) {
+    			final String remark = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
+                		newPoint1.setScale(2, RoundingMode.HALF_UP), 
+                		c1.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
+        		final String keyword2= newPoint1.setScale(2, RoundingMode.HALF_UP).toString();
         		templateMap.put("keyword2" , new HashMap<String, String>(){{
-                    this.put("value" ,keyword22);
+                    this.put("value" ,keyword2);
                 }});
-    			templateMap.put("keyword3" , new HashMap<String, String>(){{
-                    this.put("value" , remark2);
+            	templateMap.put("keyword3" , new HashMap<String, String>(){{
+                    this.put("value" , remark);
                 }});
     			templateInfo.setData(templateMap);
-    	        
-    			logger.info("【上级2级ID】：" + c2.getId());
-    			templateInfo.setToUser(c2.getOpenId());
-    			orderForm = orderFormDao.getDoOrderForm(c2);
+        		templateInfo.setToUser(c1.getOpenId());
+    			OrderForm orderForm = orderFormDao.getDoOrderForm(c1);
     			if (orderForm != null) {
     				templateInfo.setFormId(orderForm.getFormId());
     				this.sendTemplateMessage(templateInfo , accessToken) ;
-    			    logger.info("【发送模板消息成功2】：" + c2.getOpenId());
+    	            logger.info("【发送模板消息成功】：" + c1.getOpenId());
     			}
-            
-                c3 = c2.getParent();
-                if(c3 != null){
-                	final String remark3 = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
-        	        		newPoint3, c3.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
-                	final String keyword222= newPoint3.setScale(2, RoundingMode.HALF_UP).toString();
-            		templateMap.put("keyword2" , new HashMap<String, String>(){{
-                        this.put("value" ,keyword222);
-                    }});
-                	templateMap.put("keyword3" , new HashMap<String, String>(){{
-                        this.put("value" , remark3);
-                    }});
-        			templateInfo.setData(templateMap);
-        			
-                	logger.info("【上级3级ID】：" + c3.getId());
-        			templateInfo.setToUser(c3.getOpenId());
-        			orderForm = orderFormDao.getDoOrderForm(c3);
-        			if (orderForm != null) {
-        				templateInfo.setFormId(orderForm.getFormId());
-        				this.sendTemplateMessage(templateInfo , accessToken) ;
-        			    logger.info("【发送模板消息成功3】：" + c3.getOpenId());
-        			}
-                }
+    		}
+    		
+    		ChildMember c2 = c1.getParent();
+    		if(c2 != null){
+    			if(newPoint2.compareTo(BigDecimal.ZERO)==1) {
+	    			final String remark2 = memberSetRemark(order.getAmount().setScale(2, RoundingMode.HALF_UP), 
+	    	        		newPoint2, c2.getMember().getBalance().setScale(2, RoundingMode.HALF_UP));
+	    			final String keyword22= newPoint2.setScale(2, RoundingMode.HALF_UP).toString();
+	        		templateMap.put("keyword2" , new HashMap<String, String>(){{
+	                    this.put("value" ,keyword22);
+	                }});
+	    			templateMap.put("keyword3" , new HashMap<String, String>(){{
+	                    this.put("value" , remark2);
+	                }});
+	    			templateInfo.setData(templateMap);
+	    	        
+	    			logger.info("【上级2级ID】：" + c2.getId());
+	    			templateInfo.setToUser(c2.getOpenId());
+	    			OrderForm orderForm = orderFormDao.getDoOrderForm(c2);
+	    			if (orderForm != null) {
+	    				templateInfo.setFormId(orderForm.getFormId());
+	    				this.sendTemplateMessage(templateInfo , accessToken) ;
+	    			    logger.info("【发送模板消息成功2】：" + c2.getOpenId());
+	    			}
+    			}
     		}
     		
     	}

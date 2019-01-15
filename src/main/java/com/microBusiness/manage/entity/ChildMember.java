@@ -1,12 +1,12 @@
 package com.microBusiness.manage.entity;
 
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -51,11 +51,22 @@ public class ChildMember extends BaseEntity<Long> {
     /*** 扩展属性  ***/
     private Boolean isChecked;//是否认证
     private Boolean isShoper;//是否会员
-    private Integer shoperLevel;//店主等级
-    private Integer subBuyNum;//下级购买数量(下级-下下级)
-    private Integer totalSellNum;//累计销售数量(自购-下级购-下下级购)
-    @Enumerated(EnumType.STRING)
     private Member_Rank rank;
+    
+    private Integer buyNum;//自己购买数量
+    private Integer subBuyNum;//下级购买数量
+    private Integer subSubBuyNum;//下下级购买订单数量
+    private BigDecimal buyAmount;//自己购买订单总金额累计
+    private BigDecimal subBuyAmount;//下级购买订单总金额累计
+    private BigDecimal subSubBuyAmount;//下级下级购买订单总金额累计
+    
+    private Integer totalBuyNum;//累计销售数量(自购-下级购-下下级购)
+    private BigDecimal totalBuyAmount;//购买订单总金额累计(自购-下级购-下下级购)
+    
+    private Date platinaTime;//成为白金时间
+    private Date platinumTime;//成为铂金时间
+    private Date blackplatinumTime;//成为黑金时间
+
     private String remark;
     
     
@@ -159,12 +170,6 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setIsShoper(Boolean isShoper) {
 		this.isShoper = isShoper;
 	}
-	public Integer getShoperLevel() {
-		return shoperLevel;
-	}
-	public void setShoperLevel(Integer shoperLevel) {
-		this.shoperLevel = shoperLevel;
-	}
 	public Integer getSubBuyNum() {
 		return subBuyNum;
 	}
@@ -177,16 +182,74 @@ public class ChildMember extends BaseEntity<Long> {
 	public void setRank(Member_Rank rank) {
 		this.rank = rank;
 	}
-	public Integer getTotalSellNum() {
-		return totalSellNum;
+	public Integer getTotalBuyNum() {
+		return totalBuyNum;
 	}
 
-	public void setTotalSellNum(Integer totalSellNum) {
-		this.totalSellNum = totalSellNum;
+	public void setTotalBuyNum(Integer totalBuyNum) {
+		this.totalBuyNum = totalBuyNum;
 	}
 
-	
-	
+	public Integer getBuyNum() {
+		return buyNum;
+	}
+	public void setBuyNum(Integer buyNum) {
+		this.buyNum = buyNum;
+	}
+	public Integer getSubSubBuyNum() {
+		return subSubBuyNum;
+	}
+	public void setSubSubBuyNum(Integer subSubBuyNum) {
+		this.subSubBuyNum = subSubBuyNum;
+	}
+	public BigDecimal getBuyAmount() {
+		return buyAmount;
+	}
+	public void setBuyAmount(BigDecimal buyAmount) {
+		this.buyAmount = buyAmount;
+	}
+	public BigDecimal getSubBuyAmount() {
+		return subBuyAmount;
+	}
+	public void setSubBuyAmount(BigDecimal subBuyAmount) {
+		this.subBuyAmount = subBuyAmount;
+	}
+	public BigDecimal getSubSubBuyAmount() {
+		return subSubBuyAmount;
+	}
+	public void setSubSubBuyAmount(BigDecimal subSubBuyAmount) {
+		this.subSubBuyAmount = subSubBuyAmount;
+	}
+	public BigDecimal getTotalBuyAmount() {
+		return totalBuyAmount;
+	}
+	public void setTotalBuyAmount(BigDecimal totalBuyAmount) {
+		this.totalBuyAmount = totalBuyAmount;
+	}
+	public Date getPlatinaTime() {
+		return platinaTime;
+	}
+
+	public void setPlatinaTime(Date platinaTime) {
+		this.platinaTime = platinaTime;
+	}
+
+	public Date getPlatinumTime() {
+		return platinumTime;
+	}
+
+	public void setPlatinumTime(Date platinumTime) {
+		this.platinumTime = platinumTime;
+	}
+
+	public Date getBlackplatinumTime() {
+		return blackplatinumTime;
+	}
+
+	public void setBlackplatinumTime(Date blackplatinumTime) {
+		this.blackplatinumTime = blackplatinumTime;
+	}
+
 	@OneToMany(mappedBy = "childMember", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createDate desc")
 	public List<OrderForm> getOrderForms() {

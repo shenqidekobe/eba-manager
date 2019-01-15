@@ -1,14 +1,5 @@
 package com.microBusiness.manage.dao.impl;
 
-import com.microBusiness.manage.Page;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.dao.ChildMemberDao;
-import com.microBusiness.manage.entity.ChildMember;
-import com.microBusiness.manage.entity.Withdraw;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 
 import javax.persistence.NoResultException;
@@ -16,6 +7,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Repository;
+
+import com.microBusiness.manage.Page;
+import com.microBusiness.manage.Pageable;
+import com.microBusiness.manage.dao.ChildMemberDao;
+import com.microBusiness.manage.entity.ChildMember;
+import com.microBusiness.manage.entity.ChildMember.Member_Rank;
 
 /**
  * Created by mingbai on 2017/2/11.
@@ -52,7 +52,7 @@ public class ChildMemberDaoImpl extends BaseDaoImpl<ChildMember , Long> implemen
     
     @Override
     public  Page<ChildMember> findPage(String nickName,String smOpenId,ChildMember.SourceType type,Boolean isShoper,
- 			ChildMember parent,Date startDate,Date endDate,Pageable pageable){
+ 			ChildMember parent,Member_Rank rank,Date startDate,Date endDate,Pageable pageable){
     	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<ChildMember> criteriaQuery = criteriaBuilder.createQuery(ChildMember.class);
 		Root<ChildMember> root = criteriaQuery.from(ChildMember.class);
@@ -72,6 +72,9 @@ public class ChildMemberDaoImpl extends BaseDaoImpl<ChildMember , Long> implemen
 		}
 		if (isShoper != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isShoper"), isShoper));
+		}
+		if (rank != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("rank"), rank));
 		}
 		if (startDate != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("createDate"), startDate));

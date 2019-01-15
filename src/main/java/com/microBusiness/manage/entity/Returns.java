@@ -21,6 +21,9 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * 退货记录
+ * */
 @Entity
 @Table(name = "xx_returns")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "seq_returns")
@@ -37,6 +40,8 @@ public class Returns extends BaseEntity<Long> {
 	private String trackingNo;
 
 	private BigDecimal freight;
+	
+	private BigDecimal refundAmount;
 
 	private String shipper;
 
@@ -172,6 +177,14 @@ public class Returns extends BaseEntity<Long> {
 
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+
+	public BigDecimal getRefundAmount() {
+		return refundAmount;
+	}
+
+	public void setRefundAmount(BigDecimal refundAmount) {
+		this.refundAmount = refundAmount;
 	}
 
 	@NotNull

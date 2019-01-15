@@ -1,8 +1,3 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.service;
 
 import java.math.BigDecimal;
@@ -581,6 +576,8 @@ public interface OrderService extends BaseService<Order, Long> {
 	
 	//获取未返佣的订单列表
 	List<Order> findNoRakeBackList();
-	//分销结算
+	//购买计算
+	ChildMember buyCalculate(Order order,ChildMember member);
+	//分销返佣结算
 	void distributionSettlement(Order order);
 }
