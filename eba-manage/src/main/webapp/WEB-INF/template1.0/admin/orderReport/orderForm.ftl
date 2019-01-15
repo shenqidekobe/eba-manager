@@ -100,6 +100,14 @@
 											<input type="checkbox" class="input-text radius" checked="checked" name="statuses" value="canceled"/>
 											<span>已取消</span>
 										</div>
+										<div class="check-box">
+											<input type="checkbox" checked="checked" class="input-text radius" name="statuses" value="applyReturns"/>
+											<span>退货申请</span>
+										</div>
+										<div class="check-box">
+											<input type="checkbox" checked="checked" class="input-text radius" name="statuses" value="returns"/>
+											<span>已退货</span>
+										</div>
 									</div>
 								</div>
 							</form>
