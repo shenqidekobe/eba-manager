@@ -167,7 +167,11 @@
 				<entry key="/admin/member/withdraw/list.jhtml" value="perms[admin:withdraw:list]" />
 				<entry key="/admin/member/withdraw/edit.jhtml" value="perms[admin:withdraw:edit]" />
 				
-				<entry key="/admin/dict/edit" value="perms[admin:dict:edit]" />
+				<entry key="/admin/dict/edit.jhtml" value="perms[admin:dict:edit]" />
+				
+				<entry key="/admin/ver/add.jhtml" value="perms[admin:ver:add]" />
+				<entry key="/admin/ver/impl.jhtml" value="perms[admin:ver:impl]" />
+				<entry key="/admin/ver/list.jhtml" value="perms[admin:ver:list]" />
 				
 				<entry key="/admin/member_rank/**" value="perms[admin:memberRank]" />
 				<entry key="/admin/member_attribute/**" value="perms[admin:memberAttribute]" />
