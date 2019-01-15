@@ -6324,38 +6324,41 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			Float buyRate=null;
 			//订单总金额大于等于铂金自购返佣且小于黑金自购返佣 则按铂金级别
 			if(amount.compareTo(platinumTo)!=-1
-					&&amount.compareTo(blackplatinumTo)==-1) {
+					&&amount.compareTo(blackplatinumTo)==-1
+					&&platinumTo.compareTo(BigDecimal.ZERO)==1) {
 				buyRate=Float.valueOf(json.getPlatinum_buy_rate());
 			}
 			//订单总金额大于等于黑金自购返佣 则按黑金级别
-			if(amount.compareTo(blackplatinumTo)!=-1) {
+			if(amount.compareTo(blackplatinumTo)!=-1
+					&&blackplatinumTo.compareTo(BigDecimal.ZERO)==1) {
 				buyRate=Float.valueOf(json.getBlackplatinum_buy_rate());
 			}
-			
-			buyRate = buyRate == null ? 0 : buyRate;
-			BigDecimal ratePrice1 = amount.multiply(new BigDecimal(buyRate))
-					.setScale(2, RoundingMode.HALF_UP);
-			
-			//分销返利记录
-			order.setBuy_score(ratePrice1);
-			orderDao.persist(order);
-			
-			MemberIncome income=new MemberIncome();
-			income.setMember(childMember);
-			income.setAmount(ratePrice1);
-			income.setOrderId(order.getId());
-			income.setTypes(MemberIncome.TYPE_INCOME);
-			income.setTitle("红包收益(自购返佣)");
-			income.setLevel(1);
-			memberIncomeDao.persist(income);
-			//总收益
-			Member member = childMember.getMember();
-			member.setBalance(member.getBalance().add(ratePrice1));
-			member.setIncome(member.getIncome().add(ratePrice1));
-			member.setLastDay(lastDay);
-			memberDao.persist(member);
-			
-			logger.info("订单号："+sn+" 的自购【"+childMember.getSmOpenId()+"】提成比例："+buyRate+",金额："+ratePrice1);
+			if(buyRate!=null){
+				buyRate = buyRate == null ? 0 : buyRate;
+				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(buyRate))
+						.setScale(2, RoundingMode.HALF_UP);
+				
+				//分销返利记录
+				order.setBuy_score(ratePrice1);
+				orderDao.persist(order);
+				
+				MemberIncome income=new MemberIncome();
+				income.setMember(childMember);
+				income.setAmount(ratePrice1);
+				income.setOrderId(order.getId());
+				income.setTypes(MemberIncome.TYPE_INCOME);
+				income.setTitle("红包收益(自购返佣)");
+				income.setLevel(1);
+				memberIncomeDao.persist(income);
+				//总收益
+				Member member = childMember.getMember();
+				member.setBalance(member.getBalance().add(ratePrice1));
+				member.setIncome(member.getIncome().add(ratePrice1));
+				member.setLastDay(lastDay);
+				memberDao.persist(member);
+				
+				logger.info("订单号："+sn+" 的自购【"+childMember.getSmOpenId()+"】提成比例："+buyRate+",金额："+ratePrice1);
+			}
 		}
 		
 		//根据商品利率 判断级别，计算上级返利
