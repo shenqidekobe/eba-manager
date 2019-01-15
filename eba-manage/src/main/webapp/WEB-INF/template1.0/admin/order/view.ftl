@@ -162,6 +162,7 @@
 </form>
 <form id="returnsForm" action="returns.jhtml" method="post">
     <input type="hidden" name="id" value="${order.id}"/>
+    <input type="hidden" name="refundAmount" id="refundAmount" value="${order.amountPaid}"/>
 </form>
 <form id="failForm" action="fail.jhtml" method="post">
     <input type="hidden" name="id" value="${order.id}"/>
@@ -723,6 +724,13 @@
 	                                        <td>${order.dthree.nickName}</td>
 	                                        <td>三级 </td>
 	                                        <td>${order.dthree_score}</td>
+	                                    </tr>
+	                                    [/#if]
+	                                    [#if order.buy_score??]
+	                                    <tr class="text-l">
+	                                        <td>自己</td>
+	                                        <td>二级 </td>
+	                                        <td>${order.buy_score}</td>
 	                                    </tr>
 	                                    [/#if]
 									</tbody>
@@ -1340,14 +1348,29 @@ $(function(){
         $.dialog({
             type: "warn",
             height:190,
+            width:400,
             content: "确定要给当前订单退货退款嘛？",
             onOk: function() {
                 $.dialog({
 		            type: "warn",
 		            height:190,
-		            content: "确定退货会直接退还给用户：${order.amountPaid}的货款哦，确定？",
+		            width:450,
+		            content: "确定退货会直接退还给用户：<input type='number' id='refundAmountSub' value='${order.amountPaid}' style='width:90px' max='${order.amountPaid}' min='0'>的货款哦，确定？",
 		            onOk: function() {
-		                $returnsForm.submit();
+		                var refundAmount=$("#refundAmountSub").val();
+		                $("#refundAmount").val(refundAmount);
+		                 $.dialog({
+				            type: "warn",
+				            height:190,
+				            width:400,
+				            content: "确定退款："+refundAmount+"哦？",
+				            onOk: function() {
+			                    $returnsForm.submit();
+			                },
+				            onShow:function(){
+				            	$(".xxDialog").css("top","150px");
+				            }
+				        });
 		            },
 		            onShow:function(){
 		            	$(".xxDialog").css("top","150px");

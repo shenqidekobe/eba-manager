@@ -240,21 +240,21 @@
                             </div>
 		                    <div name="firstDiv"> 
 		                      	<div class="check-box">
-		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">会员</span>
+		                          <input type="checkbox" name="one" /><span style="font-weight:bolder;">用户</span>
 		                        </div>
                                 <div style="padding-left:70px;" name="secondDiv">
                                     <div class="check-box">
-                                        <input type="checkbox" name="two" /><span>会员管理</span>
+                                        <input type="checkbox" name="two" /><span>用户管理</span>
                                     </div>
                                     <div style="padding-left:100px;" name="thirdDiv">
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:list" /><span>会员列表</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:list" /><span>用户列表</span>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:edit" /><span>编辑会员</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:edit" /><span>编辑用户</span>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" name="authorities" value="admin:member:view" /><span>查看会员</span>
+                                            <input type="checkbox" name="authorities" value="admin:member:view" /><span>查看用户</span>
                                         </div>
                                         <div class="check-box">
                                             <input type="checkbox" name="authorities" value="admin:member:income" /><span>收益记录</span>
@@ -344,6 +344,22 @@
 			                        	<div class="check-box">
 				                          	<input type="checkbox" name="authorities" value="admin:dict:edit" /><span>编辑配置</span>
 				                        </div>	
+			                        </div>
+		                       	</div>
+		                       	<div style="padding-left:70px;" name="secondDiv">
+			                       	<div class="check-box">
+			                          <input type="checkbox" name="two" /><span>产品鉴真管理</span>
+			                        </div>
+			                        <div style="padding-left:100px;" name="thirdDiv">
+			                        	<div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:list" /><span>鉴真列表</span>
+				                        </div>
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:add" /><span>添加鉴真</span>
+				                        </div>	
+				                        <div class="check-box">
+				                          	<input type="checkbox" name="authorities" value="admin:ver:impl" /><span>文件下载</span>
+				                        </div>		
 			                        </div>
 		                       	</div>
 		                       	<div style="padding-left:70px;" name="secondDiv">

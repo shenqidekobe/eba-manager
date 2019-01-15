@@ -32,8 +32,8 @@
 		<div class="cus_nav">
 			<ul>
 				<li><a id="goHome"	href="../homePage/index.jhtml">${message("admin.breadcrumb.home")}</a></li>
-        		<li><a href="list.jhtml">会员列表</a></li>
-				<li>会员详情</li>
+        		<li><a href="list.jhtml">用户列表</a></li>
+				<li>用户详情</li>
 			</ul>
 		</div>
 		<div class="form_box">
@@ -58,6 +58,20 @@
 									<span class="input_no_span">${member.smOpenId}</span>
 								</div>
 							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									联系电话
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <span class="input_no_span">${member.phone}</span>
+								</div>
+								<label class="form-label col-xs-2 col-sm-2">
+								           他的订单
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <a class="input_no_span" href="/admin/order/list.jhtml?smOpenId=${member.smOpenId}&sr=member" target="_blank">点击查看</a>
+								</div>
+							</div>
                             <!--
                             <div class="row cl">
                                 <label class="form-label col-xs-2 col-sm-2">
@@ -67,7 +81,7 @@
                                    <span class="input_no_span"><img src="${member.headImgUrl}" width="250px" height="150px"></span>
                                 </div>
                             </div>-->
-                            [#if member.isShoper]
+                            [#if member.parent]
                             <div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
 									上级昵称
@@ -83,19 +97,36 @@
 									<span class="input_no_span">${member.parent.smOpenId}</span>
 								</div>
 							</div>
+								[#if member.parent.parent]
+	                            <div class="row cl">
+									<label class="form-label col-xs-2 col-sm-2">
+										上上级昵称
+									</label>
+									<div class="formControls col-xs-4 col-sm-4">
+										<span class="input_no_span">${member.parent.parent.nickName}</span>
+									</div>
+								
+									<label class="form-label col-xs-2 col-sm-2">
+										上上级openID
+									</label>
+									<div class="formControls col-xs-4 col-sm-4">
+										<span class="input_no_span">${member.parent.parent.smOpenId}</span>
+									</div>
+								</div>
+	                            [/#if]
                             [/#if]
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									是否店主
+									是否会员
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
 								    <span class="input_no_span">[#if member.isShoper]是[#else]否[/#if]</span>
 								</div>
 								<label class="form-label col-xs-2 col-sm-2">
-								           他的订单
+									会员等级
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-								    <a class="input_no_span" href="/admin/order/list.jhtml?smOpenId=${member.smOpenId}&sr=member" target="_blank">点击查看</a>
+								    <span class="input_no_span">${member.rank.label}</span>
 								</div>
 							</div>
 							[#if member.isShoper]
@@ -115,7 +146,104 @@
 								</div>
 							</div>
 							[/#if]
-						</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									自购总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.buyNum}</span>
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									自购总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.buyAmount}</span>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									下级总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.subBuyNum}</span>
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									下级总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.subBuyAmount}</span>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									下下级总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.subSubBuyNum}</span>
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									下下级总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.subSubBuyAmount}</span>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									累计总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.totalBuyNum}</span>
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									累计总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.totalBuyAmount}</span>
+								</div>
+							</div>
+							[#if member.platinaTime]
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									成为白金时间
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.platinaTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+								</div>
+							</div>
+							[/#if]
+							[#if member.platinumTime]	
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									成为铂金时间
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.platinumTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+								</div>
+							</div>
+							[/#if]
+							[#if member.blackplatinumTime]
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									成为白金时间
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+									<span class="input_no_span">${member.blackplatinumTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+								</div>
+							</div>
+							[/#if]
+							<div class="row cl">
+							    <label class="form-label col-xs-2 col-sm-2">
+									注册时间
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								<span class="input_no_span">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+								</div>
+						   </div>
 						
 					</div>
 				</div>

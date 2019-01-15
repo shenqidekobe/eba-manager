@@ -59,15 +59,20 @@
 									<span class="input_no_span">${member.smOpenId}</span>
 								</div>
 							</div>
-                            <!--
                             <div class="row cl">
-                                <label class="form-label col-xs-2 col-sm-2">
-                                                                                                                                  头像
-                                </label>
-                                <div class="formControls col-xs-8 col-sm-8">
-                                   <span class="input_no_span"><img src="${member.headImgUrl}" width="250px" height="150px"></span>
-                                </div>
-                            </div>-->
+								<label class="form-label col-xs-2 col-sm-2">
+									联系电话
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="" name="phone" value="${member.phone}" />
+								</div>
+								<label class="form-label col-xs-2 col-sm-2">
+								           他的订单
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <a class="input_no_span" href="/admin/order/list.jhtml?smOpenId=${member.smOpenId}&sr=member" target="_blank">点击查看</a>
+								</div>
+							</div>
                             [#if member.parent]
                             <div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
@@ -84,10 +89,27 @@
 									<span class="input_no_span">${member.parent.smOpenId}</span>
 								</div>
 							</div>
+							    [#if member.parent.parent]
+	                            <div class="row cl">
+									<label class="form-label col-xs-2 col-sm-2">
+										上上级昵称
+									</label>
+									<div class="formControls col-xs-4 col-sm-4">
+										<span class="input_no_span">${member.parent.parent.nickName}</span>
+									</div>
+								
+									<label class="form-label col-xs-2 col-sm-2">
+										上上级openID
+									</label>
+									<div class="formControls col-xs-4 col-sm-4">
+										<span class="input_no_span">${member.parent.parent.smOpenId}</span>
+									</div>
+								</div>
+	                            [/#if]
                             [/#if]
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									是否店主
+									是否会员
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
 								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
@@ -98,10 +120,17 @@
                                     </ul>
 								</div>
 								<label class="form-label col-xs-2 col-sm-2">
-								           他的订单
+								           会员等级
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-								    <a class="input_no_span" href="/admin/order/list.jhtml?smOpenId=${member.smOpenId}&sr=member" target="_blank">点击查看</a>
+								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
+                                    <input type="text" name="rank" class="downList_val" />
+                                    <ul class="downList_con">
+                                        [#list ranks as r]
+                                            <li val="${r}" [#if r == member.rank]class="li_bag"[/#if]>${r.label}</li>
+                                        [/#list]
+
+                                    </ul>
 								</div>
 							</div>
 							<div class="row cl">
@@ -117,6 +146,66 @@
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
 								   <span class="input_no_span">${member.income}</span>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									自购总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="自己购买订单量" name="buyNum" value="${member.buyNum}" />
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									自购总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="自己购买订单总金额" name="buyAmount" value="${member.buyAmount}" />
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									下级总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="下级购买订单量" name="subBuyNum" value="${member.subBuyNum}" />
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									下级总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								     <input type="text" class="input-text radius" placeholder="下级购买订单总金额累计" name="subBuyAmount" value="${member.subBuyAmount}" />
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									下下级总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="下下级购买订单量" name="subSubBuyNum" value="${member.subSubBuyNum}" />
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									下下级总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="下下级购买订单总金额累计" name="subSubBuyAmount" value="${member.subSubBuyAmount}" />
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-2 col-sm-2">
+									累计总订单量
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								    <input type="text" class="input-text radius" placeholder="累计销售订单量(自购-下级购-下下级购)" name="totalBuyNum" value="${member.totalBuyNum}" />
+								</div>
+								
+								<label class="form-label col-xs-2 col-sm-2">
+									累计总订单金额
+								</label>
+								<div class="formControls col-xs-4 col-sm-4">
+								   <input type="text" class="input-text radius" placeholder="购买订单总金额累计(自购-下级购-下下级购)" name="totalBuyAmount" value="${member.totalBuyAmount}" />
 								</div>
 							</div>
 							<div class="row cl">

@@ -42,24 +42,30 @@
 					<div class="">
 						<div class="pag_div">
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									几级分销
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="number" min="0" max="2" class="input-text radius" placeholder="2" name="levelDist" value="${obj.levelDist}" maxlength="10"/>级
+								    <div class="input_box">
+									   <input type="number" min="0" max="2" class="input-text radius" placeholder="2" name="levelDist" value="${obj.levelDist}" maxlength="10"/>
+								       <div class="box_right" style="text-align:right;">级</div>
+								    </div>
 								</div>
 							</div>
 							<hr/><br/>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									满N金额成为铂金
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="text" class="input-text radius" name="platinum_to" value="${obj.platinum_to}" maxlength="10"/>
+								    <div class="input_box">
+										<input type="text" class="input-text radius" name="platinum_to" value="${obj.platinum_to}" maxlength="10"/>
+									    <div class="box_right" style="text-align:right;">元</div>
+								    </div>
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									铂金一级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -67,7 +73,7 @@
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									铂金二级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -75,15 +81,18 @@
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
-									铂金自购满N提成
+								<label class="form-label col-xs-4 col-sm-4">
+									铂金自购单单满N
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="text" class="input-text radius" name="platinum_buy_amount" value="${obj.platinum_buy_amount}" maxlength="10"/>
+								    <div class="input_box">
+										<input type="text" class="input-text radius" name="platinum_buy_amount" value="${obj.platinum_buy_amount}" maxlength="10"/>
+									    <div class="box_right" style="text-align:right;">元</div>
+								    </div>
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									铂金自购提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -94,24 +103,30 @@
 							
 							<div class="pag_div">
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									间隔几天发红包
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
-									<input type="number" class="input-text radius" name="intervalDayCommision" placeholder="15" value="${obj.intervalDayCommision}" maxlength="10"/>天
+								    <div class="input_box">
+										<input type="number" class="input-text radius" name="intervalDayCommision" placeholder="15" value="${obj.intervalDayCommision}" maxlength="10"/>
+									    <div class="box_right" style="text-align:right;">天</div>
+								    </div>
 								</div>
 							</div>
 							<hr/><br/>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									满N金额成为黑金
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="text" class="input-text radius" name="blackplatinum_to" value="${obj.blackplatinum_to}" maxlength="10"/>
+								    <div class="input_box">
+										<input type="text" class="input-text radius" name="blackplatinum_to" value="${obj.blackplatinum_to}" maxlength="10"/>
+									    <div class="box_right" style="text-align:right;">元</div>
+								    </div>
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									黑金一级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -119,7 +134,7 @@
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									黑金二级提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -127,15 +142,18 @@
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
-									黑金自购满N提成
+								<label class="form-label col-xs-4 col-sm-4">
+									黑金自购单单满N
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
-									<input type="text" class="input-text radius" name="blackplatinum_buy_amount" value="${obj.blackplatinum_buy_amount}" maxlength="10"/>
+								    <div class="input_box">
+										<input type="text" class="input-text radius" name="blackplatinum_buy_amount" value="${obj.blackplatinum_buy_amount}" maxlength="10"/>
+									    <div class="box_right" style="text-align:right;">元</div>
+								    </div>
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-xs-2 col-sm-2">
+								<label class="form-label col-xs-4 col-sm-4">
 									黑金自购提成
 								</label>
 								<div class="formControls col-xs-8 col-sm-8">
@@ -143,7 +161,17 @@
 								</div>
 							</div>
 							</div>
-							
+						</div>
+						<div class="pag_div1">
+							<div class="row cl">
+							    <label class="form-label2 col-xs-12 col-sm-12">
+									<span style="color:red;">温馨提示：</span>
+									<span style="color:red;">1、【间隔几天发红包】 表示当订单完成后间隔N天给会员提成红包</span></br>
+									<span style="color:red;margin-left:74px;">2、【满N金额成为铂金】表示自购-下级购-下下级购买的订单累计金额满N才成为铂金会员</span></br>
+									<span style="color:red;margin-left:74px;">3、【自购单单满N】表示自购的单次订单满N金额才返佣</span></br>
+									<span style="color:red;margin-left:74px;">4、    各项配置谨慎修改，请计算好比例再进行更新保存操作！</span></br>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
