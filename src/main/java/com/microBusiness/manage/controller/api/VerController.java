@@ -23,22 +23,27 @@ public class VerController {
     @Resource(name = "verificationServiceImpl")
     private VerificationService verService;
 
-    @RequestMapping(value = "/verification",method = RequestMethod.GET)
+    @RequestMapping(value = "/verification", method = RequestMethod.GET)
     @ResponseBody
     public JsonEntity ver(String tag, HttpServletRequest request, HttpServletResponse response) {
-        Verification ver = verService.findByTag(tag);
+        try {
+            Verification ver = verService.findByTag(tag);
 
-        if (ver != null) {
-            if (ver.getProofTime() == null) {
-                //首次次验证
-                ver.setProofTime(new Date());
-                verService.update(ver);
+            if (ver != null) {
+                if (ver.getProofTime() == null) {
+                    //首次次验证
+                    ver.setProofTime(new Date());
+                    verService.update(ver);
+                }
+
+                Map<String, Object> hasMap = new HashMap<>();
+                hasMap.put("proofTime", ver.getProofTime());
+                return JsonEntity.successMessage(hasMap);
+            } else {
+                return JsonEntity.error(Code.code998, "验证失败");
             }
 
-            Map<String, Object> hasMap = new HashMap<>();
-            hasMap.put("proofTime", ver.getProofTime());
-            return JsonEntity.successMessage(hasMap);
-        } else {
+        } catch (Exception e) {
             return JsonEntity.error(Code.code998, "验证失败");
         }
 
