@@ -1,3 +1,4 @@
+[#assign shiro = JspTaglibs["/WEB-INF/tld/shiro.tld"] /]
 [#escape x as x?html]
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,7 @@
                 <button type="button" class="op_button update_B" id="refreshButtons"
                         onclick="javascript:window.location.href='list.jhtml'">${message("admin.common.refresh")}</button>
                 [@shiro.hasPermission name = "admin:ver:impl"]
-                <button type="button" class="op_button daochu_B" onclick="createTxt();">下载</button>
+                <button type="button" class="op_button print_B" onclick="createTxt();">创建TXT</button>
                [/@shiro.hasPermission]
             </div>
         </div>
