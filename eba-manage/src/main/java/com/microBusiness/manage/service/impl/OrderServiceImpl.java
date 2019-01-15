@@ -6399,26 +6399,29 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
 						.setScale(2, RoundingMode.HALF_UP);
 				
-				//分销返利记录
-				order.setDone(c1);
-				order.setDone_score(ratePrice1);
-				order.setRakeBack(true);
-				orderDao.persist(order);
+				if(ratePrice1.compareTo(BigDecimal.ZERO)==1){
+					//分销返利记录
+					order.setDone(c1);
+					order.setDone_score(ratePrice1);
+					order.setRakeBack(true);
+					orderDao.persist(order);
+					
+					MemberIncome income1=new MemberIncome();
+					income1.setMember(c1);
+					income1.setAmount(ratePrice1);
+					income1.setOrderId(order.getId());
+					income1.setTypes(MemberIncome.TYPE_INCOME);
+					income1.setTitle("红包收益(来自"+nickName+")");
+					income1.setLevel(1);
+					memberIncomeDao.persist(income1);
+					//总收益
+					Member member1 = c1.getMember();
+					member1.setBalance(member1.getBalance().add(ratePrice1));
+					member1.setIncome(member1.getIncome().add(ratePrice1));
+					member1.setLastDay(lastDay);
+					memberDao.persist(member1);
+				}
 				
-				MemberIncome income1=new MemberIncome();
-				income1.setMember(c1);
-				income1.setAmount(ratePrice1);
-				income1.setOrderId(order.getId());
-				income1.setTypes(MemberIncome.TYPE_INCOME);
-				income1.setTitle("红包收益(来自"+nickName+")");
-				income1.setLevel(1);
-				memberIncomeDao.persist(income1);
-				//总收益
-				Member member1 = c1.getMember();
-				member1.setBalance(member1.getBalance().add(ratePrice1));
-				member1.setIncome(member1.getIncome().add(ratePrice1));
-				member1.setLastDay(lastDay);
-				memberDao.persist(member1);
 				logger.info("订单号："+sn+" 的一级分销【"+c1.getSmOpenId()+"】提成比例："+distributionRate1+",金额："+ratePrice1);
 			
 				rakeBack=true;
@@ -6438,26 +6441,27 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(rate1))
 						.setScale(2, RoundingMode.HALF_UP);
 				
-				order.setDone(c1);
-				order.setDone_score(ratePrice1);
-				order.setRakeBack(true);
-				orderDao.persist(order);
-				
-				MemberIncome income1=new MemberIncome();
-				income1.setMember(c1);
-				income1.setAmount(ratePrice1);
-				income1.setOrderId(order.getId());
-				income1.setTypes(MemberIncome.TYPE_INCOME);
-				income1.setTitle("红包收益(来自"+nickName+")");
-				income1.setLevel(1);
-				memberIncomeDao.persist(income1);
-				
-				Member member1 = c1.getMember();
-				member1.setBalance(member1.getBalance().add(ratePrice1));
-				member1.setIncome(member1.getIncome().add(ratePrice1));
-				member1.setLastDay(lastDay);
-				memberDao.persist(member1);
-				
+				if(ratePrice1.compareTo(BigDecimal.ZERO)==1){
+					order.setDone(c1);
+					order.setDone_score(ratePrice1);
+					order.setRakeBack(true);
+					orderDao.persist(order);
+					
+					MemberIncome income1=new MemberIncome();
+					income1.setMember(c1);
+					income1.setAmount(ratePrice1);
+					income1.setOrderId(order.getId());
+					income1.setTypes(MemberIncome.TYPE_INCOME);
+					income1.setTitle("红包收益(来自"+nickName+")");
+					income1.setLevel(1);
+					memberIncomeDao.persist(income1);
+					
+					Member member1 = c1.getMember();
+					member1.setBalance(member1.getBalance().add(ratePrice1));
+					member1.setIncome(member1.getIncome().add(ratePrice1));
+					member1.setLastDay(lastDay);
+					memberDao.persist(member1);
+				}
 				logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成比例："+distributionRate1+",金额："+ratePrice1);
 				rakeBack=true;
 			}
@@ -6474,29 +6478,30 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				Float rate2 = distributionRate2;
 				rate2 = rate2 == null ? 0 : rate2;
 				BigDecimal ratePrice2 = amount.multiply(new BigDecimal(rate2))
-						.setScale(2, RoundingMode.HALF_UP);
-				
-				order.setDtwo(c2);
-				order.setDtwo_score(ratePrice2);
-				order.setRakeBack(true);
-				orderDao.persist(order);
-				
-				nickName=getNickName(c1.getNickName());//上级的收益
-				
-				MemberIncome income2=new MemberIncome();
-				income2.setMember(c2);
-				income2.setAmount(ratePrice2);
-				income2.setOrderId(order.getId());
-				income2.setTypes(MemberIncome.TYPE_INCOME);
-				income2.setTitle("红包收益(来自"+nickName+")");
-				income2.setLevel(2);
-				memberIncomeDao.persist(income2);
-				
-				Member member2 = c2.getMember();
-				member2.setBalance(member2.getBalance().add(ratePrice2));
-				member2.setIncome(member2.getIncome().add(ratePrice2));
-				member2.setLastDay(lastDay);
-				memberDao.persist(member2);
+							.setScale(2, RoundingMode.HALF_UP);
+				if(ratePrice2.compareTo(BigDecimal.ZERO)==1){
+					order.setDtwo(c2);
+					order.setDtwo_score(ratePrice2);
+					order.setRakeBack(true);
+					orderDao.persist(order);
+					
+					nickName=getNickName(c1.getNickName());//上级的收益
+					
+					MemberIncome income2=new MemberIncome();
+					income2.setMember(c2);
+					income2.setAmount(ratePrice2);
+					income2.setOrderId(order.getId());
+					income2.setTypes(MemberIncome.TYPE_INCOME);
+					income2.setTitle("红包收益(来自"+nickName+")");
+					income2.setLevel(2);
+					memberIncomeDao.persist(income2);
+					
+					Member member2 = c2.getMember();
+					member2.setBalance(member2.getBalance().add(ratePrice2));
+					member2.setIncome(member2.getIncome().add(ratePrice2));
+					member2.setLastDay(lastDay);
+					memberDao.persist(member2);
+				}
 				logger.info("订单号："+sn+" 的二级分销-二级【"+c2.getSmOpenId()+"】提成比例："+distributionRate2+",金额："+ratePrice2);
 				
 				rakeBack=true;
