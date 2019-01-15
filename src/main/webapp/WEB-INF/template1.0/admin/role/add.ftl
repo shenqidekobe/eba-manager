@@ -358,7 +358,7 @@
 				                          	<input type="checkbox" name="authorities" value="admin:ver:add" /><span>添加鉴真</span>
 				                        </div>	
 				                        <div class="check-box">
-				                          	<input type="checkbox" name="authorities" value="admin:ver:impl" /><span>文件下载</span>
+				                          	<input type="checkbox" name="authorities" value="admin:ver:impl" /><span>创建TXT</span>
 				                        </div>		
 			                        </div>
 		                       	</div>
