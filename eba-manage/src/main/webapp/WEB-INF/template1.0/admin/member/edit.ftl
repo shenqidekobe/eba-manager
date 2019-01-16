@@ -113,10 +113,10 @@
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
 								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
-                                    <input type="text" class="downList_val" name="isShoper" value="${obj.isShoper}"/>
+                                    <input type="text" class="downList_val" name="isShoper" value="${member.isShoper}"/>
                                     <ul class="downList_con">
-                                        <li val="0" [#if !obj.isShoper] class="li_bag"[/#if]>是</li>
-                                        <li val="1" [#if obj.isShoper] class="li_bag"[/#if]>否</li>
+                                        <li val="1" [#if member.isShoper]class="li_bag"[/#if]>是</li>
+                                        <li val="0" [#if !member.isShoper]class="li_bag"[/#if]>否</li>
                                     </ul>
 								</div>
 								<label class="form-label col-xs-2 col-sm-2">

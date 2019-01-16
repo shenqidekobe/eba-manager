@@ -229,7 +229,7 @@
 							[#if member.blackplatinumTime]
 							<div class="row cl">
 								<label class="form-label col-xs-2 col-sm-2">
-									成为白金时间
+									成为黑金时间
 								</label>
 								<div class="formControls col-xs-4 col-sm-4">
 									<span class="input_no_span">${member.blackplatinumTime?string("yyyy-MM-dd HH:mm:ss")}</span>
