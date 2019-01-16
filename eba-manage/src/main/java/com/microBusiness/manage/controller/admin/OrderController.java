@@ -488,6 +488,11 @@ public class OrderController extends BaseController {
 			returnsItem.setReturns(returns);
 			returnsItem.setSpecifications(orderItem.getSpecifications());
 		}*/
+		if(refundAmount!=null&&order.getAmountPaid()!=null
+				&&refundAmount.compareTo(order.getAmountPaid())==1) {
+			refundAmount=order.getAmountPaid();
+		}
+		if(order.getAmountPaid()==null)refundAmount=BigDecimal.ZERO;
 		returns=new Returns();
 		returns.setTrackingNo(order.getReturnsNum());
 		returns.setOrder(order);
