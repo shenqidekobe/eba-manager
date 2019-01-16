@@ -457,6 +457,42 @@ public class IndexController extends BaseController {
 			 }});
 		 }
 		 map.put("goodsList", goodsMapList);
+		 
+		//精选轮播图
+		List<Filter> filters2 = new ArrayList<Filter>();
+		Filter filter2 = new Filter();
+		filter2.setIgnoreCase(true);
+		filter2.setOperator(Operator.eq);
+		filter2.setProperty("adPosition");
+		filter2.setValue(AdPosition.INDEX_HITS_ID);
+		filters2.add(filter2);
+		
+		List<Order> adorders = new ArrayList<Order>();
+		Order adorder = new Order();
+		adorder.setDirection(Direction.asc);
+		adorder.setProperty("order");
+		adorders.add(adorder);
+		
+		List<Map<String, Object>> adMapList2 = new ArrayList<Map<String, Object>>();
+		List<Ad> topadList2 = adService.findList(1, filters2, adorders);
+		if(topadList2 != null){
+			for (Ad ad : topadList2) {
+				Map<String, Object> admap = new HashMap<String, Object>();
+				admap.put("content", ad.getContent());
+				admap.put("path", ad.getPath());
+				if(StringUtils.isNotEmpty(ad.getPath())){
+					String storePath = ad.getPath();
+					String destMediumPath = getMImagePath(storePath);
+	            	//String destSmallPath=paths[0]+"-"+ImgType.small+"."+paths[1];
+	            	admap.put("path", destMediumPath);
+				}
+				admap.put("url", ad.getUrl());
+				admap.put("title", ad.getTitle());
+				admap.put("id", ad.getId());
+				adMapList2.add(admap);
+			}
+		}
+		map.put("hitsadList", adMapList2);
 		
         return JsonEntity.successMessage(map);
     }
@@ -465,7 +501,6 @@ public class IndexController extends BaseController {
 	/**
 	 * 精选TOP商品的广告图
 	 * */
-	@SuppressWarnings("serial")
 	@RequestMapping(value = "/top/adBanner", method = RequestMethod.GET)
     @ResponseBody
     public JsonEntity topadBanner(String unionId, String smOpenId, Long supplierId ,Long relationId, 

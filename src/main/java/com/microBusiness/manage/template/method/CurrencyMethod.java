@@ -1,21 +1,13 @@
-/*
- * Copyright 2005-2015 dreamforyou. All rights reserved.
- * Support: http://www.dreamforyou
- * License: http://www.dreamforyou/license
- */
 package com.microBusiness.manage.template.method;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.microBusiness.manage.Setting;
-import com.microBusiness.manage.util.FreeMarkerUtils;
-import com.microBusiness.manage.util.SystemUtils;
+import org.springframework.stereotype.Component;
 
 import com.microBusiness.manage.Setting;
 import com.microBusiness.manage.util.FreeMarkerUtils;
 import com.microBusiness.manage.util.SystemUtils;
-import org.springframework.stereotype.Component;
 
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateMethodModelEx;

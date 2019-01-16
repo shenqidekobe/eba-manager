@@ -6315,22 +6315,20 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
 
 		Integer levelDist=json.getLevelDist();
-		BigDecimal platinumTo=new BigDecimal(json.getPlatinum_to());//铂金自购门槛
-		BigDecimal blackplatinumTo=new BigDecimal(json.getBlackplatinum_to());//黑金自购门槛
-		//处理自购返佣、普通和白金且订单金额小于铂金标准=没有自购返佣
-		if(!childMember.getRank().equals(Member_Rank.platina)
-				&&!childMember.getRank().equals(Member_Rank.common)
-				&&amount.compareTo(platinumTo)!=-1) {
+		BigDecimal platinumTo=new BigDecimal(json.getPlatinum_buy_amount());//铂金自购门槛
+		BigDecimal blackplatinumTo=new BigDecimal(json.getBlackplatinum_buy_amount());//黑金自购门槛
+		//处理自购返佣、铂金和黑金才有自购返佣
+		logger.info("自购返佣计算,下单人:"+childMember.getNickName()+"的会员等级："+childMember.getRank().label);
+		if(childMember.getIsShoper()) {
 			Float buyRate=null;
-			//订单总金额大于等于铂金自购返佣且小于黑金自购返佣 则按铂金级别
-			if(amount.compareTo(platinumTo)!=-1
-					&&amount.compareTo(blackplatinumTo)==-1
-					&&platinumTo.compareTo(BigDecimal.ZERO)==1) {
+			//如果下单会员是：铂金   <验证订单金额是否达到铂金自购标准>
+			if(childMember.getRank().equals(Member_Rank.platinum)
+					&&amount.compareTo(platinumTo)!=-1) {
 				buyRate=Float.valueOf(json.getPlatinum_buy_rate());
 			}
-			//订单总金额大于等于黑金自购返佣 则按黑金级别
-			if(amount.compareTo(blackplatinumTo)!=-1
-					&&blackplatinumTo.compareTo(BigDecimal.ZERO)==1) {
+			//如果下单会员是：黑金   <验证订单金额是否达到黑金自购标准>
+			if(childMember.getRank().equals(Member_Rank.blackplatinum)
+					&&amount.compareTo(blackplatinumTo)!=-1) {
 				buyRate=Float.valueOf(json.getBlackplatinum_buy_rate());
 			}
 			if(buyRate!=null){
@@ -6338,8 +6336,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				BigDecimal ratePrice1 = amount.multiply(new BigDecimal(buyRate))
 						.setScale(2, RoundingMode.HALF_UP);
 				
-				//分销返利记录
+				//分销自购返利记录
 				order.setBuy_score(ratePrice1);
+				order.setBuyRate(buyRate);
 				orderDao.persist(order);
 				
 				MemberIncome income=new MemberIncome();
@@ -6347,7 +6346,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				income.setAmount(ratePrice1);
 				income.setOrderId(order.getId());
 				income.setTypes(MemberIncome.TYPE_INCOME);
-				income.setTitle("红包收益(自购返佣)");
+				income.setTitle("红包收益(自购返利)");
 				income.setLevel(1);
 				memberIncomeDao.persist(income);
 				//总收益
@@ -6357,7 +6356,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				member.setLastDay(lastDay);
 				memberDao.persist(member);
 				
-				logger.info("订单号："+sn+" 的自购【"+childMember.getSmOpenId()+"】提成比例："+buyRate+",金额："+ratePrice1);
+				logger.info("订单号："+sn+" 的自购【"+childMember.getNickName()+"】提成比例："+buyRate+",得到红包："+ratePrice1);
 			}
 		}
 		
@@ -6403,6 +6402,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 					//分销返利记录
 					order.setDone(c1);
 					order.setDone_score(ratePrice1);
+					order.setDoneRate(rate1);
 					order.setRakeBack(true);
 					orderDao.persist(order);
 					
@@ -6444,6 +6444,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				if(ratePrice1.compareTo(BigDecimal.ZERO)==1){
 					order.setDone(c1);
 					order.setDone_score(ratePrice1);
+					order.setDoneRate(rate1);
 					order.setRakeBack(true);
 					orderDao.persist(order);
 					
@@ -6482,6 +6483,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				if(ratePrice2.compareTo(BigDecimal.ZERO)==1){
 					order.setDtwo(c2);
 					order.setDtwo_score(ratePrice2);
+					order.setDtwoRate(rate2);
 					order.setRakeBack(true);
 					orderDao.persist(order);
 					
@@ -6528,7 +6530,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		ChildMember c2 = null;
 		if(c1!=null)c2=c1.getParent();
 		//更新自己的购买数量
-		logger.info("更新订单会员【"+childMember.getNickName()+"】自己的购买数量和购买金额以及会员等级机制......");
+		logger.info("更新订单会员【"+childMember.getNickName()+"】自己的购买数量和购买金额以及会员等级机制.");
 		childMember.setBuyNum(childMember.getBuyNum()+1);
 		childMember.setBuyAmount(childMember.getBuyAmount().add(order.getPrice()));
 		childMember.setTotalBuyNum(childMember.getTotalBuyNum()+1);
@@ -6537,7 +6539,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		this.childMemberDao.persist(childMember);
 		//更新上级的购买数量
 		if(c1==null)return childMember;
-		logger.info("更新订单会员【"+childMember.getNickName()+"】的上级【"+c1.getNickName()+"】的购买数量和购买金额以及会员等级机制......");
+		logger.info("更新订单会员【"+childMember.getNickName()+"】的上级【"+c1.getNickName()+"】的购买数量和购买金额以及会员等级机制.");
 		c1.setSubBuyNum(c1.getSubBuyNum()+1);
 		c1.setSubBuyAmount(c1.getSubBuyAmount().add(order.getPrice()));
 		c1.setTotalBuyNum(c1.getTotalBuyNum()+1);
@@ -6546,7 +6548,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		this.childMemberDao.persist(c1);
 		//更新上上级的购买数量
 		if(c2==null)return childMember;
-		logger.info("更新订单会员【"+childMember.getNickName()+"】上级的上级【"+c2.getNickName()+"】的购买数量和购买金额以及会员等级机制......");
+		logger.info("更新订单会员【"+childMember.getNickName()+"】上级的上级【"+c2.getNickName()+"】的购买数量和购买金额以及会员等级机制.");
 		c2.setSubSubBuyNum(c2.getSubSubBuyNum()+1);
 		c2.setSubSubBuyAmount(c2.getSubSubBuyAmount().add(order.getPrice()));
 		c2.setTotalBuyNum(c2.getTotalBuyNum()+1);
@@ -6557,10 +6559,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		return childMember;
 	}
 	
+	//更新会员等级：前提 是会员才更新等级？
 	private void updateChildMemberRank(ChildMember childMember,BigDecimal platinumTo,BigDecimal blackplatinumTo) {
 		//购买总金额大于黑金门槛且不是黑金会员则更新为：黑金
 		if(childMember.getTotalBuyAmount().compareTo(blackplatinumTo)!=-1
-				&&!childMember.getRank().equals(Member_Rank.blackplatinum)) {
+				&&!childMember.getRank().equals(Member_Rank.blackplatinum)
+				&&childMember.getIsShoper()) {
 			childMember.setRank(Member_Rank.blackplatinum);
 			childMember.setBlackplatinumTime(new Date());
 		}
@@ -6568,13 +6572,15 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		if(childMember.getTotalBuyAmount().compareTo(platinumTo)!=-1
 				&&childMember.getTotalBuyAmount().compareTo(blackplatinumTo)==-1
 				&&!childMember.getRank().equals(Member_Rank.blackplatinum)
-				&&!childMember.getRank().equals(Member_Rank.platinum)) {
+				&&!childMember.getRank().equals(Member_Rank.platinum)
+				&&childMember.getIsShoper()) {
 			childMember.setRank(Member_Rank.platinum);
 			childMember.setPlatinumTime(new Date());
 		}
 		//购买总金额小于铂金门槛且是普通会员则更新为：白金
 		if(childMember.getTotalBuyAmount().compareTo(platinumTo)==-1
-				&&childMember.getRank().equals(Member_Rank.common)) {
+				&&childMember.getRank().equals(Member_Rank.common)
+				&&childMember.getIsShoper()) {
 			childMember.setRank(Member_Rank.platina);
 			childMember.setPlatinaTime(new Date());
 		}
