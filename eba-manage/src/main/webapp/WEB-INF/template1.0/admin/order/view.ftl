@@ -1369,7 +1369,7 @@ $(function(){
 				            type: "warn",
 				            height:190,
 				            width:400,
-				            content: "确定退款："+refundAmount+"哦？",
+				            content: "确定立即退款给下单用户："+refundAmount+" 元哦？",
 				            onOk: function() {
 			                    $returnsForm.submit();
 			                },
