@@ -159,13 +159,15 @@
 				<table class="table table-border table-hover table_width">
 					<thead>
 						<tr class="text-l">
-							<th width="4%">ID</th>
-							<th width="15%">${message("Order.sn")}</th>
+							<!--<th width="4%">ID</th>-->
+							<th width="10%">订单号</th>
 							<th width="11%">${message("Order.amount")}</th>
 							<th width="13%">用户昵称</th>
 							<th width="14%">收货地址</th>
 							<th width="10%">${message("Order.status")}</th>
-							<th width="14%">下单时间</th>
+							<th width="10%">是否返佣</th>
+							<th width="10%">返佣总额</th>
+							<th width="12%">下单时间</th>
 							<th width="6%">${message("admin.common.action")}</th>
 						</tr>
 					</thead>
@@ -174,24 +176,26 @@
 					<table class="table table-border table-hover table_width">
 						<thead>
 							<tr class="text-l">
-								<th width="4%" style="">
+								<!--<th width="4%" style="">
 									<div class="th_div" style="">
 										ID
 									</div>
-								</th>
-								<th width="15%"><div class="th_div">${message("Order.sn")}</div></th>
+								</th>-->
+								<th width="10%"><div class="th_div">${message("Order.sn")}</div></th>
 								<th width="11%"><div class="th_div">${message("Order.amount")}</div></th>
 								<th width="13%"><div class="th_div">用户昵称</div></th>
 								<th width="14%"><div class="th_div">收货地址</div></th>
 								<th width="10%"><div class="th_div">${message("Order.status")}</div></th>
-								<th width="14%"><div class="th_div">下单时间</div></th>
+								<th width="10%"><div class="th_div">是否返佣</div></th>
+								<th width="10%"><div class="th_div">返佣总额</div></th>
+								<th width="12%"><div class="th_div">下单时间</div></th>
 								<th width="6%"><div class="th_div">${message("admin.common.action")}</div></th>
 							</tr>
 						</thead>
 						<tbody>
 						[#list page.content as order]
 							<tr class="text-l">
-								<td>${order.id}</td>
+								<!--<td>${order.id}</td>-->
 								<td>
 									${order.sn}
 									<!--[#if order.type != "general" && order.type != "formal"]
@@ -239,7 +243,9 @@
 										<span class="silver">(${message("admin.order.hasExpired")})</span>
 									[/#if]
 								</td>
-								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm:ss")}">${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
+								<td>[#if order.rakeBack]是[#else]否[/#if]</td>
+								<td>${currencyOper(1,order.buy_score,order.done_score,order.dtwo_score)}</td>
+								<td><span title="${order.createDate?string("yyyy-MM-dd HH:mm")}">${order.createDate?string("yyyy-MM-dd HH:mm")}</span></td>
 
 								<td class="td-manage">
 									<a title="${message("admin.common.view")}" href="view.jhtml?id=${order.id}" class="ml-5" style="text-decoration:none"><i class="operation_icon icon_see"></i></a>
@@ -248,9 +254,6 @@
 									[#else]
 										<!--<span title="${message("admin.order.editNotAllowed")}"><i class="operation_icon icon_bianji"></i></span>-->
 									[/#if]
-									
-									 
-								
 								</td>
 							</tr>
 						[/#list]

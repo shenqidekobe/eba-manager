@@ -691,9 +691,10 @@
 							<table class="table table-border table-hover table_width boo">
 								<thead>
 									<tr class="text-l">
-										<th width="30%">返佣人</th>
+										<th width="20%">返佣人</th>
 										<th width="20%">级别</th>
-										<th width="50%">返佣金额</th>
+										<th width="20%">提成比例</th>
+										<th width="40%">返佣金额</th>
 									</tr>
 								</thead>
 							</table>
@@ -701,21 +702,24 @@
 								<table class="table table-border table-hover table_width">
 									<thead>
 										<tr class="text-l">
-											<th width="30%"><div class="th_div">返佣人</div></th>
+											<th width="20%"><div class="th_div">返佣人</div></th>
 											<th width="20%"><div class="th_div">级别</div></th>
-											<th width="50%"><div class="th_div">返佣金额</div></th>
+											<th width="20%"><div class="th_div">提成比例</div></th>
+											<th width="40%"><div class="th_div">返佣金额</div></th>
 										</tr>
 									</thead>
 									<tbody>
 	                                    <tr class="text-l">
 	                                        <td>${order.done.nickName}</td>
 	                                        <td>一级 </td>
+	                                        <td>${order.doneRate}</td>
 	                                        <td>${order.done_score}</td>
 	                                    </tr>
 	                                    [#if order.dtwo??]
 	                                    <tr class="text-l">
 	                                        <td>${order.dtwo.nickName}</td>
 	                                        <td>二级 </td>
+	                                        <td>${order.dtwoRate}</td>
 	                                        <td>${order.dtwo_score}</td>
 	                                    </tr>
 	                                    [/#if]
@@ -723,13 +727,15 @@
 	                                    <tr class="text-l">
 	                                        <td>${order.dthree.nickName}</td>
 	                                        <td>三级 </td>
+	                                        <td>${order.dthreeRate}</td>
 	                                        <td>${order.dthree_score}</td>
 	                                    </tr>
 	                                    [/#if]
 	                                    [#if order.buy_score??]
 	                                    <tr class="text-l">
 	                                        <td>自己</td>
-	                                        <td>二级 </td>
+	                                        <td>自购 </td>
+	                                        <td>${order.buyRate}</td>
 	                                        <td>${order.buy_score}</td>
 	                                    </tr>
 	                                    [/#if]

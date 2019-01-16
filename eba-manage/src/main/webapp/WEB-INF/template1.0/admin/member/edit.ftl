@@ -39,7 +39,6 @@
 		<div class="form_box">
 			<form id="inputForm" action="update.jhtml" method="post" class="form form-horizontal">
 				<input type="hidden" name="id" value="${member.id}" />
-				<input type="hidden" name="phone" value="${member.phone}" />
 				<div id="tab-system" class="HuiTab">
 				    <h3 class="form_title" style="margin:20px 0 0 20px;">个人基础数据</h3>
 					<div >
