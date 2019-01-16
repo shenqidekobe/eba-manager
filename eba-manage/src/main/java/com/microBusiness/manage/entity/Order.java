@@ -328,12 +328,16 @@ public class Order extends BaseEntity<Long> {
 	//分销利润
 	private Boolean rakeBack;//是否返佣
 	private BigDecimal buy_score;//自购返佣金额
+	private Float buyRate;//比例
 	private ChildMember done;
+	private Float doneRate;//比例
 	private BigDecimal done_score;
 	private ChildMember dtwo;
+	private Float dtwoRate;//比例
 	private BigDecimal dtwo_score;
 	private ChildMember dthree;
 	private BigDecimal dthree_score;
+	private Float dthreeRate;//比例
 	
 	
 	
@@ -1292,6 +1296,38 @@ public class Order extends BaseEntity<Long> {
 
 	public void setAmountToB(BigDecimal amountToB) {
 		this.amountToB = amountToB;
+	}
+
+	public Float getBuyRate() {
+		return buyRate;
+	}
+
+	public void setBuyRate(Float buyRate) {
+		this.buyRate = buyRate;
+	}
+
+	public Float getDoneRate() {
+		return doneRate;
+	}
+
+	public void setDoneRate(Float doneRate) {
+		this.doneRate = doneRate;
+	}
+
+	public Float getDtwoRate() {
+		return dtwoRate;
+	}
+
+	public void setDtwoRate(Float dtwoRate) {
+		this.dtwoRate = dtwoRate;
+	}
+
+	public Float getDthreeRate() {
+		return dthreeRate;
+	}
+
+	public void setDthreeRate(Float dthreeRate) {
+		this.dthreeRate = dthreeRate;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
