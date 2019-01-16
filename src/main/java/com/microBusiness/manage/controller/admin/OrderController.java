@@ -469,7 +469,8 @@ public class OrderController extends BaseController {
 	//确认退货-退款
 	@RequestMapping(value = "/returns", method = RequestMethod.POST)
 	public String returns(Returns returns, Long id, Long shippingMethodId,
-			Long deliveryCorpId, Long areaId,BigDecimal refundAmount, RedirectAttributes redirectAttributes) {
+			Long deliveryCorpId, Long areaId,BigDecimal refundAmount, 
+			RedirectAttributes redirectAttributes, ModelMap modelMap) {
 		Order order = orderService.find(id);
 		if (order == null || order.getStatus()!=Order.Status.applyReturns) {
 			return ERROR_VIEW;
@@ -509,7 +510,11 @@ public class OrderController extends BaseController {
 		returns.setOperator(admin);
 		returns.setRefundAmount(refundAmount);
 		
-		orderService.returns(order, returns, admin);
+		boolean flag=orderService.returns(order, returns, admin);
+		if (!flag) {
+			modelMap.addAttribute("errorMessage" , "退款失败，请检查微信支付基本账户余额！");
+			return ERROR_VIEW;
+		}
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:view.jhtml?id=" + id;
 	}
