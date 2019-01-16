@@ -826,7 +826,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		smsService.sendShippingOrderSms(order);
 	}
 
-	public void returns(Order order, Returns returns, Admin operator) {
+	public boolean returns(Order order, Returns returns, Admin operator) {
 		Assert.notNull(order);
 		Assert.isTrue(!order.isNew());
 		//Assert.state(order.getReturnableQuantity() > 0);
@@ -854,11 +854,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				logger.info("订单号："+order.getSn()+" 发起退款返回信息："+result.toString());
 				if (!result.get("return_code").equals("SUCCESS") || result.get("refund_id") == null) {
 					logger.info("退款失败。。。。");
-					throw new OutApiException(new OutApiJsonEntity(Code.code100005, "微信发起退款失败！"));
+					return false;
 				}
 				refundId=result.get("refund_id");
 			} catch (Exception e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 
@@ -886,6 +887,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLog.setOrder(order);
 		orderLogDao.persist(orderLog);
 		
+		return true;
 		//mailService.sendReturnsOrderMail(order);
 		//smsService.sendReturnsOrderSms(order);
 	}

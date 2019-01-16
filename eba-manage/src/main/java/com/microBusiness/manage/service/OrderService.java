@@ -97,7 +97,7 @@ public interface OrderService extends BaseService<Order, Long> {
 
 	void shipping(Order order, Shipping shipping, Admin operator);
 
-	void returns(Order order, Returns returns, Admin operator);
+	boolean returns(Order order, Returns returns, Admin operator);
 
 	void receive(Order order, Admin operator);
 
