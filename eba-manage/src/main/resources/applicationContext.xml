@@ -125,6 +125,7 @@
 				<entry key="message" value-ref="messageMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />
 				<entry key="currency" value-ref="currencyMethod" />
+				<entry key="currencyOper" value-ref="currencyOperMethod" />
 				<entry key="flash_message" value-ref="flashMessageDirective" />
 				<entry key="current_member" value-ref="currentMemberDirective" />
 				<entry key="pagination" value-ref="paginationDirective" />
