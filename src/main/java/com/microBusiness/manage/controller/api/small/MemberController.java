@@ -91,11 +91,14 @@ public class MemberController extends BaseController {
     	//计算昨日收益
     	Pageable pageable=new Pageable();
     	Calendar cal=Calendar.getInstance();
-    	cal.add(Calendar.DAY_OF_MONTH, -1);
+    	cal.add(Calendar.DATE, -1);
     	cal.set(Calendar.HOUR_OF_DAY, 0);
     	cal.set(Calendar.MINUTE, 0);
     	cal.set(Calendar.SECOND, 0);
     	Date startDate=cal.getTime();
+    	cal.set(Calendar.HOUR_OF_DAY, 23);
+    	cal.set(Calendar.MINUTE, 59);
+    	cal.set(Calendar.SECOND, 59);
     	Date endDate=cal.getTime();
     	Page<MemberIncome> page=memberIncomeService.findPage(MemberIncome.TYPE_INCOME, childMember, startDate, endDate, pageable);
     	BigDecimal yesterdayIncome=BigDecimal.ZERO;
