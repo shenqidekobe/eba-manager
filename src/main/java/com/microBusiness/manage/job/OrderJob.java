@@ -14,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -41,6 +43,8 @@ import com.microBusiness.manage.util.JsonUtils;
 @Lazy(false)
 @Component("orderJob")
 public class OrderJob {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Resource(name = "orderServiceImpl")
 	private OrderService orderService;
@@ -57,7 +61,7 @@ public class OrderJob {
 	
 	//每隔60分钟执行：0 0/60 * * * ?
 	//结算返佣、已完成未返佣的订单、在已完成时间加15再返
-	@Scheduled(cron = "0 0/3 * * * ?")
+	@Scheduled(cron = "0 0/5 * * * ?")
 	public void jiesuan() {
 		Dict dict=dictService.find(Dict.DEFAULT_ID);
 		Integer intervalDayCommision=15;
@@ -66,6 +70,7 @@ public class OrderJob {
 			intervalDayCommision=(json.getIntervalDayCommision());
 		}
 		List<Order> list=orderService.findNoRakeBackList();//已完成未返佣的订单
+		logger.info("定时返佣任务执行器，本次需要处理："+list.size()+" 条未返佣订单数据.");
 		for(Order order:list) {
 			if(order.getCompleteDate()==null)continue;
 			Date completeTime = order.getCompleteDate();
