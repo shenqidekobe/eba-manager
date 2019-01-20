@@ -219,7 +219,7 @@ public class IndexController extends BaseController {
 					String destMediumPath = getMImagePath(storePath);
 					gmap.put("image", destMediumPath);
 				}
-				
+				gmap.put("marketPrice", goods.getMarketPrice());
 				gmap.put("price", goods.getPrice());
 				gmap.put("sales", goods.getSales());
 				maingoodsMapList.add(gmap);
@@ -257,12 +257,13 @@ public class IndexController extends BaseController {
 				 this.put("name", goods.getName());
 				 this.put("image", goods.getImage());
 				 if(StringUtils.isNotBlank(goods.getImage())){
-						String storePath = goods.getImage();
-						String destMediumPath = getMImagePath(storePath);
-						this.put("image", destMediumPath);
-					}
+					String storePath = goods.getImage();
+					String destMediumPath = getMImagePath(storePath);
+					this.put("image", destMediumPath);
+				 }
 				 this.put("specification", goods.getSpecificationItems());
 				 this.put("price", goods.getDefaultProduct().getPrice());
+				 this.put("marketPrice", goods.getDefaultProduct().getMarketPrice());
 				 this.put("sales", goods.getSales());
 				 this.put("hasSpecifications", goods.hasSpecification());
 				 List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
@@ -270,6 +271,7 @@ public class IndexController extends BaseController {
 					 Map<String, Object> pmap = new HashMap<String, Object>();
 					 pmap.put("productId", product.getId());
 					 pmap.put("price", product.getPrice());
+					 pmap.put("marketPrice", product.getMarketPrice());
 					 pmap.put("sales", product.getSales());
 					 pmap.put("minOrderQuantity", product.getMinOrderQuantity());
 					 pmap.put("addValue", product.getAddValue());
@@ -311,6 +313,7 @@ public class IndexController extends BaseController {
 				gmap.put("name", goods.getName());
 				gmap.put("image", goods.getImage());
 				gmap.put("price", goods.getPrice());
+				gmap.put("marketPrice", goods.getMarketPrice());
 				gmap.put("sales", goods.getSales());
 				goodsMapList.add(gmap);
 			}
@@ -374,6 +377,7 @@ public class IndexController extends BaseController {
 				}
 				
 				gmap.put("price", goods.getPrice());
+				gmap.put("marketPrice", goods.getMarketPrice());
 				gmap.put("sales", goods.getSales());
 				memberMapList.add(gmap);
 			}
@@ -440,6 +444,7 @@ public class IndexController extends BaseController {
 					}
 				 this.put("specification", goods.getSpecificationItems());
 				 this.put("price", goods.getDefaultProduct().getPrice());
+				 this.put("marketPrice", goods.getDefaultProduct().getMarketPrice());
 				 this.put("sales", goods.getSales());
 				 this.put("hasSpecifications", goods.hasSpecification());
 				 List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
@@ -447,6 +452,7 @@ public class IndexController extends BaseController {
 					 Map<String, Object> pmap = new HashMap<String, Object>();
 					 pmap.put("productId", product.getId());
 					 pmap.put("price", product.getPrice());
+					 pmap.put("marketPrice", product.getMarketPrice());
 					 pmap.put("sales", product.getSales());
 					 pmap.put("minOrderQuantity", product.getMinOrderQuantity());
 					 pmap.put("addValue", product.getAddValue());

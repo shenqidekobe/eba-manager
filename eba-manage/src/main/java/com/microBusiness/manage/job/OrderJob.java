@@ -57,7 +57,7 @@ public class OrderJob {
 	
 	//每隔60分钟执行：0 0/60 * * * ?
 	//结算返佣、已完成未返佣的订单、在已完成时间加15再返
-	@Scheduled(cron = "0 0/60 * * * ?")
+	@Scheduled(cron = "0 0/3 * * * ?")
 	public void jiesuan() {
 		Dict dict=dictService.find(Dict.DEFAULT_ID);
 		Integer intervalDayCommision=15;

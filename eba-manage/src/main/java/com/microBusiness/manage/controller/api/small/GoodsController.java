@@ -472,6 +472,7 @@ public class GoodsController extends BaseController {
 				 this.put("image", goods.getImage());
 				 this.put("specification", goods.getSpecificationItems());
 				 this.put("price", goods.getPrice());
+				 this.put("marketPrice", goods.getMarketPrice());
 				 this.put("sales", goods.getSales());
 				 this.put("hasSpecifications", goods.hasSpecification());
 				 List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
@@ -479,6 +480,7 @@ public class GoodsController extends BaseController {
 					 Map<String, Object> pmap = new HashMap<String, Object>();
 					 pmap.put("productId", product.getId());
 					 pmap.put("price", product.getPrice());
+					 pmap.put("marketPrice", product.getMarketPrice());
 					 pmap.put("minOrderQuantity", product.getMinOrderQuantity());
 					 pmap.put("addValue", product.getAddValue());
 					 pmap.put("specifications", product.getSpecifications());
@@ -553,6 +555,7 @@ public class GoodsController extends BaseController {
 				 this.put("image", goods.getImage());
 				 this.put("specification", goods.getSpecificationItems());
 				 this.put("price", goods.getDefaultProduct().getProxyPrice());
+				 this.put("marketPrice", goods.getDefaultProduct().getMarketPrice());
 				 this.put("sales", goods.getSales());
 				 this.put("hasSpecifications", goods.hasSpecification());
 				 List<Map<String, Object>> productList = new ArrayList<Map<String,Object>>();
@@ -560,6 +563,7 @@ public class GoodsController extends BaseController {
 					 Map<String, Object> pmap = new HashMap<String, Object>();
 					 pmap.put("productId", product.getId());
 					 pmap.put("price", product.getProxyPrice());
+					 pmap.put("marketPrice", product.getMarketPrice());
 					 pmap.put("sales", product.getSales());
 					 pmap.put("minOrderQuantity", product.getMinOrderQuantity());
 					 pmap.put("addValue", product.getAddValue());
