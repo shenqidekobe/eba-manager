@@ -120,9 +120,10 @@
 						<tr class="text-l">
 							<th width="4%"><input class="all_checked" type="checkbox" id="selectAll"></th>
 							<th width="12%">${message("Goods.sn")}</th>
-							<th width="25%">${message("Goods.name")}</th>
+							<th width="20%">${message("Goods.name")}</th>
 							<th width="8%">${message("Goods.productCategory")}</th>
 							<th width="8%">${message("Goods.price")}</th>
+							<th width="8%">京东价</th>
 							<th width="6%">点击量</th>
 							<th width="6%">销量</th>
 							<!--<th>角色</th>-->
@@ -142,8 +143,9 @@
 									</div>
 								</th>
 								<th width="12%"><div class="th_div">${message("Goods.sn")}</div></th>
-								<th width="25%"><div class="th_div">${message("Goods.name")}</div></th>
+								<th width="20%"><div class="th_div">${message("Goods.name")}</div></th>
 								<th width="8%"><div class="th_div">${message("Goods.productCategory")}</div></th>
+								<th width="8%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="8%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="6%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="6%"><div class="th_div">${message("Goods.price")}</div></th>
@@ -181,6 +183,7 @@
 								</td>
 								<td>${goods.productCategory.name}</td>
 								<td>${currency(goods.price, true)}</td>
+								<td>${currency(goods.marketPrice, true)}</td>
 								<td>${goods.hits}</td>
 								<td>${goods.sales}</td>
 								<!--<td>栏目编辑</td>-->

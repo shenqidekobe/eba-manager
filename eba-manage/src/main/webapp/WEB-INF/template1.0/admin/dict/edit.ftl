@@ -99,6 +99,19 @@
 									<input type="text" class="input-text radius" name="platinum_buy_rate" value="${obj.platinum_buy_rate}" maxlength="10"/>
 								</div>
 							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-4">
+									自购上上级返佣
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
+                                    <input type="text" class="downList_val" name="buySSRakeBack" value="${obj.buySSRakeBack}"/>
+                                    <ul class="downList_con">
+                                        <li val="1" [#if obj.buySSRakeBack]class="li_bag"[/#if]>返佣</li>
+                                        <li val="0" [#if !obj.buySSRakeBack]class="li_bag"[/#if]>不返</li>
+                                    </ul>
+								</div>
+							</div>
 							</div>
 							
 							<div class="pag_div">
@@ -160,6 +173,19 @@
 									<input type="text" class="input-text radius" name="blackplatinum_buy_rate" value="${obj.blackplatinum_buy_rate}" maxlength="10"/>
 								</div>
 							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-4">
+									黑金不满自购
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
+                                    <input type="text" class="downList_val" name="blackplatinumBuyNoAs" value="${obj.blackplatinumBuyNoAs}"/>
+                                    <ul class="downList_con">
+                                        <li val="1" [#if obj.blackplatinumBuyNoAs]class="li_bag"[/#if]>达标铂金自购则按铂金返佣</li>
+                                        <li val="0" [#if !obj.blackplatinumBuyNoAs]class="li_bag"[/#if]>不返</li>
+                                    </ul>
+								</div>
+							</div>
 							</div>
 						</div>
 						<div class="pag_div1">
@@ -167,9 +193,11 @@
 							    <label class="form-label2 col-xs-12 col-sm-12">
 									<span style="color:red;">温馨提示：</span>
 									<span style="color:red;">1、【间隔几天发红包】 表示当订单完成后间隔N天给会员提成红包</span></br>
-									<span style="color:red;margin-left:74px;">2、【满N金额成为铂金】表示自购-下级购-下下级购买的订单累计金额满N才成为铂金会员</span></br>
+									<span style="color:red;margin-left:74px;">2、【满N金额成为铂金】表示自购-下级购-下下级购买的订单累计金额满N金额才成为铂金会员</span></br>
 									<span style="color:red;margin-left:74px;">3、【自购单单满N】表示自购的单次订单满N金额才返佣</span></br>
-									<span style="color:red;margin-left:74px;">4、    各项配置谨慎修改，请计算好比例再进行更新保存操作！</span></br>
+									<span style="color:red;margin-left:74px;">4、【自购上上级返佣】表示自购达标得到返佣后，下单人的上上级是否还享受返佣</span></br>
+									<span style="color:red;margin-left:74px;">5、【黑金不满自购】表示黑金自购订单不满自购金额标准但满足了铂金自购标准，是否返佣</span></br>
+									<span style="color:red;margin-left:74px;">6、    各项配置谨慎修改，请计算好比例再进行更新保存操作！</span></br>
 								</label>
 							</div>
 						</div>
