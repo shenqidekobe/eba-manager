@@ -107,8 +107,8 @@
 								    <input type="text" class="input-text radius down_list" readonly placeholder="请选择" />
                                     <input type="text" class="downList_val" name="buySSRakeBack" value="${obj.buySSRakeBack}"/>
                                     <ul class="downList_con">
-                                        <li val="1" [#if obj.buySSRakeBack]class="li_bag"[/#if]>返佣</li>
-                                        <li val="0" [#if !obj.buySSRakeBack]class="li_bag"[/#if]>不返</li>
+                                        <li val="1" [#if obj.buySSRakeBack]class="li_bag"[/#if]>不管自购返不返佣，上上级都返佣</li>
+                                        <li val="0" [#if !obj.buySSRakeBack]class="li_bag"[/#if]>自购已返佣，则上上级不返佣</li>
                                     </ul>
 								</div>
 							</div>
