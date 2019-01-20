@@ -354,8 +354,8 @@
                         </div>
                     </div>
 
-                    <div class="row cl" style="display:none;">
-                        <label class="form-label col-xs-4 col-sm-3">${message("Product.marketPrice")}</label>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">京东价</label>
                         <div class="formControls col-xs-8 col-sm-7">
                             <input type="text" id="marketPrice" name="product.marketPrice" class="input-text radius" placeholder="">
                         </div>
