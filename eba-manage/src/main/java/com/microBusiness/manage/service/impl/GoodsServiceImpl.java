@@ -416,6 +416,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long> implements
 		goods.setConsultations(null);
 		goods.setFavoriteMembers(null);
 		goods.setProducts(null);
+		goods.setIs2Member(goods.getIs2Member()==null?false:goods.getIs2Member());
 		// TODO: 2017/1/23 添加供应商
 		goods.setSupplier(operator.getSupplier());
 		setValue(goods, operator.getSupplier());
@@ -528,6 +529,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long> implements
 		goods.setConsultations(null);
 		goods.setFavoriteMembers(null);
 		goods.setProducts(null);
+		goods.setIs2Member(goods.getIs2Member()==null?false:goods.getIs2Member());
 		// TODO: 2017/1/23 添加供应商
 		goods.setSupplier(operator.getSupplier());
 
@@ -614,6 +616,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long> implements
 
 		goods.setPrice(product.getPrice());
 		goods.setMarketPrice(product.getMarketPrice());
+		goods.setIs2Member(goods.getIs2Member()==null?false:goods.getIs2Member());
 
 		goods.setBarCode(product.getBarCode());
 
@@ -762,6 +765,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long> implements
 			}
 		}
 
+		goods.setIs2Member(goods.getIs2Member()==null?false:goods.getIs2Member());
 		goods.setPrice(defaultProduct.getPrice());
 		goods.setMarketPrice(defaultProduct.getMarketPrice());
 		goods.setBarCode(defaultProduct.getBarCode());

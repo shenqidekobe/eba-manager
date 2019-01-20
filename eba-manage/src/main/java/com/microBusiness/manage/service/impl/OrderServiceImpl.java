@@ -6335,7 +6335,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			}
 			//如果下单会员是：黑金   自购金额>铂金自购且自购金额<黑金自购  则按铂金自购比例
 			if(childMember.getRank().equals(Member_Rank.blackplatinum)
-					&&amount.compareTo(blackplatinumTo)!=-1
+					&&amount.compareTo(blackplatinumTo)==-1
+					&&amount.compareTo(platinumTo)!=-1
 					&&!json.getBlackplatinumBuyNoAs()) {
 				buyRate=Float.valueOf(json.getPlatinum_buy_rate());
 			}
@@ -6497,7 +6498,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			if(!c2.getRank().equals(Member_Rank.platina)
 					&&!c2.getRank().equals(Member_Rank.common)
 					&&c2.getIsShoper()
-					&&!isBuyReward&&buySSRakeBack) {
+					&&(!isBuyReward||buySSRakeBack)){
 				
 				if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
 					distributionRate2=Float.valueOf(json.getPlatinum_rate2());
