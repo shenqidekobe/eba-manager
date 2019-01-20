@@ -16,6 +16,8 @@ public class DictJson {
 	
 	private Integer levelDist;//几级分销？
 	private Integer intervalDayCommision;//间隔多少天发放佣金
+	private Boolean buySSRakeBack;//自购-上上级是否返佣
+	private Boolean blackplatinumBuyNoAs;//黑金自购不满黑金自购标准是否按铂金自购返
 
 	
 	public Integer getLevelDist() {
@@ -89,6 +91,18 @@ public class DictJson {
 	}
 	public void setBlackplatinum_buy_rate(String blackplatinum_buy_rate) {
 		this.blackplatinum_buy_rate = blackplatinum_buy_rate;
+	}
+	public Boolean getBuySSRakeBack() {
+		return buySSRakeBack;
+	}
+	public void setBuySSRakeBack(Boolean buySSRakeBack) {
+		this.buySSRakeBack = buySSRakeBack;
+	}
+	public Boolean getBlackplatinumBuyNoAs() {
+		return blackplatinumBuyNoAs;
+	}
+	public void setBlackplatinumBuyNoAs(Boolean blackplatinumBuyNoAs) {
+		this.blackplatinumBuyNoAs = blackplatinumBuyNoAs;
 	}
 	
 }

@@ -126,7 +126,6 @@ import com.microBusiness.manage.entity.OrderRelation;
 import com.microBusiness.manage.entity.OrderRemarks;
 import com.microBusiness.manage.entity.OrderRemarks.MsgType;
 import com.microBusiness.manage.entity.OrderShareLog;
-import com.microBusiness.manage.entity.OutApiJsonEntity;
 import com.microBusiness.manage.entity.Payment;
 import com.microBusiness.manage.entity.PaymentLog;
 import com.microBusiness.manage.entity.PaymentMethod;
@@ -150,7 +149,6 @@ import com.microBusiness.manage.entity.SupplyNeed;
 import com.microBusiness.manage.entity.SupplyType;
 import com.microBusiness.manage.entity.TemplateInfo;
 import com.microBusiness.manage.entity.Types;
-import com.microBusiness.manage.exception.OutApiException;
 import com.microBusiness.manage.form.OrderItemUpdateForm;
 import com.microBusiness.manage.service.CouponCodeService;
 import com.microBusiness.manage.service.DictService;
@@ -167,7 +165,6 @@ import com.microBusiness.manage.service.SmsService;
 import com.microBusiness.manage.service.SupplierService;
 import com.microBusiness.manage.service.SupplyNeedService;
 import com.microBusiness.manage.service.WeChatService;
-import com.microBusiness.manage.util.Code;
 import com.microBusiness.manage.util.Constant.ORDER_LOG_CONTENT;
 import com.microBusiness.manage.util.Constant.PAYMENT_PLUGIN;
 import com.microBusiness.manage.util.DateformatEnum;
@@ -920,20 +917,21 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		//产品销量增加
 		for (OrderItem orderItem : order.getOrderItems()) {
 			Product product = orderItem.getProduct();
-			if(!isShoper)isShoper=product.getGoods().getIs2Member();
 			if (product != null && product.getGoods() != null) {
+				if(!isShoper)isShoper=product.getGoods().getIs2Member();
 				goodsService.addSales(product.getGoods(), orderItem.getQuantity());
 			}
 		}
+		if(isShoper==null)isShoper=false;
 		//会员非店主且该购买产品属于会员商品，则更新会员为店主
 		if(child.getIsShoper()!=null&&!child.getIsShoper()&&isShoper){
 			child.setIsShoper(isShoper);
 		}
 		
 		//奖励积分
-		if (order.getRewardPoint() > 0) {
+		/*if (order.getRewardPoint() > 0) {
 			memberService.addPoint(member, order.getRewardPoint(), PointLog.Type.reward, operator, null);
-		}
+		}*/
 		//使用的优惠卷
 		if (CollectionUtils.isNotEmpty(order.getCoupons())) {
 			for (Coupon coupon : order.getCoupons()) {
@@ -6307,7 +6305,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		order=this.orderDao.find(order.getId());
 		String sn=order.getSn();
 		BigDecimal amount=order.getPrice();//订单总金额
-		logger.info("订单："+sn+" 分销结算程序开始执行..."+amount);
+		logger.info("订单："+sn+" 分销结算程序开始执行...订单金额："+amount);
 		
 		ChildMember childMember = order.getChildMember();
 		
@@ -6317,6 +6315,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		String lastDay=com.microBusiness.manage.util.DateUtils.convertToString(new Date(), "yyyy-MM-dd");
 
 		Integer levelDist=json.getLevelDist();
+		Boolean buySSRakeBack=json.getBuySSRakeBack();//自购是否给上上级返佣：不返，则上级按二级比例返佣
+		boolean isBuyReward=false;//是否达到自购标准，自购是否返佣了
 		BigDecimal platinumTo=new BigDecimal(json.getPlatinum_buy_amount());//铂金自购门槛
 		BigDecimal blackplatinumTo=new BigDecimal(json.getBlackplatinum_buy_amount());//黑金自购门槛
 		//处理自购返佣、铂金和黑金才有自购返佣
@@ -6332,6 +6332,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			if(childMember.getRank().equals(Member_Rank.blackplatinum)
 					&&amount.compareTo(blackplatinumTo)!=-1) {
 				buyRate=Float.valueOf(json.getBlackplatinum_buy_rate());
+			}
+			//如果下单会员是：黑金   自购金额>铂金自购且自购金额<黑金自购  则按铂金自购比例
+			if(childMember.getRank().equals(Member_Rank.blackplatinum)
+					&&amount.compareTo(blackplatinumTo)!=-1
+					&&!json.getBlackplatinumBuyNoAs()) {
+				buyRate=Float.valueOf(json.getPlatinum_buy_rate());
 			}
 			if(buyRate!=null){
 				buyRate = buyRate == null ? 0 : buyRate;
@@ -6359,6 +6365,8 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				memberDao.persist(member);
 				
 				logger.info("订单号："+sn+" 的自购【"+childMember.getNickName()+"】提成比例："+buyRate+",得到红包："+ratePrice1);
+				
+				isBuyReward=true;//自购已返佣
 			}
 		}
 		
@@ -6394,6 +6402,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
 				}else if(c1.getRank().equals(Member_Rank.blackplatinum)) {
 					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+				}
+				//再验证自购返佣了的比例提成，上级则按二级比例
+				if(isBuyReward&&!buySSRakeBack) {
+					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+						distributionRate1=Float.valueOf(json.getPlatinum_rate2());
+					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
+						distributionRate1=Float.valueOf(json.getBlackplatinum_rate2());
+					}
 				}
 				Float rate1 = distributionRate1;
 				rate1 = rate1 == null ? 0 : rate1;
@@ -6433,10 +6449,19 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			if(!c1.getRank().equals(Member_Rank.platina)
 					&&!c1.getRank().equals(Member_Rank.common)
 					&&c1.getIsShoper()) {
+				//先验证会员等级的提成比例
 				if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
 					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
 				}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
 					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
+				}
+				//再验证自购返佣了的比例提成，上级则按二级比例
+				if(isBuyReward&&!buySSRakeBack) {
+					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+						distributionRate1=Float.valueOf(json.getPlatinum_rate2());
+					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
+						distributionRate1=Float.valueOf(json.getBlackplatinum_rate2());
+					}
 				}
 				Float rate1 = distributionRate1;
 				rate1 = rate1 == null ? 0 : rate1;
@@ -6468,9 +6493,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				logger.info("订单号："+sn+" 的二级分销-一级【"+c1.getSmOpenId()+"】提成比例："+distributionRate1+",金额："+ratePrice1);
 				rakeBack=true;
 			}
+			//自购已返判断{自购没返且上上级可返佣}
 			if(!c2.getRank().equals(Member_Rank.platina)
 					&&!c2.getRank().equals(Member_Rank.common)
-					&c2.getIsShoper()) {
+					&&c2.getIsShoper()
+					&&!isBuyReward&&buySSRakeBack) {
 				
 				if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
 					distributionRate2=Float.valueOf(json.getPlatinum_rate2());
