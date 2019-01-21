@@ -609,6 +609,7 @@ public class GoodsController extends BaseController {
 		 goodMap.put("introduction", goods.getIntroduction());
 		 goodMap.put("specification", goods.getSpecificationItems());
 		 goodMap.put("price", goods.getPrice());
+		 goodMap.put("marketPrice", goods.getMarketPrice());
 		 goodMap.put("sales", goods.getSales());
 		 goodMap.put("hasSpecifications", goods.hasSpecification());
 		 Set<Product> products = goods.getProducts();
