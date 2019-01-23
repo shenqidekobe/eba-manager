@@ -53,6 +53,7 @@
 								</div>
 							</div>
 							<hr/><br/>
+					
 							<div class="row cl">
 								<label class="form-label col-xs-4 col-sm-4">
 									满N金额成为铂金
@@ -110,6 +111,22 @@
                                         <li val="1" [#if obj.buySSRakeBack]class="li_bag"[/#if]>不管自购返不返佣，上上级都返佣</li>
                                         <li val="0" [#if !obj.buySSRakeBack]class="li_bag"[/#if]>自购已返佣，则上上级不返佣</li>
                                     </ul>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-4">
+									白金一级提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="text" class="input-text radius" name="platina_rate1" value="${obj.platina_rate1}" maxlength="10"/>
+								</div>
+							</div>
+							<div class="row cl">
+								<label class="form-label col-xs-4 col-sm-4">
+									白金二级提成
+								</label>
+								<div class="formControls col-xs-8 col-sm-8">
+									<input type="text" class="input-text radius" name="platina_rate2" value="${obj.platina_rate2}" maxlength="10"/>
 								</div>
 							</div>
 							</div>
@@ -204,7 +221,7 @@
 					</div>
 				</div>
 				
-				<div class="footer_submit">
+				<div class="footer_submit" style="bottom:-90px;height:20px;">
 					<input class="btn radius confir_S" type="submit" value="更新保存"/>
 				</div>
 			</form>
