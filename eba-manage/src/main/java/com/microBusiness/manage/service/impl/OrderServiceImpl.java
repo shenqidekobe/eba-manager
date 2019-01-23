@@ -6394,19 +6394,22 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		String nickName=getNickName(childMember.getNickName());
 		boolean rakeBack=false;
 		if(level == 1&&levelDist>=1){
-			//普通和白金没有提成
-			if(!c1.getRank().equals(Member_Rank.platina)
-					&&!c1.getRank().equals(Member_Rank.common)
+			//普通没有提成
+			if(!c1.getRank().equals(Member_Rank.common)
 					&&c1.getIsShoper()) {
-				//区分上级是铂金还是黑金，得到不同的提成比例、
-				if(c1.getRank().equals(Member_Rank.platinum)) {
+				//区分上级是白金还是铂金还是黑金，得到不同的提成比例、
+				if(c1.getRank().equals(Member_Rank.platina)) {
+					distributionRate1=Float.valueOf(json.getPlatina_rate1());
+				}else if(c1.getRank().equals(Member_Rank.platinum)) {
 					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
 				}else if(c1.getRank().equals(Member_Rank.blackplatinum)) {
 					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
 				}
 				//再验证自购返佣了的比例提成，上级则按二级比例
 				if(isBuyReward&&!buySSRakeBack) {
-					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platina)) {
+						distributionRate1=Float.valueOf(json.getPlatina_rate2());
+					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
 						distributionRate1=Float.valueOf(json.getPlatinum_rate2());
 					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
 						distributionRate1=Float.valueOf(json.getBlackplatinum_rate2());
@@ -6446,19 +6449,22 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				rakeBack=true;
 			}
 		}else if(level == 2&&levelDist>=2){
-			//普通和白金没有提成
-			if(!c1.getRank().equals(Member_Rank.platina)
-					&&!c1.getRank().equals(Member_Rank.common)
+			//普通没有提成
+			if(!c1.getRank().equals(Member_Rank.common)
 					&&c1.getIsShoper()) {
 				//先验证会员等级的提成比例
-				if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+				if(c1.getRank().equals(Member_Rank.platina)) {
+					distributionRate1=Float.valueOf(json.getPlatina_rate1());
+				}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
 					distributionRate1=Float.valueOf(json.getPlatinum_rate1());
 				}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
 					distributionRate1=Float.valueOf(json.getBlackplatinum_rate1());
 				}
 				//再验证自购返佣了的比例提成，上级则按二级比例
 				if(isBuyReward&&!buySSRakeBack) {
-					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
+					if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platina)) {
+						distributionRate1=Float.valueOf(json.getPlatina_rate2());
+					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.platinum)) {
 						distributionRate1=Float.valueOf(json.getPlatinum_rate2());
 					}else if(c1.getRank()!=null&&c1.getRank().equals(Member_Rank.blackplatinum)) {
 						distributionRate1=Float.valueOf(json.getBlackplatinum_rate2());
@@ -6495,12 +6501,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				rakeBack=true;
 			}
 			//自购已返判断{自购没返且上上级可返佣}
-			if(!c2.getRank().equals(Member_Rank.platina)
-					&&!c2.getRank().equals(Member_Rank.common)
+			if(!c2.getRank().equals(Member_Rank.common)
 					&&c2.getIsShoper()
 					&&(!isBuyReward||buySSRakeBack)){
 				
-				if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
+				if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platina)) {
+					distributionRate2=Float.valueOf(json.getPlatina_rate2());
+				}else if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.platinum)) {
 					distributionRate2=Float.valueOf(json.getPlatinum_rate2());
 				}else if(c2.getRank()!=null&&c2.getRank().equals(Member_Rank.blackplatinum)) {
 					distributionRate2=Float.valueOf(json.getBlackplatinum_rate2());
