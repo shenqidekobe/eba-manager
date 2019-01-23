@@ -2,6 +2,11 @@ package com.microBusiness.manage.dto;
 
 public class DictJson {
 	
+	private String platina_rate1; //白金 一级提成
+	private String platina_rate2; //白金 二级提成
+	private String platina_buy_amount; //白金 自购满多少金额返钱
+	private String platina_buy_rate; //白金 自购提成
+	
 	private String platinum_to;//需满多少金额成为铂金
 	private String platinum_rate1; //铂金 一级提成
 	private String platinum_rate2; //铂金 二级提成
@@ -31,6 +36,31 @@ public class DictJson {
 	}
 	public void setIntervalDayCommision(Integer intervalDayCommision) {
 		this.intervalDayCommision = intervalDayCommision;
+	}
+	
+	public String getPlatina_rate1() {
+		return platina_rate1;
+	}
+	public void setPlatina_rate1(String platina_rate1) {
+		this.platina_rate1 = platina_rate1;
+	}
+	public String getPlatina_rate2() {
+		return platina_rate2;
+	}
+	public void setPlatina_rate2(String platina_rate2) {
+		this.platina_rate2 = platina_rate2;
+	}
+	public String getPlatina_buy_amount() {
+		return platina_buy_amount;
+	}
+	public void setPlatina_buy_amount(String platina_buy_amount) {
+		this.platina_buy_amount = platina_buy_amount;
+	}
+	public String getPlatina_buy_rate() {
+		return platina_buy_rate;
+	}
+	public void setPlatina_buy_rate(String platina_buy_rate) {
+		this.platina_buy_rate = platina_buy_rate;
 	}
 	public String getPlatinum_to() {
 		return platinum_to;
