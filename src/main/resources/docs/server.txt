@@ -28,6 +28,8 @@ root/Ha6m829780101
 TOMCAT地址：
 /home/apache-tomcat-9.0.13
 
+admin/huayi6dbx
+
 
 mysql -uroot-p  HuayiYouxuan6yhn@
 
@@ -41,6 +43,7 @@ flush privileges;
 grant 权限 on 数据库.*  to 用户名@登录主机 identified by ‘密码’；
 
 grant all privileges on huayi_pro.* to huayi@'%' identified by 'HuayiYouxuan6yhn@';
+grant all privileges on huayi_pro.* to huayi@'%' identified by 'huayi001$6yhn';
 
 
 数据库：huayi
