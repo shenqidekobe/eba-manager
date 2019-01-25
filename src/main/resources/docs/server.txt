@@ -1,0 +1,43 @@
+﻿帐号：chenguanzhao2018@163.com/ha6m829780101
+
+微信支付商户号： 1518201301 
+
+商户平台登录帐号: 1518201301@1518201301 
+操作密码：ha6m829!@#
+密钥：6d0812d4437337bccfe7e9b63b08bd77
+
+申请对应的小程序: 华奕生活优选（） 
+
+小程序APPID: wxe8dde426b3876eb0 
+
+申请安装的帐号 1231317502@1231317502
+设置API密钥：6d0812d4437337bccfe7e9b63b08bd89
+操作密码：ha6m829!@#
+
+
+shchunxiao123
+
+
+dk:
+47.101.163.211(公)
+172.19.161.224(私有)
+
+FTP端口：22
+root/Ha6m829780101
+
+TOMCAT地址：
+/home/apache-tomcat-9.0.13
+
+
+mysql -uroot-pHuayiYouxuan6yhn@
+
+mysql -uroot -p
+
+create schema huayi_pro default character set utf8 collate utf8_general_ci;
+create user 'huayi'@'%' identified by 'huayi001$6yhn';
+grant all privileges on huayi.* to huayi_pro;
+flush privileges;
+
+数据库：huayi
+root/HuayiYouxuan6yhn@
+huayi001/huayi001$6yhn
