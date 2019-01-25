@@ -29,14 +29,19 @@ TOMCAT地址：
 /home/apache-tomcat-9.0.13
 
 
-mysql -uroot-pHuayiYouxuan6yhn@
+mysql -uroot-p  HuayiYouxuan6yhn@
 
 mysql -uroot -p
 
 create schema huayi_pro default character set utf8 collate utf8_general_ci;
 create user 'huayi'@'%' identified by 'huayi001$6yhn';
-grant all privileges on huayi.* to huayi_pro;
+#grant all privileges on huayi to huayi_pro;
 flush privileges;
+
+grant 权限 on 数据库.*  to 用户名@登录主机 identified by ‘密码’；
+
+grant all privileges on huayi_pro.* to huayi@'%' identified by 'HuayiYouxuan6yhn@';
+
 
 数据库：huayi
 root/HuayiYouxuan6yhn@
