@@ -119,14 +119,14 @@
 					<thead>
 						<tr class="text-l">
 							<th width="4%"><input class="all_checked" type="checkbox" id="selectAll"></th>
-							<th width="12%">${message("Goods.sn")}</th>
-							<th width="20%">${message("Goods.name")}</th>
+							<th width="10%">${message("Goods.sn")}</th>
+							<th width="16%">${message("Goods.name")}</th>
 							<th width="8%">${message("Goods.productCategory")}</th>
 							<th width="8%">${message("Goods.price")}</th>
 							<th width="8%">京东价</th>
 							<th width="6%">点击量</th>
 							<th width="6%">销量</th>
-							<!--<th>角色</th>-->
+							<th width="6%">会员商品</th>
 							<th width="10%">${message("Goods.isMarketable")}</th>
 							<th width="10%">${message("admin.common.createDate")}</th>
 							<th width="10%">${message("admin.common.action")}</th>
@@ -142,11 +142,12 @@
 										<input class="all_checked" type="checkbox" value="">
 									</div>
 								</th>
-								<th width="12%"><div class="th_div">${message("Goods.sn")}</div></th>
-								<th width="20%"><div class="th_div">${message("Goods.name")}</div></th>
+								<th width="10%"><div class="th_div">${message("Goods.sn")}</div></th>
+								<th width="16%"><div class="th_div">${message("Goods.name")}</div></th>
 								<th width="8%"><div class="th_div">${message("Goods.productCategory")}</div></th>
 								<th width="8%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="8%"><div class="th_div">${message("Goods.price")}</div></th>
+								<th width="6%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="6%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="6%"><div class="th_div">${message("Goods.price")}</div></th>
 								<th width="10%"><div class="th_div">${message("Goods.isMarketable")}</div></th>
@@ -186,7 +187,14 @@
 								<td>${currency(goods.marketPrice, true)}</td>
 								<td>${goods.hits}</td>
 								<td>${goods.sales}</td>
-								<!--<td>栏目编辑</td>-->
+								<td class="td-status">
+									[#if goods.is2Member == false]
+									<img src="${base}/resources/admin1.0/images/shangjiaf_icon.svg">
+									[/#if]
+									[#if goods.is2Member == true]
+									<img src="${base}/resources/admin1.0/images/shangjias_icon.svg">
+									[/#if]
+								</td>
 								<td class="td-status">
 									[#if goods.isMarketable == false]
 									<img src="${base}/resources/admin1.0/images/shangjiaf_icon.svg">
@@ -194,7 +202,7 @@
 									[#if goods.isMarketable == true]
 									<img src="${base}/resources/admin1.0/images/shangjias_icon.svg">
 									[/#if]
-									</td>
+								</td>
 								<td>
 									<span title="${goods.createDate?string("yyyy-MM-dd HH:mm:ss")}">${goods.createDate}</span>
 								</td>
