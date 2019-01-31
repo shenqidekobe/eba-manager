@@ -362,7 +362,7 @@ public class IndexController extends BaseController {
 		filter.setProperty("isMarketable");
 		filter.setValue(true);
 		filters.add(filter);
-		List<Goods> mainGoodsList = goodsService.findList(0, 3, filters, null);
+		List<Goods> mainGoodsList = goodsService.findList(0,20, filters, null);
 		List<Map<String, Object>> memberMapList = new ArrayList<Map<String, Object>>();
 		if(mainGoodsList != null){
 			for (Goods goods : mainGoodsList) {
