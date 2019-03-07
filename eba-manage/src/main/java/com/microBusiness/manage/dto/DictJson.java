@@ -1,5 +1,7 @@
 package com.microBusiness.manage.dto;
 
+import com.microBusiness.manage.util.JsonUtils;
+
 public class DictJson {
 	
 	private String platina_rate1; //白金 一级提成
@@ -133,6 +135,34 @@ public class DictJson {
 	}
 	public void setBlackplatinumBuyNoAs(Boolean blackplatinumBuyNoAs) {
 		this.blackplatinumBuyNoAs = blackplatinumBuyNoAs;
+	}
+	
+	public static void main(String[] args) {
+		DictJson json=new DictJson();
+		json.setLevelDist(2);
+		json.setIntervalDayCommision(15);
+		json.setBuySSRakeBack(false);
+		json.setBlackplatinumBuyNoAs(true);
+		
+		json.setPlatina_rate1("0.25");
+		json.setPlatina_rate2("0.075");
+		json.setPlatina_buy_amount("5000");
+		json.setPlatina_buy_rate("0.075");
+		
+		json.setPlatinum_to("10000");
+		json.setPlatinum_rate1("0.30");
+		json.setPlatinum_rate2("0.09");
+		json.setPlatinum_buy_amount("5000");
+		json.setPlatinum_buy_rate("0.075");
+		
+		json.setBlackplatinum_to("30000");
+		json.setBlackplatinum_rate1("0.35");
+		json.setBlackplatinum_rate2("0.105");
+		json.setBlackplatinum_buy_amount("5000");
+		json.setBlackplatinum_buy_rate("0.09");
+		
+		String str=JsonUtils.toJson(json);
+		System.out.println(str);
 	}
 	
 }
