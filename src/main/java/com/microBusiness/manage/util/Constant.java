@@ -118,12 +118,12 @@ public class Constant {
     
     //正式公众号账号
     public static final String APP_ID = "wxe8dde426b3876eb0";
-    public static final String SECRET = "cf00d6d3bd2d34bd60d4d98a6ff5a7fb";
+    public static final String SECRET = "94e760a542b373758053b21dc456c593";
     
     
     //小程序密匙
     public static final String SMALL_APPID = "wxe8dde426b3876eb0";
-    public static final String SMALL_SECRET = "cf00d6d3bd2d34bd60d4d98a6ff5a7fb";
+    public static final String SMALL_SECRET = "94e760a542b373758053b21dc456c593";
     
     public static final String SMALL_TEMPLATE_ID = "C-c1RLZrb1RXsjCSsTd_L9mZ5l25WCd28aG9tj-qiL8";
     
