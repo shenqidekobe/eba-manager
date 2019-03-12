@@ -50,20 +50,20 @@
             <table class="table table-border table-hover table_width">
                 <thead>
                 <tr class="text-l">
-                    <th width="10%">
+                    <th width="15%">
                         <div class="th_div">ID</div>
                     </th>
-                    <th width="25%">
+                    <th width="8%">
                         <div class="th_div">批次</div>
                     </th>
                     <th width="25%">
                         <div class="th_div">标识</div>
                     </th>
                     <th width="20%">
-                        <div class="th_div">验证时间</div>
+                        <div class="th_div">创建时间</div>
                     </th>
                     <th width="20%">
-                        <div class="th_div">创建时间</div>
+                        <div class="th_div">验证时间</div>
                     </th>
                 </tr>
                 </thead>
@@ -72,10 +72,10 @@
                 <table class="table table-border table-hover table_width">
                     <thead>
                     <tr class="text-l">
-                        <th width="10%">
+                        <th width="15%">
                             <div class="th_div">ID</div>
                         </th>
-                        <th width="25%">
+                        <th width="8%">
                             <div class="th_div">批次</div>
                         </th>
                         <th width="25%">
@@ -92,9 +92,6 @@
                     <tbody>
                         [#list page.content as ver]
                         <tr class="text-l">
-                        [#--<td>--]
-                        [#--<input type="checkbox" name="ids" value="${ver.id}"/>--]
-                        [#--</td>--]
                             <td>${ver.id}</td>
                             <td>${ver.batchNo}</td>
                             <td>${ver.tag}</td>
@@ -141,7 +138,21 @@
     }
 
     function createTxt() {
-        window.location.href = "impl.jhtml";
+       // window.location.href = "impl.jhtml";
+        $.dialog({
+            type: "success",
+            height:190,
+            width:350,
+            content: "输入批次号：<input type='text' id='batchNo' style='width:90px' min='0'>",
+            onOk: function() {
+                var batchNo=$("#batchNo").val();
+                if(batchNo=='')return false;
+                window.location.href = "impl2.jhtml?batchNo="+batchNo;
+            },
+            onShow:function(){
+            	$(".xxDialog").css("top","150px");
+            }
+        });
     }
 
     $().ready(function () {
