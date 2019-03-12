@@ -146,8 +146,12 @@
             content: "输入批次号：<input type='text' id='batchNo' style='width:90px' min='0'>",
             onOk: function() {
                 var batchNo=$("#batchNo").val();
-                if(batchNo=='')return false;
+                if(batchNo==''){
+                    $.message("warn", "请输入您要下载的批次号");
+	                return false;
+                }
                 window.location.href = "impl2.jhtml?batchNo="+batchNo;
+                $.message("success", "正在下载中，请稍后！");
             },
             onShow:function(){
             	$(".xxDialog").css("top","150px");
