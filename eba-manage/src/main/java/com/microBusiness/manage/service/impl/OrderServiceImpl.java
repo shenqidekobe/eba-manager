@@ -764,7 +764,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderLogDao.persist(orderLog);
 
 		//mailService.sendRefundsOrderMail(order);
-		smsService.sendRefundsOrderSms(order);
+		//smsService.sendRefundsOrderSms(order);
 	}
 
 	public void shipping(Order order, Shipping shipping, Admin operator) {
