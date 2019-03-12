@@ -104,6 +104,36 @@ public class VerificationController {
         return buildResponseEntity(f);
     }
 
+    @RequestMapping(value = "/impl2", method = RequestMethod.GET)
+    public ResponseEntity<File> implFile2(String batchNo,HttpServletResponse response)  throws IOException{
+        String url = "https://huayi.tripyi.com/ver/";
+        List<Verification> list = verService.findByBatchNo(batchNo);
+        File f = new File(batchNo+"_ver.txt");
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("text/x-plain");// 设置强制下载不打开
+                response.addHeader("Content-Disposition",
+                        "attachment;fileName=" + f.getName());// 设置文件名
+
+                FileWriter writer = new FileWriter(f);
+                BufferedWriter bw = new BufferedWriter(writer);
+
+                for (Verification v : list) {
+                    bw.write(url + v.getTag() + "\r\n");
+                }
+
+                bw.flush();
+                writer.close();
+                bw.close();
+            }
+        } catch (IOException e) {
+        }
+        return buildResponseEntity(f);
+    }
+
+    
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add() {
         return "/admin/ver/add";
