@@ -121,8 +121,9 @@ public class VerificationController {
         if(StringUtils.isEmpty(batchNo))return;
         List<Verification> list = verService.findByBatchNo(batchNo);
         if(list.isEmpty())return;
-        //String path=req.getSession().getServletContext().getRealPath("/");
-        String fileName = batchNo+"_ver.txt";
+        String path=req.getSession().getServletContext().getRealPath("/");
+        System.out.println(path);
+        String fileName = path+batchNo+"_ver.txt";
         File f = new File(fileName);
         try {
             if (!f.exists()) {
