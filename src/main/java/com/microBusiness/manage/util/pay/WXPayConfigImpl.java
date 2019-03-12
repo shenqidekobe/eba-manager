@@ -40,7 +40,7 @@ public class WXPayConfigImpl extends WXPayConfig{
 
     //随机字符串：69671b21994b405d998a5d7464b07d8e
     public String getKey() {
-        return "6d0812d4437337bccfe7e9b63b08bd77";
+        return "6d0812d4437337bccfe7e9b63b08bd88";
     }
 
     public InputStream getCertStream() {
