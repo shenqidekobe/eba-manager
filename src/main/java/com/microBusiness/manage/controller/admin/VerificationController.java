@@ -1,13 +1,21 @@
 package com.microBusiness.manage.controller.admin;
 
-import com.microBusiness.manage.Message;
-import com.microBusiness.manage.Pageable;
-import com.microBusiness.manage.entity.Verification;
-import com.microBusiness.manage.service.VerificationService;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,12 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.List;
-import java.util.UUID;
+import com.microBusiness.manage.Message;
+import com.microBusiness.manage.Pageable;
+import com.microBusiness.manage.entity.Verification;
+import com.microBusiness.manage.service.VerificationService;
 
 
 /**
@@ -147,15 +153,11 @@ public class VerificationController {
     }
 
     public static ResponseEntity<byte[]> buildResponseEntity(File file) throws IOException {
-    	 byte[] body = null;
-         @SuppressWarnings("resource")
- 		 InputStream is = new FileInputStream(file);
-         body = new byte[is.available()];
-         is.read(body);
          HttpHeaders headers = new HttpHeaders();
          headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
          HttpStatus statusCode = HttpStatus.OK;
-         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, statusCode);
          return entity;
     }
     
