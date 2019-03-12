@@ -4,6 +4,8 @@ import com.microBusiness.manage.Message;
 import com.microBusiness.manage.Pageable;
 import com.microBusiness.manage.entity.Verification;
 import com.microBusiness.manage.service.VerificationService;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
@@ -71,7 +74,7 @@ public class VerificationController {
     }
 
     @RequestMapping(value = "/impl", method = RequestMethod.GET)
-    public ResponseEntity<File> implFile(HttpServletResponse response)  throws IOException{
+    public ResponseEntity<byte[]> implFile(HttpServletResponse response)  throws IOException{
         String url = "https://huayi.tripyi.com/ver/";
         List<Verification> all = verService.findAll();
 
@@ -105,25 +108,22 @@ public class VerificationController {
     }
 
     @RequestMapping(value = "/impl2", method = RequestMethod.GET)
-    public ResponseEntity<File> implFile2(String batchNo,HttpServletResponse response)  throws IOException{
+    public ResponseEntity<byte[]> implFile2(String batchNo,HttpServletResponse response,HttpServletRequest req)  throws IOException{
         String url = "https://huayi.tripyi.com/ver/";
+        if(StringUtils.isEmpty(batchNo))return null;
         List<Verification> list = verService.findByBatchNo(batchNo);
+        if(list.isEmpty())return null;
+        //String path=req.getSession().getServletContext().getRealPath("/");
         File f = new File(batchNo+"_ver.txt");
         try {
             if (!f.exists()) {
                 f.createNewFile();
-                response.setCharacterEncoding("UTF-8");
-                response.setContentType("text/x-plain");// 设置强制下载不打开
-                response.addHeader("Content-Disposition",
-                        "attachment;fileName=" + f.getName());// 设置文件名
-
                 FileWriter writer = new FileWriter(f);
                 BufferedWriter bw = new BufferedWriter(writer);
 
                 for (Verification v : list) {
                     bw.write(url + v.getTag() + "\r\n");
                 }
-
                 bw.flush();
                 writer.close();
                 bw.close();
@@ -146,21 +146,17 @@ public class VerificationController {
         return "/admin/ver/list";
     }
 
-    public ResponseEntity<File> buildResponseEntity(File file) throws IOException {
-//        byte[] body = null;
-//        //获取文件
-//        InputStream is = new FileInputStream(file);
-//        body = new byte[is.available()];
-//        is.read(body);
-        HttpHeaders headers = new HttpHeaders();
-        //设置文件类型
-        headers.add("Content-Disposition", "attchement;filename=" + file.getName());
-        //设置Http状态码
-
-//　　　　HttpStatus statusCode = HttpStatus.OK;
-        //返回数据
-//　　　　ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
-        return new ResponseEntity<File>(file,headers, HttpStatus.OK);
+    public static ResponseEntity<byte[]> buildResponseEntity(File file) throws IOException {
+    	 byte[] body = null;
+         @SuppressWarnings("resource")
+ 		 InputStream is = new FileInputStream(file);
+         body = new byte[is.available()];
+         is.read(body);
+         HttpHeaders headers = new HttpHeaders();
+         headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+         HttpStatus statusCode = HttpStatus.OK;
+         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+         return entity;
     }
-
+    
 }
