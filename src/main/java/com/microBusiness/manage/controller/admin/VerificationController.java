@@ -1,9 +1,11 @@
 package com.microBusiness.manage.controller.admin;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -113,14 +115,15 @@ public class VerificationController {
         return buildResponseEntity(f);
     }
 
-    @RequestMapping(value = "/impl2", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> implFile2(String batchNo,HttpServletResponse response,HttpServletRequest req)  throws IOException{
+    @RequestMapping(value = "/impl2", method = RequestMethod.GET,produces="application/octet-stream;charset=UTF-8")
+    public void implFile2(String batchNo,HttpServletResponse response,HttpServletRequest req)  throws IOException{
         String url = "https://huayi.tripyi.com/ver/";
-        if(StringUtils.isEmpty(batchNo))return null;
+        if(StringUtils.isEmpty(batchNo))return;
         List<Verification> list = verService.findByBatchNo(batchNo);
-        if(list.isEmpty())return null;
+        if(list.isEmpty())return;
         //String path=req.getSession().getServletContext().getRealPath("/");
-        File f = new File(batchNo+"_ver.txt");
+        String fileName = batchNo+"_ver.txt";
+        File f = new File(fileName);
         try {
             if (!f.exists()) {
                 f.createNewFile();
@@ -134,9 +137,18 @@ public class VerificationController {
                 writer.close();
                 bw.close();
             }
+            byte[] data = FileUtils.readFileToByteArray(f);  
+            
+            response.reset();  
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");  
+            response.addHeader("Content-Length", "" + data.length);  
+            response.setContentType("application/octet-stream;charset=UTF-8");  
+            OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());  
+            outputStream.write(data);  
+            outputStream.flush();  
+            outputStream.close();  
         } catch (IOException e) {
         }
-        return buildResponseEntity(f);
     }
 
     
