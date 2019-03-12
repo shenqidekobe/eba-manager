@@ -35,7 +35,7 @@ public class WXPayConfigImpl extends WXPayConfig{
     }
 
     public String getMchID() {
-        return "1518201301";
+        return "1527734421";
     }
 
     //随机字符串：69671b21994b405d998a5d7464b07d8e
