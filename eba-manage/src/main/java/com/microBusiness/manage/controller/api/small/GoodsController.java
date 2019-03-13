@@ -590,6 +590,10 @@ public class GoodsController extends BaseController {
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 
 		 Goods goods = goodsService.find(goodsId);
+		 
+		 if(goods==null||!goods.getIsMarketable()) {
+			 return JsonEntity.error(Code.code13008, Code.code13008.getDesc());
+		 }
 		 if(goods != null){
 			 if(goods.getHits() == null){
 				 goods.setHits(0l);
