@@ -115,7 +115,7 @@ public class LoginController extends BaseController{
            childMember.setSourceType(ChildMember.SourceType.wx_small);
            //如果是分享，更新为下属
            if(StringUtils.isNotEmpty(parentOpenId)&&!parentOpenId.equals(smOpenId)
-        		   &&childMember.getParent()!=null){
+        		   &&childMember.getParent()==null){
          	  ChildMember parent = childMemberService.findBySmOpenId(parentOpenId);
          	  childMember.setParent(parent);
          	  //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
