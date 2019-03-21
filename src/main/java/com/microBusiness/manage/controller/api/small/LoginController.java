@@ -122,7 +122,7 @@ public class LoginController extends BaseController{
            }
            childMemberService.saveChildMember(childMember);
        }else{
-    	   if(StringUtils.isEmpty(childMember.getOpenId()) || StringUtils.isEmpty(childMember.getSmOpenId())){
+    	   /*if(StringUtils.isEmpty(childMember.getOpenId()) || StringUtils.isEmpty(childMember.getSmOpenId())){
     		   childMember.setOpenId(openId);
         	   logger.info("【smOpenId】：" + smOpenId);
                childMember.setSmOpenId(smOpenId);
@@ -134,8 +134,7 @@ public class LoginController extends BaseController{
              	   //weChatService.sendTemplateMessage2ChildMemberJoin(childMember, templateId, weChatService.getGlobalToken());
                }
          	  childMemberService.saveChildMember(childMember);
-    	   }
-    	   
+    	   }*/
        }
 	   result.put("sessionKey", sessionKey);
        result.put("smOpenId", smOpenId);
