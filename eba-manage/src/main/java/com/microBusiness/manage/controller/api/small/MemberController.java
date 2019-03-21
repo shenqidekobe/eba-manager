@@ -133,7 +133,7 @@ public class MemberController extends BaseController {
     	if(amount==null||StringUtils.isEmpty(account)) {
     		return JsonEntity.error(Code.code132,"请填写完整的表单！");
     	}
-    	if(member.getIsShoper()==null||!member.getIsShoper()) {
+    	if(childMember.getIsShoper()==null||!childMember.getIsShoper()) {
     		return JsonEntity.error(Code.code132,"您还不是店主！");
     	}
     	if(amount.compareTo(BigDecimal.ONE)==-1) {
