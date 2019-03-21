@@ -95,7 +95,7 @@ public class LoginController extends BaseController{
 	   String sessionKey = map.get("sessionKey").toString();
 	   
 	   String smOpenId = map.get("openId").toString();
-	   logger.info("【smOpenId】：" + smOpenId);
+	   logger.info("【smOpenId】：" + smOpenId+"  parentOpenId:" + parentOpenId);
 	   if (smOpenId == null) {
 		   return new JsonEntity(Code.code_smOpenId_null_99899 , "获取smOpenId息失败");
 	   }
